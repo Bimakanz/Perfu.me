@@ -1,0 +1,188 @@
+/* ============================================================
+   HERO SECTION — High-End Cinematic Luxury (Dark Overlay & 3 Bottles)
+   ============================================================ */
+
+#hero {
+  position: relative !important;
+  width: 100% !important;
+  min-height: 88vh !important;
+  background-color: #000000 !important;
+  background: #000000 !important;
+  color: #FFFFFF !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 7.5rem 4rem 4rem 4rem !important;
+  overflow: hidden !important;
+}
+
+/* Cinematic Background Image */
+.hero-cinematic-bg {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  opacity: 0.42 !important;
+  filter: brightness(0.7) contrast(1.1) !important;
+  z-index: 1 !important;
+}
+
+.hero-overlay-dark {
+  position: absolute !important;
+  inset: 0 !important;
+  background: radial-gradient(circle at 65% 50%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.85) 100%) !important;
+  z-index: 2 !important;
+}
+
+/* Clear canvas interference */
+#hero-canvas {
+  display: none !important;
+}
+
+.hero-grid {
+  display: grid !important;
+  grid-template-columns: 1.05fr 0.95fr !important;
+  gap: 4rem !important;
+  align-items: center !important;
+  max-width: 1240px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  position: relative !important;
+  z-index: 3 !important;
+}
+
+/* Left Column: Typography & Controls */
+.hero-text-col {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+}
+
+.hero-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.25em !important;
+  text-transform: uppercase !important;
+  color: #D4D4D8 !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.hero-badge-star {
+  font-size: 0.8rem !important;
+  color: #FFFFFF !important;
+}
+
+.hero-heading {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: clamp(3.2rem, 5.8vw, 5.2rem) !important;
+  font-weight: 300 !important;
+  color: #FFFFFF !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.01em !important;
+  margin-bottom: 1.5rem !important;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6) !important;
+}
+
+.hero-desc {
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-size: 1rem !important;
+  line-height: 1.75 !important;
+  color: #E4E4E7 !important;
+  max-width: 480px !important;
+  margin-bottom: 2.5rem !important;
+}
+
+/* Buttons */
+.hero-btn-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.25rem !important;
+  margin-bottom: 3.5rem !important;
+}
+
+.btn-hero-primary {
+  padding: 1.05rem 2.25rem !important;
+  background: #FFFFFF !important;
+  color: #0D0D0D !important;
+  border: 1px solid #FFFFFF !important;
+  border-radius: 4px !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.15) !important;
+  display: inline-block !important;
+}
+
+.btn-hero-primary:hover {
+  background: #F4F4F5 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.25) !important;
+}
+
+.btn-hero-secondary {
+  padding: 1.05rem 2.25rem !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 4px !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  display: inline-block !important;
+}
+
+.btn-hero-secondary:hover {
+  border-color: #FFFFFF !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Right Column: 3 Perfume Bottles Showcase */
+.hero-bottles-col {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.truehero-img {
+  width: 100% !important;
+  max-width: 520px !important;
+  height: auto !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.75)) !important;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.truehero-img:hover {
+  transform: scale(1.03) translateY(-4px) !important;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  #hero { padding: 7rem 2rem 3rem !important; }
+  .hero-grid { grid-template-columns: 1fr !important; gap: 3rem !important; text-align: center !important; }
+  .hero-text-col { align-items: center !important; }
+}
+
+@media (max-width: 600px) {
+  .hero-heading { font-size: 2.6rem !important; }
+  .hero-btn-group { flex-direction: column !important; align-items: stretch !important; }
+  .hero-btn-group a { text-align: center !important; }
+}

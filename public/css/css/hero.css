@@ -1,0 +1,217 @@
+/* ============================================================
+   HERO SECTION — High-End Boutique Luxury (Clean White Theme)
+   ============================================================ */
+
+#hero {
+  position: relative !important;
+  width: 100% !important;
+  min-height: 85vh !important;
+  background-color: #FFFFFF !important;
+  background: #FFFFFF !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8.5rem 4rem 4rem 4rem !important;
+  overflow: hidden !important;
+}
+
+/* Clear canvas interference */
+#hero-canvas {
+  display: none !important;
+}
+
+.hero-grid {
+  display: grid !important;
+  grid-template-columns: 1.05fr 0.95fr !important;
+  gap: 4.5rem !important;
+  align-items: center !important;
+  max-width: 1200px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Left Column: Typography & Controls */
+.hero-text-col {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+}
+
+.hero-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.25em !important;
+  text-transform: uppercase !important;
+  color: #777777 !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.hero-badge-star {
+  font-size: 0.8rem !important;
+  color: #0D0D0D !important;
+}
+
+.hero-heading {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: clamp(3.2rem, 5vw, 4.8rem) !important;
+  font-weight: 400 !important;
+  color: #0D0D0D !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.01em !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.hero-desc {
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-size: 1rem !important;
+  line-height: 1.75 !important;
+  color: #555555 !important;
+  max-width: 480px !important;
+  margin-bottom: 2.5rem !important;
+}
+
+/* Buttons */
+.hero-btn-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.25rem !important;
+  margin-bottom: 3.5rem !important;
+}
+
+.btn-hero-primary {
+  padding: 1.05rem 2.25rem !important;
+  background: #0D0D0D !important;
+  color: #FFFFFF !important;
+  border: 1px solid #0D0D0D !important;
+  border-radius: 4px !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
+  display: inline-block !important;
+}
+
+.btn-hero-primary:hover {
+  background: #1A1A1A !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18) !important;
+}
+
+.btn-hero-secondary {
+  padding: 1.05rem 2.25rem !important;
+  background: #FFFFFF !important;
+  color: #0D0D0D !important;
+  border: 1px solid #E5E5E5 !important;
+  border-radius: 4px !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  display: inline-block !important;
+}
+
+.btn-hero-secondary:hover {
+  border-color: #0D0D0D !important;
+  background: #F9F9F9 !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Stats Row */
+.hero-stats-row {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 3.5rem !important;
+  padding-top: 2rem !important;
+  border-top: 1px solid #E5E5E5 !important;
+  width: 100% !important;
+}
+
+.hero-stat-item {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.hero-stat-val {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: 2.25rem !important;
+  font-weight: 400 !important;
+  color: #0D0D0D !important;
+  line-height: 1 !important;
+  margin-bottom: 0.35rem !important;
+}
+
+.hero-stat-lbl {
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-size: 0.6rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: #8A8A8A !important;
+}
+
+/* Right Column: Showcase Image */
+.hero-image-col {
+  position: relative !important;
+  width: 100% !important;
+}
+
+.hero-img-wrapper {
+  position: relative !important;
+  width: 100% !important;
+  aspect-ratio: 1/1 !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.06) !important;
+  background: #F9F9F9 !important;
+}
+
+.hero-img-wrapper img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.hero-img-wrapper:hover img {
+  transform: scale(1.03) !important;
+}
+
+.hero-img-mask {
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(
+    to bottom,
+    transparent 75%,
+    rgba(255,255,255,0.9) 100%
+  ) !important;
+  pointer-events: none !important;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  #hero { padding: 7rem 2rem 3rem !important; }
+  .hero-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+  .hero-stats-row { gap: 2rem !important; }
+}
+
+@media (max-width: 600px) {
+  .hero-heading { font-size: 2.6rem !important; }
+  .hero-btn-group { flex-direction: column !important; align-items: stretch !important; }
+  .hero-btn-group a { text-align: center !important; }
+  .hero-stats-row { gap: 1.5rem !important; }
+  .hero-stat-val { font-size: 1.75rem !important; }
+}
