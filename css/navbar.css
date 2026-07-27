@@ -61,8 +61,10 @@
 
 .nav-links a {
   font-family: 'Inter', system-ui, sans-serif !important;
-  font-size: 0.8rem !important;
-  font-weight: 500 !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
   color: #333333 !important;
   position: relative !important;
   transition: color 0.25s !important;
@@ -101,7 +103,7 @@
   color: #FFFFFF !important;
   border-radius: 100px !important;
   font-family: 'Inter', system-ui, sans-serif !important;
-  font-size: 0.78rem !important;
+  font-size: 0.95rem !important;
   font-weight: 600 !important;
   letter-spacing: 0.04em !important;
   text-decoration: none !important;

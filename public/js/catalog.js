@@ -209,27 +209,20 @@
     }).join('');
   }
 
-  // ── Load & Filter Data ────────────────────────────────────
+  // ── Load & Filter Data (Home: Best Sellers Only) ─────────
   async function refreshProducts() {
     try {
       let products;
-      if (window.API && typeof window.API.filter === 'function') {
-        products = await window.API.filter(activeFilters);
+      if (window.API && typeof window.API.getAll === 'function') {
+        const all = await window.API.getAll();
+        products = all.filter(p => p.best_seller);
       }
       if (!products || products.length === 0) {
-        products = FALLBACK_PRODUCTS.filter(p => {
-          if (activeFilters.gender !== 'all' && p.gender.toLowerCase() !== activeFilters.gender.toLowerCase()) return false;
-          if (activeFilters.variant !== 'all' && !p.variant.toLowerCase().includes(activeFilters.variant.toLowerCase())) return false;
-          if (activeFilters.query) {
-            const q = activeFilters.query.toLowerCase();
-            return p.name.toLowerCase().includes(q) || p.variant.toLowerCase().includes(q);
-          }
-          return true;
-        });
+        products = FALLBACK_PRODUCTS.filter(p => p.best_seller);
       }
       renderZigZag(products);
     } catch (err) {
-      renderZigZag(FALLBACK_PRODUCTS);
+      renderZigZag(FALLBACK_PRODUCTS.filter(p => p.best_seller));
     }
   }
 
