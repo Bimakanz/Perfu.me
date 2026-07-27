@@ -5,7 +5,13 @@
 
 (function () {
   const textToType = 'Parfu.me';
+  const SPLASH_KEY = 'perfume_splash_shown';
   let charIndex = 0;
+
+  function skipSplash() {
+    const splash = document.getElementById('splash');
+    if (splash) splash.style.display = 'none';
+  }
 
   function runSplash() {
     const splash = document.getElementById('splash');
@@ -14,6 +20,9 @@
     const cursor = document.querySelector('.typing-cursor');
 
     if (!splash || !typingEl) return;
+
+    // Mark as shown for this session
+    sessionStorage.setItem(SPLASH_KEY, '1');
 
     // Reset element text
     typingEl.textContent = '';
@@ -47,9 +56,18 @@
     setTimeout(typeNextChar, 200);
   }
 
+  function init() {
+    // If splash already shown in this session, skip it instantly
+    if (sessionStorage.getItem(SPLASH_KEY)) {
+      skipSplash();
+    } else {
+      runSplash();
+    }
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', runSplash);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    runSplash();
+    init();
   }
 })();

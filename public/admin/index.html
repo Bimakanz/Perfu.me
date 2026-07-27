@@ -11,8 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
 
@@ -22,7 +22,7 @@
   <div id="admin-login-page" class="admin-page">
     <!-- Left Section: Perfume Image Showcase + Welcome Greeting -->
     <div class="admin-login-left">
-      <img src="../assets/images/vanessence.png" alt="Perfume Showcase" class="admin-login-left-img" id="login-left-img" onerror="this.src='../assets/images/Nusantara1nobg.png'">
+      <img src="/assets/images/vanessence.png" alt="Perfume Showcase" class="admin-login-left-img" id="login-left-img" onerror="this.src='/assets/images/Nusantara1nobg.png'">
       <div class="admin-login-left-overlay">
         <div class="admin-brand-mark">Perfu.me</div>
         <div class="admin-brand-tagline">Nusantara & Luxury Fragrance Series</div>
@@ -232,7 +232,7 @@
         <!-- Left: Image & Stock Status -->
         <div class="admin-detail-img-col">
           <div class="admin-detail-img-box">
-            <img id="detail-img" src="" alt="Product Image" onerror="this.src='../assets/images/Nusantara1nobg.png'">
+            <img id="detail-img" src="" alt="Product Image" onerror="this.src='/assets/images/Nusantara1nobg.png'">
           </div>
           <div id="detail-stock-status-pill" style="margin-top:1rem; text-align:center;"></div>
         </div>
@@ -300,20 +300,34 @@
 
       <div class="form-row">
         <div class="form-group">
-          <label for="form-type" class="form-label">Kategori / Jenis <span>*</span></label>
-          <select id="form-type" class="form-control" required>
-            <option value="Eau de Parfum">Eau de Parfum</option>
-            <option value="Roll-on">Roll-on</option>
-            <option value="Extrait de Parfum">Extrait de Parfum</option>
-          </select>
+          <label class="form-label">Kategori / Jenis <span>*</span></label>
+          <input type="hidden" id="form-type" value="Eau de Parfum">
+          <div class="form-select-custom" id="custom-select-type">
+            <div class="form-select-trigger">
+              <span class="trigger-label">Eau de Parfum</span>
+              <svg class="form-select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="form-select-options">
+              <div class="form-select-option selected" data-value="Eau de Parfum"><span>Eau de Parfum</span><span class="opt-check">✓</span></div>
+              <div class="form-select-option" data-value="Roll-on"><span>Roll-on</span><span class="opt-check">✓</span></div>
+              <div class="form-select-option" data-value="Extrait de Parfum"><span>Extrait de Parfum</span><span class="opt-check">✓</span></div>
+            </div>
+          </div>
         </div>
         <div class="form-group">
-          <label for="form-gender" class="form-label">Target Gender <span>*</span></label>
-          <select id="form-gender" class="form-control" required>
-            <option value="Unisex">Unisex</option>
-            <option value="Pria">Pria</option>
-            <option value="Wanita">Wanita</option>
-          </select>
+          <label class="form-label">Target Gender <span>*</span></label>
+          <input type="hidden" id="form-gender" value="Unisex">
+          <div class="form-select-custom" id="custom-select-gender">
+            <div class="form-select-trigger">
+              <span class="trigger-label">Unisex</span>
+              <svg class="form-select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="form-select-options">
+              <div class="form-select-option selected" data-value="Unisex"><span>Unisex</span><span class="opt-check">✓</span></div>
+              <div class="form-select-option" data-value="Pria"><span>Pria</span><span class="opt-check">✓</span></div>
+              <div class="form-select-option" data-value="Wanita"><span>Wanita</span><span class="opt-check">✓</span></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -323,8 +337,20 @@
           <input type="text" id="form-variant" class="form-control" placeholder="Woody Floral, Gourmand..." required>
         </div>
         <div class="form-group">
-          <label for="form-size" class="form-label">Ukuran Botol <span>*</span></label>
-          <input type="text" id="form-size" class="form-control" placeholder="30ml, 50ml, 10ml" required>
+          <label class="form-label">Ukuran Botol <span>*</span></label>
+          <input type="hidden" id="form-size" value="30ML">
+          <div class="form-select-custom" id="custom-select-size">
+            <div class="form-select-trigger">
+              <span class="trigger-label">30ML (Standard Size)</span>
+              <svg class="form-select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="form-select-options">
+              <div class="form-select-option selected" data-value="30ML" data-display="30ML (Standard Size)"><span>30ML (Standard Size)</span><span class="opt-check">✓</span></div>
+              <div class="form-select-option" data-value="50ML" data-display="50ML (Medium Size)"><span>50ML (Medium Size)</span><span class="opt-check">✓</span></div>
+              <div class="form-select-option" data-value="100ML" data-display="100ML (Full Size)"><span>100ML (Full Size)</span><span class="opt-check">✓</span></div>
+              <div class="form-select-option" data-value="10ML" data-display="10ML (Roll-On / Mini)"><span>10ML (Roll-On / Mini)</span><span class="opt-check">✓</span></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -428,7 +454,7 @@
   <div id="toast-container"></div>
 
   <!-- Scripts -->
-  <script src="../js/db.js"></script>
+  <script src="/js/db.js"></script>
   <script src="js/admin.js"></script>
 </body>
 </html>

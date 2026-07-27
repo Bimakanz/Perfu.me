@@ -8,12 +8,11 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-// Serve Main Public SPA Shell
-Route::get('/', function () {
-    return file_get_contents(public_path('index.html'));
-});
+// Storefront — Blade Views
+Route::get('/', fn() => view('home'))->name('home');
+Route::get('/katalog', fn() => view('katalog'))->name('katalog');
 
-// Serve Admin Portal Page
+// Admin Portal (static HTML)
 Route::get('/admin', function () {
     return file_get_contents(public_path('admin/index.html'));
 });

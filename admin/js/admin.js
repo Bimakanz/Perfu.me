@@ -472,6 +472,9 @@
         form.reset();
         document.getElementById('form-product-id').value = '';
         document.getElementById('form-image').value = '';
+        setCustomFormSelect('custom-select-type', 'form-type', 'Eau de Parfum');
+        setCustomFormSelect('custom-select-gender', 'form-gender', 'Unisex');
+        setCustomFormSelect('custom-select-size', 'form-size', '30ML');
         if (fileInput) fileInput.value = '';
         fileNameSpan.textContent = 'Belum ada file dipilih';
         imgPreviewWrap.style.display = 'none';
@@ -488,13 +491,13 @@
     if (overlay) overlay.addEventListener('click', closePanel);
 
     function openPanel() {
-      overlay.classList.add('active');
-      panel.classList.add('open');
+      if (overlay) overlay.classList.add('active');
+      if (panel) panel.classList.add('open');
     }
 
     function closePanel() {
-      overlay.classList.remove('active');
-      panel.classList.remove('open');
+      if (overlay) overlay.classList.remove('active');
+      if (panel) panel.classList.remove('open');
     }
 
     // Save Form Handler
@@ -550,10 +553,12 @@
 
       document.getElementById('form-product-id').value = p.id;
       document.getElementById('form-name').value = p.name || '';
-      document.getElementById('form-type').value = p.type || 'Eau de Parfum';
-      document.getElementById('form-gender').value = p.gender || 'Unisex';
+      
+      setCustomFormSelect('custom-select-type', 'form-type', p.type || 'Eau de Parfum');
+      setCustomFormSelect('custom-select-gender', 'form-gender', p.gender || 'Unisex');
+      setCustomFormSelect('custom-select-size', 'form-size', p.size || '30ML');
+
       document.getElementById('form-variant').value = p.variant || '';
-      document.getElementById('form-size').value = p.size || '';
       document.getElementById('form-price').value = p.price || 0;
       document.getElementById('form-stock').value = p.stock || 0;
       document.getElementById('form-top').value = p.top_notes || p.topNotes || '';
@@ -577,6 +582,66 @@
 
       openPanel();
     };
+  }
+
+  // Helper to set value of custom form select
+  function setCustomFormSelect(containerId, hiddenInputId, val) {
+    const container = document.getElementById(containerId);
+    const hiddenInput = document.getElementById(hiddenInputId);
+    if (!container || !hiddenInput) return;
+
+    hiddenInput.value = val;
+    const triggerLabel = container.querySelector('.trigger-label');
+    const options = container.querySelectorAll('.form-select-option');
+
+    options.forEach(opt => {
+      const optVal = opt.getAttribute('data-value');
+      if (optVal.toLowerCase() === String(val).toLowerCase() || optVal.toUpperCase() === String(val).toUpperCase()) {
+        opt.classList.add('selected');
+        if (triggerLabel) triggerLabel.textContent = opt.getAttribute('data-display') || optVal;
+      } else {
+        opt.classList.remove('selected');
+      }
+    });
+  }
+
+  function initCustomFormSelects() {
+    document.querySelectorAll('.form-select-custom').forEach(select => {
+      const trigger = select.querySelector('.form-select-trigger');
+      const hiddenInput = select.parentElement.querySelector('input[type="hidden"]');
+      const triggerLabel = select.querySelector('.trigger-label');
+
+      if (trigger) {
+        trigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          // Close all other open dropdowns
+          document.querySelectorAll('.form-select-custom').forEach(other => {
+            if (other !== select) other.classList.remove('open');
+          });
+          select.classList.toggle('open');
+        });
+      }
+
+      select.querySelectorAll('.form-select-option').forEach(option => {
+        option.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const val = option.getAttribute('data-value');
+          const display = option.getAttribute('data-display') || val;
+
+          if (hiddenInput) hiddenInput.value = val;
+          if (triggerLabel) triggerLabel.textContent = display;
+
+          select.querySelectorAll('.form-select-option').forEach(o => o.classList.remove('selected'));
+          option.classList.add('selected');
+
+          select.classList.remove('open');
+        });
+      });
+    });
+
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.form-select-custom').forEach(s => s.classList.remove('open'));
+    });
   }
 
   // ── 7. Delete Confirmation Modal ────────────────────────────
@@ -642,6 +707,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     initLogin();
     initCustomFilterDropdown();
+    initCustomFormSelects();
     initDetailModal();
     initSlidePanel();
     initDeleteModal();
