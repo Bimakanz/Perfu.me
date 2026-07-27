@@ -5,63 +5,28 @@
  */
 
 (function () {
-  const PRODUCTS_DATA = [
-    {
-      id: 1,
-      name: 'Vanessence',
-      type: 'Eau de Parfum',
-      gender: 'Wanita',
-      variant: 'Gourmand Vanilla',
-      size: '30ML',
-      price: 150000,
-      image: 'assets/images/vanessence.png',
-      tagline: 'Feminin, manis, dan memikat'
-    },
-    {
-      id: 2,
-      name: 'Dynamyst',
-      type: 'Eau de Parfum',
-      gender: 'Pria',
-      variant: 'Spicy Woody',
-      size: '30ML',
-      price: 150000,
-      image: 'assets/images/dynamyst.png',
-      tagline: 'Maskulin, tegas, penuh energi'
-    },
-    {
-      id: 3,
-      name: 'Nusantara No.1',
-      type: 'Eau de Parfum',
-      gender: 'Unisex',
-      variant: 'Woody Floral',
-      size: '30ML',
-      price: 85000,
-      image: 'assets/images/Nusantara1nobg.png',
-      tagline: 'Elegan, segar, dan abadi'
-    },
-    {
-      id: 4,
-      name: 'Nusantara No.2 – Rempah',
-      type: 'Eau de Parfum',
-      gender: 'Pria',
-      variant: 'Spicy Oriental',
-      size: '30ML',
-      price: 95000,
-      image: 'assets/images/nusantara_no2.png',
-      tagline: 'Berani, hangat, dan penuh karakter'
-    },
-    {
-      id: 5,
-      name: 'Nusantara Roll-On Mini',
-      type: 'Roll-on',
-      gender: 'Wanita',
-      variant: 'Sweet Floral',
-      size: '10ML',
-      price: 35000,
-      image: 'assets/images/nusantara_rollon.png',
-      tagline: 'Manis, segar, dan memikat'
-    }
-  ];
+  // ── Products Cache (populated from API at init) ───────────
+  let PRODUCTS_DATA = [];
+
+  async function loadProductsCache() {
+    try {
+      if (window.API && typeof window.API.getAll === 'function') {
+        const apiProducts = await window.API.getAll();
+        if (apiProducts && apiProducts.length > 0) {
+          PRODUCTS_DATA = apiProducts;
+          return;
+        }
+      }
+    } catch (e) {}
+    // Fallback hardcoded if API not available
+    PRODUCTS_DATA = [
+      { id: 1, name: 'Vanessence', type: 'Eau de Parfum', gender: 'Wanita', variant: 'Gourmand Vanilla', size: '30ML', price: 150000, image: 'assets/images/vanessence.png', tagline: 'Feminin, manis, dan memikat' },
+      { id: 2, name: 'Dynamyst', type: 'Eau de Parfum', gender: 'Pria', variant: 'Spicy Woody', size: '30ML', price: 150000, image: 'assets/images/dynamyst.png', tagline: 'Maskulin, tegas, penuh energi' },
+      { id: 3, name: 'Nusantara No.1', type: 'Eau de Parfum', gender: 'Unisex', variant: 'Woody Floral', size: '30ML', price: 85000, image: 'assets/images/Nusantara1nobg.png', tagline: 'Elegan, segar, dan abadi' },
+      { id: 4, name: 'Nusantara No.2 \u2013 Rempah', type: 'Eau de Parfum', gender: 'Pria', variant: 'Spicy Oriental', size: '30ML', price: 95000, image: 'assets/images/nusantara_no2.png', tagline: 'Berani, hangat, dan penuh karakter' },
+      { id: 5, name: 'Nusantara Roll-On Mini', type: 'Roll-on', gender: 'Wanita', variant: 'Sweet Floral', size: '10ML', price: 35000, image: 'assets/images/nusantara_rollon.png', tagline: 'Manis, segar, dan memikat' }
+    ];
+  }
 
   // ── Helper Functions ─────────────────────────────────────
   function getCart() {
@@ -97,9 +62,21 @@
   window.closeCartDrawer = closeCartDrawer;
 
   // ── Add to Cart Function ──────────────────────────────────
-  window.addToCart = function (productId, qty = 1) {
-    const product = PRODUCTS_DATA.find(p => p.id === Number(productId));
-    if (!product) return;
+  window.addToCart = async function (productId, qty = 1) {
+    let product = PRODUCTS_DATA.find(p => p.id === Number(productId));
+
+    // If not in cache, try fetching directly from API
+    if (!product && window.API && typeof window.API.getById === 'function') {
+      try {
+        product = await window.API.getById(Number(productId));
+        if (product) PRODUCTS_DATA.push(product); // add to cache
+      } catch (e) {}
+    }
+
+    if (!product) {
+      console.warn('addToCart: product ID not found:', productId);
+      return;
+    }
 
     let cart = getCart();
     const existingIndex = cart.findIndex(item => item.id === product.id);
@@ -328,6 +305,7 @@
 
   // Init on DOM ready
   document.addEventListener('DOMContentLoaded', () => {
+    loadProductsCache(); // populate product cache from API
     updateCartBadge();
     initSearchDrawer();
     initCartDrawer();
