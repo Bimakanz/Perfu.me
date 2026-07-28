@@ -60,19 +60,16 @@
 
   {{-- 3. HERO SECTION --}}
   <header id="hero">
-    <img src="{{ asset('assets/images/hero_cinematic_bg.webp') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
+    <img src="{{ asset('assets/images/newhero.webp') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
     <div class="hero-overlay-dark"></div>
 
     <div class="hero-grid">
       <div class="hero-text-col">
-        <div class="hero-badge">
-          <span class="hero-badge-star"></span> KOLEKSI EKSKLUSIF
-        </div>
         <h1 class="hero-heading">
           Parfu.me
         </h1>
         <p class="hero-desc">
-          Dua varian parfum premium yang dirancang untuk mengekspresikan kepribadian unik Anda. Diracik dengan parfum oil grade A dan ketahanan hingga 10 jam.
+          Lahir dari pengalaman panjang, kini hadir 2 racikan signature orisinal pertama kami. Diformulasikan dengan Perfume Oil Grade A untuk ketahanan hingga 10 jam.
         </p>
         <div class="hero-btn-group">
           <a href="#produk-section" class="btn-hero-primary">Jelajahi Koleksi</a>
@@ -86,7 +83,7 @@
   <section class="products-showcase-section" id="produk-section">
     <div class="showcase-header">
       <div class="catalog-tag" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #8A8A8A; margin-bottom: 0.75rem;">KATALOG PRODUK</div>
-      <h2>Parfu.me spesialis</h2>
+      <h2>Parfu.me Specials</h2>
     </div>
 
     <div id="produk-section-list">
@@ -156,8 +153,9 @@
         <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Kontak</h4>
         <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7;">
           WhatsApp: +62 813-8341-5432<br>
+          Email: perfumeofficial30@gmail.com<br>
           Instagram: @perfu.mefragrance<br>
-         Jl. Lingkar Dramaga RT 03/04 Desa Dramaga
+          Jl. Lingkar Dramaga RT 03/04 Desa Dramaga
         </p>
       </div>
     </div>

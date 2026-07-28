@@ -13,7 +13,7 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 7.5rem 4rem 4rem 4rem !important;
+  padding: 4rem 4rem 6rem 4rem !important;
   overflow: hidden !important;
 }
 
@@ -24,6 +24,7 @@
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
+  object-position: 75% center !important;
   opacity: 0.85 !important;
   filter: brightness(0.9) contrast(1.05) !important;
   z-index: 1 !important;
@@ -32,7 +33,7 @@
 .hero-overlay-dark {
   position: absolute !important;
   inset: 0 !important;
-  background: radial-gradient(circle at 65% 50%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.85) 100%) !important;
+  background: radial-gradient(circle at 70% 50%, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.85) 100%) !important;
   z-index: 2 !important;
 }
 
@@ -48,7 +49,7 @@
   align-items: center !important;
   max-width: 1240px !important;
   width: 100% !important;
-  margin: 0 auto 0 0 !important;
+  margin: 0 auto 0 4rem !important;
   position: relative !important;
   z-index: 3 !important;
 }
@@ -59,7 +60,8 @@
   flex-direction: column !important;
   align-items: flex-start !important;
   justify-content: center !important;
-  max-width: 680px !important;
+  max-width: 740px !important;
+  transform: translateY(-0.75rem) !important;
 }
 
 .hero-badge {
@@ -82,10 +84,10 @@
 
 .hero-heading {
   font-family: 'Cormorant Garamond', Georgia, serif !important;
-  font-size: clamp(4.2rem, 7.5vw, 6.8rem) !important;
+  font-size: clamp(5.5rem, 9.5vw, 8.5rem) !important;
   font-weight: 300 !important;
   color: #FFFFFF !important;
-  line-height: 1.02 !important;
+  line-height: 1.0 !important;
   letter-spacing: -0.01em !important;
   margin-bottom: 1.75rem !important;
   text-shadow: 0 6px 32px rgba(0, 0, 0, 0.7) !important;
@@ -93,10 +95,10 @@
 
 .hero-desc {
   font-family: 'Inter', system-ui, sans-serif !important;
-  font-size: 1.15rem !important;
-  line-height: 1.8 !important;
+  font-size: 1.45rem !important;
+  line-height: 1.75 !important;
   color: #F4F4F5 !important;
-  max-width: 580px !important;
+  max-width: 640px !important;
   margin-bottom: 2.75rem !important;
 }
 
@@ -155,52 +157,58 @@
   transform: translateY(-2px) !important;
 }
 
-/* Right Column: 3 Perfume Bottles Showcase */
-.hero-bottles-col {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  width: 100% !important;
-}
-
-.truehero-img {
-  width: 100% !important;
-  max-width: 400px !important;
-  height: auto !important;
-  object-fit: contain !important;
-  filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.75)) !important;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-.truehero-img:hover {
-  transform: scale(1.03) translateY(-4px) !important;
-}
-
-/* Responsive */
+/* Responsive Rules for Tablet & Mobile */
 @media (max-width: 992px) {
   #hero {
     padding: 7rem 2rem 3rem !important;
+    height: auto !important;
+    min-height: 100vh !important;
+  }
+
+  .hero-cinematic-bg {
+    object-position: center center !important;
+    opacity: 0.55 !important;
+  }
+
+  .hero-overlay-dark {
+    background: rgba(0, 0, 0, 0.65) !important;
   }
 
   .hero-grid {
     grid-template-columns: 1fr !important;
     gap: 3rem !important;
     text-align: center !important;
+    margin: 0 auto !important;
   }
 
   .hero-text-col {
     align-items: center !important;
+    margin: 0 auto !important;
   }
 }
 
 @media (max-width: 600px) {
+  .hero-badge {
+    font-size: 0.8rem !important;
+  }
+
   .hero-heading {
-    font-size: 2.6rem !important;
+    font-size: 4.6rem !important;
+    line-height: 1.05 !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem !important;
+    line-height: 1.7 !important;
+    margin-bottom: 2.25rem !important;
   }
 
   .hero-btn-group {
     flex-direction: column !important;
     align-items: stretch !important;
+    width: 100% !important;
+    max-width: 320px !important;
   }
 
   .hero-btn-group a {

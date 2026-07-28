@@ -8,10 +8,11 @@
     const navbar = document.getElementById('navbar');
     if (!navbar) return;
 
-    const THRESHOLD = 80;
+    // If page doesn't have a hero section (e.g. Katalog page), always show navbar immediately
+    const hasHero = !!document.getElementById('hero');
 
     function onScroll() {
-      if (window.scrollY > THRESHOLD) {
+      if (!hasHero || window.scrollY > 200) {
         navbar.classList.add('scrolled');
       } else {
         navbar.classList.remove('scrolled');
