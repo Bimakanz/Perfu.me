@@ -27,8 +27,8 @@
   <div id="admin-login-page" class="admin-page">
     <!-- Left Section: Perfume Image Showcase + Welcome Greeting -->
     <div class="admin-login-left">
-      <img src="{{ asset('assets/images/vanessence.png') }}" alt="Perfume Showcase" class="admin-login-left-img"
-        id="login-left-img" onerror="this.src='{{ asset('assets/images/Nusantara1nobg.png') }}'">
+      <img src="{{ asset('assets/images/adminhero.webp') }}" alt="Perfume Showcase" class="admin-login-left-img"
+        id="login-left-img" onerror="this.src='{{ asset('assets/images/penisence.webp') }}'">
       <div class="admin-login-left-overlay">
         <div class="admin-brand-mark">Perfu.me</div>
         <div class="admin-brand-tagline">Nusantara &amp; Luxury Fragrance Series</div>

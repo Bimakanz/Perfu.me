@@ -69,7 +69,7 @@
           Parfu.me
         </h1>
         <p class="hero-desc">
-          Lahir dari pengalaman panjang, kini hadir 2 racikan signature orisinal pertama kami. Diformulasikan dengan Perfume Oil Grade A untuk ketahanan hingga 10 jam.
+          Lahir dari pengalaman panjang, kini hadir 2 racikan signature orisinal pertama kami. Diformulasikan dengan Perfume Oil Grade A untuk ketahanan lebih dari jam.
         </p>
         <div class="hero-btn-group">
           <a href="#produk-section" class="btn-hero-primary">Jelajahi Koleksi</a>
