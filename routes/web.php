@@ -12,7 +12,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', fn() => view('home'))->name('home');
 Route::get('/katalog', fn() => view('katalog'))->name('katalog');
 
-// Admin Portal (static HTML)
-Route::get('/admin', function () {
-    return file_get_contents(public_path('admin/index.html'));
-});
+// Admin Portal — Blade View
+Route::get('/admin', fn() => view('admin.index'))->name('admin');

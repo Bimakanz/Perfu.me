@@ -60,7 +60,7 @@
 
   {{-- 3. HERO SECTION --}}
   <header id="hero">
-    <img src="{{ asset('assets/images/hero_cinematic_bg.png') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
+    <img src="{{ asset('assets/images/hero_cinematic_bg.webp') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
     <div class="hero-overlay-dark"></div>
 
     <div class="hero-grid">
@@ -69,7 +69,7 @@
           <span class="hero-badge-star"></span> KOLEKSI EKSKLUSIF
         </div>
         <h1 class="hero-heading">
-          Wewangian<br>Signature
+          Parfu.me
         </h1>
         <p class="hero-desc">
           Dua varian parfum premium yang dirancang untuk mengekspresikan kepribadian unik Anda. Diracik dengan parfum oil grade A dan ketahanan hingga 10 jam.
@@ -79,10 +79,6 @@
           <a href="#about-section" class="btn-hero-secondary">Cerita Kami</a>
         </div>
       </div>
-
-      <div class="hero-bottles-col">
-        <img src="{{ asset('assets/images/truehero.png') }}" alt="3 Perfume Bottles Showcase" class="truehero-img">
-      </div>
     </div>
   </header>
 
@@ -90,7 +86,7 @@
   <section class="products-showcase-section" id="produk-section">
     <div class="showcase-header">
       <div class="catalog-tag" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #8A8A8A; margin-bottom: 0.75rem;">KATALOG PRODUK</div>
-      <h2>Koleksi Wewangian Spesial</h2>
+      <h2>Parfu.me spesialis</h2>
     </div>
 
     <div id="produk-section-list">
@@ -104,17 +100,23 @@
       <h2 style="font-family:var(--font-serif); font-size:2.8rem; font-weight:300; margin-bottom:3rem;">Keunggulan Parfu.me</h2>
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-icon">🌿</div>
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
+          </div>
           <h3 class="feature-title">Grade A Concentrate</h3>
           <p class="feature-desc">Dibuat dari minyak wangi konsentrat grade A Eropa berkualitas tinggi tanpa bahan sintetis berbahaya.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">⏱️</div>
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
           <h3 class="feature-title">Ketahanan 10 Jam</h3>
           <p class="feature-desc">Formulasi khusus Eau de Parfum yang melekat secara alami dan tahan lama hingga seharian.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🎁</div>
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+          </div>
           <h3 class="feature-title">Kemasan Mewah</h3>
           <p class="feature-desc">Dikemas menggunakan botol kaca spray elegan dan box eksklusif yang cocok untuk hadiah.</p>
         </div>
@@ -153,9 +155,9 @@
       <div>
         <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Kontak</h4>
         <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7;">
-          WhatsApp: +62 812-3456-7890<br>
-          Email: concierge@perfu.me<br>
-          Jakarta, Indonesia
+          WhatsApp: +62 813-8341-5432<br>
+          Instagram: @perfu.mefragrance<br>
+         Jl. Lingkar Dramaga RT 03/04 Desa Dramaga
         </p>
       </div>
     </div>

@@ -231,30 +231,48 @@
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  max-width: 1200px;
+  max-width: 1050px;
   margin: 0 auto;
+  justify-content: center;
 }
 
 .feature-card {
   background: var(--white);
-  padding: 2.5rem 1.75rem;
-  border-radius: var(--radius-md);
+  padding: 2.75rem 2rem;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--silver-light);
   text-align: center;
   transition: all 0.3s var(--ease-luxury);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .feature-card:hover {
   border-color: var(--silver);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.06);
   transform: translateY(-4px);
 }
 
 .feature-icon {
-  font-size: 2.25rem;
-  margin-bottom: 1.25rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #F4F4F5;
+  color: #0D0D0D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s var(--ease-luxury);
+}
+
+.feature-card:hover .feature-icon {
+  background: #0D0D0D;
+  color: #FFFFFF;
+  transform: scale(1.08);
 }
 
 .feature-title {

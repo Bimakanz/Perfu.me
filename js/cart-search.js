@@ -104,10 +104,12 @@
   // ── Remove & Update Qty ───────────────────────────────────
   window.removeFromCart = function (id) {
     let cart = getCart();
-    cart = cart.filter(item => item.id !== Number(id));
+    const item = cart.find(i => i.id === Number(id));
+    const name = item ? item.name : 'Produk';
+    cart = cart.filter(i => i.id !== Number(id));
     saveCart(cart);
     renderCartItems();
-    showToast('Produk dihapus dari keranjang.', 'info');
+    showToast(`"${name}" dihapus dari keranjang.`, 'info');
   };
 
   window.updateCartQty = function (id, delta) {
@@ -118,6 +120,7 @@
     item.qty += delta;
     if (item.qty <= 0) {
       cart = cart.filter(i => i.id !== Number(id));
+      showToast(`"${item.name}" dihapus dari keranjang.`, 'info');
     }
 
     saveCart(cart);
@@ -135,19 +138,58 @@
     }
   }
 
-  // ── Toast Helper ─────────────────────────────────────────
-  function showToast(message, type = 'success') {
+  // ── Toast Helper (Luxury Toast Notification) ─────────────
+  function showToast(message, type = 'success', title = '') {
     let container = document.getElementById('toast-container');
     if (!container) {
       container = document.createElement('div');
       container.id = 'toast-container';
       document.body.appendChild(container);
     }
+
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
-    toast.textContent = message;
+
+    let iconSvg = '';
+    let defaultTitle = '';
+
+    if (type === 'success') {
+      defaultTitle = 'KERANJANG BELANJA';
+      iconSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>`;
+    } else if (type === 'error') {
+      defaultTitle = 'PERHATIAN';
+      iconSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+    } else {
+      defaultTitle = 'KERANJANG BELANJA';
+      iconSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>`;
+    }
+
+    toast.innerHTML = `
+      <div class="toast-icon-box">${iconSvg}</div>
+      <div class="toast-content">
+        <div class="toast-title">${title || defaultTitle}</div>
+        <div class="toast-message">${message}</div>
+      </div>
+      <button class="toast-close" aria-label="Tutup">&times;</button>
+      <div class="toast-progress"></div>
+    `;
+
+    const closeBtn = toast.querySelector('.toast-close');
+    if (closeBtn) {
+      closeBtn.onclick = () => removeToast(toast);
+    }
+
     container.appendChild(toast);
-    setTimeout(() => toast.remove(), 3500);
+
+    const timer = setTimeout(() => {
+      removeToast(toast);
+    }, 3500);
+
+    function removeToast(el) {
+      clearTimeout(timer);
+      el.classList.add('toast-hiding');
+      setTimeout(() => el.remove(), 300);
+    }
   }
 
   // ── Search Drawer Logic ──────────────────────────────────
