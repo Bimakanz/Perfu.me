@@ -142,11 +142,8 @@
       <div>
         <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Koleksi</h4>
         <ul style="list-style:none; display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem; color:#8A8A8A;">
-          <li>Vanessence EDP</li>
-          <li>Dynamyst EDP</li>
-          <li>Nusantara No.1</li>
-          <li>Nusantara No.2 Rempah</li>
-          <li>Roll-On Mini</li>
+          <li><a href="{{ url('/') }}" class="footer-collection-link">Vanessence EDP</a></li>
+          <li><a href="{{ url('/') }}" class="footer-collection-link">Dynamyst EDP</a></li>
         </ul>
       </div>
       <div>
