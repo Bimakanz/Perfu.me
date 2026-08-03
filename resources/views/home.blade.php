@@ -35,6 +35,7 @@
 
     <ul class="nav-links">
       <li><a href="/katalog">Produk</a></li>
+      <li><a href="/quiz">Quiz</a></li>
       <li><a href="#keunggulan-section" data-nav="keunggulan-section">Keunggulan</a></li>
       <li><a href="#about-section" data-nav="about-section">Tentang</a></li>
       <li><a href="#footer-section" data-nav="footer-section">Kontak</a></li>
