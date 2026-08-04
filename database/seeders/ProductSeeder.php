@@ -47,7 +47,7 @@ class ProductSeeder extends Seeder
                 'tagline'      => 'Lembut, creamy, elegan',
             ],
             [
-                'name'         => 'VS Romantic Wish (Refill)',
+                'name'         => 'VS Romantic Wish',
                 'type'         => 'Refill',
                 'gender'       => 'Unisex',
                 'variant'      => 'Mandarin, Red Fruits',
@@ -64,7 +64,7 @@ class ProductSeeder extends Seeder
                 'tagline'      => 'Romantis, manis, elegan',
             ],
             [
-                'name'         => 'Dior Sauvage (Refill)',
+                'name'         => 'Dior Sauvage',
                 'type'         => 'Refill',
                 'gender'       => 'Unisex',
                 'variant'      => 'Bergamot, Pepper',

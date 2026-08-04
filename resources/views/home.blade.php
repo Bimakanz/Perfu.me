@@ -187,16 +187,19 @@
     <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:4rem;">
       <div>
         <div style="font-family:var(--font-serif); font-size:2rem; font-weight:300; letter-spacing:0.05em; margin-bottom:0.75rem;">Parfu.me</div>
-        <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7; max-width:340px;">
-          Nusantara &amp; Luxury Fragrance Series.<br>
-          Menghadirkan keharuman mewah tahan lama untuk setiap momen berharga Anda.
+        <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7; max-width:380px;">
+          Perfu.me lahir dari sebuah keyakinan sederhana: setiap orang berhak tampil harum tanpa harus mengeluarkan biaya yang mahal. Karena itu, kami menghadirkan parfum dengan kualitas aroma premium, karakter yang khas, dan harga yang tetap ramah di kantong.
         </p>
       </div>
       <div>
-        <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Koleksi</h4>
-        <ul style="list-style:none; display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem; color:#8A8A8A;">
-          <li><a href="{{ url('/') }}" class="footer-collection-link">Vanessence EDP</a></li>
-          <li><a href="{{ url('/') }}" class="footer-collection-link">Dynamyst EDP</a></li>
+        <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Koleksi Best Seller</h4>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem; color:#8A8A8A; padding:0; margin:0;">
+          @php
+            $bestSellers = \App\Models\Product::where('best_seller', true)->take(6)->get();
+          @endphp
+          @foreach($bestSellers as $bs)
+            <li><a href="/produk/{{ $bs->id }}" class="footer-collection-link">{{ $bs->name }}</a></li>
+          @endforeach
         </ul>
       </div>
       <div>
@@ -204,8 +207,8 @@
         <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7;">
           WhatsApp: +62 813-8341-5432<br>
           Email: perfumeofficial30@gmail.com<br>
-          Instagram: @perfu.mefragrance<br>
-          Jl. Lingkar Dramaga RT 03/04 Desa Dramaga
+          Instagram: <a href="https://www.instagram.com/perfu.mefragrance/" target="_blank" rel="noopener" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none;">@perfu.mefragrance</a><br>
+          <a href="https://maps.app.goo.gl/xui1fMK73WXR1DD29" target="_blank" rel="noopener" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none; display:inline-block; margin-top:0.2rem;">Jl. Lingkar Dramaga RT 03/04 Desa Dramaga</a>
         </p>
       </div>
     </div>

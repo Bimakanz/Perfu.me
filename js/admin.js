@@ -334,22 +334,61 @@ var currentSort = { field: 'id', dir: 'asc' };
     if (customTrigger) customTrigger.classList.remove('active');
 
     const dropdown = document.getElementById(`dropdown-${id}`);
+    if (!dropdown) return;
     const isShow = dropdown.classList.contains('show');
 
     // Close all other open dropdowns
-    document.querySelectorAll('.action-dropdown-menu').forEach(m => m.classList.remove('show'));
+    document.querySelectorAll('.action-dropdown-menu').forEach(m => {
+      m.classList.remove('show');
+      m.classList.remove('drop-up');
+    });
     document.querySelectorAll('.btn-3dots').forEach(b => b.classList.remove('active'));
 
     if (!isShow) {
+      // Check if button is in lower half of table or screen
+      const rect = event.currentTarget.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      if (rect.bottom > windowHeight - 160) {
+        dropdown.classList.add('drop-up');
+      } else {
+        dropdown.classList.remove('drop-up');
+      }
+
       dropdown.classList.add('show');
       const btn = dropdown.previousElementSibling;
       if (btn) btn.classList.add('active');
     }
   };
 
+var adminCurrentPage = 1;
+const ADMIN_ITEMS_PER_PAGE = 5;
+
+window.goToAdminPage = function(page) {
+  adminCurrentPage = page;
+  renderTable();
+};
+
+function renderAdminPaginationControls(totalPages) {
+  let btns = '';
+
+  // PREVIOUS Button
+  btns += `<button class="page-btn page-nav ${adminCurrentPage === 1 ? 'disabled' : ''}" onclick="window.goToAdminPage(${adminCurrentPage - 1})" ${adminCurrentPage === 1 ? 'disabled' : ''}>PREVIOUS</button>`;
+
+  // Page Numbers
+  for (let i = 1; i <= totalPages; i++) {
+    btns += `<button class="page-btn ${i === adminCurrentPage ? 'active' : ''}" onclick="window.goToAdminPage(${i})">${i}</button>`;
+  }
+
+  // NEXT Button
+  btns += `<button class="page-btn page-nav ${adminCurrentPage === totalPages ? 'disabled' : ''}" onclick="window.goToAdminPage(${adminCurrentPage + 1})" ${adminCurrentPage === totalPages ? 'disabled' : ''}>NEXT</button>`;
+
+  return btns;
+}
+
   function renderTable() {
     const tbody = document.getElementById('admin-table-body');
     const mobileCardsContainer = document.getElementById('admin-mobile-cards');
+    const paginationContainer = document.getElementById('admin-pagination');
     const searchVal = (document.getElementById('admin-table-search')?.value || '').toLowerCase();
     const filterVal = document.getElementById('admin-filter-status')?.value || 'all';
 
@@ -385,12 +424,20 @@ var currentSort = { field: 'id', dir: 'asc' };
     if (filtered.length === 0) {
       if (tbody) tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:3.5rem;color:#A1A1AA;font-size:0.9rem;">Tidak ada produk yang memenuhi kriteria pencarian.</td></tr>`;
       if (mobileCardsContainer) mobileCardsContainer.innerHTML = `<div style="text-align:center;padding:3rem 1rem;color:#A1A1AA;font-size:0.9rem;">Tidak ada produk yang memenuhi kriteria pencarian.</div>`;
+      if (paginationContainer) paginationContainer.innerHTML = '';
       return;
     }
 
+    // Calculate Pagination (5 items per page)
+    const totalPages = Math.ceil(filtered.length / ADMIN_ITEMS_PER_PAGE);
+    if (adminCurrentPage > totalPages) adminCurrentPage = 1;
+
+    const startIndex = (adminCurrentPage - 1) * ADMIN_ITEMS_PER_PAGE;
+    const paginatedItems = filtered.slice(startIndex, startIndex + ADMIN_ITEMS_PER_PAGE);
+
     // 1. Desktop Table Render
     if (tbody) {
-      tbody.innerHTML = filtered.map(p => {
+      tbody.innerHTML = paginatedItems.map(p => {
         const isBs = Boolean(p.bestSeller || p.best_seller);
         const isZero = Number(p.stock) === 0;
         const imgSrc = formatImgUrl(p.image);
@@ -414,9 +461,48 @@ var currentSort = { field: 'id', dir: 'asc' };
               <button class="bs-toggle-btn ${isBs ? 'bs-yes-btn' : 'bs-no-btn'}" onclick="window.toggleBestSeller('${p.id}')">
                 ${isBs ? '★ BEST SELLER' : '— NORMAL'}
               </button>
-        </tr>
-      `;
-    }).join('');
+            </td>
+            <td style="text-align:right">
+              <div class="action-dropdown-wrap">
+                <button class="btn-3dots" onclick="window.toggleActionDropdown(event, '${p.id}')" aria-label="Aksi">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="1.5"></circle>
+                    <circle cx="19" cy="12" r="1.5"></circle>
+                    <circle cx="5" cy="12" r="1.5"></circle>
+                  </svg>
+                </button>
+                <div class="action-dropdown-menu" id="dropdown-${p.id}">
+                  <div class="dropdown-item" onclick="window.openDetailModal('${p.id}')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    Lihat Detail
+                  </div>
+                  <div class="dropdown-item" onclick="window.editProduct('${p.id}')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    Edit Produk
+                  </div>
+                  <div class="dropdown-divider"></div>
+                  <div class="dropdown-item danger" onclick="window.promptDeleteProduct('${p.id}')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    Hapus Produk
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Render Pagination
+    if (paginationContainer) {
+      if (totalPages > 1) {
+        paginationContainer.style.display = 'flex';
+        paginationContainer.innerHTML = renderAdminPaginationControls(totalPages);
+      } else {
+        paginationContainer.style.display = 'none';
+        paginationContainer.innerHTML = '';
+      }
+    }
   }
 
   // ── 3. Product Detail Modal ──────────────────────────────
