@@ -84,9 +84,9 @@
       }
 
       const imgHtml = `
-        <div class="zigzag-img-col">
+        <div class="zigzag-img-col" onclick="window.location.href='/produk/${p.id}'" style="cursor:pointer;" title="Lihat detail ${p.name}">
           <div class="zigzag-img-box">
-            <img src="${imgSrc}" alt="${p.name}" loading="lazy" onerror="this.src='assets/images/Nusantara1nobg.png'">
+            <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='assets/images/refill.webp'">
           </div>
         </div>`;
 
@@ -155,20 +155,20 @@
     }).join('');
   }
 
-  // ── Load & Filter Data (Home: Best Sellers Only) ─────────
+  // ── Load & Filter Data (Home: Signature Products Only) ───
   async function refreshProducts() {
     try {
       let products;
       if (window.API && typeof window.API.getAll === 'function') {
         const all = await window.API.getAll();
-        products = all.filter(p => p.best_seller);
+        products = all.filter(p => p.type !== 'Refill' && (p.name.toLowerCase().includes('dynamyst') || p.name.toLowerCase().includes('vanessence')));
       }
       if (!products || products.length === 0) {
-        products = FALLBACK_PRODUCTS.filter(p => p.best_seller);
+        products = FALLBACK_PRODUCTS.filter(p => p.type !== 'Refill');
       }
       renderZigZag(products);
     } catch (err) {
-      renderZigZag(FALLBACK_PRODUCTS.filter(p => p.best_seller));
+      renderZigZag(FALLBACK_PRODUCTS.filter(p => p.type !== 'Refill'));
     }
   }
 
