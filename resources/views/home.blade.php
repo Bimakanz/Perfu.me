@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{ asset('css/splash.css') }}">
 <link rel="stylesheet" href="{{ asset('css/hero.css') }}">
 <link rel="stylesheet" href="{{ asset('css/about-us.css') }}">
+<link rel="stylesheet" href="{{ asset('css/testimonials.css') }}">
 <link rel="stylesheet" href="{{ asset('css/catalog.css') }}">
 <link rel="stylesheet" href="{{ asset('css/pdp.css') }}">
 <link rel="stylesheet" href="{{ asset('css/product-zigzag.css') }}">
@@ -127,6 +128,69 @@
           <div class="stat-number">Harga</div>
           <div class="stat-title">Terjangkau</div>
           <div class="stat-desc">Wangi mewah tanpa bikin kantong bolong</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{-- 3.7. TESTIMONIALS SECTION --}}
+  <section id="testimonials-section" class="testimonials-section">
+    <div class="testimonials-container">
+      <div class="testimonials-header">
+        <span class="testimonials-label">Testimoni Pelanggan</span>
+        <h2 class="testimonials-heading">Baca review,<br><strong>belanja dengan percaya diri.</strong></h2>
+      </div>
+
+      <div class="testimonials-grid">
+        <!-- Left Side: Quote Text -->
+        <div class="testimonials-side">
+          <div class="testimonials-quote-icon">“</div>
+          <h3 class="testimonials-side-heading">Apa kata pelanggan kami</h3>
+        </div>
+
+        <!-- Right Side: Review Cards -->
+        <div class="testimonials-cards">
+          <!-- Review 1 -->
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              Parfumnya recommended banget! Wanginya tahan seharian, dari pagi dipakai sampai malam pun masih wangi.
+            </p>
+            <div class="testimonial-stars">
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+            </div>
+            <div class="testimonial-profile">
+              <img src="{{ asset('assets/images/radit.jpeg') }}" alt="Raditya Ghani" class="testimonial-avatar">
+              <div class="testimonial-reviewer-info">
+                <span class="testimonial-name">Raditya Ghani</span>
+                <span class="testimonial-role">Pelanggan Setia</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Review 2 -->
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              Wanginya masih menempel di kerudung meskipun sudah 3 hari tidak semprot parfum lagi. Kualitasnya juara, fix bakal order dan borong varian lainnya lagi!
+            </p>
+            <div class="testimonial-stars">
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+            </div>
+            <div class="testimonial-profile">
+              <img src="{{ asset('assets/images/agus.jpeg') }}" alt="Agustin Putri" class="testimonial-avatar">
+              <div class="testimonial-reviewer-info">
+                <span class="testimonial-name">Agustin Putri</span>
+                <span class="testimonial-role">Pelanggan Setia</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
