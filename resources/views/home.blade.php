@@ -10,6 +10,7 @@
 @section('styles')
 <link rel="stylesheet" href="{{ asset('css/splash.css') }}">
 <link rel="stylesheet" href="{{ asset('css/hero.css') }}">
+<link rel="stylesheet" href="{{ asset('css/about-us.css') }}">
 <link rel="stylesheet" href="{{ asset('css/catalog.css') }}">
 <link rel="stylesheet" href="{{ asset('css/pdp.css') }}">
 <link rel="stylesheet" href="{{ asset('css/product-zigzag.css') }}">
@@ -78,6 +79,57 @@
       </div>
     </div>
   </header>
+
+  {{-- 3.5. ABOUT US SECTION (Our Story & Mission) --}}
+  <section id="about-story-section" class="about-us-section">
+    <div class="about-us-container">
+      <div class="about-us-grid">
+        <!-- Left Column: Story & Mission text -->
+        <div class="about-us-text-col">
+          <span class="about-us-tagline">Cerita & Misi Kami</span>
+          <h2 class="about-us-heading">Our Story & Mission</h2>
+          <p class="about-us-paragraph">
+            Perfu.me lahir dari sebuah keyakinan sederhana: setiap orang berhak tampil harum tanpa harus mengeluarkan biaya yang mahal. Kami adalah brand parfum lokal yang menghadirkan aroma berkarakter dengan kualitas premium dan harga yang tetap ramah di kantong.
+          </p>
+          <p class="about-us-paragraph">
+            Di Perfu.me, kami tidak ingin menghadirkan puluhan aroma tanpa karakter. Kami ingin setiap parfum memiliki identitas kuat yang menjadi bagian dari kepercayaan diri penggunanya—karena parfum bukan sekadar wangi, tapi cara seseorang mengekspresikan dirinya.
+          </p>
+        </div>
+
+        <!-- Right Column: Interactive Visuals & Slogan Card -->
+        <div class="about-us-visual-col">
+          <div class="about-us-image-container">
+            <img src="{{ asset('assets/images/aboutus.png') }}" alt="Parfu.me Signature Fragrances" class="about-us-single-img">
+          </div>
+          <!-- Floating Slogan Card -->
+          <div class="floating-slogan-card">
+            <div class="slogan-badge">Brand Tagline</div>
+            <div class="slogan-title">Smell Good. Feel Confident</div>
+            <div class="slogan-text">Wangi Gak Harus Mahal.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Row at the bottom -->
+      <div class="about-us-stats-row">
+        <div class="stat-item">
+          <div class="stat-number">2</div>
+          <div class="stat-title">Signature Scents</div>
+          <div class="stat-desc">Pilihan aroma awal yang berkarakter kuat</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-title">Local Pride</div>
+          <div class="stat-desc">Brand parfum lokal berkualitas premium</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">Harga</div>
+          <div class="stat-title">Terjangkau</div>
+          <div class="stat-desc">Wangi mewah tanpa bikin kantong bolong</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   {{-- 4. PRODUCTS ZIGZAG CATALOG SHOWCASE --}}
   <section class="products-showcase-section" id="produk-section">
