@@ -27,7 +27,7 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #8A8A8A;
-    margin-bottom: 2rem;
+    margin-bottom: 0.6rem;
   }
 
   .katalog-breadcrumb a { color: #8A8A8A; text-decoration: none; transition: color 0.2s; }
@@ -79,7 +79,8 @@
     padding-right: 2.5rem;
     border-right: 1px solid #E5E5E5;
     position: sticky;
-    top: 90px;
+    top: 135px;
+    padding-top: 0.5rem;
   }
 
   .filter-section { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid #E5E5E5; }
@@ -89,52 +90,115 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.72rem;
+    font-size: 0.92rem;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #0D0D0D;
     margin-bottom: 1.25rem;
     cursor: pointer;
+    user-select: none;
   }
 
-  .filter-section-title span { font-size: 1rem; color: #8A8A8A; }
+  .filter-section-title span { 
+    font-size: 1.4rem; 
+    font-weight: 400;
+    line-height: 1;
+    color: #0D0D0D; 
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
 
-  .filter-chips { display: flex; flex-direction: column; gap: 0.5rem; }
+  .filter-section-title:hover span {
+    color: #555555;
+  }
+
+  .filter-section-body {
+    display: none;
+    padding-top: 0.25rem;
+  }
+
+  .filter-section.open .filter-section-body {
+    display: block;
+  }
+
+  .filter-chips { display: flex; flex-direction: column; gap: 0.6rem; }
 
   .filter-chip-label {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    font-size: 0.85rem;
-    color: #555;
+    font-size: 0.92rem;
+    color: #4A4A4A;
     cursor: pointer;
-    padding: 0.4rem 0;
+    padding: 0.35rem 0;
     transition: color 0.2s;
   }
 
   .filter-chip-label:hover { color: #0D0D0D; }
-  .filter-chip-label input { width: 16px; height: 16px; accent-color: #0D0D0D; cursor: pointer; }
+  .filter-chip-label input { width: 17px; height: 17px; accent-color: #0D0D0D; cursor: pointer; }
 
-  .price-range-wrap { display: flex; flex-direction: column; gap: 0.75rem; }
-  .price-inputs { display: flex; gap: 0.75rem; align-items: center; }
+  .price-range-wrap { display: flex; flex-direction: column; gap: 0.85rem; }
+  .price-inputs { display: flex; gap: 0.35rem; align-items: center; justify-content: space-between; }
 
   .price-input-box {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.25rem;
+    background: #FFFFFF;
     border: 1px solid #E5E5E5;
-    border-radius: 4px;
-    padding: 0.45rem 0.75rem;
-    font-size: 0.8rem;
-    color: #555;
+    border-radius: 6px;
+    padding: 0.45rem 0.5rem;
+    color: #0D0D0D;
     flex: 1;
+    min-width: 0;
+    overflow: hidden;
   }
 
-  .price-input-box input { border: none; outline: none; font-size: 0.8rem; width: 100%; color: #0D0D0D; font-family: inherit; background: transparent; }
+  .price-input-box span.currency {
+    color: #8A8A8A;
+    font-size: 0.75rem;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
 
-  .price-range-slider { -webkit-appearance: none; width: 100%; height: 2px; background: #E5E5E5; outline: none; border-radius: 2px; }
-  .price-range-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; background: #0D0D0D; border-radius: 50%; cursor: pointer; }
+  .price-input-box input { 
+    border: none; 
+    outline: none; 
+    font-size: 0.78rem; 
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    width: 100%; 
+    color: #0D0D0D; 
+    font-family: inherit; 
+    background: transparent; 
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .price-range-slider { 
+    -webkit-appearance: none; 
+    width: 100%; 
+    height: 4px; 
+    background: #E5E5E5; 
+    outline: none; 
+    border-radius: 4px; 
+    cursor: pointer;
+  }
+  
+  .price-range-slider::-webkit-slider-thumb { 
+    -webkit-appearance: none; 
+    width: 18px; 
+    height: 18px; 
+    background: #0D0D0D; 
+    border-radius: 50%; 
+    cursor: pointer; 
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: transform 0.15s ease;
+  }
+
+  .price-range-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
 
   .katalog-main { padding-left: 2.5rem; }
 
@@ -149,22 +213,101 @@
 
   .sort-results-count { font-size: 0.82rem; color: #8A8A8A; }
   .sort-results-count strong { color: #0D0D0D; font-weight: 600; }
-  .sort-select-wrap { display: flex; align-items: center; gap: 0.75rem; font-size: 0.8rem; color: #555; }
-
-  .sort-select {
-    border: 1px solid #E5E5E5;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    font-family: inherit;
-    font-size: 0.8rem;
-    color: #0D0D0D;
-    background: #FFFFFF;
-    cursor: pointer;
-    outline: none;
-    transition: border-color 0.2s;
+  .sort-select-wrap { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.75rem; 
+    font-size: 0.82rem; 
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #71717A; 
   }
 
-  .sort-select:hover { border-color: #0D0D0D; }
+  .custom-sort-dropdown {
+    position: relative;
+    user-select: none;
+  }
+
+  .custom-sort-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    background: #FFFFFF;
+    border: 1px solid #E4E4E7;
+    border-radius: 8px;
+    padding: 0.6rem 1.1rem;
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #0D0D0D;
+    cursor: pointer;
+    transition: all 0.25s var(--ease-luxury);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  }
+
+  .custom-sort-btn:hover, .custom-sort-dropdown.open .custom-sort-btn {
+    border-color: #0D0D0D;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  }
+
+  .custom-sort-btn svg {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .custom-sort-dropdown.open .custom-sort-btn svg {
+    transform: rotate(180deg);
+  }
+
+  .custom-sort-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    min-width: 210px;
+    background: #FFFFFF;
+    border: 1px solid #E4E4E7;
+    border-radius: 10px;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.12);
+    padding: 0.4rem;
+    z-index: 500;
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    animation: sortMenuPop 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes sortMenuPop {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .custom-sort-dropdown.open .custom-sort-menu {
+    display: flex;
+  }
+
+  .custom-sort-opt {
+    padding: 0.65rem 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: #52525B;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .custom-sort-opt:hover {
+    background: #F4F4F5;
+    color: #0D0D0D;
+  }
+
+  .custom-sort-opt.active {
+    background: #0D0D0D;
+    color: #FFFFFF;
+    font-weight: 600;
+  }
 
   .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
 
@@ -179,22 +322,40 @@
 
   .product-card:hover { border-color: #C0C0C0; box-shadow: 0 12px 32px rgba(0,0,0,0.08); transform: translateY(-3px); }
 
-  .product-card-img-wrap { position: relative; width: 100%; padding-top: 100%; background: #F9F9F9; overflow: hidden; }
-  .product-card-img-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 1.5rem; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+  .product-card-img-wrap { 
+    position: relative; 
+    width: 100%; 
+    padding-top: 100%; 
+    background: #F4F4F5; 
+    overflow: hidden; 
+  }
+  
+  .product-card-img-wrap img { 
+    position: absolute; 
+    inset: 0; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    padding: 0 !important; 
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
+  }
+  
   .product-card:hover .product-card-img-wrap img { transform: scale(1.06); }
 
   .best-seller-badge {
     position: absolute;
     top: 0.75rem;
     left: 0.75rem;
-    background: #0D0D0D;
+    background: rgba(13, 13, 13, 0.9);
+    backdrop-filter: blur(4px);
     color: #FFFFFF;
     font-size: 0.6rem;
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    padding: 0.3rem 0.65rem;
-    border-radius: 2px;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    z-index: 2;
   }
 
   .product-card-body { padding: 1.25rem; }
@@ -243,7 +404,61 @@
     flex-shrink: 0;
   }
 
-  .btn-card-cart:hover { border-color: #0D0D0D; background: #F9F9F9; }
+  /* ── Skeleton Loading Shimmer ──────────────────────────────── */
+  .skeleton-card {
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 8px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .skeleton-img {
+    width: 100%;
+    padding-top: 100%;
+    background: #EAEAEA;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skeleton-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .skeleton-line {
+    height: 14px;
+    background: #EAEAEA;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skeleton-line.w-40 { width: 40%; height: 10px; }
+  .skeleton-line.w-70 { width: 70%; height: 18px; }
+  .skeleton-line.w-50 { width: 50%; height: 12px; }
+  .skeleton-line.w-30 { width: 30%; height: 20px; }
+  .skeleton-line.w-100 { width: 100%; height: 38px; border-radius: 4px; }
+
+  .skeleton-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    100% { transform: translateX(100%); }
+  }
 
   .quiz-card {
     background: #FFFFFF;
@@ -507,8 +722,54 @@
     .product-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   }
 
-  @media (max-width: 480px) {
-    .product-grid { grid-template-columns: 1fr; }
+  /* ── Pagination Styling (Clean Text Luxury) ───────────────── */
+  .katalog-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid #E5E5E5;
+    grid-column: 1 / -1;
+  }
+
+  .page-btn {
+    background: transparent;
+    border: none;
+    padding: 0.4rem 0.6rem;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #8A8A8A;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    text-decoration: none;
+  }
+
+  .page-btn.page-nav {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #0D0D0D;
+  }
+
+  .page-btn:hover:not(.disabled) {
+    color: #0D0D0D;
+  }
+
+  .page-btn.active {
+    color: #0D0D0D;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+  }
+
+  .page-btn.disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
   }
 </style>
 @endsection
@@ -564,40 +825,46 @@
 
     <aside class="katalog-sidebar">
       <div class="filter-section">
-        <div class="filter-section-title">Gender <span>—</span></div>
-        <div class="filter-chips">
-          <label class="filter-chip-label"><input type="checkbox" name="gender" value="Wanita" id="filter-wanita"> Wanita</label>
-          <label class="filter-chip-label"><input type="checkbox" name="gender" value="Pria" id="filter-pria"> Pria</label>
-          <label class="filter-chip-label"><input type="checkbox" name="gender" value="Unisex" id="filter-unisex"> Unisex</label>
+        <div class="filter-section-title" onclick="toggleFilterSection(this)">Gender <span>+</span></div>
+        <div class="filter-section-body">
+          <div class="filter-chips">
+            <label class="filter-chip-label"><input type="checkbox" name="gender" value="Wanita" id="filter-wanita"> Wanita</label>
+            <label class="filter-chip-label"><input type="checkbox" name="gender" value="Pria" id="filter-pria"> Pria</label>
+            <label class="filter-chip-label"><input type="checkbox" name="gender" value="Unisex" id="filter-unisex"> Unisex</label>
+          </div>
         </div>
       </div>
 
       <div class="filter-section">
-        <div class="filter-section-title">Varian Aroma <span>—</span></div>
-        <div class="filter-chips">
-          <label class="filter-chip-label"><input type="checkbox" name="variant" value="Woody Floral" id="filter-woody"> Woody Floral</label>
-          <label class="filter-chip-label"><input type="checkbox" name="variant" value="Spicy" id="filter-spicy"> Spicy</label>
-          <label class="filter-chip-label"><input type="checkbox" name="variant" value="Sweet Floral" id="filter-sweet"> Sweet Floral</label>
-          <label class="filter-chip-label"><input type="checkbox" name="variant" value="Gourmand" id="filter-gourmand"> Gourmand</label>
-        </div>
-      </div>
-
-      <div class="filter-section">
-        <div class="filter-section-title">Harga <span>—</span></div>
-        <div class="price-range-wrap">
-          <input type="range" min="0" max="300000" step="5000" value="300000" class="price-range-slider" id="price-range-slider">
-          <div class="price-inputs">
-            <div class="price-input-box"><span>Rp</span><input type="number" value="0" min="0" max="300000" id="price-min" readonly></div>
-            <span style="color:#8A8A8A; font-size:0.8rem;">—</span>
-            <div class="price-input-box"><span>Rp</span><input type="number" value="300000" min="0" max="300000" id="price-max" readonly></div>
+        <div class="filter-section-title" onclick="toggleFilterSection(this)">Varian Aroma <span>+</span></div>
+        <div class="filter-section-body">
+          <div class="filter-chips">
+            <label class="filter-chip-label"><input type="checkbox" name="variant" value="Citrus" id="filter-citrus"> Citrus &amp; Fresh</label>
+            <label class="filter-chip-label"><input type="checkbox" name="variant" value="Vanilla" id="filter-vanilla"> Vanilla &amp; Gourmand</label>
+            <label class="filter-chip-label"><input type="checkbox" name="variant" value="Fruity" id="filter-fruity"> Fruity &amp; Berry</label>
+            <label class="filter-chip-label"><input type="checkbox" name="variant" value="Woody" id="filter-woody"> Woody &amp; Spicy</label>
+            <label class="filter-chip-label"><input type="checkbox" name="variant" value="Floral" id="filter-floral"> Floral &amp; Musk</label>
           </div>
         </div>
       </div>
 
       <div class="filter-section" style="border-bottom:none;">
-        <div class="filter-section-title">Best Seller <span>—</span></div>
-        <div class="filter-chips">
-          <label class="filter-chip-label"><input type="checkbox" name="bestseller" value="true" id="filter-bestseller"> Hanya Best Seller</label>
+        <div class="filter-section-title" onclick="toggleFilterSection(this)">Harga <span>+</span></div>
+        <div class="filter-section-body">
+          <div class="price-range-wrap">
+            <input type="range" min="0" max="300000" step="5000" value="300000" class="price-range-slider" id="price-range-slider">
+            <div class="price-inputs">
+              <div class="price-input-box">
+                <span class="currency">Rp</span>
+                <input type="text" value="0" id="price-min" readonly>
+              </div>
+              <span style="color:#8A8A8A; font-size:0.8rem; flex-shrink:0;">—</span>
+              <div class="price-input-box">
+                <span class="currency">Rp</span>
+                <input type="text" value="300.000" id="price-max" readonly>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -607,12 +874,24 @@
       <div class="sort-bar">
         <p class="sort-results-count" id="results-count"><strong>0</strong> produk</p>
         <div class="sort-select-wrap">
-          Sort by:
-          <select class="sort-select" id="sort-select">
+          <span>Sort by:</span>
+          <div class="custom-sort-dropdown" id="custom-sort-dropdown">
+            <button type="button" class="custom-sort-btn" id="custom-sort-btn">
+              <span id="custom-sort-label">Default</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="custom-sort-menu" id="custom-sort-menu">
+              <div class="custom-sort-opt active" data-value="default">Default</div>
+              <div class="custom-sort-opt" data-value="bestseller">Best Seller</div>
+              <div class="custom-sort-opt" data-value="price-asc">Harga: Rendah ke Tinggi</div>
+              <div class="custom-sort-opt" data-value="price-desc">Harga: Tinggi ke Rendah</div>
+            </div>
+          </div>
+          <select id="sort-select" style="display:none;">
             <option value="default">Default</option>
+            <option value="bestseller">Best Seller</option>
             <option value="price-asc">Harga: Rendah ke Tinggi</option>
             <option value="price-desc">Harga: Tinggi ke Rendah</option>
-            <option value="name-asc">Nama: A–Z</option>
           </select>
         </div>
       </div>
@@ -633,15 +912,15 @@
 
 @section('scripts')
 <script>
+  let currentPage = 1;
+  const ITEMS_PER_PAGE = 15;
+
   const ALL_PRODUCTS = [
-    { id: 1, name: 'Vanessence', type: 'Eau de Parfum', gender: 'Wanita', variant: 'Gourmand Vanilla', size: '30ML', price: 150000, stock: 30, best_seller: true, image: '{{ asset("assets/images/penisence.webp") }}', tagline: 'Feminin, manis, dan memikat' },
-    { id: 2, name: 'Dynamyst', type: 'Eau de Parfum', gender: 'Pria', variant: 'Spicy Woody', size: '30ML', price: 150000, stock: 25, best_seller: false, image: '{{ asset("assets/images/dynamyst.png") }}', tagline: 'Maskulin, tegas, penuh energi' },
-    { id: 3, name: 'Nusantara No.1', type: 'Eau de Parfum', gender: 'Unisex', variant: 'Woody Floral', size: '30ML', price: 85000, stock: 42, best_seller: true, image: '{{ asset("assets/images/Nusantara1nobg.png") }}', tagline: 'Elegan, segar, dan abadi' },
-    { id: 4, name: 'Nusantara No.2 \u2013 Rempah', type: 'Eau de Parfum', gender: 'Pria', variant: 'Spicy Oriental', size: '30ML', price: 95000, stock: 18, best_seller: false, image: '{{ asset("assets/images/nusantara_no2.png") }}', tagline: 'Berani, hangat, dan penuh karakter' },
-    { id: 5, name: 'Nusantara Roll-On Mini', type: 'Roll-on', gender: 'Wanita', variant: 'Sweet Floral', size: '10ML', price: 35000, stock: 76, best_seller: true, image: '{{ asset("assets/images/nusantara_rollon.png") }}', tagline: 'Manis, segar, dan memikat' }
+    { id: 1, name: 'Vanessence', type: 'Signature', gender: 'Wanita', variant: 'Gourmand Vanilla', size: '30ML', price: 45000, stock: 30, best_seller: true, image: '{{ asset("assets/images/penisence.webp") }}', tagline: 'Feminin, manis, dan memikat' },
+    { id: 2, name: 'Dynamyst', type: 'Signature', gender: 'Pria', variant: 'Spicy Woody', size: '30ML', price: 45000, stock: 25, best_seller: true, image: '{{ asset("assets/images/dynamyst.png") }}', tagline: 'Maskulin, tegas, penuh energi' }
   ];
 
-  const FALLBACK_IMG = '{{ asset("assets/images/Nusantara1nobg.png") }}';
+  const FALLBACK_IMG = '{{ asset("assets/images/refill.webp") }}';
 
   function formatPrice(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
 
@@ -653,8 +932,25 @@
       grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:4rem 0;color:#8A8A8A;font-size:0.9rem;">Tidak ada produk yang sesuai filter.</div>`;
       return;
     }
-    grid.innerHTML = products.map(p => `
-      <div class="product-card" onclick="openProductDetail(${p.id})" role="button" tabindex="0">
+
+    // Pagination Calculation
+    const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
+    if (currentPage > totalPages) currentPage = 1;
+
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const paginatedProducts = products.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+    const isSignature = (p) => {
+      const name = p.name.toLowerCase();
+      const type = (p.type || '').toLowerCase();
+      return name.includes('dynamyst') || name.includes('vanessence') || type === 'signature';
+    };
+
+    const signatureProds = paginatedProducts.filter(isSignature);
+    const refillProds = paginatedProducts.filter(p => !isSignature(p));
+
+    const renderCard = (p) => `
+      <div class="product-card" onclick="window.location.href='/produk/${p.id}'" role="button" tabindex="0">
         <div class="product-card-img-wrap">
           <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='${FALLBACK_IMG}'">
           ${p.best_seller ? '<span class="best-seller-badge">Best Seller</span>' : ''}
@@ -662,10 +958,9 @@
         <div class="product-card-body">
           <div class="product-card-meta">${p.type.toUpperCase()} • ${p.gender.toUpperCase()} • ${p.variant.toUpperCase()}</div>
           <div class="product-card-name">${p.name}</div>
-          <div class="product-card-tagline">${p.tagline}</div>
+          <div class="product-card-tagline">${p.tagline || ''}</div>
           <div class="product-card-price-row">
             <span class="product-card-price">${formatPrice(p.price)}</span>
-            <span class="product-card-price-slash">Rp 220.000</span>
           </div>
           <div class="product-card-actions">
             <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20ingin%20memesan%20${encodeURIComponent(p.name)}%20(${p.size})%20seharga%20${encodeURIComponent(formatPrice(p.price))}" target="_blank" rel="noopener" class="btn-card-wa" onclick="event.stopPropagation()">Pesan WhatsApp</a>
@@ -675,22 +970,102 @@
           </div>
         </div>
       </div>
-    `).join('');
+    `;
+
+    let html = '';
+
+    // 1. Signature Section (Tampil di Halaman 1 jika ada)
+    if (signatureProds.length > 0) {
+      html += `
+        <div class="katalog-section-divider-title" style="grid-column: 1/-1; margin-bottom: 0.5rem;">
+          <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #b45309;">SIGNATURE COLLECTION</div>
+          <h2 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.8rem; font-weight: 300; margin: 0.2rem 0 1rem; color: #0D0D0D;">Parfum Signature Master Perfumer</h2>
+        </div>
+        ${signatureProds.map(renderCard).join('')}
+      `;
+    }
+
+    // Divider Line
+    if (signatureProds.length > 0 && refillProds.length > 0) {
+      html += `
+        <div style="grid-column: 1/-1; padding: 2.5rem 0 1.5rem;">
+          <hr style="border: none; border-top: 1px solid #E5E5E5; margin: 0;">
+        </div>
+      `;
+    }
+
+    // 2. Refill Section
+    if (refillProds.length > 0) {
+      html += `
+        <div class="katalog-section-divider-title" style="grid-column: 1/-1; margin-bottom: 0.5rem;">
+          <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #8A8A8A;">REFILL COLLECTION</div>
+          <h2 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.8rem; font-weight: 300; margin: 0.2rem 0 1rem; color: #0D0D0D;">Koleksi Parfum Refill Inspirasi Aroma Terkenal</h2>
+        </div>
+        ${refillProds.map(renderCard).join('')}
+      `;
+    }
+
+    // Render Pagination Controls if totalPages > 1
+    if (totalPages > 1) {
+      html += renderPaginationControls(totalPages);
+    }
+
+    grid.innerHTML = html;
   }
 
-  function applyFilters() {
+  function renderPaginationControls(totalPages) {
+    let btns = '';
+
+    // PREVIOUS Button (Clean Uppercase)
+    btns += `<button class="page-btn page-nav ${currentPage === 1 ? 'disabled' : ''}" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>PREVIOUS</button>`;
+
+    // Page Numbers
+    for (let i = 1; i <= totalPages; i++) {
+      btns += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+    }
+
+    // NEXT Button (Clean Uppercase)
+    btns += `<button class="page-btn page-nav ${currentPage === totalPages ? 'disabled' : ''}" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>NEXT</button>`;
+
+    return `<div class="katalog-pagination">${btns}</div>`;
+  }
+
+  function goToPage(page) {
+    currentPage = page;
+    applyFilters(false);
+    // Smooth scroll back to top of products grid
+    const mainEl = document.querySelector('.katalog-main');
+    if (mainEl) mainEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function applyFilters(resetPage = true) {
+    if (resetPage) currentPage = 1;
     let products = [...ALL_PRODUCTS];
     const genderChecks = [...document.querySelectorAll('input[name="gender"]:checked')].map(i => i.value.toLowerCase());
     if (genderChecks.length > 0) products = products.filter(p => genderChecks.includes(p.gender.toLowerCase()));
+    
     const variantChecks = [...document.querySelectorAll('input[name="variant"]:checked')].map(i => i.value.toLowerCase());
-    if (variantChecks.length > 0) products = products.filter(p => variantChecks.some(v => p.variant.toLowerCase().includes(v)));
+    if (variantChecks.length > 0) {
+      products = products.filter(p => {
+        const fullNotes = `${p.variant || ''} ${p.top_notes || ''} ${p.middle_notes || ''} ${p.base_notes || ''} ${p.tagline || ''}`.toLowerCase();
+        return variantChecks.some(v => fullNotes.includes(v));
+      });
+    }
+
     const priceMax = Number(document.getElementById('price-range-slider').value);
     products = products.filter(p => p.price <= priceMax);
-    if (document.getElementById('filter-bestseller').checked) products = products.filter(p => p.best_seller);
+
     const sortVal = document.getElementById('sort-select').value;
-    if (sortVal === 'price-asc') products.sort((a,b) => a.price - b.price);
-    else if (sortVal === 'price-desc') products.sort((a,b) => b.price - a.price);
-    else if (sortVal === 'name-asc') products.sort((a,b) => a.name.localeCompare(b.name));
+    if (sortVal === 'bestseller') {
+      products = products.filter(p => p.best_seller);
+    } else if (sortVal === 'price-asc') {
+      products.sort((a,b) => a.price - b.price);
+    } else if (sortVal === 'price-desc') {
+      products.sort((a,b) => b.price - a.price);
+    } else if (sortVal === 'name-asc') {
+      products.sort((a,b) => a.name.localeCompare(b.name));
+    }
+
     renderGrid(products);
   }
 
@@ -711,7 +1086,7 @@
         <div>
           <div class="product-detail-meta">${product.type.toUpperCase()} • ${product.gender.toUpperCase()} • ${product.variant.toUpperCase()}</div>
           <h2 class="product-detail-name" id="product-detail-title">${product.name}</h2>
-          <p class="product-detail-tagline">${product.tagline}</p>
+          <p class="product-detail-tagline">${product.tagline || ''}</p>
           <p class="product-detail-desc">${product.description || 'Detail parfum resmi Parfu.me dengan aroma pilihan.'}</p>
 
           <div class="product-detail-notes">
@@ -744,7 +1119,26 @@
     modal.setAttribute('aria-hidden', 'true');
   }
 
+  function renderSkeletonGrid() {
+    const grid = document.getElementById('katalog-grid');
+    if (!grid) return;
+    const skeletonCard = `
+      <div class="skeleton-card">
+        <div class="skeleton-img skeleton-shimmer"></div>
+        <div class="skeleton-body">
+          <div class="skeleton-line w-40 skeleton-shimmer"></div>
+          <div class="skeleton-line w-70 skeleton-shimmer"></div>
+          <div class="skeleton-line w-50 skeleton-shimmer"></div>
+          <div class="skeleton-line w-30 skeleton-shimmer"></div>
+          <div class="skeleton-line w-100 skeleton-shimmer"></div>
+        </div>
+      </div>
+    `;
+    grid.innerHTML = Array(6).fill(skeletonCard).join('');
+  }
+
   async function initKatalog() {
+    renderSkeletonGrid();
     try {
       if (window.API && typeof window.API.getAll === 'function') {
         const apiProducts = await window.API.getAll();
@@ -757,12 +1151,70 @@
     applyFilters();
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('input[name="gender"], input[name="variant"], #filter-bestseller').forEach(el => el.addEventListener('change', applyFilters));
-    const slider = document.getElementById('price-range-slider');
-    slider.addEventListener('input', () => { document.getElementById('price-max').value = slider.value; applyFilters(); });
-    document.getElementById('sort-select').addEventListener('change', applyFilters);
+  function initCustomSortDropdown() {
+    const wrap = document.getElementById('custom-sort-dropdown');
+    const btn = document.getElementById('custom-sort-btn');
+    const label = document.getElementById('custom-sort-label');
+    const nativeSelect = document.getElementById('sort-select');
+    const opts = document.querySelectorAll('.custom-sort-opt');
 
+    if (!wrap || !btn || !nativeSelect) return;
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      wrap.classList.toggle('open');
+    });
+
+    document.addEventListener('click', () => {
+      wrap.classList.remove('open');
+    });
+
+    opts.forEach(opt => {
+      opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const val = opt.getAttribute('data-value');
+        const txt = opt.textContent.trim();
+
+        label.textContent = txt;
+        nativeSelect.value = val;
+
+        opts.forEach(o => o.classList.remove('active'));
+        opt.classList.add('active');
+        wrap.classList.remove('open');
+
+        applyFilters();
+      });
+    });
+  }
+
+  function toggleFilterSection(titleEl) {
+    const section = titleEl.closest('.filter-section');
+    if (!section) return;
+
+    const span = titleEl.querySelector('span');
+    const isOpen = section.classList.contains('open');
+
+    if (isOpen) {
+      section.classList.remove('open');
+      if (span) span.textContent = '+';
+    } else {
+      section.classList.add('open');
+      if (span) span.textContent = '—';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('input[name="gender"], input[name="variant"]').forEach(el => el.addEventListener('change', () => applyFilters()));
+    const slider = document.getElementById('price-range-slider');
+    if (slider) {
+      slider.addEventListener('input', () => { 
+        document.getElementById('price-max').value = Number(slider.value).toLocaleString('id-ID'); 
+        applyFilters(); 
+      });
+    }
+    document.getElementById('sort-select').addEventListener('change', () => applyFilters());
+
+    initCustomSortDropdown();
     initKatalog();
   });
 </script>

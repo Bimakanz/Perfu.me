@@ -344,23 +344,25 @@
 
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Kategori / Jenis <span>*</span></label>
-          <input type="hidden" id="form-type" value="Eau de Parfum">
+          <label class="form-label">Tipe Produk / Kategori <span>*</span></label>
+          <input type="hidden" id="form-type" value="Signature">
           <div class="form-select-custom" id="custom-select-type">
             <div class="form-select-trigger">
-              <span class="trigger-label">Eau de Parfum</span>
+              <span class="trigger-label">Signature</span>
               <svg class="form-select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </div>
             <div class="form-select-options">
-              <div class="form-select-option selected" data-value="Eau de Parfum"><span>Eau de Parfum</span><span
+              <div class="form-select-option selected" data-value="Signature"><span>Signature</span><span
+                  class="opt-check">✓</span></div>
+              <div class="form-select-option" data-value="Refill"><span>Refill</span><span
+                  class="opt-check">✓</span></div>
+              <div class="form-select-option" data-value="Eau de Parfum"><span>Eau de Parfum</span><span
                   class="opt-check">✓</span></div>
               <div class="form-select-option" data-value="Roll-on"><span>Roll-on</span><span class="opt-check">✓</span>
               </div>
-              <div class="form-select-option" data-value="Extrait de Parfum"><span>Extrait de Parfum</span><span
-                  class="opt-check">✓</span></div>
             </div>
           </div>
         </div>
