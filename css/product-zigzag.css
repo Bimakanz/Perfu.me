@@ -223,10 +223,10 @@
 
 /* Feature Cards Section (Keunggulan) */
 .features-section {
-  background: var(--off-white);
+  background: #F5F5F7;
   padding: 6rem 3rem;
-  border-top: 1px solid var(--silver-light);
-  border-bottom: 1px solid var(--silver-light);
+  border-top: 1px solid #E5E5E5;
+  border-bottom: 1px solid #E5E5E5;
 }
 
 .features-grid {

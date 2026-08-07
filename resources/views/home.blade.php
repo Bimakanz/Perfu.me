@@ -85,6 +85,24 @@
   {{-- 3.5. ABOUT US SECTION (Our Story & Mission) --}}
   <section id="about-story-section" class="about-us-section">
     <div class="about-us-container">
+
+    <div class="about-us-stats-row">
+        <div class="stat-item">
+          <div class="stat-number">2</div>
+          <div class="stat-title">Signature Scents</div>
+          <div class="stat-desc">Pilihan aroma awal yang berkarakter kuat</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-title">Local Pride</div>
+          <div class="stat-desc">Brand parfum lokal berkualitas premium</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">Harga</div>
+          <div class="stat-title">Terjangkau</div>
+          <div class="stat-desc">Wangi mewah tanpa bikin kantong bolong</div>
+        </div>
+      </div>
       <div class="about-us-grid">
         <!-- Left Column: Story & Mission text -->
         <div class="about-us-text-col">
@@ -113,38 +131,29 @@
       </div>
 
       <!-- Stats Row at the bottom -->
-      <div class="about-us-stats-row">
-        <div class="stat-item">
-          <div class="stat-number">2</div>
-          <div class="stat-title">Signature Scents</div>
-          <div class="stat-desc">Pilihan aroma awal yang berkarakter kuat</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">100%</div>
-          <div class="stat-title">Local Pride</div>
-          <div class="stat-desc">Brand parfum lokal berkualitas premium</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">Harga</div>
-          <div class="stat-title">Terjangkau</div>
-          <div class="stat-desc">Wangi mewah tanpa bikin kantong bolong</div>
-        </div>
-      </div>
+      
     </div>
   </section>
 
-  {{-- 3.7. TESTIMONIALS SECTION --}}
-  <section id="testimonials-section" class="testimonials-section">
-    <div class="testimonials-container">
-      <div class="testimonials-header">
-        <span class="testimonials-label">Testimoni Pelanggan</span>
-        <h2 class="testimonials-heading">Baca review,<br><strong>belanja dengan percaya diri.</strong></h2>
-      </div>
+  {{-- 4. PRODUCTS ZIGZAG CATALOG SHOWCASE --}}
+  <section class="products-showcase-section" id="produk-section">
+    <div class="showcase-header">
+      <div class="catalog-tag" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #8A8A8A; margin-bottom: 0.75rem;">KATALOG PRODUK</div>
+      <h2>Parfu.me Specials</h2>
+    </div>
 
+    <div id="produk-section-list">
+      {{-- Best-seller products rendered dynamically by catalog.js --}}
+    </div>
+  </section>
+
+  {{-- 4.5. TESTIMONIALS SECTION --}}
+  <section id="testimoni-section" class="testimonials-section">
+    <div class="testimonials-container">
       <div class="testimonials-grid">
-        <!-- Left Side: Quote Text -->
-        <div class="testimonials-side">
-          <div class="testimonials-quote-icon">“</div>
+        <!-- Left Side: Section Info -->
+        <div class="testimonials-info-col">
+          <span class="testimonials-tag">ULASAN &amp; TESTIMONI</span>
           <h3 class="testimonials-side-heading">Apa kata pelanggan kami</h3>
         </div>
 
@@ -196,18 +205,6 @@
     </div>
   </section>
 
-  {{-- 4. PRODUCTS ZIGZAG CATALOG SHOWCASE --}}
-  <section class="products-showcase-section" id="produk-section">
-    <div class="showcase-header">
-      <div class="catalog-tag" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #8A8A8A; margin-bottom: 0.75rem;">KATALOG PRODUK</div>
-      <h2>Parfu.me Specials</h2>
-    </div>
-
-    <div id="produk-section-list">
-      {{-- Best-seller products rendered dynamically by catalog.js --}}
-    </div>
-  </section>
-
   {{-- 5. KEUNGGULAN & ABOUT SECTIONS --}}
   <section class="features-section" id="keunggulan-section">
     <div style="max-width:1100px; margin:0 auto; text-align:center;">
@@ -238,14 +235,6 @@
     </div>
   </section>
 
-  <section id="about-section" style="padding:6rem 4rem; max-width:1000px; margin:0 auto; text-align:center;">
-    <span style="font-size:0.7rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#8A8A8A;">ABOUT PARFU.ME</span>
-    <h2 style="font-family:var(--font-serif); font-size:3rem; font-weight:300; margin:0.75rem 0 1.5rem;">Wewangian yang Berbicara</h2>
-    <p style="font-size:1rem; line-height:1.8; color:#555; max-width:720px; margin:0 auto;">
-      Parfu.me lahir dari semangat menciptakan wewangian berkelas dunia dengan sentuhan jiwa Nusantara. Setiap racikan cerita di dalam botol kami adalah dedikasi untuk menemani Anda tampil lebih percaya diri di setiap momen istimewa.
-    </p>
-  </section>
-
   {{-- 6. FOOTER --}}
   <footer id="footer-section" style="background:#0D0D0D; color:#FFF; padding:5rem 4rem 2.5rem 4rem;">
     <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:4rem;">
@@ -256,7 +245,7 @@
         </p>
       </div>
       <div>
-        <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Koleksi Best Seller</h4>
+        <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Best Seller</h4>
         <ul style="list-style:none; display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem; color:#8A8A8A; padding:0; margin:0;">
           @php
             $bestSellers = \App\Models\Product::where('best_seller', true)->take(6)->get();

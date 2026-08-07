@@ -356,8 +356,8 @@ button {
 
 .search-result-item:hover {
   background: #FAFAFA;
-  border-color: #0D0D0D;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-color: #E4E4E7;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.04);
 }
 
 .search-result-img {
@@ -388,6 +388,27 @@ button {
   font-weight: 500;
   color: #0D0D0D;
   line-height: 1.2;
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.search-result-name::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: #0D0D0D;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-result-item:hover .search-result-name::after {
+  transform: scaleX(1);
 }
 
 .search-result-price {

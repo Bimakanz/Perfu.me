@@ -197,10 +197,10 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 84px;
+    height: 96px;
     background: #FFFFFF;
     border-top: 1px solid #E5E5E5;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.06);
+    box-shadow: 0 -10px 35px rgba(0,0,0,0.08);
     z-index: 999;
     display: flex;
     align-items: center;
@@ -209,45 +209,47 @@
 
   .bottom-bar-content {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1240px;
     padding: 0 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 1.75rem;
   }
 
   .bottom-bar-product-info {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.1rem;
   }
 
   .bottom-bar-thumb {
-    width: 48px;
-    height: 48px;
-    border-radius: 6px;
+    width: 58px;
+    height: 58px;
+    border-radius: 8px;
     object-fit: cover;
     background: #F4F4F5;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
 
   .bottom-bar-title-group {
     display: flex;
     flex-direction: column;
+    gap: 0.15rem;
   }
 
   .bottom-bar-title {
-    font-size: 0.92rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: #000000;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 320px;
+    max-width: 360px;
   }
 
   .bottom-bar-price {
-    font-size: 0.88rem;
+    font-size: 0.98rem;
     font-weight: 600;
     color: #333333;
   }
@@ -255,7 +257,7 @@
   .bottom-bar-controls {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.1rem;
   }
 
   /* Custom Luxury Dropdown for Size Selection */
@@ -268,18 +270,18 @@
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.85rem;
-    padding: 0.65rem 1.1rem;
-    border: 1px solid #000000;
+    gap: 0.9rem;
+    padding: 0.78rem 1.3rem;
+    border: 1.5px solid #000000;
     border-radius: 999px;
     font-family: inherit;
-    font-size: 0.85rem;
+    font-size: 0.92rem;
     font-weight: 600;
     color: #000000;
     background: #FFFFFF;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
   }
 
   .custom-size-trigger:hover, .custom-size-dropdown.open .custom-size-trigger {
@@ -298,16 +300,16 @@
     position: absolute;
     bottom: calc(100% + 10px);
     right: 0;
-    min-width: 220px;
+    min-width: 240px;
     background: #FFFFFF;
     border: 1px solid #E5E5E5;
     border-radius: 12px;
-    box-shadow: 0 12px 36px rgba(0,0,0,0.14);
-    padding: 0.4rem;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.15);
+    padding: 0.45rem;
     z-index: 1000;
     display: none;
     flex-direction: column;
-    gap: 2px;
+    gap: 3px;
     animation: sizeMenuPop 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
@@ -321,8 +323,8 @@
   }
 
   .custom-size-opt {
-    padding: 0.65rem 1rem;
-    font-size: 0.85rem;
+    padding: 0.75rem 1.1rem;
+    font-size: 0.9rem;
     font-weight: 500;
     color: #333333;
     border-radius: 8px;
@@ -348,59 +350,71 @@
   .qty-counter {
     display: flex;
     align-items: center;
-    border: 1px solid #E5E5E5;
+    border: 1.5px solid #E5E5E5;
     border-radius: 999px;
-    padding: 0.2rem 0.5rem;
+    padding: 0.25rem 0.6rem;
     background: #FFFFFF;
   }
 
   .qty-btn {
     border: none;
-    background: transparent;
-    width: 32px;
-    height: 32px;
-    font-size: 1rem;
-    color: #333333;
+    background: transparent !important;
+    width: 36px;
+    height: 36px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #666666;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     user-select: none;
+    outline: none;
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+
+  .qty-btn:hover, .qty-btn:focus, .qty-btn:active {
+    background: transparent !important;
+    color: #000000;
+    transform: scale(1.15);
   }
 
   .qty-val {
-    font-size: 0.9rem;
-    font-weight: 600;
-    width: 28px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    width: 32px;
     text-align: center;
   }
 
   /* Action Buttons */
   .btn-bottom-order {
-    padding: 0.75rem 1.75rem;
+    padding: 0.85rem 1.85rem;
     background: #000000;
     color: #FFFFFF;
     border: none;
     border-radius: 999px;
-    font-size: 0.85rem;
+    font-size: 0.92rem;
     font-weight: 700;
     cursor: pointer;
     text-decoration: none;
     transition: all 0.2s ease;
     white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
   }
 
   .btn-bottom-order:hover {
     background: #222222;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
   }
 
   .btn-bottom-cart {
-    padding: 0.75rem 1.25rem;
+    padding: 0.85rem 1.4rem;
     background: #FFFFFF;
     color: #000000;
-    border: 1px solid #000000;
+    border: 1.5px solid #000000;
     border-radius: 999px;
-    font-size: 0.85rem;
+    font-size: 0.92rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -409,12 +423,158 @@
 
   .btn-bottom-cart:hover {
     background: #F5F5F5;
+    transform: translateY(-1px);
   }
 
   @media (max-width: 900px) {
     .detail-hero-grid { grid-template-columns: 1fr; gap: 2rem; }
     .bottom-bar-product-info { display: none; }
     .bottom-bar-controls { width: 100%; justify-content: space-between; }
+  }
+
+  /* Related Products Section */
+  .related-section {
+    border-top: 1px solid #EEEEEE;
+    padding-top: 4rem;
+    margin-top: 4rem;
+  }
+
+  .related-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2.5rem;
+  }
+
+  .related-title-sub {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #8A8A8A;
+    margin-bottom: 0.35rem;
+  }
+
+  .related-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: #0D0D0D;
+    margin: 0;
+  }
+
+  .related-link-all {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #0D0D0D;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s;
+  }
+
+  .related-link-all:hover { color: #555555; }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .related-card {
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .related-card:hover {
+    box-shadow: 0 10px 28px rgba(0,0,0,0.05);
+  }
+
+  .related-img-wrap {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    background: #F4F4F5;
+    overflow: hidden;
+  }
+
+  .related-img-wrap img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .related-card:hover .related-img-wrap img {
+    transform: scale(1.05);
+  }
+
+  .related-card-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .related-card-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #8A8A8A;
+    margin-bottom: 0.35rem;
+  }
+
+  .related-card-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0D0D0D;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .related-card-name::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background-color: #0D0D0D;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .related-card:hover .related-card-name::after {
+    transform: scaleX(1);
+  }
+
+  .related-card-price {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #0D0D0D;
+    margin-top: auto;
+  }
+
+  @media (max-width: 900px) {
+    .related-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   }
 </style>
 @endsection
@@ -523,6 +683,41 @@
         </div>
       </div>
     </div>
+
+    {{-- Rekomendasi Parfum Pilihan Lainnya --}}
+    @if(isset($relatedProducts) && count($relatedProducts) > 0)
+      <section class="related-section">
+        <div class="related-header">
+          <div>
+            <div class="related-title-sub">EXPLORE MORE FRAGRANCES</div>
+            <h2 class="related-title">Rekomendasi Parfum Pilihan</h2>
+          </div>
+          <a href="/katalog" class="related-link-all">
+            Lihat Semua Produk
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+        </div>
+
+        <div class="related-grid">
+          @foreach($relatedProducts as $rel)
+            @php
+              $relIsSig = strtolower($rel->type) === 'signature' || str_contains(strtolower($rel->name), 'dynamyst') || str_contains(strtolower($rel->name), 'vanessence');
+              $relPrice = $relIsSig ? $rel->price : 45000;
+            @endphp
+            <a href="/produk/{{ $rel->id }}" class="related-card">
+              <div class="related-img-wrap">
+                <img src="{{ asset($rel->image) }}" alt="{{ $rel->name }}" loading="lazy" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+              </div>
+              <div class="related-card-body">
+                <div class="related-card-tag">{{ $relIsSig ? 'Signature' : 'Refill' }} • {{ $rel->gender }}</div>
+                <div class="related-card-name">{{ $rel->name }}</div>
+                <div class="related-card-price">Rp {{ number_format($relPrice, 0, ',', '.') }}</div>
+              </div>
+            </a>
+          @endforeach
+        </div>
+      </section>
+    @endif
   </div>
 
   {{-- Sticky Bottom Bar --}}
@@ -574,7 +769,7 @@
   </div>
 
   {{-- FOOTER --}}
-  <footer id="footer-section" style="background:#0D0D0D; color:#FFF; padding:5rem 4rem 2.5rem 4rem; margin-top: 5rem; position:relative; z-index:1;">
+  <footer id="footer-section" style="background:#0D0D0D; color:#FFF; padding:6rem 4rem 8rem 4rem; margin-top: 7rem; position:relative; z-index:1;">
     <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:4rem;">
       <div>
         <div style="font-family:'Cormorant Garamond', Georgia, serif; font-size:2rem; font-weight:300; letter-spacing:0.05em; margin-bottom:0.75rem;">Parfu.me</div>
@@ -583,7 +778,7 @@
         </p>
       </div>
       <div>
-        <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Koleksi Best Seller</h4>
+        <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Best Seller</h4>
         <ul style="list-style:none; display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem; color:#8A8A8A; padding:0; margin:0;">
           @php
             $bestSellers = \App\Models\Product::where('best_seller', true)->take(6)->get();

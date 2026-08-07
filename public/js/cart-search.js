@@ -224,21 +224,28 @@
     function renderSearchResults(query) {
       if (!resultsContainer) return;
 
-      let filtered = PRODUCTS_DATA;
-      if (query) {
-        const q = query.toLowerCase();
-        filtered = PRODUCTS_DATA.filter(p =>
-          p.name.toLowerCase().includes(q) ||
-          p.variant.toLowerCase().includes(q) ||
-          (p.tagline && p.tagline.toLowerCase().includes(q))
-        );
+      if (!query) {
+        resultsContainer.innerHTML = `
+          <div class="search-empty-state" style="padding:4rem 1.5rem; text-align:center;">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#CCCCCC" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <p style="font-size:0.85rem; color:#8A8A8A; margin-top:0.75rem;">Ketik nama parfum atau varian untuk mulai mencari...</p>
+          </div>
+        `;
+        return;
       }
+
+      const q = query.toLowerCase();
+      const filtered = PRODUCTS_DATA.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.variant.toLowerCase().includes(q) ||
+        (p.tagline && p.tagline.toLowerCase().includes(q))
+      );
 
       if (filtered.length === 0) {
         resultsContainer.innerHTML = `
           <div class="search-empty-state">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#A1A1AA" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <p>Tidak ada parfum yang cocok dengan "<strong>${query}</strong>"</p>
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#A1A1AA" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <p style="font-size:0.88rem; color:#555; margin-top:0.75rem;">Tidak ada parfum yang cocok dengan "<strong>${query}</strong>"</p>
           </div>
         `;
         return;
@@ -247,14 +254,14 @@
       resultsContainer.innerHTML = `
         <div class="search-results-list">
           ${filtered.map(p => `
-            <div class="search-result-item">
-              <img src="${p.image}" alt="${p.name}" class="search-result-img" onerror="this.src='assets/images/Nusantara1nobg.png'">
+            <div class="search-result-item" onclick="window.location.href='/produk/${p.id}'" style="cursor:pointer;" title="Lihat detail ${p.name}">
+              <img src="${p.image}" alt="${p.name}" class="search-result-img" onerror="this.src='assets/images/refill.webp'">
               <div class="search-result-info">
-                <div class="search-result-tag">${p.gender} · ${p.variant}</div>
+                <div class="search-result-tag">${p.gender || 'Unisex'} · ${p.variant || ''}</div>
                 <div class="search-result-name">${p.name}</div>
                 <div class="search-result-price">${formatPrice(p.price)}</div>
               </div>
-              <button class="search-result-add-btn" onclick="window.addToCart(${p.id})">
+              <button class="search-result-add-btn" onclick="event.stopPropagation(); window.addToCart(${p.id})">
                 + Cart
               </button>
             </div>
