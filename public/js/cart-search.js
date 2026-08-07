@@ -46,6 +46,12 @@
     return 'Rp ' + Number(num).toLocaleString('id-ID');
   }
 
+  function formatImgUrl(url) {
+    if (!url) return '/assets/images/refill.webp';
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('/')) return url;
+    return '/' + url;
+  }
+
   function closeSearchDrawer() {
     const searchOverlay = document.getElementById('search-drawer-overlay');
     const searchDrawer = document.getElementById('search-drawer');
@@ -61,8 +67,67 @@
   }
   window.closeCartDrawer = closeCartDrawer;
 
+  // ── Cool Simple Flying Cart Thumbnail Animation (1.2s Smooth) ─────
+  function flyToCartAnimation(imgSrc, evt) {
+    const cartBtn = document.getElementById('btn-open-cart');
+    if (!cartBtn) return;
+
+    const targetRect = cartBtn.getBoundingClientRect();
+    let startX = window.innerWidth / 2;
+    let startY = window.innerHeight / 2;
+
+    if (evt && evt.target) {
+      const rect = evt.target.getBoundingClientRect();
+      startX = rect.left + rect.width / 2;
+      startY = rect.top + rect.height / 2;
+    }
+
+    // Create floating thumbnail element
+    const flyImg = document.createElement('img');
+    flyImg.src = formatImgUrl(imgSrc);
+    flyImg.style.cssText = `
+      position: fixed;
+      z-index: 99999;
+      top: ${startY - 25}px;
+      left: ${startX - 25}px;
+      width: 54px;
+      height: 54px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.3);
+      border: 2px solid #FFFFFF;
+      pointer-events: none;
+      transition: all 1.2s cubic-bezier(0.25, 1, 0.3, 1);
+      opacity: 1;
+      transform: scale(1);
+    `;
+
+    document.body.appendChild(flyImg);
+
+    // Trigger fly animation
+    requestAnimationFrame(() => {
+      flyImg.style.top = `${targetRect.top + targetRect.height / 2 - 15}px`;
+      flyImg.style.left = `${targetRect.left + targetRect.width / 2 - 15}px`;
+      flyImg.style.width = '28px';
+      flyImg.style.height = '28px';
+      flyImg.style.opacity = '0.15';
+      flyImg.style.transform = 'scale(0.3)';
+    });
+
+    // Cleanup & bounce cart icon on hit after 1.2 seconds
+    setTimeout(() => {
+      flyImg.remove();
+      cartBtn.style.transition = 'transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+      cartBtn.style.transform = 'scale(1.4)';
+      setTimeout(() => {
+        cartBtn.style.transform = 'scale(1)';
+      }, 220);
+    }, 1200);
+  }
+  window.flyToCartAnimation = flyToCartAnimation;
+
   // ── Add to Cart Function ──────────────────────────────────
-  window.addToCart = async function (productId, qty = 1) {
+  window.addToCart = async function (productId, qty = 1, evt = null) {
     let product = PRODUCTS_DATA.find(p => p.id === Number(productId));
 
     // If not in cache, try fetching directly from API
@@ -97,19 +162,17 @@
     }
 
     saveCart(cart);
-    showToast(`"${product.name}" telah ditambahkan ke keranjang!`);
+    flyToCartAnimation(product.image, evt || window.event);
+    showCenterToast('Produk telah ditambahkan ke keranjang belanja');
     renderCartItems();
   };
 
-  // ── Remove & Update Qty ───────────────────────────────────
+  // ── Remove & Update Qty (No notifications/animations on delete) ──
   window.removeFromCart = function (id) {
     let cart = getCart();
-    const item = cart.find(i => i.id === Number(id));
-    const name = item ? item.name : 'Produk';
     cart = cart.filter(i => i.id !== Number(id));
     saveCart(cart);
     renderCartItems();
-    showToast(`"${name}" dihapus dari keranjang.`, 'info');
   };
 
   window.updateCartQty = function (id, delta) {
@@ -120,7 +183,6 @@
     item.qty += delta;
     if (item.qty <= 0) {
       cart = cart.filter(i => i.id !== Number(id));
-      showToast(`"${item.name}" dihapus dari keranjang.`, 'info');
     }
 
     saveCart(cart);
@@ -138,59 +200,79 @@
     }
   }
 
-  // ── Toast Helper (Luxury Toast Notification) ─────────────
-  function showToast(message, type = 'success', title = '') {
-    let container = document.getElementById('toast-container');
-    if (!container) {
-      container = document.createElement('div');
-      container.id = 'toast-container';
-      document.body.appendChild(container);
-    }
+  // ── Centered Shopee-Style Invisible Soft Grey Toast Notification ──
+  function showCenterToast(message) {
+    // Remove existing toast if any
+    const existing = document.getElementById('center-toast-box');
+    if (existing) existing.remove();
 
-    const toast = document.createElement('div');
-    toast.className = `toast ${type}`;
-
-    let iconSvg = '';
-    let defaultTitle = '';
-
-    if (type === 'success') {
-      defaultTitle = 'KERANJANG BELANJA';
-      iconSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>`;
-    } else if (type === 'error') {
-      defaultTitle = 'PERHATIAN';
-      iconSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
-    } else {
-      defaultTitle = 'KERANJANG BELANJA';
-      iconSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>`;
-    }
-
-    toast.innerHTML = `
-      <div class="toast-icon-box">${iconSvg}</div>
-      <div class="toast-content">
-        <div class="toast-title">${title || defaultTitle}</div>
-        <div class="toast-message">${message}</div>
-      </div>
-      <button class="toast-close" aria-label="Tutup">&times;</button>
-      <div class="toast-progress"></div>
+    const box = document.createElement('div');
+    box.id = 'center-toast-box';
+    box.style.cssText = `
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.85);
+      z-index: 100000;
+      background: rgba(28, 28, 30, 0.82);
+      color: #FFFFFF;
+      padding: 1.6rem 2.25rem;
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.22);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      text-align: center;
+      max-width: 320px;
+      pointer-events: none;
+      opacity: 0;
+      animation: popInCenterBox 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     `;
 
-    const closeBtn = toast.querySelector('.toast-close');
-    if (closeBtn) {
-      closeBtn.onclick = () => removeToast(toast);
+    box.innerHTML = `
+      <div style="width: 54px; height: 54px; border-radius: 50%; background: #10B981; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <div style="font-size: 0.9rem; font-weight: 600; line-height: 1.5; color: #FFFFFF; letter-spacing: 0.02em;">
+        ${message}
+      </div>
+    `;
+
+    document.body.appendChild(box);
+
+    // Inject CSS keyframes if not present
+    if (!document.getElementById('center-toast-styles')) {
+      const styleTag = document.createElement('style');
+      styleTag.id = 'center-toast-styles';
+      styleTag.innerHTML = `
+        @keyframes popInCenterBox {
+          from { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
+          to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+        @keyframes fadeOutCenterBox {
+          from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+          to { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+        }
+      `;
+      document.head.appendChild(styleTag);
     }
 
-    container.appendChild(toast);
-
-    const timer = setTimeout(() => {
-      removeToast(toast);
-    }, 3500);
-
-    function removeToast(el) {
-      clearTimeout(timer);
-      el.classList.add('toast-hiding');
-      setTimeout(() => el.remove(), 300);
-    }
+    // Auto dismiss after 1.5s
+    setTimeout(() => {
+      box.style.animation = 'fadeOutCenterBox 0.3s ease forwards';
+      setTimeout(() => {
+        box.remove();
+      }, 300);
+    }, 1500);
   }
+  window.showToast = showCenterToast;
 
   // ── Search Drawer Logic ──────────────────────────────────
   function initSearchDrawer() {
@@ -253,19 +335,22 @@
 
       resultsContainer.innerHTML = `
         <div class="search-results-list">
-          ${filtered.map(p => `
-            <div class="search-result-item" onclick="window.location.href='/produk/${p.id}'" style="cursor:pointer;" title="Lihat detail ${p.name}">
-              <img src="${p.image}" alt="${p.name}" class="search-result-img" onerror="this.src='assets/images/refill.webp'">
-              <div class="search-result-info">
-                <div class="search-result-tag">${p.gender || 'Unisex'} · ${p.variant || ''}</div>
-                <div class="search-result-name">${p.name}</div>
-                <div class="search-result-price">${formatPrice(p.price)}</div>
+          ${filtered.map(p => {
+            const imgSrc = formatImgUrl(p.image);
+            return `
+              <div class="search-result-item" onclick="window.location.href='/produk/${p.id}'" style="cursor:pointer;" title="Lihat detail ${p.name}">
+                <img src="${imgSrc}" alt="${p.name}" class="search-result-img" onerror="this.src='/assets/images/refill.webp'">
+                <div class="search-result-info">
+                  <div class="search-result-tag">${p.gender || 'Unisex'} · ${p.variant || ''}</div>
+                  <div class="search-result-name">${p.name}</div>
+                  <div class="search-result-price">${formatPrice(p.price)}</div>
+                </div>
+                <button class="search-result-add-btn" onclick="event.stopPropagation(); window.addToCart(${p.id})">
+                  + Cart
+                </button>
               </div>
-              <button class="search-result-add-btn" onclick="event.stopPropagation(); window.addToCart(${p.id})">
-                + Cart
-              </button>
-            </div>
-          `).join('')}
+            `;
+          }).join('')}
         </div>
       `;
     }
@@ -318,23 +403,26 @@
 
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
 
-    container.innerHTML = cart.map(item => `
-      <div class="cart-item-card">
-        <img src="${item.image}" alt="${item.name}" class="cart-item-img" onerror="this.src='assets/images/Nusantara1nobg.png'">
-        <div class="cart-item-details">
-          <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-variant">${item.variant} · ${item.size}</div>
-          <div class="cart-item-price">${formatPrice(item.price)}</div>
+    container.innerHTML = cart.map(item => {
+      const imgSrc = formatImgUrl(item.image);
+      return `
+        <div class="cart-item-card">
+          <img src="${imgSrc}" alt="${item.name}" class="cart-item-img" onerror="this.src='/assets/images/refill.webp'">
+          <div class="cart-item-details">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-variant">${item.variant} · ${item.size}</div>
+            <div class="cart-item-price">${formatPrice(item.price)}</div>
 
-          <div class="cart-qty-control">
-            <button class="qty-btn" onclick="window.updateCartQty(${item.id}, -1)">−</button>
-            <span class="qty-num">${item.qty}</span>
-            <button class="qty-btn" onclick="window.updateCartQty(${item.id}, 1)">+</button>
+            <div class="cart-qty-control">
+              <button class="qty-btn" onclick="window.updateCartQty(${item.id}, -1)">−</button>
+              <span class="qty-num">${item.qty}</span>
+              <button class="qty-btn" onclick="window.updateCartQty(${item.id}, 1)">+</button>
+            </div>
           </div>
+          <button class="cart-item-remove" onclick="window.removeFromCart(${item.id})" title="Hapus produk">&times;</button>
         </div>
-        <button class="cart-item-remove" onclick="window.removeFromCart(${item.id})" title="Hapus produk">&times;</button>
-      </div>
-    `).join('');
+      `;
+    }).join('');
 
     if (totalEl) totalEl.textContent = formatPrice(subtotal);
 

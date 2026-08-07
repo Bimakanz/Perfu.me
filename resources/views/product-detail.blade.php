@@ -537,22 +537,23 @@
   }
 
   .related-card-name {
-    font-size: 0.95rem;
+    font-size: 0.98rem;
     font-weight: 700;
     color: #0D0D0D;
     margin-bottom: 0.5rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    position: relative;
-    width: fit-content;
-    max-width: 100%;
+    line-height: 1.35;
   }
 
-  .related-card-name::after {
+  .related-card-title-text {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 2px;
+  }
+
+  .related-card-title-text::after {
     content: '';
     position: absolute;
-    bottom: -2px;
+    bottom: 0;
     left: 0;
     width: 100%;
     height: 1.5px;
@@ -562,7 +563,7 @@
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .related-card:hover .related-card-name::after {
+  .related-card:hover .related-card-title-text::after {
     transform: scaleX(1);
   }
 
@@ -588,10 +589,10 @@
     </div>
 
     <ul class="nav-links">
-      <li><a href="/katalog" style="color:#0D0D0D; font-weight:700; text-decoration:underline; text-underline-offset:4px;">Produk</a></li>
+      <li><a href="/katalog">Katalog</a></li>
       <li><a href="/quiz">Quiz</a></li>
-      <li><a href="/#keunggulan-section">Keunggulan</a></li>
-      <li><a href="/#about-section">Tentang</a></li>
+      <li><a href="/#about-story-section">Tentang</a></li>
+      <li><a href="/#testimoni-section">Testimoni</a></li>
       <li><a href="/#footer-section">Kontak</a></li>
     </ul>
 
@@ -710,7 +711,9 @@
               </div>
               <div class="related-card-body">
                 <div class="related-card-tag">{{ $relIsSig ? 'Signature' : 'Refill' }} • {{ $rel->gender }}</div>
-                <div class="related-card-name">{{ $rel->name }}</div>
+                <div class="related-card-name">
+                  <span class="related-card-title-text">{{ $rel->name }}</span>
+                </div>
                 <div class="related-card-price">Rp {{ number_format($relPrice, 0, ',', '.') }}</div>
               </div>
             </a>
@@ -870,9 +873,9 @@
     updateDisplay();
   }
 
-  function addSelectedToCart() {
+  function addSelectedToCart(evt) {
     if (window.addToCart) {
-      window.addToCart(productId);
+      window.addToCart(productId, currentQty, evt || window.event);
     }
   }
 

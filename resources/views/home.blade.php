@@ -36,10 +36,10 @@
     </div>
 
     <ul class="nav-links">
-      <li><a href="/katalog">Produk</a></li>
+      <li><a href="/katalog">Katalog</a></li>
       <li><a href="/quiz">Quiz</a></li>
-      <li><a href="#keunggulan-section" data-nav="keunggulan-section">Keunggulan</a></li>
-      <li><a href="#about-section" data-nav="about-section">Tentang</a></li>
+      <li><a href="#about-story-section" data-nav="about-story-section">Tentang</a></li>
+      <li><a href="#testimoni-section" data-nav="testimoni-section">Testimoni</a></li>
       <li><a href="#footer-section" data-nav="footer-section">Kontak</a></li>
     </ul>
 
@@ -139,7 +139,7 @@
   <section class="products-showcase-section" id="produk-section">
     <div class="showcase-header">
       <div class="catalog-tag" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #8A8A8A; margin-bottom: 0.75rem;">KATALOG PRODUK</div>
-      <h2>Parfu.me Specials</h2>
+      <h2>Parfu.me Signatures</h2>
     </div>
 
     <div id="produk-section-list">
@@ -205,33 +205,19 @@
     </div>
   </section>
 
-  {{-- 5. KEUNGGULAN & ABOUT SECTIONS --}}
-  <section class="features-section" id="keunggulan-section">
-    <div style="max-width:1100px; margin:0 auto; text-align:center;">
-      <h2 style="font-family:var(--font-serif); font-size:2.8rem; font-weight:300; margin-bottom:3rem;">Keunggulan Parfu.me</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
-          </div>
-          <h3 class="feature-title">Grade A Concentrate</h3>
-          <p class="feature-desc">Dibuat dari minyak wangi konsentrat grade A Eropa berkualitas tinggi tanpa bahan sintetis berbahaya.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          </div>
-          <h3 class="feature-title">Ketahanan 10 Jam</h3>
-          <p class="feature-desc">Formulasi khusus Eau de Parfum yang melekat secara alami dan tahan lama hingga seharian.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
-          </div>
-          <h3 class="feature-title">Kemasan Mewah</h3>
-          <p class="feature-desc">Dikemas menggunakan botol kaca spray elegan dan box eksklusif yang cocok untuk hadiah.</p>
-        </div>
-      </div>
+  {{-- 5. QUIZ PROMOTION BANNER SECTION --}}
+  <section class="quiz-banner-section" id="quiz-banner-section" style="background:#F5F5F7; padding:6rem 2rem; text-align:center;">
+    <div style="max-width:760px; margin:0 auto;">
+      <span style="font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#8A8A8A; display:inline-block; margin-bottom:1rem;">FIND YOUR SIGNATURE SCENT</span>
+      <h2 style="font-family:var(--font-serif); font-size:clamp(2.4rem, 4vw, 3.4rem); font-weight:300; color:#0D0D0D; line-height:1.2; margin-bottom:1.25rem;">
+        Masih Bingung Memilih Aroma Parfum Yang Pas?
+      </h2>
+      <p style="font-size:1.02rem; color:#555555; line-height:1.75; margin-bottom:2.5rem; max-width:620px; margin-left:auto; margin-right:auto;">
+        Jawab 5 pertanyaan simpel untuk menemukan varian parfum Parfu.me yang paling cocok dengan kepribadian & aktivitas harian Anda.
+      </p>
+      <a href="/quiz" style="display:inline-flex; align-items:center; gap:0.6rem; padding:1.05rem 2.4rem; background:#0D0D0D; color:#FFFFFF; border-radius:999px; font-size:0.88rem; font-weight:700; letter-spacing:0.06em; text-decoration:none; transition:all 0.25s ease; box-shadow:0 6px 20px rgba(0,0,0,0.12);" onmouseover="this.style.background='#252525'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#0D0D0D'; this.style.transform='translateY(0)';">
+        Ikuti Quiz 
+      </a>
     </div>
   </section>
 

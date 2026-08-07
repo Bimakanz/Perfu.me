@@ -7,7 +7,7 @@
   position: relative;
   width: 100%;
   background-color: var(--white);
-  padding: 2rem 4rem;
+  padding: 6rem 4rem 4rem 4rem;
   overflow: hidden;
 }
 
@@ -150,7 +150,7 @@
 
 /* Stats Row at the Top/Bottom (Neat & Serif Typography) */
 .about-us-stats-row {
-  margin-top: 0;
+  margin-top: 5rem;
   margin-bottom: 4rem;
   border-top: none;
   border-bottom: 1px solid var(--silver-light);

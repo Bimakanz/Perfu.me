@@ -783,10 +783,10 @@
     </div>
 
     <ul class="nav-links">
-      <li><a href="/katalog" style="color:#0D0D0D; font-weight:700; text-decoration:underline; text-underline-offset:4px;">Produk</a></li>
+      <li><a href="/katalog" style="color:#0D0D0D; font-weight:700; text-decoration:underline; text-underline-offset:4px;">Katalog</a></li>
       <li><a href="/quiz">Quiz</a></li>
-      <li><a href="/#keunggulan-section">Keunggulan</a></li>
-      <li><a href="/#about-section">Tentang</a></li>
+      <li><a href="/#about-story-section">Tentang</a></li>
+      <li><a href="/#testimoni-section">Testimoni</a></li>
       <li><a href="/#footer-section">Kontak</a></li>
     </ul>
 
