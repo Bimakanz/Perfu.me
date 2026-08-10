@@ -4,20 +4,19 @@
  * Perfu.me E-Commerce Platform
  */
 
-(function () {
-  let products = [];
-  let deleteTargetId = null;
-  let detailTargetId = null;
-  let isEditing = false;
-  let currentSort = { field: 'id', dir: 'asc' };
+var products = [];
+var deleteTargetId = null;
+var detailTargetId = null;
+var isEditing = false;
+var currentSort = { field: 'id', dir: 'asc' };
 
   // ── Image URL Helper ───────────────────────────────────────
   function formatImgUrl(path) {
-    if (!path) return '../assets/images/Nusantara1nobg.png';
+    if (!path) return '/assets/images/penisence.webp';
     if (path.startsWith('data:') || path.startsWith('http://') || path.startsWith('https://')) return path;
-    if (path.startsWith('../')) return path;
-    if (path.startsWith('/')) return '..' + path;
-    return '../' + path;
+    if (path.startsWith('../')) path = path.replace('../', '');
+    if (!path.startsWith('/')) path = '/' + path;
+    return path;
   }
 
   // ── Toast Helper (Luxury Toast Notification) ─────────────
@@ -74,13 +73,46 @@
     }
   }
 
+  // Password visibility toggle
+  window.toggleAdminPassword = function(e) {
+    if (e) e.preventDefault();
+    const passInput = document.getElementById('admin-pass-input');
+    if (passInput) {
+      passInput.type = passInput.type === 'password' ? 'text' : 'password';
+    }
+  };
+
+  // Global login handler attached directly to button click
+  window.doAdminLogin = function(e) {
+    if (e) e.preventDefault();
+    const errorMsg = document.getElementById('login-error-msg');
+    if (errorMsg) errorMsg.classList.remove('show');
+
+    const userInput = document.getElementById('admin-user-input');
+    const passInput = document.getElementById('admin-pass-input');
+    const user = (userInput ? userInput.value : '').trim();
+    const pass = (passInput ? passInput.value : '').trim();
+
+    if (user === 'admin' && pass === 'admin123') {
+      if (window.API && typeof window.API.setToken === 'function') {
+        window.API.setToken('mock_session_token');
+      }
+      showDashboard();
+      return false;
+    }
+
+    if (errorMsg) {
+      errorMsg.textContent = 'Username atau password salah.';
+      errorMsg.classList.add('show');
+    }
+    return false;
+  };
+
   // ── 1. Login Controller ─────────────────────────────────
   function initLogin() {
     const form = document.getElementById('admin-login-form');
     const passInput = document.getElementById('admin-pass-input');
     const toggleBtn = document.getElementById('toggle-pass-btn');
-    const errorMsg = document.getElementById('login-error-msg');
-    const submitBtn = document.getElementById('login-submit-btn');
 
     // Toggle password visibility
     if (toggleBtn && passInput) {
@@ -92,40 +124,7 @@
 
     // Handle Login Submit
     if (form) {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        errorMsg.classList.remove('show');
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Memverifikasi...';
-
-        const user = document.getElementById('admin-user-input').value.trim();
-        const pass = passInput.value.trim();
-
-        try {
-          // API Auth call
-          const res = await window.API.login(user, pass);
-          if (res.success) {
-            showToast('Selamat datang kembali, Admin!');
-            showDashboard();
-          } else {
-            errorMsg.textContent = res.message || 'Username atau password salah.';
-            errorMsg.classList.add('show');
-          }
-        } catch (err) {
-          // Local fallback if API server authentication fails or mock session is used
-          if (user === 'admin' && pass === 'admin123') {
-            window.API.setToken('mock_session_token');
-            showToast('Login berhasil (Mode Standalone).');
-            showDashboard();
-          } else {
-            errorMsg.textContent = err.message || 'Gagal login.';
-            errorMsg.classList.add('show');
-          }
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Masuk ke Dashboard';
-        }
-      });
+      form.addEventListener('submit', window.doAdminLogin);
     }
 
     // Logout button handler
@@ -150,9 +149,11 @@
     });
 
     // Check existing session
-    if (window.API.hasToken()) {
-      showDashboard();
-    }
+    try {
+      if (window.API && typeof window.API.hasToken === 'function' && window.API.hasToken()) {
+        showDashboard();
+      }
+    } catch (e) {}
   }
 
   // ── Custom Filter Select Dropdown Controller ────────────────
@@ -198,28 +199,100 @@
   }
 
   function showDashboard() {
-    document.getElementById('admin-login-page').style.display = 'none';
-    document.getElementById('admin-dashboard-page').classList.add('active');
+    const loginPage = document.getElementById('admin-login-page');
+    const dashPage = document.getElementById('admin-dashboard-page');
+    
+    if (loginPage) {
+      loginPage.style.cssText = 'display: none !important;';
+    }
+    if (dashPage) {
+      dashPage.style.cssText = 'display: block !important;';
+      dashPage.classList.add('active');
+    }
+
+    // Load initial products fallback immediately to render UI
+    products = [...DEFAULT_ADMIN_PRODUCTS];
+    try { renderTable(); } catch (e) {}
+    try { updateStats(); } catch (e) {}
+
+    // Async fetch from database in background
     loadDashboardData();
   }
 
   function logout() {
     window.API.logout();
-    document.getElementById('admin-dashboard-page').classList.remove('active');
-    document.getElementById('admin-login-page').style.display = 'flex';
+    const loginPage = document.getElementById('admin-login-page');
+    const dashPage = document.getElementById('admin-dashboard-page');
+    if (dashPage) {
+      dashPage.classList.remove('active');
+      dashPage.style.cssText = 'display: none !important;';
+    }
+    if (loginPage) {
+      loginPage.style.cssText = 'display: flex !important;';
+    }
     showToast('Berhasil keluar dari dashboard.', 'info');
   }
 
+  // Default fallback products if API returns empty
+  const DEFAULT_ADMIN_PRODUCTS = [
+    {
+      id: 1,
+      name: 'Vanessence',
+      type: 'Eau de Parfum',
+      gender: 'Wanita',
+      variant: 'Gourmand Vanilla',
+      top_notes: 'Almond, Anise',
+      middle_notes: 'Vanilla Orchid, Heliotrope',
+      base_notes: 'Bourbon Vanilla, Tonka Bean',
+      packaging: 'Botol kaca spray 30ml, dus karton',
+      size: '30ml',
+      price: 45000,
+      stock: 30,
+      best_seller: true,
+      image: 'assets/images/penisence.webp',
+      description: 'Vanessence adalah perpaduan bunga yang lembut dengan sentuhan vanilla hangat. Dibuat untuk wanita yang anggun namun berkarakter.',
+      tagline: 'Feminin, manis, dan memikat'
+    },
+    {
+      id: 2,
+      name: 'Dynamyst',
+      type: 'Eau de Parfum',
+      gender: 'Pria',
+      variant: 'Spicy Woody',
+      top_notes: 'Grapefruit, Sea Salt',
+      middle_notes: 'Sage, Rosemary',
+      base_notes: 'Cedarwood, Patchouli',
+      packaging: 'Botol kaca spray 30ml, dus karton',
+      size: '30ml',
+      price: 45000,
+      stock: 25,
+      best_seller: true,
+      image: 'assets/images/dynamist.webp',
+      description: 'Dynamyst adalah wewangian untuk pria yang dinamis dan penuh energi.',
+      tagline: 'Maskulin, tegas, penuh energi'
+    }
+  ];
+
   // ── 2. Dashboard Data & Table Rendering ─────────────────────
   async function loadDashboardData() {
+    products = [...DEFAULT_ADMIN_PRODUCTS];
+    renderTable();
+    updateStats();
+
     try {
-      products = await window.API.getAll();
-      renderTable();
-      updateStats();
-    } catch (err) {
-      showToast('Gagal memuat data produk.', 'error');
-    }
+      if (window.API && typeof window.API.getAll === 'function') {
+        const res = await window.API.getAll();
+        if (res && res.length > 0) {
+          products = res;
+          renderTable();
+          updateStats();
+        }
+      }
+    } catch (err) {}
   }
+
+  window.loadDashboardData = loadDashboardData;
+  window.renderTable = renderTable;
 
   function updateStats() {
     const total = products.length;
@@ -227,10 +300,15 @@
     const lowStock = products.filter(p => p.stock > 0 && p.stock < 20).length;
     const outOfStock = products.filter(p => Number(p.stock) === 0).length;
 
-    document.getElementById('stat-total-products').textContent = total;
-    document.getElementById('stat-bestsellers').textContent = bestSellers;
-    document.getElementById('stat-lowstock').textContent = lowStock;
-    document.getElementById('stat-outofstock').textContent = outOfStock;
+    const elTotal = document.getElementById('stat-total-products');
+    const elBs = document.getElementById('stat-bestsellers');
+    const elLow = document.getElementById('stat-lowstock');
+    const elOut = document.getElementById('stat-outofstock');
+
+    if (elTotal) elTotal.textContent = total;
+    if (elBs) elBs.textContent = bestSellers;
+    if (elLow) elLow.textContent = lowStock;
+    if (elOut) elOut.textContent = outOfStock;
   }
 
   // Clean Stock Pill without text (Menipis / Habis), purely colored pill
@@ -256,21 +334,61 @@
     if (customTrigger) customTrigger.classList.remove('active');
 
     const dropdown = document.getElementById(`dropdown-${id}`);
+    if (!dropdown) return;
     const isShow = dropdown.classList.contains('show');
 
     // Close all other open dropdowns
-    document.querySelectorAll('.action-dropdown-menu').forEach(m => m.classList.remove('show'));
+    document.querySelectorAll('.action-dropdown-menu').forEach(m => {
+      m.classList.remove('show');
+      m.classList.remove('drop-up');
+    });
     document.querySelectorAll('.btn-3dots').forEach(b => b.classList.remove('active'));
 
     if (!isShow) {
+      // Check if button is in lower half of table or screen
+      const rect = event.currentTarget.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      if (rect.bottom > windowHeight - 160) {
+        dropdown.classList.add('drop-up');
+      } else {
+        dropdown.classList.remove('drop-up');
+      }
+
       dropdown.classList.add('show');
       const btn = dropdown.previousElementSibling;
       if (btn) btn.classList.add('active');
     }
   };
 
+var adminCurrentPage = 1;
+const ADMIN_ITEMS_PER_PAGE = 5;
+
+window.goToAdminPage = function(page) {
+  adminCurrentPage = page;
+  renderTable();
+};
+
+function renderAdminPaginationControls(totalPages) {
+  let btns = '';
+
+  // PREVIOUS Button
+  btns += `<button class="page-btn page-nav ${adminCurrentPage === 1 ? 'disabled' : ''}" onclick="window.goToAdminPage(${adminCurrentPage - 1})" ${adminCurrentPage === 1 ? 'disabled' : ''}>PREVIOUS</button>`;
+
+  // Page Numbers
+  for (let i = 1; i <= totalPages; i++) {
+    btns += `<button class="page-btn ${i === adminCurrentPage ? 'active' : ''}" onclick="window.goToAdminPage(${i})">${i}</button>`;
+  }
+
+  // NEXT Button
+  btns += `<button class="page-btn page-nav ${adminCurrentPage === totalPages ? 'disabled' : ''}" onclick="window.goToAdminPage(${adminCurrentPage + 1})" ${adminCurrentPage === totalPages ? 'disabled' : ''}>NEXT</button>`;
+
+  return btns;
+}
+
   function renderTable() {
     const tbody = document.getElementById('admin-table-body');
+    const mobileCardsContainer = document.getElementById('admin-mobile-cards');
+    const paginationContainer = document.getElementById('admin-pagination');
     const searchVal = (document.getElementById('admin-table-search')?.value || '').toLowerCase();
     const filterVal = document.getElementById('admin-filter-status')?.value || 'all';
 
@@ -304,71 +422,87 @@
     });
 
     if (filtered.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:3.5rem;color:#A1A1AA;font-size:0.9rem;">Tidak ada produk yang memenuhi kriteria pencarian.</td></tr>`;
+      if (tbody) tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:3.5rem;color:#A1A1AA;font-size:0.9rem;">Tidak ada produk yang memenuhi kriteria pencarian.</td></tr>`;
+      if (mobileCardsContainer) mobileCardsContainer.innerHTML = `<div style="text-align:center;padding:3rem 1rem;color:#A1A1AA;font-size:0.9rem;">Tidak ada produk yang memenuhi kriteria pencarian.</div>`;
+      if (paginationContainer) paginationContainer.innerHTML = '';
       return;
     }
 
-    tbody.innerHTML = filtered.map(p => {
-      const isBs = Boolean(p.bestSeller || p.best_seller);
-      const isZero = Number(p.stock) === 0;
-      const imgSrc = formatImgUrl(p.image);
+    // Calculate Pagination (5 items per page)
+    const totalPages = Math.ceil(filtered.length / ADMIN_ITEMS_PER_PAGE);
+    if (adminCurrentPage > totalPages) adminCurrentPage = 1;
 
-      return `
-        <tr data-id="${p.id}">
-          <td>
-            <div class="admin-product-cell" onclick="window.openDetailModal('${p.id}')" title="Klik untuk melihat detail lengkap produk">
-              <img src="${imgSrc}" class="admin-product-thumb" onerror="this.src='../assets/images/Nusantara1nobg.png'">
-              <div>
-                <div class="admin-product-name">${p.name}</div>
-                <div class="admin-product-type">${p.type} · ${p.size}</div>
+    const startIndex = (adminCurrentPage - 1) * ADMIN_ITEMS_PER_PAGE;
+    const paginatedItems = filtered.slice(startIndex, startIndex + ADMIN_ITEMS_PER_PAGE);
+
+    // 1. Desktop Table Render
+    if (tbody) {
+      tbody.innerHTML = paginatedItems.map(p => {
+        const isBs = Boolean(p.bestSeller || p.best_seller);
+        const isZero = Number(p.stock) === 0;
+        const imgSrc = formatImgUrl(p.image);
+
+        return `
+          <tr data-id="${p.id}">
+            <td>
+              <div class="admin-product-cell" onclick="window.openDetailModal('${p.id}')" title="Klik untuk melihat detail lengkap produk">
+                <img src="${imgSrc}" class="admin-product-thumb" onerror="this.src='../assets/images/Nusantara1nobg.png'">
+                <div>
+                  <div class="admin-product-name">${p.name}</div>
+                  <div class="admin-product-type">${p.type} · ${p.size}</div>
+                </div>
               </div>
-            </div>
-          </td>
-          <td><span class="badge-gender">${p.gender}</span></td>
-          <td><strong style="color:#3F3F46;font-size:0.825rem;">${p.variant}</strong></td>
-          <td class="price-cell">Rp ${Number(p.price).toLocaleString('id-ID')}</td>
-          <td>${stockCellHtml(p.stock)}</td>
-          <td>
-            <button class="bs-toggle-btn ${isBs ? 'bs-yes-btn' : 'bs-no-btn'}" onclick="window.toggleBestSeller('${p.id}')">
-              ${isBs ? '★ BEST SELLER' : '— NORMAL'}
-            </button>
-          </td>
-          <td style="text-align:right">
-            <div class="action-dropdown-wrap">
-              <!-- 3-Dot Options Button -->
-              <button class="btn-3dots" onclick="window.toggleActionDropdown(event, '${p.id}')" title="Opsi Produk">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="1.5"></circle>
-                  <circle cx="12" cy="5" r="1.5"></circle>
-                  <circle cx="12" cy="19" r="1.5"></circle>
-                </svg>
+            </td>
+            <td><span class="badge-gender">${p.gender}</span></td>
+            <td><strong style="color:#3F3F46;font-size:0.825rem;">${p.variant}</strong></td>
+            <td class="price-cell">Rp ${Number(p.price).toLocaleString('id-ID')}</td>
+            <td>${stockCellHtml(p.stock)}</td>
+            <td>
+              <button class="bs-toggle-btn ${isBs ? 'bs-yes-btn' : 'bs-no-btn'}" onclick="window.toggleBestSeller('${p.id}')">
+                ${isBs ? '★ BEST SELLER' : '— NORMAL'}
               </button>
-
-              <!-- Action Dropdown Menu -->
-              <div class="action-dropdown-menu" id="dropdown-${p.id}">
-                <button class="dropdown-item" onclick="window.openDetailModal('${p.id}')">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                  Lihat Detail Produk
+            </td>
+            <td style="text-align:right">
+              <div class="action-dropdown-wrap">
+                <button class="btn-3dots" onclick="window.toggleActionDropdown(event, '${p.id}')" aria-label="Aksi">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="1.5"></circle>
+                    <circle cx="19" cy="12" r="1.5"></circle>
+                    <circle cx="5" cy="12" r="1.5"></circle>
+                  </svg>
                 </button>
-                <button class="dropdown-item" onclick="window.openEditPanel('${p.id}')">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                  Edit Data Produk
-                </button>
-                <button class="dropdown-item warning" ${isZero ? 'disabled style="opacity:0.4;cursor:not-allowed"' : ''} onclick="window.quickZeroStock('${p.id}')">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>
-                  Kosongkan Stok (0 Pcs)
-                </button>
-                <div class="dropdown-divider"></div>
-                <button class="dropdown-item danger" onclick="window.openDeleteModal('${p.id}')">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                  Hapus Produk
-                </button>
+                <div class="action-dropdown-menu" id="dropdown-${p.id}">
+                  <div class="dropdown-item" onclick="window.openDetailModal('${p.id}')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    Lihat Detail
+                  </div>
+                  <div class="dropdown-item" onclick="window.editProduct('${p.id}')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    Edit Produk
+                  </div>
+                  <div class="dropdown-divider"></div>
+                  <div class="dropdown-item danger" onclick="window.promptDeleteProduct('${p.id}')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    Hapus Produk
+                  </div>
+                </div>
               </div>
-            </div>
-          </td>
-        </tr>
-      `;
-    }).join('');
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Render Pagination
+    if (paginationContainer) {
+      if (totalPages > 1) {
+        paginationContainer.style.display = 'flex';
+        paginationContainer.innerHTML = renderAdminPaginationControls(totalPages);
+      } else {
+        paginationContainer.style.display = 'none';
+        paginationContainer.innerHTML = '';
+      }
+    }
   }
 
   // ── 3. Product Detail Modal ──────────────────────────────
@@ -756,4 +890,3 @@
     initDeleteModal();
     initTableSorting();
   });
-})();

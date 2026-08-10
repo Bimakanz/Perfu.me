@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{ asset('css/splash.css') }}">
 <link rel="stylesheet" href="{{ asset('css/hero.css') }}">
 <link rel="stylesheet" href="{{ asset('css/about-us.css') }}">
+<link rel="stylesheet" href="{{ asset('css/testimonials.css') }}">
 <link rel="stylesheet" href="{{ asset('css/catalog.css') }}">
 <link rel="stylesheet" href="{{ asset('css/pdp.css') }}">
 <link rel="stylesheet" href="{{ asset('css/product-zigzag.css') }}">
@@ -35,10 +36,10 @@
     </div>
 
     <ul class="nav-links">
-      <li><a href="/katalog">Produk</a></li>
+      <li><a href="/katalog">Katalog</a></li>
       <li><a href="/quiz">Quiz</a></li>
-      <li><a href="#keunggulan-section" data-nav="keunggulan-section">Keunggulan</a></li>
-      <li><a href="#about-section" data-nav="about-section">Tentang</a></li>
+      <li><a href="#about-story-section" data-nav="about-story-section">Tentang</a></li>
+      <li><a href="#testimoni-section" data-nav="testimoni-section">Testimoni</a></li>
       <li><a href="#footer-section" data-nav="footer-section">Kontak</a></li>
     </ul>
 
@@ -84,6 +85,24 @@
   {{-- 3.5. ABOUT US SECTION (Our Story & Mission) --}}
   <section id="about-story-section" class="about-us-section">
     <div class="about-us-container">
+
+    <div class="about-us-stats-row">
+        <div class="stat-item">
+          <div class="stat-number">2</div>
+          <div class="stat-title">Signature Scents</div>
+          <div class="stat-desc">Pilihan aroma awal yang berkarakter kuat</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-title">Local Pride</div>
+          <div class="stat-desc">Brand parfum lokal berkualitas premium</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">Harga</div>
+          <div class="stat-title">Terjangkau</div>
+          <div class="stat-desc">Wangi mewah tanpa bikin kantong bolong</div>
+        </div>
+      </div>
       <div class="about-us-grid">
         <!-- Left Column: Story & Mission text -->
         <div class="about-us-text-col">
@@ -112,23 +131,7 @@
       </div>
 
       <!-- Stats Row at the bottom -->
-      <div class="about-us-stats-row">
-        <div class="stat-item">
-          <div class="stat-number">2</div>
-          <div class="stat-title">Signature Scents</div>
-          <div class="stat-desc">Pilihan aroma awal yang berkarakter kuat</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">100%</div>
-          <div class="stat-title">Local Pride</div>
-          <div class="stat-desc">Brand parfum lokal berkualitas premium</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">Harga</div>
-          <div class="stat-title">Terjangkau</div>
-          <div class="stat-desc">Wangi mewah tanpa bikin kantong bolong</div>
-        </div>
-      </div>
+      
     </div>
   </section>
 
@@ -136,7 +139,7 @@
   <section class="products-showcase-section" id="produk-section">
     <div class="showcase-header">
       <div class="catalog-tag" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #8A8A8A; margin-bottom: 0.75rem;">KATALOG PRODUK</div>
-      <h2>Parfu.me Specials</h2>
+      <h2>Parfu.me Signatures</h2>
     </div>
 
     <div id="produk-section-list">
@@ -144,42 +147,78 @@
     </div>
   </section>
 
-  {{-- 5. KEUNGGULAN & ABOUT SECTIONS --}}
-  <section class="features-section" id="keunggulan-section">
-    <div style="max-width:1100px; margin:0 auto; text-align:center;">
-      <h2 style="font-family:var(--font-serif); font-size:2.8rem; font-weight:300; margin-bottom:3rem;">Keunggulan Parfu.me</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
-          </div>
-          <h3 class="feature-title">Grade A Concentrate</h3>
-          <p class="feature-desc">Dibuat dari minyak wangi konsentrat grade A Eropa berkualitas tinggi tanpa bahan sintetis berbahaya.</p>
+  {{-- 4.5. TESTIMONIALS SECTION --}}
+  <section id="testimoni-section" class="testimonials-section">
+    <div class="testimonials-container">
+      <div class="testimonials-grid">
+        <!-- Left Side: Section Info -->
+        <div class="testimonials-info-col">
+          <span class="testimonials-tag">ULASAN &amp; TESTIMONI</span>
+          <h3 class="testimonials-side-heading">Apa kata pelanggan kami</h3>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+
+        <!-- Right Side: Review Cards -->
+        <div class="testimonials-cards">
+          <!-- Review 1 -->
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              Parfumnya recommended banget! Wanginya tahan seharian, dari pagi dipakai sampai malam pun masih wangi.
+            </p>
+            <div class="testimonial-stars">
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+            </div>
+            <div class="testimonial-profile">
+              <img src="{{ asset('assets/images/radit.jpeg') }}" alt="Raditya Ghani" class="testimonial-avatar">
+              <div class="testimonial-reviewer-info">
+                <span class="testimonial-name">Raditya Ghani</span>
+                <span class="testimonial-role">Pelanggan Setia</span>
+              </div>
+            </div>
           </div>
-          <h3 class="feature-title">Ketahanan 10 Jam</h3>
-          <p class="feature-desc">Formulasi khusus Eau de Parfum yang melekat secara alami dan tahan lama hingga seharian.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+
+          <!-- Review 2 -->
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              Wanginya masih menempel di kerudung meskipun sudah 3 hari tidak semprot parfum lagi. Kualitasnya juara, fix bakal order dan borong varian lainnya lagi!
+            </p>
+            <div class="testimonial-stars">
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span>
+            </div>
+            <div class="testimonial-profile">
+              <img src="{{ asset('assets/images/agus.jpeg') }}" alt="Agustin Putri" class="testimonial-avatar">
+              <div class="testimonial-reviewer-info">
+                <span class="testimonial-name">Agustin Putri</span>
+                <span class="testimonial-role">Pelanggan Setia</span>
+              </div>
+            </div>
           </div>
-          <h3 class="feature-title">Kemasan Mewah</h3>
-          <p class="feature-desc">Dikemas menggunakan botol kaca spray elegan dan box eksklusif yang cocok untuk hadiah.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="about-section" style="padding:6rem 4rem; max-width:1000px; margin:0 auto; text-align:center;">
-    <span style="font-size:0.7rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#8A8A8A;">ABOUT PARFU.ME</span>
-    <h2 style="font-family:var(--font-serif); font-size:3rem; font-weight:300; margin:0.75rem 0 1.5rem;">Wewangian yang Berbicara</h2>
-    <p style="font-size:1rem; line-height:1.8; color:#555; max-width:720px; margin:0 auto;">
-      Parfu.me lahir dari semangat menciptakan wewangian berkelas dunia dengan sentuhan jiwa Nusantara. Setiap racikan cerita di dalam botol kami adalah dedikasi untuk menemani Anda tampil lebih percaya diri di setiap momen istimewa.
-    </p>
+  {{-- 5. QUIZ PROMOTION BANNER SECTION --}}
+  <section class="quiz-banner-section" id="quiz-banner-section" style="background:#F5F5F7; padding:6rem 2rem; text-align:center;">
+    <div style="max-width:760px; margin:0 auto;">
+      <span style="font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#8A8A8A; display:inline-block; margin-bottom:1rem;">FIND YOUR SIGNATURE SCENT</span>
+      <h2 style="font-family:var(--font-serif); font-size:clamp(2.4rem, 4vw, 3.4rem); font-weight:300; color:#0D0D0D; line-height:1.2; margin-bottom:1.25rem;">
+        Masih Bingung Memilih Aroma Parfum Yang Pas?
+      </h2>
+      <p style="font-size:1.02rem; color:#555555; line-height:1.75; margin-bottom:2.5rem; max-width:620px; margin-left:auto; margin-right:auto;">
+        Jawab 5 pertanyaan simpel untuk menemukan varian parfum Parfu.me yang paling cocok dengan kepribadian & aktivitas harian Anda.
+      </p>
+      <a href="/quiz" style="display:inline-flex; align-items:center; gap:0.6rem; padding:1.05rem 2.4rem; background:#0D0D0D; color:#FFFFFF; border-radius:999px; font-size:0.88rem; font-weight:700; letter-spacing:0.06em; text-decoration:none; transition:all 0.25s ease; box-shadow:0 6px 20px rgba(0,0,0,0.12);" onmouseover="this.style.background='#252525'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#0D0D0D'; this.style.transform='translateY(0)';">
+        Ikuti Quiz 
+      </a>
+    </div>
   </section>
 
   {{-- 6. FOOTER --}}
@@ -187,16 +226,19 @@
     <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:4rem;">
       <div>
         <div style="font-family:var(--font-serif); font-size:2rem; font-weight:300; letter-spacing:0.05em; margin-bottom:0.75rem;">Parfu.me</div>
-        <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7; max-width:340px;">
-          Nusantara &amp; Luxury Fragrance Series.<br>
-          Menghadirkan keharuman mewah tahan lama untuk setiap momen berharga Anda.
+        <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7; max-width:380px;">
+          Perfu.me lahir dari sebuah keyakinan sederhana: setiap orang berhak tampil harum tanpa harus mengeluarkan biaya yang mahal. Karena itu, kami menghadirkan parfum dengan kualitas aroma premium, karakter yang khas, dan harga yang tetap ramah di kantong.
         </p>
       </div>
       <div>
-        <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Koleksi</h4>
-        <ul style="list-style:none; display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem; color:#8A8A8A;">
-          <li><a href="{{ url('/') }}" class="footer-collection-link">Vanessence EDP</a></li>
-          <li><a href="{{ url('/') }}" class="footer-collection-link">Dynamyst EDP</a></li>
+        <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Best Seller</h4>
+        <ul style="list-style:none; display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem; color:#8A8A8A; padding:0; margin:0;">
+          @php
+            $bestSellers = \App\Models\Product::where('best_seller', true)->take(6)->get();
+          @endphp
+          @foreach($bestSellers as $bs)
+            <li><a href="/produk/{{ $bs->id }}" class="footer-collection-link">{{ $bs->name }}</a></li>
+          @endforeach
         </ul>
       </div>
       <div>
@@ -204,8 +246,8 @@
         <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7;">
           WhatsApp: +62 813-8341-5432<br>
           Email: perfumeofficial30@gmail.com<br>
-          Instagram: @perfu.mefragrance<br>
-          Jl. Lingkar Dramaga RT 03/04 Desa Dramaga
+          Instagram: <a href="https://www.instagram.com/perfu.mefragrance/" target="_blank" rel="noopener" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none;">@perfu.mefragrance</a><br>
+          <a href="https://maps.app.goo.gl/xui1fMK73WXR1DD29" target="_blank" rel="noopener" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none; display:inline-block; margin-top:0.2rem;">Jl. Lingkar Dramaga RT 03/04 Desa Dramaga</a>
         </p>
       </div>
     </div>

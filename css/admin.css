@@ -922,7 +922,7 @@
 }
 
 /* ── 3-DOT ACTION DROPDOWN SYSTEM ──────────────────────────── */
-.action-dropdown-wrap {
+.action-dropdown-wrap, .action-cell {
   position: relative;
   display: inline-block;
 }
@@ -1821,4 +1821,79 @@ select.form-control:hover {
   to {
     width: 0%;
   }
+}
+
+/* ── Clean Text Luxury Pagination ──────────────────────────── */
+.admin-pagination-wrapper {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-pagination-wrapper .katalog-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.page-btn {
+  background: transparent;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #8A8A8A;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  text-decoration: none;
+}
+
+.page-btn.page-nav {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #0D0D0D;
+}
+
+.page-btn:hover:not(.disabled) {
+  color: #0D0D0D;
+}
+
+.page-btn.page-nav:hover:not(.disabled) {
+  color: #000000;
+  letter-spacing: 0.2em;
+}
+
+.page-btn.active {
+  color: #0D0D0D;
+  font-weight: 700;
+  border-bottom: 2px solid #0D0D0D;
+}
+
+.page-btn.disabled {
+  color: #D4D4D8;
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* ── Dropup 3-Dot Action Menu Fix ─────────────────────────── */
+.action-dropdown-menu.drop-up {
+  top: auto !important;
+  bottom: 100% !important;
+  margin-top: 0 !important;
+  margin-bottom: 0.5rem !important;
+  transform-origin: bottom right !important;
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+  overflow-y: visible !important;
 }

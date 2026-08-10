@@ -150,7 +150,7 @@
 
 /* Stats Row at the Top/Bottom (Neat & Serif Typography) */
 .about-us-stats-row {
-  margin-top: 5rem;
+  margin-top: 10rem;
   margin-bottom: 4rem;
   border-top: none;
   border-bottom: 1px solid var(--silver-light);

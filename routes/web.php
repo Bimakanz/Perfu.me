@@ -15,7 +15,14 @@ Route::get('/quiz', fn() => view('quiz'))->name('quiz');
 Route::get('/produk/{id}', function ($id) {
     $product = \App\Models\Product::find($id);
     if (!$product) abort(404);
-    return view('product-detail', compact('product'));
+    
+    // Fetch 4 related/other products
+    $relatedProducts = \App\Models\Product::where('id', '!=', $id)
+        ->inRandomOrder()
+        ->take(4)
+        ->get();
+
+    return view('product-detail', compact('product', 'relatedProducts'));
 })->name('product.detail');
 
 // Admin Portal — Blade View

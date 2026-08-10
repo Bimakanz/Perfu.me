@@ -253,6 +253,11 @@
           </table>
         </div>
       </section>
+
+      <!-- Admin Table Pagination Container -->
+      <div class="admin-pagination-wrapper">
+        <div class="katalog-pagination" id="admin-pagination"></div>
+      </div>
     </main>
   </div>
 

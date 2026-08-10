@@ -1,396 +1,922 @@
 @extends('layouts.app')
 
-@section('title', 'Quiz Parfum — Parfu.me')
-@section('description', 'Temukan parfum terbaik untuk gaya dan aktivitas kamu melalui quiz cepat Parfu.me.')
+@section('title', 'Scent Finder Quiz — Parfu.me')
+@section('description', 'Temukan parfum terbaik untuk karakter Anda melalui 5 pertanyaan simpel dari Parfu.me.')
 
 @section('styles')
-<style>
-  body { background: #FAFAFA; color: #111; }
-  .quiz-page { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem 5rem; }
-  .quiz-nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 2rem; }
-  .quiz-nav .nav-links { display: flex; gap: 1rem; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
-  .quiz-nav .nav-links a { color: #0d0d0d; text-decoration: none; font-weight: 600; }
-  .quiz-nav .nav-links a.active { color: #000; text-decoration: underline; }
-  .quiz-hero { background: #fff; border: 1px solid #eaeaea; border-radius: 22px; padding: 2.5rem; display: grid; grid-template-columns: 1fr 380px; gap: 2rem; align-items: center; margin-bottom: 2rem; }
-  .quiz-hero h1 { margin: 0 0 1rem; font-size: clamp(2.4rem, 3.5vw, 3.75rem); font-family: 'Cormorant Garamond', Georgia, serif; line-height: 1.05; }
-  .quiz-hero p { margin: 0; color: #4a4a4a; line-height: 1.9; }
-  .quiz-hero .hero-badge { display: inline-flex; align-items: center; gap: 0.55rem; background: #f6f5ff; color: #2e2b8b; border-radius: 999px; padding: 0.55rem 0.95rem; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; }
-  .quiz-grid { display: block; }
-  .quiz-card, .quiz-results-content { background: #fff; border: 1px solid #e7e7e7; border-radius: 24px; padding: 1.75rem; }
-  .quiz-card h2, .quiz-results-content h2 { margin-top: 0; font-size: 1.25rem; letter-spacing: 0.03em; }
-  .quiz-progress { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
-  .quiz-progress-text { font-size: 0.95rem; font-weight: 700; color: #222; }
-  .quiz-progress-track { height: 8px; border-radius: 999px; background: #e9e9e9; overflow: hidden; margin-bottom: 1rem; }
-  .quiz-progress-fill { width: 0%; height: 100%; background: #111; transition: width 0.25s ease; }
-  .quiz-selected-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1rem; }
-  .quiz-tag { background: #f4f4f4; color: #111; padding: 0.55rem 0.9rem; border-radius: 999px; font-size: 0.88rem; border: 1px solid #d7d7d7; }
-  .quiz-step { display: none; margin-bottom: 1.75rem; }
-  .quiz-step.active { display: block; }
-  .quiz-step:last-child { margin-bottom: 0; }
-  .quiz-step-label { display: block; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #8a8a8a; margin-bottom: 0.85rem; }
-  .quiz-results-content { display: none; margin-top: 1.75rem; }
-  .quiz-results-content.active { display: block; }
-  .hidden { display: none !important; }
-  .quiz-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.85rem; }
-  .quiz-option { border: 1px solid #d6d6d6; border-radius: 999px; background: #fff; color: #111; padding: 1rem 1.1rem; text-align: center; cursor: pointer; transition: all 0.2s ease; font-weight: 600; }
-  .quiz-option:hover { border-color: #0d0d0d; }
-  .quiz-option.active { background: #0d0d0d; color: #fff; border-color: #0d0d0d; }
-  .quiz-footer { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
-  .btn-primary, .btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: none; border-radius: 999px; padding: 0.95rem 1.4rem; cursor: pointer; font-weight: 700; transition: background 0.2s ease; }
-  .btn-primary { background: #0d0d0d; color: #fff; }
-  .btn-primary:hover { background: #111; }
-  .btn-secondary { background: #f3f3f3; color: #111; }
-  .btn-secondary:hover { background: #e5e5e5; }
-  .quiz-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; margin-top: 1.5rem; }
-  .quiz-summary-item { background: #faf9ff; border-radius: 14px; padding: 1rem; font-size: 0.9rem; color: #333; }
-  .quiz-summary-item span { display: block; margin-top: 0.5rem; color: #6f6f6f; font-size: 0.8rem; }
-  .quiz-result-item { background: #f7f7ff; padding: 1rem 1.1rem; border-radius: 16px; border: 1px solid #e6e6ff; }
-  .quiz-result-item strong { display: block; margin-bottom: 0.35rem; }
-  .quiz-result-item p { margin: 0; color: #555; line-height: 1.55; }
-  .quiz-result-note { font-size: 0.86rem; color: #555; line-height: 1.7; margin-top: 1rem; }
-  .quiz-result-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.2rem; }
-  .quiz-result-actions a { width: auto; min-width: 220px; text-align: center; }
-  .quiz-products-title { margin: 1rem 0 0.75rem; font-size: 1rem; }
-  .quiz-product-card { display: grid; grid-template-columns: 72px 1fr; gap: 0.85rem; align-items: center; padding: 1rem; border-radius: 18px; background: #fff; border: 1px solid #ececec; }
-  .quiz-product-card img { width: 72px; height: 72px; object-fit: cover; border-radius: 14px; }
-  .quiz-product-info strong { display: block; font-size: 0.95rem; margin-bottom: 0.4rem; }
-  .quiz-product-info small { color: #7a7a7a; }
-  .quiz-product-cta { display: flex; flex-direction: column; gap: 0.55rem; margin-top: 0.85rem; }
-  .quiz-product-cta button { width: 100%; }
-  .quiz-warning { color: #b34747; font-size: 0.92rem; margin-top: 1rem; }
+  <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+  <style>
+    body {
+      background-color: #FAFAFA;
+      color: #0D0D0D;
+    }
 
-  @media (max-width: 980px) {
-    .quiz-hero { grid-template-columns: 1fr; }
-    .quiz-grid { grid-template-columns: 1fr; }
-  }
+    /* Always Visible Navbar Fix for Quiz */
+    #navbar {
+      display: flex !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: translateY(0) !important;
+      pointer-events: auto !important;
+      background: rgba(255, 255, 255, 0.98) !important;
+      backdrop-filter: blur(14px) !important;
+      -webkit-backdrop-filter: blur(14px) !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 1000 !important;
+    }
 
-  @media (max-width: 640px) {
-    .quiz-options { grid-template-columns: 1fr; }
-    .quiz-summary { grid-template-columns: 1fr; }
-  }
-</style>
+    .quiz-hero-header {
+      text-align: center;
+      padding: 8rem 1.5rem 1rem;
+      max-width: 800px;
+      margin: 0 auto 3rem;
+    }
+
+    .quiz-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8A8A8A;
+      margin-bottom: 0.1rem;
+    }
+
+    .quiz-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      font-weight: 300;
+      color: #0D0D0D;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .quiz-subtitle {
+      font-size: 0.98rem;
+      color: #555555;
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+    }
+
+    /* Seamless Quiz Container (No Box / No Card) */
+    .quiz-main-container {
+      max-width: 800px;
+      margin: 0 auto 6rem;
+      padding: 0 1.5rem;
+      transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .quiz-main-container.wide-results {
+      max-width: 1200px;
+    }
+
+    /* Progress Bar */
+    .quiz-progress-wrap {
+      margin-bottom: 3.5rem;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .quiz-progress-bar-bg {
+      height: 5px;
+      background: #E5E5E7;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      width: 20%;
+      background: #0D0D0D;
+      border-radius: 999px;
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .quiz-progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #8A8A8A;
+      letter-spacing: 0.05em;
+    }
+
+    /* Question Item */
+    .question-block {
+      display: none;
+      animation: fadeInQuestion 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .question-block.active {
+      display: block;
+    }
+
+    @keyframes fadeInQuestion {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .question-text {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 400;
+      color: #0D0D0D;
+      text-align: center;
+      line-height: 1.35;
+      margin-bottom: 3.5rem;
+    }
+
+    /* Personality Scale (16personalities Circle Slider Style) */
+    .scale-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 680px;
+      margin: 0 auto;
+      gap: 1rem;
+      user-select: none;
+    }
+
+    .scale-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .scale-label.agree {
+      color: #10B981;
+    }
+
+    .scale-label.disagree {
+      color: #8B5CF6;
+    }
+
+    .scale-circles-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.1rem;
+      flex: 1;
+    }
+
+    .scale-circle-btn {
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 0;
+    }
+
+    /* Circles Sizes */
+    .scale-circle-btn.size-large {
+      width: 54px;
+      height: 54px;
+    }
+
+    .scale-circle-btn.size-medium {
+      width: 44px;
+      height: 44px;
+    }
+
+    .scale-circle-btn.size-small {
+      width: 34px;
+      height: 34px;
+    }
+
+    .scale-circle-btn.size-neutral {
+      width: 28px;
+      height: 28px;
+    }
+
+    /* Agree Circles (Green Theme) */
+    .scale-circle-btn.agree-type {
+      border: 2.5px solid #10B981;
+    }
+
+    .scale-circle-btn.agree-type:hover,
+    .scale-circle-btn.agree-type.selected {
+      background: #10B981;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+      transform: scale(1.12);
+    }
+
+    /* Neutral Circle (Grey Theme) */
+    .scale-circle-btn.neutral-type {
+      border: 2px solid #A1A1AA;
+    }
+
+    .scale-circle-btn.neutral-type:hover,
+    .scale-circle-btn.neutral-type.selected {
+      background: #71717A;
+      border-color: #71717A;
+      box-shadow: 0 4px 14px rgba(113, 113, 122, 0.35);
+      transform: scale(1.12);
+    }
+
+    /* Disagree Circles (Purple Theme) */
+    .scale-circle-btn.disagree-type {
+      border: 2.5px solid #8B5CF6;
+    }
+
+    .scale-circle-btn.disagree-type:hover,
+    .scale-circle-btn.disagree-type.selected {
+      background: #8B5CF6;
+      box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
+      transform: scale(1.12);
+    }
+
+    /* Quiz Navigation Controls */
+    .quiz-actions-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid #E5E5E7;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-quiz-prev {
+      background: transparent;
+      border: none;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #8A8A8A;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .btn-quiz-prev:hover:not(:disabled) {
+      color: #0D0D0D;
+    }
+
+    .btn-quiz-prev:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .btn-quiz-next {
+      padding: 0.85rem 2.2rem;
+      background: #0D0D0D;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-quiz-next:hover:not(:disabled) {
+      background: #252525;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-quiz-next:disabled {
+      background: #E4E4E7;
+      color: #A1A1AA;
+      cursor: not-allowed;
+    }
+
+    /* Results Section */
+    .quiz-results-wrapper {
+      display: none;
+      animation: fadeInQuestion 0.5s ease forwards;
+    }
+
+    .quiz-results-wrapper.active {
+      display: block;
+    }
+
+    .results-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .results-subtitle {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8A8A8A;
+      margin-bottom: 0.5rem;
+    }
+
+    .results-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2.6rem;
+      font-weight: 300;
+      color: #0D0D0D;
+      margin: 0 0 0.5rem;
+    }
+
+    .results-desc {
+      font-size: 0.95rem;
+      color: #555555;
+      max-width: 550px;
+      margin: 0 auto;
+    }
+
+    /* Recommendation Cards Grid */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .rec-card {
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .rec-card:hover {
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .rec-match-badge {
+      position: absolute;
+      top: 0.85rem;
+      right: 0.85rem;
+      background: rgba(13, 13, 13, 0.9);
+      color: #FFFFFF;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+      z-index: 2;
+      backdrop-filter: blur(4px);
+    }
+
+    .rec-img-wrap {
+      width: 100%;
+      padding-top: 90%;
+      position: relative;
+      background: #F4F4F5;
+      overflow: hidden;
+    }
+
+    .rec-img-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .rec-card:hover .rec-img-wrap img {
+      transform: scale(1.05);
+    }
+
+    .rec-card-body {
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .rec-card-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8A8A8A;
+      margin-bottom: 0.4rem;
+    }
+
+    .rec-card-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0D0D0D;
+      margin-bottom: 0.6rem;
+      position: relative;
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    .rec-card-name::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      background-color: #0D0D0D;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .rec-card:hover .rec-card-name::after {
+      transform: scaleX(1);
+    }
+
+    .rec-card-notes {
+      font-size: 0.78rem;
+      color: #666666;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .rec-card-price {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #0D0D0D;
+      margin-top: auto;
+      margin-bottom: 1rem;
+    }
+
+    .rec-btn-detail {
+      display: block;
+      width: 100%;
+      padding: 0.75rem;
+      background: #0D0D0D;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .rec-btn-detail:hover {
+      background: #252525;
+    }
+
+    .btn-retake-quiz {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.75rem;
+      background: transparent;
+      border: 1.5px solid #0D0D0D;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #0D0D0D;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-retake-quiz:hover {
+      background: #0D0D0D;
+      color: #FFFFFF;
+    }
+
+    @media (max-width: 860px) {
+      .results-grid {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      .scale-wrapper {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+    }
+  </style>
 @endsection
 
 @section('content')
-  <div class="quiz-page">
-    <div class="quiz-nav">
-      <div class="nav-brand"><a href="/" class="nav-brand-name" style="font-size:1.2rem; font-weight:700;">Parfu.me</a></div>
-      <ul class="nav-links">
-        <li><a href="/katalog">Produk</a></li>
-        <li><a href="/quiz" class="active">Quiz</a></li>
-      </ul>
+  {{-- NAVBAR --}}
+  <nav id="navbar" aria-label="Main Navigation">
+    <div class="nav-brand" data-nav="home">
+      <a href="/" style="text-decoration:none; color:inherit;"><span class="nav-brand-name">Parfu.me</span></a>
     </div>
 
-    <section class="quiz-hero">
-      <div>
-        <span class="hero-badge">Quiz Parfum</span>
-        <h1>Tentukan parfum terbaik untuk kamu</h1>
-        <p>Lakukan quiz singkat ini berdasarkan gender, tujuan, aktivitas, dan lokasi. Di akhir, kamu akan mendapatkan rekomendasi produk yang paling cocok, termasuk opsi refill bila relevan.</p>
-      </div>
-      <div>
-        
-      </div>
-    </section>
+    <ul class="nav-links">
+      <li><a href="/katalog">Katalog</a></li>
+      <li><a href="/quiz" class="active">Quiz</a></li>
+      <li><a href="/#about-story-section">Tentang</a></li>
+      <li><a href="/#testimoni-section">Testimoni</a></li>
+      <li><a href="#footer-section">Kontak</a></li>
+    </ul>
 
-    <div class="quiz-grid">
-      <div class="quiz-card">
-        <h2>Quiz Parfum</h2>
-        <div id="quiz-stage">
-          <div class="quiz-progress-track">
-            <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
-          </div>
-          <div class="quiz-selected-tags" id="quiz-selected-tags"></div>
-          <div class="quiz-progress">
-            <span class="quiz-progress-text" id="quiz-progress-text">Pertanyaan 1 dari 4</span>
-            <span class="quiz-progress-step" id="quiz-progress-step">Siapa yang akan menggunakan parfum ini?</span>
-          </div>
+    <div class="nav-actions">
+      <button id="btn-open-search" class="nav-icon-btn" aria-label="Cari Parfum" title="Cari Parfum">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+      <button id="btn-open-cart" class="nav-icon-btn" aria-label="Keranjang Belanja" title="Keranjang Belanja">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span class="cart-badge-count" id="cart-badge-count">0</span>
+      </button>
+    </div>
+  </nav>
 
-          <div id="quiz-question-area">
-            <div class="quiz-step active" data-question="gender" data-step="0">
-            <label class="quiz-step-label">1. Gender</label>
-            <div class="quiz-options">
-              <button type="button" class="quiz-option" data-value="Wanita">Wanita</button>
-              <button type="button" class="quiz-option" data-value="Pria">Pria</button>
-              <button type="button" class="quiz-option" data-value="Unisex">Unisex</button>
-            </div>
-          </div>
+  {{-- Header --}}
+  <header class="quiz-hero-header" id="quiz-hero-header">
+    <h1 class="quiz-title" id="quiz-hero-title">Temukan Aroma Parfum Anda</h1>
+    <p class="quiz-subtitle" id="quiz-hero-subtitle">
+      Jawab 5 pertanyaan simpel di bawah ini untuk menemukan varian parfum Parfu.me yang paling cocok dengan selera & gaya Anda.
+    </p>
+  </header>
 
-          <div class="quiz-step" data-question="purpose" data-step="1">
-            <label class="quiz-step-label">2. Untuk apa parfum ini?</label>
-            <div class="quiz-options">
-              <button type="button" class="quiz-option" data-value="Rumah">Di rumah</button>
-              <button type="button" class="quiz-option" data-value="Pesta">Pesta</button>
-              <button type="button" class="quiz-option" data-value="Kado">Kado</button>
-              <button type="button" class="quiz-option" data-value="Kantor">Kantor</button>
-            </div>
-          </div>
+  {{-- Main Seamless Quiz Box --}}
+  <main class="quiz-main-container">
 
-          <div class="quiz-step" data-question="activity" data-step="2">
-            <label class="quiz-step-label">3. Aktivitas kamu nanti</label>
-            <div class="quiz-options">
-              <button type="button" class="quiz-option" data-value="Santai">Santai</button>
-              <button type="button" class="quiz-option" data-value="Hangout">Hangout</button>
-              <button type="button" class="quiz-option" data-value="Kencan">Kencan</button>
-              <button type="button" class="quiz-option" data-value="Meeting">Meeting</button>
-            </div>
-          </div>
-
-          <div class="quiz-step" data-question="location" data-step="3">
-            <label class="quiz-step-label">4. Lokasi pemakaian</label>
-            <div class="quiz-options">
-              <button type="button" class="quiz-option" data-value="Rumah">Rumah</button>
-              <button type="button" class="quiz-option" data-value="Mall">Mall</button>
-              <button type="button" class="quiz-option" data-value="Kantor">Kantor</button>
-              <button type="button" class="quiz-option" data-value="Outdoor">Outdoor</button>
-            </div>
-          </div>
-
-          <div class="quiz-footer">
-            <button type="button" class="btn-secondary" id="btn-back" style="display:none;">Kembali</button>
-            <button type="button" class="btn-primary" id="btn-next" disabled>Selanjutnya</button>
-          </div>
+    {{-- Stage 1: Active Questions --}}
+    <div id="quiz-active-stage">
+      {{-- Progress Bar --}}
+      <div class="quiz-progress-wrap">
+        <div class="quiz-progress-bar-bg">
+          <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+        </div>
+        <div class="quiz-progress-info">
+          <span id="quiz-step-indicator">Pertanyaan 1 dari 5</span>
+          <span id="quiz-progress-percent">20%</span>
         </div>
       </div>
 
-        <div id="quiz-results-stage" style="display:none;">
-          <div id="quiz-results-content" class="quiz-results-content">
-            <div class="quiz-result-item">
-              <strong>Hasil Quiz</strong>
-              <p class="quiz-result-note">Jawaban sudah lengkap. Berikut pilihan parfum yang paling cocok dengan gaya kamu.</p>
-            </div>
-            <div class="quiz-products-title">Produk Direkomendasikan</div>
-            <div id="quiz-results-list"></div>
-            <div class="quiz-result-actions">
-              <a href="/katalog" class="btn-primary">Lihat Semua Produk</a>
-            </div>
+      {{-- Question 1 --}}
+      <div class="question-block active" data-step="1">
+        <div class="question-text">
+          "Saya suka bau yang manis dan hangat."
+        </div>
+        <div class="scale-wrapper">
+          <span class="scale-label agree">SETUJU</span>
+          <div class="scale-circles-group" data-question="1">
+            <button type="button" class="scale-circle-btn size-large agree-type" data-score="3"
+              title="Sangat Setuju"></button>
+            <button type="button" class="scale-circle-btn size-medium agree-type" data-score="2" title="Setuju"></button>
+            <button type="button" class="scale-circle-btn size-small agree-type" data-score="1"
+              title="Agak Setuju"></button>
+            <button type="button" class="scale-circle-btn size-neutral neutral-type" data-score="0"
+              title="Netral"></button>
+            <button type="button" class="scale-circle-btn size-small disagree-type" data-score="-1"
+              title="Agak Tidak Setuju"></button>
+            <button type="button" class="scale-circle-btn size-medium disagree-type" data-score="-2"
+              title="Tidak Setuju"></button>
+            <button type="button" class="scale-circle-btn size-large disagree-type" data-score="-3"
+              title="Sangat Tidak Setuju"></button>
           </div>
-
-          <div id="quiz-reset-panel" style="display:none; margin-top:1rem; text-align:center;">
-            <button type="button" class="btn-secondary" id="btn-reset-quiz">Ulangi Quiz</button>
-          </div>
+          <span class="scale-label disagree">TIDAK SETUJU</span>
         </div>
       </div>
+
+      {{-- Question 2 --}}
+      <div class="question-block" data-step="2">
+        <div class="question-text">
+          "Saya sering beraktivitas di luar ruangan (outdoor)."
+        </div>
+        <div class="scale-wrapper">
+          <span class="scale-label agree">SETUJU</span>
+          <div class="scale-circles-group" data-question="2">
+            <button type="button" class="scale-circle-btn size-large agree-type" data-score="3"
+              title="Sangat Setuju"></button>
+            <button type="button" class="scale-circle-btn size-medium agree-type" data-score="2" title="Setuju"></button>
+            <button type="button" class="scale-circle-btn size-small agree-type" data-score="1"
+              title="Agak Setuju"></button>
+            <button type="button" class="scale-circle-btn size-neutral neutral-type" data-score="0"
+              title="Netral"></button>
+            <button type="button" class="scale-circle-btn size-small disagree-type" data-score="-1"
+              title="Agak Tidak Setuju"></button>
+            <button type="button" class="scale-circle-btn size-medium disagree-type" data-score="-2"
+              title="Tidak Setuju"></button>
+            <button type="button" class="scale-circle-btn size-large disagree-type" data-score="-3"
+              title="Sangat Tidak Setuju"></button>
+          </div>
+          <span class="scale-label disagree">TIDAK SETUJU</span>
+        </div>
+      </div>
+
+      {{-- Question 3 --}}
+      <div class="question-block" data-step="3">
+        <div class="question-text">
+          "Saya lebih menyukai wangi bunga dan alam yang segar."
+        </div>
+        <div class="scale-wrapper">
+          <span class="scale-label agree">SETUJU</span>
+          <div class="scale-circles-group" data-question="3">
+            <button type="button" class="scale-circle-btn size-large agree-type" data-score="3"
+              title="Sangat Setuju"></button>
+            <button type="button" class="scale-circle-btn size-medium agree-type" data-score="2" title="Setuju"></button>
+            <button type="button" class="scale-circle-btn size-small agree-type" data-score="1"
+              title="Agak Setuju"></button>
+            <button type="button" class="scale-circle-btn size-neutral neutral-type" data-score="0"
+              title="Netral"></button>
+            <button type="button" class="scale-circle-btn size-small disagree-type" data-score="-1"
+              title="Agak Tidak Setuju"></button>
+            <button type="button" class="scale-circle-btn size-medium disagree-type" data-score="-2"
+              title="Tidak Setuju"></button>
+            <button type="button" class="scale-circle-btn size-large disagree-type" data-score="-3"
+              title="Sangat Tidak Setuju"></button>
+          </div>
+          <span class="scale-label disagree">TIDAK SETUJU</span>
+        </div>
+      </div>
+
+      {{-- Question 4 --}}
+      <div class="question-block" data-step="4">
+        <div class="question-text">
+          "Saya butuh parfum eksklusif untuk acara formal atau pesta."
+        </div>
+        <div class="scale-wrapper">
+          <span class="scale-label agree">SETUJU</span>
+          <div class="scale-circles-group" data-question="4">
+            <button type="button" class="scale-circle-btn size-large agree-type" data-score="3"
+              title="Sangat Setuju"></button>
+            <button type="button" class="scale-circle-btn size-medium agree-type" data-score="2" title="Setuju"></button>
+            <button type="button" class="scale-circle-btn size-small agree-type" data-score="1"
+              title="Agak Setuju"></button>
+            <button type="button" class="scale-circle-btn size-neutral neutral-type" data-score="0"
+              title="Netral"></button>
+            <button type="button" class="scale-circle-btn size-small disagree-type" data-score="-1"
+              title="Agak Tidak Setuju"></button>
+            <button type="button" class="scale-circle-btn size-medium disagree-type" data-score="-2"
+              title="Tidak Setuju"></button>
+            <button type="button" class="scale-circle-btn size-large disagree-type" data-score="-3"
+              title="Sangat Tidak Setuju"></button>
+          </div>
+          <span class="scale-label disagree">TIDAK SETUJU</span>
+        </div>
+      </div>
+
+      {{-- Question 5 --}}
+      <div class="question-block" data-step="5">
+        <div class="question-text">
+          "Saya lebih suka parfum yang praktis dan mudah dibawa kemana-mana."
+        </div>
+        <div class="scale-wrapper">
+          <span class="scale-label agree">SETUJU</span>
+          <div class="scale-circles-group" data-question="5">
+            <button type="button" class="scale-circle-btn size-large agree-type" data-score="3"
+              title="Sangat Setuju"></button>
+            <button type="button" class="scale-circle-btn size-medium agree-type" data-score="2" title="Setuju"></button>
+            <button type="button" class="scale-circle-btn size-small agree-type" data-score="1"
+              title="Agak Setuju"></button>
+            <button type="button" class="scale-circle-btn size-neutral neutral-type" data-score="0"
+              title="Netral"></button>
+            <button type="button" class="scale-circle-btn size-small disagree-type" data-score="-1"
+              title="Agak Tidak Setuju"></button>
+            <button type="button" class="scale-circle-btn size-medium disagree-type" data-score="-2"
+              title="Tidak Setuju"></button>
+            <button type="button" class="scale-circle-btn size-large disagree-type" data-score="-3"
+              title="Sangat Tidak Setuju"></button>
+          </div>
+          <span class="scale-label disagree">TIDAK SETUJU</span>
+        </div>
+      </div>
+
+      {{-- Navigation Actions --}}
+      <div class="quiz-actions-row">
+        <button type="button" class="btn-quiz-prev" id="btn-quiz-prev" disabled>KEMBALI</button>
+        <button type="button" class="btn-quiz-next" id="btn-quiz-next" disabled>SELANJUTNYA</button>
+      </div>
     </div>
-  </div>
+
+    {{-- Stage 2: Results Display --}}
+    <div id="quiz-results-stage" class="quiz-results-wrapper">
+      <div class="results-grid" id="results-grid-container">
+        {{-- Dynamically populated via JS matching DB products --}}
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <button type="button" class="btn-retake-quiz" onclick="resetQuiz()">
+          Ulangi Quiz
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="1 4 1 10 7 10"></polyline>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+  </main>
 @endsection
 
 @section('scripts')
-<script>
-  const QUIZ_PRODUCTS_FALLBACK = [
-    { id: 1, name: 'Dynamyst', gender: 'Pria', type: 'Eau de Parfum', variant: 'Citrus, Fresh Accord', size: '30ml', price: 45000, image: '{{ asset("assets/images/dynamyst.png") }}', description: 'Aroma fresh, sporty, dan clean.', best_seller: true },
-    { id: 2, name: 'Vanessence', gender: 'Wanita', type: 'Eau de Parfum', variant: 'Vanilla, Fresh Notes', size: '30ml', price: 45000, image: '{{ asset("assets/images/vanessence.png") }}', description: 'Aroma vanilla yang lembut, creamy, dan elegan.', best_seller: true },
-    { id: 3, name: 'VS Scandalous (Refill)', gender: 'Unisex', type: 'Refill', variant: 'Raspberry, Pear', size: '15, 35, 50', price: 20000, image: '{{ asset("assets/images/Nusantara1nobg.png") }}', description: 'Aroma fruity manis dan playful.', best_seller: false },
-    { id: 4, name: 'VS Romantic Wish (Refill)', gender: 'Unisex', type: 'Refill', variant: 'Mandarin, Red Fruits', size: '15, 35, 51', price: 20000, image: '{{ asset("assets/images/Nusantara1nobg.png") }}', description: 'Aroma romantis, manis, dan elegan.', best_seller: false },
-    { id: 5, name: 'Dior Sauvage (Refill)', gender: 'Unisex', type: 'Refill', variant: 'Bergamot, Pepper', size: '15, 35, 52', price: 20000, image: '{{ asset("assets/images/Nusantara1nobg.png") }}', description: 'Aroma fresh spicy dengan karakter maskulin.', best_seller: false },
-    { id: 6, name: 'Baccarat Rouge 540', gender: 'Unisex', type: 'Eau de Parfum', variant: 'Saffron, Jasmine', size: '15, 35, 56', price: 20000, image: '{{ asset("assets/images/Nusantara1nobg.png") }}', description: 'Aroma hangat dan mewah amber woody.', best_seller: true },
-    { id: 7, name: 'White Musk (The Body Shop)', gender: 'Unisex', type: 'Eau de Toilette / Eau de Parfum', variant: 'Musk, Lily', size: '50ml', price: 20000, image: '{{ asset("assets/images/Nusantara1nobg.png") }}', description: 'Aroma musk clean dan powdery.', best_seller: true },
-  ];
+  <script>
+    // Products Database passed from Laravel PHP
+    const DB_PRODUCTS = @json(\App\Models\Product::all());
 
-  const QUIZ_STATE = {
-    gender: null,
-    purpose: null,
-    activity: null,
-    location: null
-  };
+    let currentStep = 1;
+    const totalSteps = 5;
+    const userAnswers = {};
 
-  let quizProducts = QUIZ_PRODUCTS_FALLBACK;
-
-  function getRecommendationList() {
-    if (!QUIZ_STATE.gender) {
-      return [];
-    }
-
-    const gender = QUIZ_STATE.gender;
-    const purpose = QUIZ_STATE.purpose;
-    const activity = QUIZ_STATE.activity;
-    const location = QUIZ_STATE.location;
-
-    const isRefill = purpose === 'Rumah' || purpose === 'Kantor' || location === 'Rumah' || location === 'Kantor' || activity === 'Santai';
-    const isParty = purpose === 'Pesta' || activity === 'Hangout' || activity === 'Kencan';
-
-    const bucket = {
-      Wanita: ['Vanessence', 'VS Scandalous (Refill)', 'VS Romantic Wish (Refill)', 'YSL Black Opium'],
-      Pria: ['Dynamyst', 'Dior Sauvage (Refill)', 'Aigner Black', 'Versace Eros'],
-      Unisex: ['Baccarat Rouge 540', 'White Musk (The Body Shop)', 'VS Scandalous (Refill)', 'Zahrat Hawaii (Al-Rehab)']
-    };
-
-    let candidates = bucket[gender] || [];
-    if (isRefill) {
-      candidates = candidates.filter(name => name.toLowerCase().includes('refill'));
-    }
-    if (isParty && candidates.length === 0) {
-      candidates = bucket[gender].filter(name => !name.toLowerCase().includes('refill'));
-    }
-    if (!isRefill && candidates.length === 0) {
-      candidates = bucket[gender];
-    }
-
-    return quizProducts.filter(p => candidates.includes(p.name)).slice(0, 3);
-  }
-
-  async function loadQuizProducts() {
-    try {
-      const data = await window.API.getAll();
-      if (Array.isArray(data) && data.length) {
-        quizProducts = data.map(p => ({
-          id: p.id,
-          name: p.name,
-          gender: p.gender,
-          type: p.type,
-          variant: p.variant,
-          size: p.size,
-          price: p.price,
-          image: p.image || '{{ asset("assets/images/Nusantara1nobg.png") }}',
-          description: p.description || '',
-          best_seller: p.best_seller,
-        }));
-      }
-    } catch {
-      quizProducts = QUIZ_PRODUCTS_FALLBACK;
-    }
-  }
-
-  const STEPS = [
-    { question: 'gender', prompt: 'Siapa yang akan menggunakan parfum ini?' },
-    { question: 'purpose', prompt: 'Untuk keperluan apa parfum ini?' },
-    { question: 'activity', prompt: 'Aktivitas apa yang akan kamu lakukan?' },
-    { question: 'location', prompt: 'Dimana kamu akan memakainya?' }
-  ];
-
-  let currentStep = 0;
-
-  function updateProgress() {
-    const progressText = document.getElementById('quiz-progress-text');
-    const progressStep = document.getElementById('quiz-progress-step');
-    progressText.textContent = `Pertanyaan ${currentStep + 1} dari ${STEPS.length}`;
-    progressStep.textContent = STEPS[currentStep].prompt;
-  }
-
-  function showStep(index) {
-    currentStep = index;
-    document.querySelectorAll('.quiz-step').forEach((step, stepIndex) => {
-      step.classList.toggle('active', stepIndex === index);
+    document.addEventListener('DOMContentLoaded', () => {
+      initCirclesSelection();
+      initNavigation();
     });
-    document.getElementById('btn-back').style.display = index === 0 ? 'none' : 'inline-flex';
-    document.getElementById('btn-next').style.display = 'inline-flex';
-    document.getElementById('btn-next').textContent = index === STEPS.length - 1 ? 'Lihat Rekomendasi' : 'Selanjutnya';
-    document.getElementById('quiz-results-content').classList.remove('active');
-    document.getElementById('quiz-reset-panel').style.display = 'none';
-    setNextButtonState();
-    updateProgress();
-    updateProgressBar();
-    updateSelectedTags();
-  }
 
-  function updateSelectedTags() {
-    const tags = Object.entries(QUIZ_STATE)
-      .filter(([, value]) => !!value)
-      .map(([, value]) => `<span class="quiz-tag">${value}</span>`)
-      .join('');
+    function initCirclesSelection() {
+      const groups = document.querySelectorAll('.scale-circles-group');
+      groups.forEach(group => {
+        const qNum = group.getAttribute('data-question');
+        const btns = group.querySelectorAll('.scale-circle-btn');
 
-    document.getElementById('quiz-selected-tags').innerHTML = tags;
-  }
+        btns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            btns.forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
 
-  function updateProgressBar() {
-    const fill = document.getElementById('quiz-progress-fill');
-    const percent = Math.round((currentStep / (STEPS.length - 1)) * 100);
-    fill.style.width = `${percent}%`;
-  }
+            userAnswers[qNum] = parseInt(btn.getAttribute('data-score'));
+            document.getElementById('btn-quiz-next').disabled = false;
+          });
+        });
+      });
+    }
 
-  function setNextButtonState() {
-    const currentQuestion = STEPS[currentStep].question;
-    const isAnswered = !!QUIZ_STATE[currentQuestion];
-    const nextButton = document.getElementById('btn-next');
-    nextButton.disabled = !isAnswered;
-    nextButton.style.opacity = isAnswered ? '1' : '0.6';
-  }
+    function initNavigation() {
+      const btnNext = document.getElementById('btn-quiz-next');
+      const btnPrev = document.getElementById('btn-quiz-prev');
 
-  function resetQuiz() {
-    QUIZ_STATE.gender = null;
-    QUIZ_STATE.purpose = null;
-    QUIZ_STATE.activity = null;
-    QUIZ_STATE.location = null;
-    currentStep = 0;
-    document.querySelectorAll('.quiz-option').forEach(button => button.classList.remove('active'));
-    document.getElementById('quiz-results-stage').style.display = 'none';
-    document.getElementById('quiz-results-content').classList.remove('active');
-    document.getElementById('quiz-stage').style.display = 'block';
-    document.getElementById('quiz-reset-panel').style.display = 'none';
-    document.getElementById('quiz-results-list').innerHTML = '';
-    document.getElementById('btn-next').style.display = 'inline-flex';
-    showStep(0);
-    updateSelectedTags();
-  }
+      btnNext.addEventListener('click', () => {
+        if (currentStep < totalSteps) {
+          currentStep++;
+          updateQuestionStep();
+        } else {
+          calculateDatabaseMatches();
+        }
+      });
 
-  async function displayResults() {
-    await loadQuizProducts();
-    const productList = getRecommendationList();
-    const resultsList = document.getElementById('quiz-results-list');
+      btnPrev.addEventListener('click', () => {
+        if (currentStep > 1) {
+          currentStep--;
+          updateQuestionStep();
+        }
+      });
+    }
 
-    if (!productList.length) {
-      resultsList.innerHTML = '<div class="quiz-result-item"><p class="quiz-result-note">Belum ada produk yang cocok. Coba ulangi quiz dengan jawaban lain.</p></div>';
-    } else {
-      resultsList.innerHTML = productList.map(p => {
-        const isRefillProduct = p.type.toLowerCase().includes('refill') || p.name.toLowerCase().includes('refill');
-        const imageBlock = isRefillProduct
-          ? `<div style="padding:1rem; background:#f4f4f4; border-radius:18px; text-align:center; color:#6b6b6b; font-size:0.92rem;">Foto refill belum tersedia</div>`
-          : `<img src="${p.image}" alt="${p.name}" onerror="this.src='{{ asset("assets/images/Nusantara1nobg.png") }}'">`;
+    function updateQuestionStep() {
+      // Hide all questions
+      document.querySelectorAll('.question-block').forEach(b => b.classList.remove('active'));
+
+      // Show active question
+      const activeBlock = document.querySelector(`.question-block[data-step="${currentStep}"]`);
+      if (activeBlock) activeBlock.classList.add('active');
+
+      // Update Progress
+      const fillPercent = (currentStep / totalSteps) * 100;
+      document.getElementById('quiz-progress-fill').style.width = fillPercent + '%';
+      document.getElementById('quiz-step-indicator').textContent = `Pertanyaan ${currentStep} dari ${totalSteps}`;
+      document.getElementById('quiz-progress-percent').textContent = `${Math.round(fillPercent)}%`;
+
+      // Toggle Prev Button
+      document.getElementById('btn-quiz-prev').disabled = (currentStep === 1);
+
+      // Toggle Next Button
+      const btnNext = document.getElementById('btn-quiz-next');
+      if (btnNext) {
+        btnNext.disabled = (userAnswers[currentStep] === undefined);
+        btnNext.textContent = (currentStep === totalSteps) ? 'LIHAT HASIL REKOMENDASI' : 'SELANJUTNYA';
+      }
+    }
+
+    function calculateDatabaseMatches() {
+      const a1 = userAnswers[1] || 0; // Bau manis & hangat
+      const a2 = userAnswers[2] || 0; // Aktivitas outdoor / woody & spicy
+      const a3 = userAnswers[3] || 0; // Floral / segar
+      const a4 = userAnswers[4] || 0; // Signature / formal
+      const a5 = userAnswers[5] || 0; // Refill / praktis / roll-on
+
+      // Score each product in DB
+      const scoredProducts = DB_PRODUCTS.map(p => {
+        let score = 50; // Base score
+
+        const name = p.name.toLowerCase();
+        const variant = (p.variant || '').toLowerCase();
+        const top = (p.top_notes || '').toLowerCase();
+        const mid = (p.middle_notes || '').toLowerCase();
+        const base = (p.base_notes || '').toLowerCase();
+        const type = (p.type || '').toLowerCase();
+
+        // Q1: Manis & Warm (Vanilla, Gourmand)
+        if (variant.includes('vanilla') || top.includes('vanilla') || mid.includes('vanilla') || base.includes('vanilla') || variant.includes('gourmand')) {
+          score += a1 * 12;
+        }
+        // Q2: Outdoor (Woody, Spicy, Rempah)
+        if (variant.includes('woody') || variant.includes('spicy') || variant.includes('rempah') || top.includes('spicy') || base.includes('woody')) {
+          score += a2 * 12;
+        }
+        // Q3: Bunga & Segar (Floral, Fresh)
+        if (variant.includes('floral') || variant.includes('fresh') || top.includes('fresh') || mid.includes('floral') || mid.includes('rose') || top.includes('anise')) {
+          score += a3 * 12;
+        }
+        // Q4: Eksklusif & Formal (Signature)
+        if (type.includes('signature') || name.includes('dynamyst') || name.includes('vanessence')) {
+          score += a4 * 10;
+        }
+        // Q5: Praktis (Refill, Roll-On)
+        if (type.includes('refill') || type.includes('roll-on') || name.includes('roll-on')) {
+          score += a5 * 10;
+        }
+
+        // Add a little deterministic variation so scores are distinct
+        score += (p.id * 3) % 7;
+
+        // Clamp percentage between 82% and 99%
+        let matchPercent = Math.min(99, Math.max(82, Math.round(score)));
+
+        return { ...p, matchPercent };
+      });
+
+      // Sort descending by match score
+      scoredProducts.sort((a, b) => b.matchPercent - a.matchPercent);
+      const top3 = scoredProducts.slice(0, 3);
+
+      // Hide stage 1 & show stage 2
+      document.getElementById('quiz-active-stage').style.display = 'none';
+      const resultsStage = document.getElementById('quiz-results-stage');
+      resultsStage.classList.add('active');
+
+      // In-Place Header Text Replacement (No extra spacing / no scrolling needed)
+      const heroTitle = document.getElementById('quiz-hero-title');
+      const heroSubtitle = document.getElementById('quiz-hero-subtitle');
+      if (heroTitle) heroTitle.textContent = 'Rekomendasi Parfum Paling Cocok Untuk Anda';
+      if (heroSubtitle) heroSubtitle.textContent = 'Berdasarkan pilihan Anda, berikut adalah 3 varian parfum Parfu.me yang paling cocok dengan karakter & kebutuhan Anda:';
+
+      // Widen container for cards
+      document.querySelector('.quiz-main-container')?.classList.add('wide-results');
+
+      // Render Grid Cards
+      const container = document.getElementById('results-grid-container');
+      container.innerHTML = top3.map(p => {
+        const isSig = (p.type || '').toLowerCase() === 'signature' || p.name.toLowerCase().includes('dynamyst') || p.name.toLowerCase().includes('vanessence');
+        const priceText = isSig ? `Rp ${Number(p.price).toLocaleString('id-ID')}` : 'Rp 45.000 (35ml)';
 
         return `
-          <article class="quiz-product-card">
-            ${imageBlock}
-            <div class="quiz-product-info">
-              <strong>${p.name}</strong>
-              <small>${p.type} • ${p.variant}</small>
-              <small>${p.size} • ${p.price ? 'Rp ' + Number(p.price).toLocaleString('id-ID') : 'Harga mulai dari 20rb'}</small>
+          <div class="rec-card">
+            <div class="rec-match-badge">${p.matchPercent}% MATCH</div>
+            <div class="rec-img-wrap">
+              <img src="${p.image}" alt="${p.name}" onerror="this.src='/assets/images/refill.webp'">
             </div>
-          </article>
+            <div class="rec-card-body">
+              <div class="rec-card-tag">${p.type} • ${p.gender}</div>
+              <div class="rec-card-name">${p.name}</div>
+              <div class="rec-card-notes">
+                <strong>Varian:</strong> ${p.variant}<br>
+                <strong>Top Notes:</strong> ${p.top_notes || '-'}<br>
+                <strong>Base Notes:</strong> ${p.base_notes || '-'}
+              </div>
+              <div class="rec-card-price">${priceText}</div>
+              <a href="/produk/${p.id}" class="rec-btn-detail">Lihat Detail Produk</a>
+            </div>
+          </div>
         `;
       }).join('');
     }
 
-    document.getElementById('quiz-stage').style.display = 'none';
-    document.getElementById('quiz-results-stage').style.display = 'block';
-    document.getElementById('quiz-results-content').classList.add('active');
-    document.getElementById('quiz-reset-panel').style.display = 'block';
-    document.getElementById('btn-next').style.display = 'none';
-    document.getElementById('btn-back').style.display = 'none';
-  }
+    function resetQuiz() {
+      currentStep = 1;
+      for (let k in userAnswers) delete userAnswers[k];
 
-  function stepOptionSelected(button) {
-    const question = button.closest('.quiz-step')?.getAttribute('data-question');
-    if (!question) return;
-    QUIZ_STATE[question] = button.getAttribute('data-value');
-    button.closest('.quiz-step').querySelectorAll('.quiz-option').forEach(item => item.classList.remove('active'));
-    button.classList.add('active');
-    setNextButtonState();
-    updateSelectedTags();
-  }
+      // Reset Hero Header Text back to original
+      const heroTitle = document.getElementById('quiz-hero-title');
+      const heroSubtitle = document.getElementById('quiz-hero-subtitle');
+      if (heroTitle) heroTitle.textContent = 'Temukan Aroma Parfum Anda';
+      if (heroSubtitle) heroSubtitle.textContent = 'Jawab 5 pertanyaan simpel di bawah ini untuk menemukan varian parfum Parfu.me yang paling cocok dengan selera & gaya Anda.';
 
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.quiz-step .quiz-option').forEach(button => {
-      button.addEventListener('click', () => stepOptionSelected(button));
-    });
+      document.querySelector('.quiz-main-container')?.classList.remove('wide-results');
+      document.querySelectorAll('.scale-circle-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById('quiz-results-stage').classList.remove('active');
+      document.getElementById('quiz-active-stage').style.display = 'block';
 
-    document.getElementById('btn-next').addEventListener('click', async () => {
-      if (currentStep < STEPS.length - 1) {
-        showStep(currentStep + 1);
-        return;
-      }
-
-      await displayResults();
-    });
-
-    document.getElementById('btn-back').addEventListener('click', () => {
-      if (document.getElementById('quiz-results-content').classList.contains('active')) {
-        return;
-      }
-      if (currentStep > 0) showStep(currentStep - 1);
-    });
-
-    document.getElementById('btn-reset-quiz').addEventListener('click', resetQuiz);
-
-    showStep(0);
-  });
-</script>
+      updateQuestionStep();
+    }
+  </script>
 @endsection
