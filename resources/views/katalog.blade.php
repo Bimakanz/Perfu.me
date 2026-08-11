@@ -1,11 +1,11 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
-@section('title', 'Katalog Parfum — Parfu.me')
-@section('description', 'Temukan seluruh koleksi parfum premium Parfu.me — Vanessence, Dynamyst, Nusantara Series, dan Roll-On Mini. Tersedia dalam berbagai varian aroma eksklusif.')
+@section('title', 'Katalog Parfum â€” Parfu.me')
+@section('description', 'Temukan seluruh koleksi parfum premium Parfu.me â€” Vanessence, Dynamyst, Nusantara Series, dan Roll-On Mini. Tersedia dalam berbagai varian aroma eksklusif.')
 
 @section('styles')
 <style>
-  /* ── Katalog Page Specific Styles ──────────────────── */
+  /* â”€â”€ Katalog Page Specific Styles â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   body {
     background: #FAFAFA;
     color: #0D0D0D;
@@ -35,7 +35,7 @@
   .katalog-breadcrumb span { color: #C0C0C0; }
 
   .katalog-page-title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Zaloga', Georgia, serif;
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 300;
     letter-spacing: 0.02em;
@@ -360,10 +360,10 @@
 
   .product-card-body { padding: 1.25rem; }
   .product-card-meta { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #8A8A8A; margin-bottom: 0.4rem; }
-  .product-card-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.2rem; font-weight: 400; color: #0D0D0D; margin-bottom: 0.4rem; line-height: 1.2; }
+  .product-card-name { font-family: 'Zaloga', Georgia, serif; font-size: 1.2rem; font-weight: 400; color: #0D0D0D; margin-bottom: 0.4rem; line-height: 1.2; }
   .product-card-tagline { font-size: 0.78rem; color: #8A8A8A; margin-bottom: 1rem; font-style: italic; }
   .product-card-price-row { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 1rem; }
-  .product-card-price { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.3rem; font-weight: 500; color: #0D0D0D; }
+  .product-card-price { font-family: 'Zaloga', Georgia, serif; font-size: 1.3rem; font-weight: 500; color: #0D0D0D; }
   .product-card-price-slash { font-size: 0.8rem; color: #C0C0C0; text-decoration: line-through; }
   .product-card-actions { display: flex; gap: 0.5rem; }
 
@@ -404,7 +404,7 @@
     flex-shrink: 0;
   }
 
-  /* ── Skeleton Loading Shimmer ──────────────────────────────── */
+  /* â”€â”€ Skeleton Loading Shimmer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   .skeleton-card {
     background: #FFFFFF;
     border: 1px solid #E5E5E5;
@@ -598,7 +598,7 @@
 
   .product-detail-name {
     margin: 0 0 0.75rem;
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Zaloga', Georgia, serif;
     font-size: clamp(2rem, 3vw, 2.7rem);
     font-weight: 400;
     color: #0D0D0D;
@@ -653,7 +653,7 @@
   }
 
   .product-detail-price {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Zaloga', Georgia, serif;
     font-size: 2rem;
     color: #0D0D0D;
   }
@@ -722,7 +722,7 @@
     .product-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   }
 
-  /* ── Pagination Styling (Clean Text Luxury) ───────────────── */
+  /* â”€â”€ Pagination Styling (Clean Text Luxury) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   .katalog-pagination {
     display: flex;
     align-items: center;
@@ -812,7 +812,7 @@
   <div class="katalog-header">
     <div class="katalog-breadcrumb">
       <a href="/">Home</a>
-      <span>›</span>
+      <span>â€º</span>
       <span style="color:#0D0D0D;">Produk</span>
     </div>
     <h1 class="katalog-page-title">Koleksi Parfum</h1>
@@ -858,7 +858,7 @@
                 <span class="currency">Rp</span>
                 <input type="text" value="0" id="price-min" readonly>
               </div>
-              <span style="color:#8A8A8A; font-size:0.8rem; flex-shrink:0;">—</span>
+              <span style="color:#8A8A8A; font-size:0.8rem; flex-shrink:0;">â€”</span>
               <div class="price-input-box">
                 <span class="currency">Rp</span>
                 <input type="text" value="300.000" id="price-max" readonly>
@@ -983,7 +983,7 @@
           ${p.best_seller ? '<span class="best-seller-badge">Best Seller</span>' : ''}
         </div>
         <div class="product-card-body">
-          <div class="product-card-meta">${p.type.toUpperCase()} • ${p.gender.toUpperCase()} • ${p.variant.toUpperCase()}</div>
+          <div class="product-card-meta">${p.type.toUpperCase()} â€¢ ${p.gender.toUpperCase()} â€¢ ${p.variant.toUpperCase()}</div>
           <div class="product-card-name">${p.name}</div>
           <div class="product-card-tagline">${p.tagline || ''}</div>
           <div class="product-card-price-row">
@@ -1006,7 +1006,7 @@
       html += `
         <div class="katalog-section-divider-title" style="grid-column: 1/-1; margin-bottom: 0.5rem;">
           <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #b45309;">SIGNATURE COLLECTION</div>
-          <h2 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.8rem; font-weight: 300; margin: 0.2rem 0 1rem; color: #0D0D0D;">Parfum Signature</h2>
+          <h2 style="font-family: 'Zaloga', Georgia, serif; font-size: 1.8rem; font-weight: 300; margin: 0.2rem 0 1rem; color: #0D0D0D;">Parfum Signature</h2>
         </div>
         ${signatureProds.map(renderCard).join('')}
       `;
@@ -1026,7 +1026,7 @@
       html += `
         <div class="katalog-section-divider-title" style="grid-column: 1/-1; margin-bottom: 0.5rem;">
           <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #8A8A8A;">REFILL COLLECTION</div>
-          <h2 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.8rem; font-weight: 300; margin: 0.2rem 0 1rem; color: #0D0D0D;">Koleksi Parfum Refill</h2>
+          <h2 style="font-family: 'Zaloga', Georgia, serif; font-size: 1.8rem; font-weight: 300; margin: 0.2rem 0 1rem; color: #0D0D0D;">Koleksi Parfum Refill</h2>
         </div>
         ${refillProds.map(renderCard).join('')}
       `;
@@ -1111,15 +1111,15 @@
           <img src="${product.image}" alt="${product.name}" onerror="this.src='${FALLBACK_IMG}'">
         </div>
         <div>
-          <div class="product-detail-meta">${product.type.toUpperCase()} • ${product.gender.toUpperCase()} • ${product.variant.toUpperCase()}</div>
+          <div class="product-detail-meta">${product.type.toUpperCase()} â€¢ ${product.gender.toUpperCase()} â€¢ ${product.variant.toUpperCase()}</div>
           <h2 class="product-detail-name" id="product-detail-title">${product.name}</h2>
           <p class="product-detail-tagline">${product.tagline || ''}</p>
           <p class="product-detail-desc">${product.description || 'Detail parfum resmi Parfu.me dengan aroma pilihan.'}</p>
 
           <div class="product-detail-notes">
-            <div class="product-detail-note"><strong>Top Notes</strong><span>${product.top_notes || '–'}</span></div>
-            <div class="product-detail-note"><strong>Heart Notes</strong><span>${product.middle_notes || '–'}</span></div>
-            <div class="product-detail-note"><strong>Base Notes</strong><span>${product.base_notes || '–'}</span></div>
+            <div class="product-detail-note"><strong>Top Notes</strong><span>${product.top_notes || 'â€“'}</span></div>
+            <div class="product-detail-note"><strong>Heart Notes</strong><span>${product.middle_notes || 'â€“'}</span></div>
+            <div class="product-detail-note"><strong>Base Notes</strong><span>${product.base_notes || 'â€“'}</span></div>
           </div>
 
           <div class="product-detail-price-wrap">
@@ -1226,7 +1226,7 @@
       if (span) span.textContent = '+';
     } else {
       section.classList.add('open');
-      if (span) span.textContent = '—';
+      if (span) span.textContent = 'â€”';
     }
   }
 
@@ -1247,3 +1247,4 @@
 </script>
 <script src="{{ asset('js/navbar.js') }}"></script>
 @endsection
+

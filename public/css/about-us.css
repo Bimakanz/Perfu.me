@@ -1,5 +1,5 @@
-/* ============================================================
-   ABOUT US SECTION — Our Story & Mission
+﻿/* ============================================================
+   ABOUT US SECTION â€” Our Story & Mission
    Monochrome Luxury Design Integration (Single centerpiece image)
    ============================================================ */
 
@@ -169,7 +169,7 @@
 }
 
 .stat-number {
-  font-family: var(--font-serif); /* Cormorant Garamond for elegant serif numbers */
+  font-family: var(--font-serif); /* Zaloga for elegant serif numbers */
   font-size: clamp(3.8rem, 6.5vw, 4.8rem);
   font-weight: 300;
   color: var(--black);
@@ -269,3 +269,4 @@
     gap: 3rem;
   }
 }
+

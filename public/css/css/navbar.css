@@ -1,5 +1,5 @@
-/* ============================================================
-   NAVBAR — Clean White Luxury (Ref Image Exact Match)
+﻿/* ============================================================
+   NAVBAR â€” Clean White Luxury (Ref Image Exact Match)
    ============================================================ */
 
 #navbar {
@@ -33,7 +33,7 @@
 }
 
 .nav-brand-name {
-  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-family: 'Zaloga', Georgia, serif !important;
   font-size: 1.5rem !important;
   font-weight: 500 !important;
   letter-spacing: 0.05em !important;
@@ -141,3 +141,4 @@
   #navbar { padding: 1rem 1.5rem !important; }
   .nav-links { display: none !important; }
 }
+

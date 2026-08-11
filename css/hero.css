@@ -1,5 +1,5 @@
-/* ============================================================
-   HERO SECTION — High-End Cinematic Luxury (Dark Overlay & 3 Bottles)
+﻿/* ============================================================
+   HERO SECTION â€” High-End Cinematic Luxury (Dark Overlay & 3 Bottles)
    ============================================================ */
 
 #hero {
@@ -83,7 +83,7 @@
 }
 
 .hero-heading {
-  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-family: 'Zaloga', Georgia, serif !important;
   font-size: clamp(5.5rem, 9.5vw, 8.5rem) !important;
   font-weight: 300 !important;
   color: #FFFFFF !important;

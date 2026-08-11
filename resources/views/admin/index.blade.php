@@ -1,19 +1,17 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Portal — Perfu.me Dashboard</title>
+  <title>Admin Portal â€” Perfu.me Dashboard</title>
   <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>">
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>ðŸ”’</text></svg>">
 
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="{{ asset('css/main.css') }}">
   <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
@@ -289,7 +287,7 @@
           <div
             style="font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#8A8A8A;"
             id="detail-meta">
-            EAU DE PARFUM · 30ML
+            EAU DE PARFUM Â· 30ML
           </div>
           <div class="admin-detail-price" id="detail-price">Rp 150.000</div>
           <div class="admin-detail-tagline" id="detail-tagline">"Elegan, segar, dan abadi"</div>
@@ -319,8 +317,8 @@
       </div>
 
       <div class="admin-detail-footer">
-        <button class="btn-action-zero" id="detail-btn-zero">🚫 Set 0 Stok</button>
-        <button class="btn-action-edit" id="detail-btn-edit">✏️ Edit Produk Ini</button>
+        <button class="btn-action-zero" id="detail-btn-zero">ðŸš« Set 0 Stok</button>
+        <button class="btn-action-edit" id="detail-btn-edit">âœï¸ Edit Produk Ini</button>
         <button class="admin-btn-secondary" id="detail-btn-close">Tutup</button>
       </div>
     </div>
@@ -361,12 +359,12 @@
             </div>
             <div class="form-select-options">
               <div class="form-select-option selected" data-value="Signature"><span>Signature</span><span
-                  class="opt-check">✓</span></div>
+                  class="opt-check">âœ“</span></div>
               <div class="form-select-option" data-value="Refill"><span>Refill</span><span
-                  class="opt-check">✓</span></div>
+                  class="opt-check">âœ“</span></div>
               <div class="form-select-option" data-value="Eau de Parfum"><span>Eau de Parfum</span><span
-                  class="opt-check">✓</span></div>
-              <div class="form-select-option" data-value="Roll-on"><span>Roll-on</span><span class="opt-check">✓</span>
+                  class="opt-check">âœ“</span></div>
+              <div class="form-select-option" data-value="Roll-on"><span>Roll-on</span><span class="opt-check">âœ“</span>
               </div>
             </div>
           </div>
@@ -384,9 +382,9 @@
             </div>
             <div class="form-select-options">
               <div class="form-select-option selected" data-value="Unisex"><span>Unisex</span><span
-                  class="opt-check">✓</span></div>
-              <div class="form-select-option" data-value="Pria"><span>Pria</span><span class="opt-check">✓</span></div>
-              <div class="form-select-option" data-value="Wanita"><span>Wanita</span><span class="opt-check">✓</span>
+                  class="opt-check">âœ“</span></div>
+              <div class="form-select-option" data-value="Pria"><span>Pria</span><span class="opt-check">âœ“</span></div>
+              <div class="form-select-option" data-value="Wanita"><span>Wanita</span><span class="opt-check">âœ“</span>
               </div>
             </div>
           </div>
@@ -411,13 +409,13 @@
             </div>
             <div class="form-select-options">
               <div class="form-select-option selected" data-value="30ML" data-display="30ML (Standard Size)"><span>30ML
-                  (Standard Size)</span><span class="opt-check">✓</span></div>
+                  (Standard Size)</span><span class="opt-check">âœ“</span></div>
               <div class="form-select-option" data-value="50ML" data-display="50ML (Medium Size)"><span>50ML (Medium
-                  Size)</span><span class="opt-check">✓</span></div>
+                  Size)</span><span class="opt-check">âœ“</span></div>
               <div class="form-select-option" data-value="100ML" data-display="100ML (Full Size)"><span>100ML (Full
-                  Size)</span><span class="opt-check">✓</span></div>
+                  Size)</span><span class="opt-check">âœ“</span></div>
               <div class="form-select-option" data-value="10ML" data-display="10ML (Roll-On / Mini)"><span>10ML (Roll-On
-                  / Mini)</span><span class="opt-check">✓</span></div>
+                  / Mini)</span><span class="opt-check">âœ“</span></div>
             </div>
           </div>
         </div>
@@ -496,7 +494,7 @@
         <label class="form-toggle">
           <input type="checkbox" id="form-bestseller">
           <span class="form-toggle-track"><span class="form-toggle-thumb"></span></span>
-          <span class="form-toggle-label">Tandai sebagai <strong>Best Seller ★</strong></span>
+          <span class="form-toggle-label">Tandai sebagai <strong>Best Seller â˜…</strong></span>
         </label>
       </div>
     </form>

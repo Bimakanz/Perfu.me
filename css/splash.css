@@ -1,5 +1,5 @@
-/* ============================================================
-   SPLASH SCREEN — Typewriter Intro & Slide Up Curtain
+﻿/* ============================================================
+   SPLASH SCREEN â€” Typewriter Intro & Slide Up Curtain
    ============================================================ */
 
 #splash {
@@ -31,7 +31,7 @@
 
 /* Typewriter Title: Parfu.me */
 .splash-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: 'Zaloga', Georgia, serif;
   font-size: clamp(3.5rem, 7vw, 5.8rem);
   font-weight: 400;
   letter-spacing: 0.08em;
@@ -74,3 +74,4 @@
   opacity: 1;
   transform: translateY(0);
 }
+

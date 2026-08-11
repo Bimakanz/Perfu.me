@@ -1,5 +1,5 @@
-/* ============================================================
-   HERO SECTION — High-End Boutique Luxury (Clean White Theme)
+﻿/* ============================================================
+   HERO SECTION â€” High-End Boutique Luxury (Clean White Theme)
    ============================================================ */
 
 #hero {
@@ -59,7 +59,7 @@
 }
 
 .hero-heading {
-  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-family: 'Zaloga', Georgia, serif !important;
   font-size: clamp(3.2rem, 5vw, 4.8rem) !important;
   font-weight: 400 !important;
   color: #0D0D0D !important;
@@ -146,7 +146,7 @@
 }
 
 .hero-stat-val {
-  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-family: 'Zaloga', Georgia, serif !important;
   font-size: 2.25rem !important;
   font-weight: 400 !important;
   color: #0D0D0D !important;
@@ -215,3 +215,4 @@
   .hero-stats-row { gap: 1.5rem !important; }
   .hero-stat-val { font-size: 1.75rem !important; }
 }
+

@@ -1,6 +1,6 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
-@section('title', $product->name . ' — Parfu.me')
+@section('title', $product->name . ' â€” Parfu.me')
 @section('description', $product->description)
 
 @section('styles')
@@ -46,7 +46,7 @@
   }
 
   .detail-brand-watermark {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Zaloga', Georgia, serif;
     font-size: 2.5rem;
     font-weight: 400;
     letter-spacing: 0.15em;
@@ -146,7 +146,7 @@
   }
 
   .detail-features-list li::before {
-    content: "✓";
+    content: "âœ“";
     font-weight: 700;
     color: #000000;
     font-size: 0.9rem;
@@ -191,7 +191,7 @@
     color: #111111;
   }
 
-  /* ── Sticky Bottom Bar ────────────────────────────────────────── */
+  /* â”€â”€ Sticky Bottom Bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   .sticky-bottom-bar {
     position: fixed;
     bottom: 0;
@@ -456,7 +456,7 @@
   }
 
   .related-title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Zaloga', Georgia, serif;
     font-size: 2.2rem;
     font-weight: 300;
     color: #0D0D0D;
@@ -623,9 +623,9 @@
     {{-- Breadcrumb --}}
     <div class="detail-breadcrumb">
       <a href="/">Home</a>
-      <span>›</span>
+      <span>â€º</span>
       <a href="/katalog">{{ $isSignature ? 'Signature Collection' : 'Refill Collection' }}</a>
-      <span>›</span>
+      <span>â€º</span>
       <span style="color:#000000; font-weight:600;">{{ $product->name }}</span>
     </div>
 
@@ -662,7 +662,7 @@
           <li>Parfum oil grade A, alkohol 90%</li>
           <li>Tanpa pewarna tambahan</li>
           <li>{{ $product->packaging ?? 'Botol kaca spray + dus karton' }}</li>
-          <li>Tahan 6–10 jam di kulit</li>
+          <li>Tahan 6â€“10 jam di kulit</li>
         </ul>
 
         <div class="detail-scent-notes-box">
@@ -710,7 +710,7 @@
                 <img src="{{ asset($rel->image) }}" alt="{{ $rel->name }}" loading="lazy" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
               </div>
               <div class="related-card-body">
-                <div class="related-card-tag">{{ $relIsSig ? 'Signature' : 'Refill' }} • {{ $rel->gender }}</div>
+                <div class="related-card-tag">{{ $relIsSig ? 'Signature' : 'Refill' }} â€¢ {{ $rel->gender }}</div>
                 <div class="related-card-name">
                   <span class="related-card-title-text">{{ $rel->name }}</span>
                 </div>
@@ -738,7 +738,7 @@
         {{-- Custom Luxury Dropdown for Size Selection --}}
         <div class="custom-size-dropdown" id="custom-size-dropdown">
           <button type="button" class="custom-size-trigger" id="custom-size-trigger">
-            <span id="custom-size-label">{{ $isSignature ? 'Signature 30ml' : 'Refill 35ml — Rp 45.000' }}</span>
+            <span id="custom-size-label">{{ $isSignature ? 'Signature 30ml' : 'Refill 35ml â€” Rp 45.000' }}</span>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           
@@ -746,16 +746,16 @@
             @if($isSignature)
               <div class="custom-size-opt active" data-size="30ml" data-price="{{ $product->price }}">Signature 30ml</div>
             @else
-              <div class="custom-size-opt" data-size="15ml" data-price="20000">Refill 15ml — Rp 20.000</div>
-              <div class="custom-size-opt active" data-size="35ml" data-price="45000">Refill 35ml — Rp 45.000</div>
-              <div class="custom-size-opt" data-size="50ml" data-price="65000">Refill 50ml — Rp 65.000</div>
+              <div class="custom-size-opt" data-size="15ml" data-price="20000">Refill 15ml â€” Rp 20.000</div>
+              <div class="custom-size-opt active" data-size="35ml" data-price="45000">Refill 35ml â€” Rp 45.000</div>
+              <div class="custom-size-opt" data-size="50ml" data-price="65000">Refill 50ml â€” Rp 65.000</div>
             @endif
           </div>
         </div>
 
         {{-- Quantity counter (- 1 +) --}}
         <div class="qty-counter">
-          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <button class="qty-btn" onclick="changeQty(-1)">âˆ’</button>
           <span class="qty-val" id="qty-val">1</span>
           <button class="qty-btn" onclick="changeQty(1)">+</button>
         </div>
@@ -775,7 +775,7 @@
   <footer id="footer-section" style="background:#0D0D0D; color:#FFF; padding:6rem 4rem 8rem 4rem; margin-top: 7rem; position:relative; z-index:1;">
     <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:4rem;">
       <div>
-        <div style="font-family:'Cormorant Garamond', Georgia, serif; font-size:2rem; font-weight:300; letter-spacing:0.05em; margin-bottom:0.75rem;">Parfu.me</div>
+        <div style="font-family:'Zaloga', Georgia, serif; font-size:2rem; font-weight:300; letter-spacing:0.05em; margin-bottom:0.75rem;">Parfu.me</div>
         <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7; max-width:380px;">
           Perfu.me lahir dari sebuah keyakinan sederhana: setiap orang berhak tampil harum tanpa harus mengeluarkan biaya yang mahal. Karena itu, kami menghadirkan parfum dengan kualitas aroma premium, karakter yang khas, dan harga yang tetap ramah di kantong.
         </p>
@@ -886,3 +886,4 @@
 </script>
 <script src="{{ asset('js/navbar.js') }}"></script>
 @endsection
+
