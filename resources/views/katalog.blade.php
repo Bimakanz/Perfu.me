@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Katalog Parfum — Parfu.me')
-@section('description', 'Temukan seluruh koleksi parfum premium Parfu.me — Vanessence, Dynamyst, Nusantara Series, dan Roll-On Mini. Tersedia dalam berbagai varian aroma eksklusif.')
+@section('title', 'Katalog Parfum — Perfu.me')
+@section('description', 'Temukan seluruh koleksi parfum premium Perfu.me — Vanessence, Dynamyst, Nusantara Series, dan Roll-On Mini. Tersedia dalam berbagai varian aroma eksklusif.')
 
 @section('styles')
 <style>
@@ -363,7 +363,7 @@
   .product-card-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.2rem; font-weight: 400; color: #0D0D0D; margin-bottom: 0.4rem; line-height: 1.2; }
   .product-card-tagline { font-size: 0.78rem; color: #8A8A8A; margin-bottom: 1rem; font-style: italic; }
   .product-card-price-row { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 1rem; }
-  .product-card-price { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.3rem; font-weight: 500; color: #0D0D0D; }
+  .product-card-price { font-family: 'Inter', system-ui, sans-serif; font-size: 1.12rem; font-weight: 700; color: #0D0D0D; }
   .product-card-price-slash { font-size: 0.8rem; color: #C0C0C0; text-decoration: line-through; }
   .product-card-actions { display: flex; gap: 0.5rem; }
 
@@ -779,7 +779,7 @@
   {{-- NAVBAR --}}
   <nav id="navbar" aria-label="Main Navigation">
     <div class="nav-brand">
-      <a href="/" class="nav-brand-name" style="text-decoration:none; color:inherit;">Parfu.me</a>
+      <a href="/" class="nav-brand-name" style="text-decoration:none; color:inherit;">Perfu.me</a>
     </div>
 
     <ul class="nav-links">
@@ -816,7 +816,7 @@
       <span style="color:#0D0D0D;">Produk</span>
     </div>
     <h1 class="katalog-page-title">Koleksi Parfum</h1>
-    <p class="katalog-page-sub">Semua koleksi wewangian eksklusif Parfu.me</p>
+    <p class="katalog-page-sub">Semua koleksi wewangian eksklusif Perfu.me</p>
     <a href="/quiz" class="katalog-hook">Masih bingung pilih parfum? <small>Mulai quiz untuk rekomendasi parfum keseharian Anda.</small></a>
   </div>
 
@@ -903,7 +903,7 @@
   <footer id="footer-section" style="background:#0D0D0D; color:#FFF; padding:5rem 4rem 2.5rem 4rem; margin-top: 5rem; position:relative; z-index:1;">
     <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:4rem;">
       <div>
-        <div style="font-family:var(--font-serif); font-size:2rem; font-weight:300; letter-spacing:0.05em; margin-bottom:0.75rem;">Parfu.me</div>
+        <div style="font-family:var(--font-serif); font-size:2rem; font-weight:300; letter-spacing:0.05em; margin-bottom:0.75rem;">Perfu.me</div>
         <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7; max-width:380px;">
           Perfu.me lahir dari sebuah keyakinan sederhana: setiap orang berhak tampil harum tanpa harus mengeluarkan biaya yang mahal. Karena itu, kami menghadirkan parfum dengan kualitas aroma premium, karakter yang khas, dan harga yang tetap ramah di kantong.
         </p>
@@ -930,7 +930,7 @@
       </div>
     </div>
     <div style="max-width:1200px; margin:0 auto; padding-top:2rem; border-top:1px solid rgba(192,192,192,0.1); display:flex; justify-content: space-between; align-items:center; font-size:0.75rem; color:#8A8A8A;">
-      <div>&copy; 2026 Parfu.me. All rights reserved.</div>
+      <div>&copy; 2026 Perfu.me. All rights reserved.</div>
       <div>Monochrome Luxury Aesthetic System</div>
     </div>
   </footer>
@@ -1114,7 +1114,7 @@
           <div class="product-detail-meta">${product.type.toUpperCase()} • ${product.gender.toUpperCase()} • ${product.variant.toUpperCase()}</div>
           <h2 class="product-detail-name" id="product-detail-title">${product.name}</h2>
           <p class="product-detail-tagline">${product.tagline || ''}</p>
-          <p class="product-detail-desc">${product.description || 'Detail parfum resmi Parfu.me dengan aroma pilihan.'}</p>
+          <p class="product-detail-desc">${product.description || 'Detail parfum resmi Perfu.me dengan aroma pilihan.'}</p>
 
           <div class="product-detail-notes">
             <div class="product-detail-note"><strong>Top Notes</strong><span>${product.top_notes || '–'}</span></div>

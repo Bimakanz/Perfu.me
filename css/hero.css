@@ -2,6 +2,15 @@
    HERO SECTION — High-End Cinematic Luxury (Dark Overlay & 3 Bottles)
    ============================================================ */
 
+/* Custom Font Zaloga */
+@font-face {
+  font-family: 'Zaloga';
+  src: url('/fonts/Zaloga.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 #hero {
   position: relative !important;
   width: 100% !important;
@@ -83,12 +92,12 @@
 }
 
 .hero-heading {
-  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-family: 'Zaloga', 'Cormorant Garamond', Georgia, serif !important;
   font-size: clamp(5.5rem, 9.5vw, 8.5rem) !important;
-  font-weight: 300 !important;
+  font-weight: normal !important;
   color: #FFFFFF !important;
   line-height: 1.0 !important;
-  letter-spacing: -0.01em !important;
+  letter-spacing: 0.02em !important;
   margin-bottom: 1.75rem !important;
   text-shadow: 0 6px 32px rgba(0, 0, 0, 0.7) !important;
 }

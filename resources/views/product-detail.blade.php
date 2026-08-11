@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $product->name . ' — Parfu.me')
+@section('title', $product->name . ' — Perfu.me')
 @section('description', $product->description)
 
 @section('styles')
@@ -585,7 +585,7 @@
   {{-- NAVBAR --}}
   <nav id="navbar" aria-label="Main Navigation">
     <div class="nav-brand">
-      <a href="/" class="nav-brand-name" style="text-decoration:none; color:inherit;">Parfu.me</a>
+      <a href="/" class="nav-brand-name" style="text-decoration:none; color:inherit;">Perfu.me</a>
     </div>
 
     <ul class="nav-links">
@@ -775,7 +775,7 @@
   <footer id="footer-section" style="background:#0D0D0D; color:#FFF; padding:6rem 4rem 8rem 4rem; margin-top: 7rem; position:relative; z-index:1;">
     <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:4rem;">
       <div>
-        <div style="font-family:'Cormorant Garamond', Georgia, serif; font-size:2rem; font-weight:300; letter-spacing:0.05em; margin-bottom:0.75rem;">Parfu.me</div>
+        <div style="font-family:'Cormorant Garamond', Georgia, serif; font-size:2rem; font-weight:300; letter-spacing:0.05em; margin-bottom:0.75rem;">Perfu.me</div>
         <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7; max-width:380px;">
           Perfu.me lahir dari sebuah keyakinan sederhana: setiap orang berhak tampil harum tanpa harus mengeluarkan biaya yang mahal. Karena itu, kami menghadirkan parfum dengan kualitas aroma premium, karakter yang khas, dan harga yang tetap ramah di kantong.
         </p>
@@ -802,7 +802,7 @@
       </div>
     </div>
     <div style="max-width:1200px; margin:0 auto; padding-top:2rem; border-top:1px solid rgba(192,192,192,0.1); display:flex; justify-content: space-between; align-items:center; font-size:0.75rem; color:#8A8A8A;">
-      <div>&copy; 2026 Parfu.me. All rights reserved.</div>
+      <div>&copy; 2026 Perfu.me. All rights reserved.</div>
       <div>Monochrome Luxury Aesthetic System</div>
     </div>
   </footer>

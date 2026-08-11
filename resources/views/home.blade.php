@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Parfu.me — Luxury & Nusantara Fragrance Series')
-@section('description', 'Parfu.me menghadirkan koleksi parfum premium vanessence, dynamyst, dan seri nusantara dengan konsentrat parfum grade A dan ketahanan aromatis hingga 10 jam.')
+@section('title', 'Perfu.me — Luxury & Nusantara Fragrance Series')
+@section('description', 'Perfu.me menghadirkan koleksi parfum premium vanessence, dynamyst, dan seri nusantara dengan konsentrat parfum grade A dan ketahanan aromatis hingga 10 jam.')
 
 @section('meta')
-<meta name="keywords" content="parfu.me, perfu.me, parfum nusantara, vanessence, dynamyst, eau de parfum, parfum lokal">
+<meta name="keywords" content="perfu.me, perfu.me, parfum nusantara, vanessence, dynamyst, eau de parfum, parfum lokal">
 @endsection
 
 @section('styles')
@@ -32,7 +32,7 @@
   {{-- 2. NAVBAR --}}
   <nav id="navbar" aria-label="Main Navigation">
     <div class="nav-brand" data-nav="home">
-      <a href="/" style="text-decoration:none; color:inherit;"><span class="nav-brand-name">Parfu.me</span></a>
+      <a href="/" style="text-decoration:none; color:inherit;"><span class="nav-brand-name">Perfu.me</span></a>
     </div>
 
     <ul class="nav-links">
@@ -69,14 +69,13 @@
     <div class="hero-grid">
       <div class="hero-text-col">
         <h1 class="hero-heading">
-          Parfu.me
+          Perfu.me
         </h1>
         <p class="hero-desc">
           Lahir dari pengalaman panjang, kini hadir 2 racikan signature orisinal pertama kami. Diformulasikan dengan Perfume Oil Grade A untuk ketahanan lebih dari jam.
         </p>
         <div class="hero-btn-group">
           <a href="#produk-section" class="btn-hero-primary">Jelajahi Koleksi</a>
-          <a href="#about-section" class="btn-hero-secondary">Cerita Kami</a>
         </div>
       </div>
     </div>
@@ -119,7 +118,7 @@
         <!-- Right Column: Interactive Visuals & Slogan Card -->
         <div class="about-us-visual-col">
           <div class="about-us-image-container">
-            <img src="{{ asset('assets/images/aboutus.png') }}" alt="Parfu.me Signature Fragrances" class="about-us-single-img">
+            <img src="{{ asset('assets/images/aboutus.png') }}" alt="Perfu.me Signature Fragrances" class="about-us-single-img">
           </div>
           <!-- Floating Slogan Card -->
           <div class="floating-slogan-card">
@@ -139,7 +138,7 @@
   <section class="products-showcase-section" id="produk-section">
     <div class="showcase-header">
       <div class="catalog-tag" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #8A8A8A; margin-bottom: 0.75rem;">KATALOG PRODUK</div>
-      <h2>Parfu.me Signatures</h2>
+      <h2>Perfu.me Signatures</h2>
     </div>
 
     <div id="produk-section-list">
@@ -213,7 +212,7 @@
         Masih Bingung Memilih Aroma Parfum Yang Pas?
       </h2>
       <p style="font-size:1.02rem; color:#555555; line-height:1.75; margin-bottom:2.5rem; max-width:620px; margin-left:auto; margin-right:auto;">
-        Jawab 5 pertanyaan simpel untuk menemukan varian parfum Parfu.me yang paling cocok dengan kepribadian & aktivitas harian Anda.
+        Jawab 5 pertanyaan simpel untuk menemukan varian parfum Perfu.me yang paling cocok dengan kepribadian & aktivitas harian Anda.
       </p>
       <a href="/quiz" style="display:inline-flex; align-items:center; gap:0.6rem; padding:1.05rem 2.4rem; background:#0D0D0D; color:#FFFFFF; border-radius:999px; font-size:0.88rem; font-weight:700; letter-spacing:0.06em; text-decoration:none; transition:all 0.25s ease; box-shadow:0 6px 20px rgba(0,0,0,0.12);" onmouseover="this.style.background='#252525'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#0D0D0D'; this.style.transform='translateY(0)';">
         Ikuti Quiz 
@@ -225,7 +224,7 @@
   <footer id="footer-section" style="background:#0D0D0D; color:#FFF; padding:5rem 4rem 2.5rem 4rem;">
     <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:4rem;">
       <div>
-        <div style="font-family:var(--font-serif); font-size:2rem; font-weight:300; letter-spacing:0.05em; margin-bottom:0.75rem;">Parfu.me</div>
+        <div style="font-family:var(--font-serif); font-size:2rem; font-weight:300; letter-spacing:0.05em; margin-bottom:0.75rem;">Perfu.me</div>
         <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7; max-width:380px;">
           Perfu.me lahir dari sebuah keyakinan sederhana: setiap orang berhak tampil harum tanpa harus mengeluarkan biaya yang mahal. Karena itu, kami menghadirkan parfum dengan kualitas aroma premium, karakter yang khas, dan harga yang tetap ramah di kantong.
         </p>
@@ -252,7 +251,7 @@
       </div>
     </div>
     <div style="max-width:1200px; margin:0 auto; padding-top:2rem; border-top:1px solid rgba(192,192,192,0.1); display:flex; justify-content: space-between; align-items:center; font-size:0.75rem; color:#8A8A8A;">
-      <div>&copy; 2026 Parfu.me. All rights reserved.</div>
+      <div>&copy; 2026 Perfu.me. All rights reserved.</div>
       <div>Monochrome Luxury Aesthetic System</div>
     </div>
   </footer>

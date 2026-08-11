@@ -83,7 +83,7 @@
     <header class="admin-topbar">
       <div class="admin-topbar-brand">
         <div>
-          <div class="admin-brand-title">Parfu.me Admin</div>
+          <div class="admin-brand-title">Perfu.me Admin</div>
           <div class="admin-brand-sub">Inventory &amp; CRUD Management</div>
         </div>
       </div>

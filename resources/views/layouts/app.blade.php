@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- SEO -->
-  <title>@yield('title', 'Parfu.me — Luxury & Nusantara Fragrance Series')</title>
-  <meta name="description" content="@yield('description', 'Parfu.me menghadirkan koleksi parfum premium vanessence, dynamyst, dan seri nusantara dengan konsentrat parfum grade A dan ketahanan aromatis hingga 10 jam.')">
+  <title>@yield('title', 'Perfu.me — Luxury & Nusantara Fragrance Series')</title>
+  <meta name="description" content="@yield('description', 'Perfu.me menghadirkan koleksi parfum premium vanessence, dynamyst, dan seri nusantara dengan konsentrat parfum grade A dan ketahanan aromatis hingga 10 jam.')">
   @yield('meta')
 
   <!-- Favicon -->
