@@ -85,51 +85,56 @@
   <section id="about-story-section" class="about-us-section">
     <div class="about-us-container">
 
-    <div class="about-us-stats-row">
+      <!-- Stats Row at the Bottom -->
+      <div class="about-us-stats-row">
         <div class="stat-item">
           <div class="stat-number">2</div>
           <div class="stat-title">Signature Scents</div>
-          <div class="stat-desc">Pilihan aroma awal yang berkarakter kuat</div>
+          <div class="stat-desc">Pilihan aroma orisinal berkarakter kuat</div>
         </div>
         <div class="stat-item">
           <div class="stat-number">100%</div>
           <div class="stat-title">Local Pride</div>
-          <div class="stat-desc">Brand parfum lokal berkualitas premium</div>
+          <div class="stat-desc">Brand parfum lokal berkualitas tinggi</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">Harga</div>
-          <div class="stat-title">Terjangkau</div>
-          <div class="stat-desc">Wangi mewah tanpa bikin kantong bolong</div>
+          <div class="stat-number">8+ Jam</div>
+          <div class="stat-title">Daya Tahan</div>
+          <div class="stat-desc">Wangi tahan lama menemani aktivitas harian</div>
         </div>
       </div>
+      <!-- Main About Grid (Visual Dominant Layout) -->
       <div class="about-us-grid">
         <!-- Left Column: Story & Mission text -->
         <div class="about-us-text-col">
-          <span class="about-us-tagline">Cerita & Misi Kami</span>
           <h2 class="about-us-heading">Our Story & Mission</h2>
           <p class="about-us-paragraph">
-            Perfu.me lahir dari sebuah keyakinan sederhana: setiap orang berhak tampil harum tanpa harus mengeluarkan biaya yang mahal. Kami adalah brand parfum lokal yang menghadirkan aroma berkarakter dengan kualitas premium dan harga yang tetap ramah di kantong.
+            Perfu.me lahir dari sebuah keyakinan sederhana: setiap orang berhak tampil harum tanpa harus mengeluarkan biaya yang mahal. Kami menghadirkan racikan parfum berkarakter tinggi dengan kualitas premium yang tetap ramah di kantong.
           </p>
           <p class="about-us-paragraph">
-            Di Perfu.me, kami tidak ingin menghadirkan puluhan aroma tanpa karakter. Kami ingin setiap parfum memiliki identitas kuat yang menjadi bagian dari kepercayaan diri penggunanya—karena parfum bukan sekadar wangi, tapi cara seseorang mengekspresikan dirinya.
+            Kami percaya parfum bukan sekadar wangi, melainkan bentuk ekspresi diri dan pendorong kepercayaan diri utama. Setiap varian diformulasikan secara khusus agar memberikan kesan mewah yang autentik.
           </p>
+
+  
+
+          <a href="#produk-section" class="about-us-cta-btn">
+            <span>Jelajahi Signatures</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
         </div>
 
-        <!-- Right Column: Interactive Visuals & Slogan Card -->
+        <!-- Right Column: Dominant Visual Showcase (Image + Floating Slogan Card) -->
         <div class="about-us-visual-col">
-          <div class="about-us-image-container">
-            <img src="{{ asset('assets/images/aboutus.png') }}" alt="Perfu.me Signature Fragrances" class="about-us-single-img">
-          </div>
-          <!-- Floating Slogan Card -->
+          <img src="{{ asset('assets/images/abotus.png') }}" alt="Perfu.me Signature Fragrances" class="about-us-single-img">
+          
+          <!-- Floating Luxury Slogan Card (Sharp Edges) -->
           <div class="floating-slogan-card">
             <div class="slogan-badge">Brand Tagline</div>
-            <div class="slogan-title">Smell Good. Feel Confident</div>
-            <div class="slogan-text">Wangi Gak Harus Mahal.</div>
+            <div class="slogan-title">Smell Good. Feel Confident.</div>
+            <div class="slogan-text">Wangi Mewah, Terjangkau untuk Semua.</div>
           </div>
         </div>
       </div>
-
-      <!-- Stats Row at the bottom -->
       
     </div>
   </section>
