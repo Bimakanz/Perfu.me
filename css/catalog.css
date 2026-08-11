@@ -251,9 +251,9 @@
 }
 
 .product-card-price {
-  font-family: var(--font-serif);
-  font-size: 1.35rem;
-  font-weight: 500;
+  font-family: var(--font-sans);
+  font-size: 1.12rem;
+  font-weight: 700;
   color: var(--black);
 }
 

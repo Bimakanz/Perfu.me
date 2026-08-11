@@ -1,6 +1,6 @@
 ﻿@extends('layouts.app')
 
-@section('title', 'Scent Finder Quiz â€” Parfu.me')
+@section('title', 'Scent Finder Quiz — Perfu.me')
 @section('description', 'Temukan parfum terbaik untuk karakter Anda melalui 5 pertanyaan simpel dari Parfu.me.')
 
 @section('styles')
@@ -517,7 +517,7 @@
   {{-- NAVBAR --}}
   <nav id="navbar" aria-label="Main Navigation">
     <div class="nav-brand" data-nav="home">
-      <a href="/" style="text-decoration:none; color:inherit;"><span class="nav-brand-name">Parfu.me</span></a>
+      <a href="/" style="text-decoration:none; color:inherit;"><span class="nav-brand-name">Perfu.me</span></a>
     </div>
 
     <ul class="nav-links">
@@ -552,7 +552,7 @@
   <header class="quiz-hero-header" id="quiz-hero-header">
     <h1 class="quiz-title" id="quiz-hero-title">Temukan Aroma Parfum Anda</h1>
     <p class="quiz-subtitle" id="quiz-hero-subtitle">
-      Jawab 5 pertanyaan simpel di bawah ini untuk menemukan varian parfum Parfu.me yang paling cocok dengan selera & gaya Anda.
+      Jawab 5 pertanyaan simpel di bawah ini untuk menemukan varian parfum Perfu.me yang paling cocok dengan selera & gaya Anda.
     </p>
   </header>
 
@@ -868,7 +868,7 @@
       const heroTitle = document.getElementById('quiz-hero-title');
       const heroSubtitle = document.getElementById('quiz-hero-subtitle');
       if (heroTitle) heroTitle.textContent = 'Rekomendasi Parfum Paling Cocok Untuk Anda';
-      if (heroSubtitle) heroSubtitle.textContent = 'Berdasarkan pilihan Anda, berikut adalah 3 varian parfum Parfu.me yang paling cocok dengan karakter & kebutuhan Anda:';
+      if (heroSubtitle) heroSubtitle.textContent = 'Berdasarkan pilihan Anda, berikut adalah 3 varian parfum Perfu.me yang paling cocok dengan karakter & kebutuhan Anda:';
 
       // Widen container for cards
       document.querySelector('.quiz-main-container')?.classList.add('wide-results');
@@ -909,7 +909,7 @@
       const heroTitle = document.getElementById('quiz-hero-title');
       const heroSubtitle = document.getElementById('quiz-hero-subtitle');
       if (heroTitle) heroTitle.textContent = 'Temukan Aroma Parfum Anda';
-      if (heroSubtitle) heroSubtitle.textContent = 'Jawab 5 pertanyaan simpel di bawah ini untuk menemukan varian parfum Parfu.me yang paling cocok dengan selera & gaya Anda.';
+      if (heroSubtitle) heroSubtitle.textContent = 'Jawab 5 pertanyaan simpel di bawah ini untuk menemukan varian parfum Perfu.me yang paling cocok dengan selera & gaya Anda.';
 
       document.querySelector('.quiz-main-container')?.classList.remove('wide-results');
       document.querySelectorAll('.scale-circle-btn').forEach(b => b.classList.remove('selected'));

@@ -4,7 +4,7 @@
  */
 
 (function () {
-  const textToType = 'Parfu.me';
+  const textToType = 'Perfu.me';
   let charIndex = 0;
 
   function runSplash() {
