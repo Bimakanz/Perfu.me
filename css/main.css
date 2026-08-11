@@ -5,6 +5,15 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
 
+/* Custom Font Zaloga */
+@font-face {
+  font-family: 'Zaloga';
+  src: url('/fonts/Zaloga.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ─── CSS Custom Properties ─────────────────────────────────── */
 :root {
   /* Colors */
@@ -23,7 +32,7 @@
   --glass-blur:     blur(14px);
 
   /* Typography */
-  --font-serif:     'Cormorant Garamond', Georgia, serif;
+  --font-serif:     'Zaloga', 'Cormorant Garamond', Georgia, serif;
   --font-sans:      'Inter', system-ui, sans-serif;
 
   /* Transitions */
@@ -790,5 +799,200 @@ button {
 
 .footer-collection-link:hover::after {
   width: 100% !important;
+}
+
+/* ─── Floating Green WhatsApp Widget & Popover Menu ─────────── */
+.floating-wa-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.95);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+}
+
+.floating-wa-container.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* Green WA Trigger Button */
+.floating-wa-trigger {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.25s ease;
+}
+
+.floating-wa-trigger:hover {
+  transform: scale(1.08);
+  background: #20BA5A;
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.55);
+}
+
+.wa-icon-svg {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.wa-close-icon {
+  position: absolute;
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 300;
+  opacity: 0;
+  transform: scale(0.5) rotate(-90deg);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Active state: Hide WA icon & Show Close X icon */
+.floating-wa-container.active .wa-icon-svg {
+  opacity: 0;
+  transform: scale(0.5) rotate(90deg);
+}
+
+.floating-wa-container.active .wa-close-icon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* Popover Option Menu Card (Authentic Speech Bubble Chat Style) */
+.floating-wa-menu {
+  position: relative;
+  width: 320px;
+  background: #FFFFFF;
+  border-radius: 18px 18px 2px 18px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+  border: 1px solid #E5E5E5;
+  margin-bottom: 1.2rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px) scale(0.95);
+  transform-origin: bottom right;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+/* Buntut / Ekor Lancip Gelembung Chat (Speech Bubble Tail) */
+.floating-wa-menu::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  right: 18px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 2px solid transparent;
+  border-top: 10px solid #FFFFFF;
+  filter: drop-shadow(0 2px 1px rgba(0,0,0,0.06));
+}
+
+.floating-wa-container.active .floating-wa-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.wa-menu-header {
+  background: #F9F9F9;
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid #EEEEEE;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.wa-avatar-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #E8F9EE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.wa-menu-title {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0D0D0D;
+}
+
+.wa-menu-sub {
+  font-size: 0.72rem;
+  color: #71717A;
+  margin-top: 0.15rem;
+  line-height: 1.35;
+}
+
+.wa-menu-body {
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.wa-option-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.85rem;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.wa-option-item:hover {
+  background: #F4F4F5;
+  transform: translateX(3px);
+}
+
+.wa-option-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.wa-option-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.wa-option-text strong {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #0D0D0D;
+}
+
+.wa-option-text span {
+  font-size: 0.72rem;
+  color: #71717A;
+  margin-top: 0.15rem;
+}
+
+@media (max-width: 768px) {
+  .floating-wa-container {
+    bottom: 1.5rem;
+    right: 1.25rem;
+  }
+  .floating-wa-menu {
+    width: 295px;
+  }
 }
 

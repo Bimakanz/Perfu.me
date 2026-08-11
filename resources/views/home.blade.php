@@ -63,7 +63,7 @@
 
   {{-- 3. HERO SECTION --}}
   <header id="hero">
-    <img src="{{ asset('assets/images/newhero.webp') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
+    <img src="{{ asset('assets/images/herosectionbaru2parfum.png') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
     <div class="hero-overlay-dark"></div>
 
     <div class="hero-grid">
@@ -137,7 +137,6 @@
   {{-- 4. PRODUCTS ZIGZAG CATALOG SHOWCASE --}}
   <section class="products-showcase-section" id="produk-section">
     <div class="showcase-header">
-      <div class="catalog-tag" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #8A8A8A; margin-bottom: 0.75rem;">KATALOG PRODUK</div>
       <h2>Perfu.me Signatures</h2>
     </div>
 

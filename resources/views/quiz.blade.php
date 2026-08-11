@@ -48,7 +48,7 @@
     }
 
     .quiz-title {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Zaloga', Georgia, serif;
       font-size: clamp(2.4rem, 4vw, 3.6rem);
       font-weight: 300;
       color: #0D0D0D;
@@ -132,7 +132,7 @@
     }
 
     .question-text {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Zaloga', Georgia, serif;
       font-size: clamp(1.8rem, 3vw, 2.4rem);
       font-weight: 400;
       color: #0D0D0D;
@@ -330,7 +330,7 @@
     }
 
     .results-title {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Zaloga', Georgia, serif;
       font-size: 2.6rem;
       font-weight: 300;
       color: #0D0D0D;

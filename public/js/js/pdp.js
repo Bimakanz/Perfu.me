@@ -87,7 +87,7 @@
               <li>Parfum oil grade A, alkohol 90%</li>
               <li>Tanpa pewarna tambahan</li>
               <li>${p.packaging}</li>
-              <li>Tahan 6–10 jam di kulit</li>
+              <li>Tahan 6–10 jam</li>
             </ul>
 
             <!-- Pricing -->

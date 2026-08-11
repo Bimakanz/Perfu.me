@@ -46,7 +46,7 @@
   }
 
   .detail-brand-watermark {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Zaloga', Georgia, serif;
     font-size: 2.5rem;
     font-weight: 400;
     letter-spacing: 0.15em;
@@ -456,7 +456,7 @@
   }
 
   .related-title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Zaloga', Georgia, serif;
     font-size: 2.2rem;
     font-weight: 300;
     color: #0D0D0D;
@@ -662,7 +662,7 @@
           <li>Parfum oil grade A, alkohol 90%</li>
           <li>Tanpa pewarna tambahan</li>
           <li>{{ $product->packaging ?? 'Botol kaca spray + dus karton' }}</li>
-          <li>Tahan 6–10 jam di kulit</li>
+          <li>Tahan 6–10 jam</li>
         </ul>
 
         <div class="detail-scent-notes-box">
@@ -775,7 +775,7 @@
   <footer id="footer-section" style="background:#0D0D0D; color:#FFF; padding:6rem 4rem 8rem 4rem; margin-top: 7rem; position:relative; z-index:1;">
     <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:4rem;">
       <div>
-        <div style="font-family:'Cormorant Garamond', Georgia, serif; font-size:2rem; font-weight:300; letter-spacing:0.05em; margin-bottom:0.75rem;">Perfu.me</div>
+        <div style="font-family:'Zaloga', Georgia, serif; font-size:2rem; font-weight:300; letter-spacing:0.05em; margin-bottom:0.75rem;">Perfu.me</div>
         <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7; max-width:380px;">
           Perfu.me lahir dari sebuah keyakinan sederhana: setiap orang berhak tampil harum tanpa harus mengeluarkan biaya yang mahal. Karena itu, kami menghadirkan parfum dengan kualitas aroma premium, karakter yang khas, dan harga yang tetap ramah di kantong.
         </p>
