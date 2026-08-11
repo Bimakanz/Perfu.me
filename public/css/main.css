@@ -45,7 +45,7 @@
     --radius-lg: 16px;
 }
 
-/* â”€â”€â”€ Reset & Base â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
 *,
 *::before,
 *::after {
@@ -95,7 +95,6 @@ button {
     font-family: var(--font-sans);
 }
 
-/* â”€â”€â”€ Navbar Actions & Icon Buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .nav-actions {
     display: flex;
     align-items: center;
@@ -163,7 +162,6 @@ button {
     background: #ffffff;
 }
 
-/* â”€â”€â”€ Dual CTA Button Container on Product Cards â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .product-cta-group {
     display: flex;
     align-items: center;
