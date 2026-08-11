@@ -662,7 +662,7 @@
           <li>Parfum oil grade A, alkohol 90%</li>
           <li>Tanpa pewarna tambahan</li>
           <li>{{ $product->packaging ?? 'Botol kaca spray + dus karton' }}</li>
-          <li>Tahan 6â€“10 jam di kulit</li>
+          <li>Tahan 6–10 jam di kulit</li>
         </ul>
 
         <div class="detail-scent-notes-box">

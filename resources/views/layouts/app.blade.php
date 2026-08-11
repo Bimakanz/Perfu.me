@@ -18,6 +18,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- FontAwesome 6 Icon Library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <!-- Core CSS -->
   <link rel="stylesheet" href="{{ asset('css/main.css') }}">
   <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
@@ -71,9 +74,97 @@
     </div>
   </aside>
 
+  <!-- Floating WhatsApp Widget (Green WA Icon + Popover Menu) -->
+  <div id="floating-wa-container" class="floating-wa-container">
+    
+    <!-- Popover Option Menu -->
+    <div id="floating-wa-menu" class="floating-wa-menu">
+      <div class="wa-menu-header">
+        <div class="wa-avatar-box">
+          <i class="fa-brands fa-whatsapp" style="font-size: 20px; color: #25D366;"></i>
+        </div>
+        <div>
+          <div class="wa-menu-title">Customer Care Perfu.me</div>
+          <div class="wa-menu-sub">Pilih jenis layanan bantuan yang Anda butuhkan:</div>
+        </div>
+      </div>
+      <div class="wa-menu-body">
+        <a href="https://wa.me/6281383415432?text=Halo%20Perfu.me,%20saya%20ingin%20bertanya%20dan%20meminta%20rekomendasi%20mengenai%20varian%20parfum%20yang%20cocok%20untuk%20saya." 
+           target="_blank" 
+           rel="noopener" 
+           class="wa-option-item">
+          <div class="wa-option-icon">
+            <i class="fa-brands fa-whatsapp" style="font-size: 24px; color: #25D366;"></i>
+          </div>
+          <div class="wa-option-text">
+            <strong>Tanya Produk & Rekomendasi</strong>
+            <span>Konsultasi pilihan aroma parfum terbaik</span>
+          </div>
+        </a>
+        <a href="https://wa.me/6281383415432?text=Halo%20Perfu.me,%20saya%20tertarik%20untuk%20menjadi%20Agen%20/%20Reseller%20Perfu.me.%20Mohon%20informasi%20syarat%20dan%20ketentuannya." 
+           target="_blank" 
+           rel="noopener" 
+           class="wa-option-item">
+          <div class="wa-option-icon">
+            <i class="fa-brands fa-whatsapp" style="font-size: 24px; color: #25D366;"></i>
+          </div>
+          <div class="wa-option-text">
+            <strong>Gabung Agen & Reseller</strong>
+            <span>Dapatkan harga grosir & penawaran bisnis</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Green WhatsApp Trigger Button -->
+    <button id="floating-wa-btn" class="floating-wa-trigger" aria-label="Buka Menu WhatsApp" title="Chat WhatsApp Perfu.me">
+      <i class="fa-brands fa-whatsapp wa-icon-svg" style="font-size: 30px; color: #FFFFFF;"></i>
+      <span class="wa-close-icon">&times;</span>
+    </button>
+  </div>
+
   <!-- Core JS -->
   <script src="{{ asset('js/db.js') }}"></script>
   <script src="{{ asset('js/cart-search.js') }}"></script>
+
+  <!-- Scroll Listener & Toggle for Floating WA Widget -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const container = document.getElementById('floating-wa-container');
+      const waBtn = document.getElementById('floating-wa-btn');
+      const waMenu = document.getElementById('floating-wa-menu');
+      const heroEl = document.getElementById('hero');
+
+      if (container && waBtn) {
+        // 1. Scroll listener: Only show after scrolling past hero section
+        function checkScroll() {
+          const heroHeight = heroEl ? heroEl.offsetHeight : 450;
+          if (window.scrollY > (heroHeight - 120)) {
+            container.classList.add('visible');
+          } else {
+            container.classList.remove('visible');
+            container.classList.remove('active'); // Close menu when scrolling back to hero
+          }
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        checkScroll();
+
+        // 2. Toggle menu popover when green WA button is clicked
+        waBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          container.classList.toggle('active');
+        });
+
+        // 3. Close menu when clicking outside
+        document.addEventListener('click', function (e) {
+          if (!container.contains(e.target)) {
+            container.classList.remove('active');
+          }
+        });
+      }
+    });
+  </script>
 
   <!-- Page-specific JS -->
   @yield('scripts')
