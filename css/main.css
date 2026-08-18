@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    PERFU.ME — DESIGN SYSTEM & MAIN STYLES
    Monochrome Luxury: White · Silver · Black
    ============================================================ */
@@ -986,37 +986,39 @@ button {
 }
 
 .wa-menu-header {
-    background: #f9f9f9;
-    padding: 1.1rem 1.25rem;
-    border-bottom: 1px solid #eeeeee;
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
+  background: linear-gradient(135deg, #075E54 0%, #128C7E 100%);
+  padding: 1.1rem 1.25rem;
+  border-radius: 18px 18px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
 }
 
 .wa-avatar-box {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: #e8f9ee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .wa-menu-title {
-    font-family: var(--font-sans);
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: #0d0d0d;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.01em;
 }
 
 .wa-menu-sub {
-    font-size: 0.72rem;
-    color: #71717a;
-    margin-top: 0.15rem;
-    line-height: 1.35;
+  font-size: 0.73rem;
+  color: rgba(255, 255, 255, 0.88);
+  margin-top: 0.15rem;
+  line-height: 1.35;
 }
 
 .wa-menu-body {

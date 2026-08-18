@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    NAVBAR — Clean White Luxury (Ref Image Exact Match)
    ============================================================ */
 
@@ -34,6 +34,15 @@
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05) !important;
 }
 
+/* Custom Font Zaloga */
+@font-face {
+  font-family: 'Zaloga';
+  src: url('/fonts/Zaloga.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Brand Logo */
 .nav-brand {
     display: flex !important;
@@ -43,10 +52,10 @@
 }
 
 .nav-brand-name {
-    font-family: "Cormorant Garamond", Georgia, serif !important;
+    font-family: 'Zaloga', Georgia, serif !important;
     font-size: 1.5rem !important;
-    font-weight: 500 !important;
-    letter-spacing: 0.05em !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.04em !important;
     color: #0d0d0d !important;
     line-height: 1 !important;
 }

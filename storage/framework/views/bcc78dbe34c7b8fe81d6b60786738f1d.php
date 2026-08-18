@@ -13,10 +13,10 @@
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
 
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- FontAwesome 6 Icon Library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -132,31 +132,53 @@
     document.addEventListener('DOMContentLoaded', function () {
       const container = document.getElementById('floating-wa-container');
       const waBtn = document.getElementById('floating-wa-btn');
-      const waMenu = document.getElementById('floating-wa-menu');
-      const heroEl = document.getElementById('hero');
+      const heroEl = document.getElementById('hero') || document.querySelector('.hero-section');
+      const isProductDetail = document.getElementById('product-detail-page') || 
+                              document.querySelector('.product-detail-container') || 
+                              window.location.pathname.includes('/product/') ||
+                              document.body.classList.contains('product-detail');
+
+      // Jika di Halaman Product Detail, sembunyikan widget WA 100%
+      if (isProductDetail && container) {
+        container.style.display = 'none';
+        return;
+      }
 
       if (container && waBtn) {
-        // 1. Scroll listener: Only show after scrolling past hero section
-        function checkScroll() {
-          const heroHeight = heroEl ? heroEl.offsetHeight : 450;
-          if (window.scrollY > (heroHeight - 120)) {
-            container.classList.add('visible');
+        function checkScrollPosition() {
+          const scrollY = window.scrollY || window.pageYOffset;
+          
+          if (heroEl) {
+            // Halaman Home dengan Hero Section: Tampil HANYA jika scroll melewati hero section
+            const triggerPoint = Math.max(200, heroEl.offsetHeight - 120);
+            if (scrollY > triggerPoint) {
+              container.classList.add('visible');
+            } else {
+              container.classList.remove('visible');
+              container.classList.remove('active');
+            }
           } else {
-            container.classList.remove('visible');
-            container.classList.remove('active'); // Close menu when scrolling back to hero
+            // Halaman tanpa Hero Section (Katalog, Detail Produk, Quiz): Tampil setelah scroll > 150px
+            if (scrollY > 150) {
+              container.classList.add('visible');
+            } else {
+              container.classList.remove('visible');
+              container.classList.remove('active');
+            }
           }
         }
 
-        window.addEventListener('scroll', checkScroll);
-        checkScroll();
+        // Check on initial scroll & scroll event
+        window.addEventListener('scroll', checkScrollPosition, { passive: true });
+        checkScrollPosition();
 
-        // 2. Toggle menu popover when green WA button is clicked
+        // Toggle menu popover when green WA button is clicked
         waBtn.addEventListener('click', function (e) {
           e.stopPropagation();
           container.classList.toggle('active');
         });
 
-        // 3. Close menu when clicking outside
+        // Close menu when clicking outside
         document.addEventListener('click', function (e) {
           if (!container.contains(e.target)) {
             container.classList.remove('active');
@@ -171,4 +193,5 @@
 
 </body>
 </html>
+
 <?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/layouts/app.blade.php ENDPATH**/ ?>

@@ -39,10 +39,22 @@ class PerfumeAPI {
       const json = await res.json();
 
       if (!res.ok) {
+        if (res.status === 401) {
+          this.clearToken();
+          if (typeof window.handleSessionExpired === 'function') {
+            window.handleSessionExpired();
+          }
+        }
         throw { status: res.status, message: json.message || 'Server error', errors: json.errors };
       }
       return json;
     } catch (err) {
+      if (err && err.status === 401) {
+        this.clearToken();
+        if (typeof window.handleSessionExpired === 'function') {
+          window.handleSessionExpired();
+        }
+      }
       if (err.status) throw err;
       throw { status: 0, message: 'Tidak dapat menghubungi server. Pastikan Laravel server berjalan.' };
     }
@@ -112,7 +124,7 @@ class PerfumeAPI {
 
   async delete(id) {
     const res = await this._request('DELETE', `/products/${id}`, null, true);
-    return res.success;
+    return res;
   }
 
   async zeroStock(id) {

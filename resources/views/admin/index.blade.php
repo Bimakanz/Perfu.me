@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 
 <head>
@@ -345,28 +345,48 @@
 
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Tipe Produk / Kategori <span>*</span></label>
-          <input type="hidden" id="form-type" value="Signature">
-          <div class="form-select-custom" id="custom-select-type">
+          <label class="form-label">Kategori <span>*</span></label>
+          <input type="hidden" id="form-category" value="Signature">
+          <div class="form-select-custom" id="custom-select-category">
             <div class="form-select-trigger">
-              <span class="trigger-label">Signature</span>
+              <span class="trigger-label">Signature Collection</span>
               <svg class="form-select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </div>
             <div class="form-select-options">
-              <div class="form-select-option selected" data-value="Signature"><span>Signature</span><span
-                  class="opt-check">✔</span></div>
-              <div class="form-select-option" data-value="Refill"><span>Refill</span><span
-                  class="opt-check">✔</span></div>
-              <div class="form-select-option" data-value="Eau de Parfum"><span>Eau de Parfum</span><span
-                  class="opt-check">✔</span></div>
-              <div class="form-select-option" data-value="Roll-on"><span>Roll-on</span><span class="opt-check">✔</span>
+              <div class="form-select-option selected" data-value="Signature" data-display="Signature Collection">
+                <span>Signature Collection</span><span class="opt-check">✔</span>
+              </div>
+              <div class="form-select-option" data-value="Refill" data-display="Refill Collection">
+                <span>Refill Collection</span><span class="opt-check">✔</span>
               </div>
             </div>
           </div>
         </div>
+
+        <div class="form-group">
+          <label class="form-label">Tipe / Konsentrasi Parfum <span>*</span></label>
+          <input type="hidden" id="form-type" value="Eau de Parfum">
+          <div class="form-select-custom" id="custom-select-type">
+            <div class="form-select-trigger">
+              <span class="trigger-label">Eau de Parfum</span>
+              <svg class="form-select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+            <div class="form-select-options">
+              <div class="form-select-option selected" data-value="Eau de Parfum"><span>Eau de Parfum</span><span
+                  class="opt-check">✔</span></div>
+              <div class="form-select-option" data-value="Roll-on"><span>Roll-on</span><span class="opt-check">✔</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
         <div class="form-group">
           <label class="form-label">Target Gender <span>*</span></label>
           <input type="hidden" id="form-gender" value="Unisex">
@@ -387,13 +407,13 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="form-row">
         <div class="form-group">
           <label for="form-variant" class="form-label">Varian Aroma <span>*</span></label>
           <input type="text" id="form-variant" class="form-control" placeholder="Woody Floral, Gourmand..." required>
         </div>
+      </div>
+
+      <div class="form-row" id="form-size-price-row">
         <div class="form-group">
           <label class="form-label">Ukuran Botol <span>*</span></label>
           <input type="hidden" id="form-size" value="30ML">
@@ -406,8 +426,10 @@
               </svg>
             </div>
             <div class="form-select-options">
-              <div class="form-select-option selected" data-value="30ML" data-display="30ML (Standard Size)"><span>30ML
-                  (Standard Size)</span><span class="opt-check">✔</span></div>
+              <div class="form-select-option" data-value="35ML" data-display="35ML (Refill Standard Size)"><span>35ML
+                  (Refill Standard Size)</span><span class="opt-check">✔</span></div>
+              <div class="form-select-option selected" data-value="30ML" data-display="30ML (Signature Size)"><span>30ML
+                  (Signature Size)</span><span class="opt-check">✔</span></div>
               <div class="form-select-option" data-value="50ML" data-display="50ML (Medium Size)"><span>50ML (Medium
                   Size)</span><span class="opt-check">✔</span></div>
               <div class="form-select-option" data-value="100ML" data-display="100ML (Full Size)"><span>100ML (Full
@@ -417,39 +439,14 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="form-section-title">2. HARGA &amp; MANAJEMEN STOK</div>
-
-      <div class="form-row">
         <div class="form-group">
-          <label for="form-price" class="form-label">Harga Jual (Rp) <span>*</span></label>
-          <input type="number" id="form-price" class="form-control" placeholder="150000" min="0" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Status Stok <span>*</span></label>
-          <input type="hidden" id="form-stock" value="100">
-          <div class="form-select-custom" id="custom-select-stock">
-            <div class="form-select-trigger">
-              <span class="trigger-label">Ready (Stok Tersedia)</span>
-              <svg class="form-select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </div>
-            <div class="form-select-options">
-              <div class="form-select-option selected" data-value="100" data-display="Ready (Stok Tersedia)">
-                <span>Ready (Stok Tersedia)</span><span class="opt-check">✓</span>
-              </div>
-              <div class="form-select-option" data-value="0" data-display="Habis (Stok Kosong)">
-                <span>Habis (Stok Kosong)</span><span class="opt-check">✓</span>
-              </div>
-            </div>
-          </div>
+          <label for="form-price-display" class="form-label">Harga Jual (Rp) <span>*</span></label>
+          <input type="text" id="form-price-display" class="form-control" placeholder="Rp 45.000" required autocomplete="off">
+          <input type="hidden" id="form-price" value="45000">
         </div>
       </div>
 
-      <div class="form-section-title">3. SCENT PYRAMID NOTES</div>
+      <div class="form-section-title">2. SCENT PYRAMID NOTES</div>
 
       <div class="form-group">
         <label for="form-top" class="form-label">Top Notes <span>*</span></label>
@@ -464,43 +461,37 @@
         <input type="text" id="form-base" class="form-control" placeholder="Sandalwood, Musk, Amber" required>
       </div>
 
-      <div class="form-section-title">4. GAMBAR &amp; DESKRIPSI PRODUK</div>
+      <div id="form-image-section">
+        <div class="form-section-title">3. GAMBAR PRODUK SIGNATURE</div>
 
-      <div class="form-group">
-        <label for="form-image-file" class="form-label">Upload File Gambar Produk <span>*</span></label>
-        <div class="file-upload-box">
-          <input type="file" id="form-image-file" accept="image/*" style="display:none;">
-          <button type="button" class="btn-choose-file" onclick="document.getElementById('form-image-file').click()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="17 8 12 3 7 8"></polyline>
-              <line x1="12" y1="3" x2="12" y2="15"></line>
-            </svg>
-            Pilih File Gambar
-          </button>
-          <span class="file-chosen-name" id="file-chosen-name">Belum ada file dipilih</span>
+        <div class="form-group">
+          <label for="form-image-file" class="form-label">Upload File Gambar Produk Signature <span>*</span></label>
+          <div class="file-upload-box">
+            <input type="file" id="form-image-file" accept="image/*" style="display:none;">
+            <button type="button" class="btn-choose-file" onclick="document.getElementById('form-image-file').click()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              Pilih File Gambar
+            </button>
+            <span class="file-chosen-name" id="file-chosen-name">Belum ada file dipilih</span>
+          </div>
+
+          <input type="hidden" id="form-image">
+
+          <div id="crud-img-preview-wrap" style="display:none; margin-top:0.85rem;">
+            <div style="font-size:0.68rem; font-weight:700; color:#8A8A8A; letter-spacing:0.1em; margin-bottom:0.35rem;">
+              PREVIEW GAMBAR:</div>
+            <img id="crud-img-preview" src="" alt="Preview Gambar Produk"
+              style="width:96px; height:96px; object-fit:cover; border-radius:10px; border:1px solid #E4E4E7; box-shadow:0 4px 12px rgba(0,0,0,0.06);">
+          </div>
         </div>
-
-        <input type="hidden" id="form-image">
-
-        <div id="crud-img-preview-wrap" style="display:none; margin-top:0.85rem;">
-          <div style="font-size:0.68rem; font-weight:700; color:#8A8A8A; letter-spacing:0.1em; margin-bottom:0.35rem;">
-            PREVIEW GAMBAR:</div>
-          <img id="crud-img-preview" src="" alt="Preview Gambar Produk"
-            style="width:96px; height:96px; object-fit:cover; border-radius:10px; border:1px solid #E4E4E7; box-shadow:0 4px 12px rgba(0,0,0,0.06);">
-        </div>
       </div>
 
       <div class="form-group">
-        <label for="form-packaging" class="form-label">Kemasan &amp; Detail Kemasan</label>
-        <input type="text" id="form-packaging" class="form-control" placeholder="Botol kaca spray 30ml, dus karton">
-      </div>
-      <div class="form-group">
-        <label for="form-tagline" class="form-label">Tagline Singkat</label>
-        <input type="text" id="form-tagline" class="form-control" placeholder="Elegan, segar, dan abadi">
-      </div>
-      <div class="form-group">
-        <label for="form-desc" class="form-label">Deskripsi Lengkap Produk</label>
+        <label for="form-desc" class="form-label">Deskripsi Lengkap Produk (Opsional)</label>
         <textarea id="form-desc" class="form-control" rows="3"
           placeholder="Tuliskan cerita dan deskripsi lengkap aroma..."></textarea>
       </div>

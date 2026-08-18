@@ -1,10 +1,15 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', $product->name . ' — Perfu.me')
 @section('description', $product->description)
 
 @section('styles')
 <style>
+  /* Hide Floating WA Widget completely on Product Detail Page */
+  #floating-wa-container {
+    display: none !important;
+  }
+
   body {
     background: #FFFFFF;
     color: #0D0D0D;

@@ -144,63 +144,380 @@
   </section>
 
   
-  <section id="testimoni-section" class="testimonials-section">
-    <div class="testimonials-container">
-      <div class="testimonials-grid">
-        <!-- Left Side: Section Info -->
-        <div class="testimonials-info-col">
-          <span class="testimonials-tag">ULASAN &amp; TESTIMONI</span>
-          <h3 class="testimonials-side-heading">Apa kata pelanggan kami</h3>
-        </div>
+ <section id="testimoni-section" class="testimonials-section">
+    <?php
+      use Illuminate\Support\Str;
 
-        <!-- Right Side: Review Cards -->
-        <div class="testimonials-cards">
+      $testimonialProductNames = [
+        'Dynamyst',
+        'Vanessence',
+        'VS Scandalous (Refill)',
+        'VS Romantic Wish',
+        'Dior Sauvage',
+        'Baccarat Rouge 540',
+        'Versace Eros',
+        'YSL Black Opium',
+      ];
+
+      $candidates = \App\Models\Product::where(function($q) use ($testimonialProductNames){
+        $q->whereIn('name', $testimonialProductNames)
+          ->orWhere('type', 'refill')
+          ->orWhere('name', 'like', '%Refill%');
+      })->get();
+
+      $testimonialProducts = collect();
+
+      foreach ($testimonialProductNames as $name) {
+        $found = $candidates->firstWhere('name', $name);
+        if ($found && !$testimonialProducts->contains('id', $found->id)) {
+          $testimonialProducts->push($found);
+        }
+      }
+
+      foreach ($candidates->where('type', 'refill') as $p) {
+        if (!$testimonialProducts->contains('id', $p->id)) {
+          $testimonialProducts->push($p);
+        }
+      }
+
+      foreach ($candidates as $p) {
+        if ($testimonialProducts->count() >= 8) break;
+        if (!$testimonialProducts->contains('id', $p->id)) {
+          $testimonialProducts->push($p);
+        }
+      }
+
+      if ($testimonialProducts->isEmpty()) {
+        $testimonialProducts = \App\Models\Product::orderBy('id')->take(8)->get();
+      }
+
+      $testimonialProductAt = fn ($index) => $testimonialProducts->get($index) ?? $testimonialProducts->first();
+    ?>
+
+    <div class="testimonials-container">
+      <div class="testimonials-header">
+        <h3 class="testimonials-heading">Apa Kata Mereka</h3>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonials-slider">
+          <button class="testimonial-slider-btn prev" aria-label="Sebelumnya">❮</button>
+          <button class="testimonial-slider-btn next" aria-label="Selanjutnya">❯</button>
+          <div class="testimonials-cards" role="list">
+          
           <!-- Review 1 -->
           <div class="testimonial-card">
-            <p class="testimonial-text">
-              Parfumnya recommended banget! Wanginya tahan seharian, dari pagi dipakai sampai malam pun masih wangi.
-            </p>
             <div class="testimonial-stars">
-              <span class="testimonial-star">★</span>
-              <span class="testimonial-star">★</span>
-              <span class="testimonial-star">★</span>
-              <span class="testimonial-star">★</span>
-              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span>
             </div>
+            
+            <p class="testimonial-text">
+              "Parfumnya recommended banget! Wanginya tahan seharian, dari pagi dipakai sampai malam pun masih wangi."
+            </p>
+
             <div class="testimonial-profile">
-              <img src="<?php echo e(asset('assets/images/radit.jpeg')); ?>" alt="Raditya Ghani" class="testimonial-avatar">
               <div class="testimonial-reviewer-info">
                 <span class="testimonial-name">Raditya Ghani</span>
-                <span class="testimonial-role">Pelanggan Setia</span>
               </div>
+            </div>
+
+            <div class="testimonial-purchase">
+              <?php
+                $testimonialProduct = $testimonialProductAt(0);
+                $imgPath = $testimonialProduct->image ?? '';
+                if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
+                  $imgUrl = $imgPath;
+                } elseif (Str::startsWith($imgPath, ['/','assets/'])) {
+                  $imgUrl = asset($imgPath);
+                } else {
+                  $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
+                }
+              ?>
+
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
+              
+              <div class="testimonial-product-info">
+                <span class="testimonial-scent-tag">Chosen Scent</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
+              </div>
+
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">Beli Varian Ini →</a>
             </div>
           </div>
 
           <!-- Review 2 -->
           <div class="testimonial-card">
-            <p class="testimonial-text">
-              Wanginya masih menempel di kerudung meskipun sudah 3 hari tidak semprot parfum lagi. Kualitasnya juara, fix bakal order dan borong varian lainnya lagi!
-            </p>
             <div class="testimonial-stars">
-              <span class="testimonial-star">★</span>
-              <span class="testimonial-star">★</span>
-              <span class="testimonial-star">★</span>
-              <span class="testimonial-star">★</span>
-              <span class="testimonial-star">★</span>
+              <span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span>
             </div>
+
+            <p class="testimonial-text">
+              "Wanginya masih menempel di kerudung meskipun sudah 3 hari tidak semprot parfum lagi. Kualitasnya juara, fix bakal order dan borong varian lainnya lagi!"
+            </p>
+
             <div class="testimonial-profile">
-              <img src="<?php echo e(asset('assets/images/agus.jpeg')); ?>" alt="Agustin Putri" class="testimonial-avatar">
               <div class="testimonial-reviewer-info">
                 <span class="testimonial-name">Agustin Putri</span>
-                <span class="testimonial-role">Pelanggan Setia</span>
               </div>
             </div>
+
+            <div class="testimonial-purchase">
+              <?php
+                $testimonialProduct = $testimonialProductAt(1);
+                $imgPath = $testimonialProduct->image ?? '';
+                if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
+                  $imgUrl = $imgPath;
+                } elseif (Str::startsWith($imgPath, ['/','assets/'])) {
+                  $imgUrl = asset($imgPath);
+                } else {
+                  $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
+                }
+              ?>
+
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
+              
+              <div class="testimonial-product-info">
+                <span class="testimonial-scent-tag">Chosen Scent</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
+              </div>
+
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">Beli Varian Ini →</a>
+            </div>
+          </div>
+
+          <!-- Review 3 -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+            </div>
+
+            <p class="testimonial-text">Wangi manisnya lembut dan tidak terlalu menyengat — banyak yang tanya parfum apa ini!</p>
+
+            <div class="testimonial-profile">
+              <div class="testimonial-reviewer-info">
+                <span class="testimonial-name">Victoria Thompson</span>
+              </div>
+            </div>
+
+            <div class="testimonial-purchase">
+              <?php
+                $testimonialProduct = $testimonialProductAt(2);
+                $imgPath = $testimonialProduct->image ?? '';
+                if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
+                  $imgUrl = $imgPath;
+                } elseif (Str::startsWith($imgPath, ['/','assets/'])) {
+                  $imgUrl = asset($imgPath);
+                } else {
+                  $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
+                }
+              ?>
+
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
+              
+              <div class="testimonial-product-info">
+                <span class="testimonial-scent-tag">Chosen Scent</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
+              </div>
+
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">Beli Varian Ini →</a>
+            </div>
+          </div>
+
+          <!-- Review 4 -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+            </div>
+
+            <p class="testimonial-text">Tidak lengket di kulit, elegan — cocok dipakai ke acara formal maupun santai.</p>
+
+            <div class="testimonial-profile">
+              <div class="testimonial-reviewer-info">
+                <span class="testimonial-name">John Peter</span>
+              </div>
+            </div>
+
+            <div class="testimonial-purchase">
+              <?php
+                $testimonialProduct = $testimonialProductAt(3);
+                $imgPath = $testimonialProduct->image ?? '';
+                if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
+                  $imgUrl = $imgPath;
+                } elseif (Str::startsWith($imgPath, ['/','assets/'])) {
+                  $imgUrl = asset($imgPath);
+                } else {
+                  $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
+                }
+              ?>
+
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
+              
+              <div class="testimonial-product-info">
+                <span class="testimonial-scent-tag">Chosen Scent</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
+              </div>
+
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">Beli Varian Ini →</a>
+            </div>
+          </div>
+
+          <!-- Review 5 -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+            </div>
+
+            <p class="testimonial-text">Pengiriman cepat dan kemasannya rapi. Wanginya tahan lama, recommended!</p>
+
+            <div class="testimonial-profile">
+              <div class="testimonial-reviewer-info">
+                <span class="testimonial-name">Natalie Martinez</span>
+              </div>
+            </div>
+
+            <div class="testimonial-purchase">
+              <?php
+                $testimonialProduct = $testimonialProductAt(4);
+                $imgPath = $testimonialProduct->image ?? '';
+                if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
+                  $imgUrl = $imgPath;
+                } elseif (Str::startsWith($imgPath, ['/','assets/'])) {
+                  $imgUrl = asset($imgPath);
+                } else {
+                  $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
+                }
+              ?>
+
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
+              
+              <div class="testimonial-product-info">
+                <span class="testimonial-scent-tag">Chosen Scent</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
+              </div>
+
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">Beli Varian Ini →</a>
+            </div>
+          </div>
+
+          <!-- Review 6 -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+            </div>
+
+            <p class="testimonial-text">Aromanya sophisticated, enak dipakai seharian. Banyak yang tanya mereknya.</p>
+
+            <div class="testimonial-profile">
+              <div class="testimonial-reviewer-info">
+                <span class="testimonial-name">Gabrielle Williams</span>
+              </div>
+            </div>
+
+            <div class="testimonial-purchase">
+              <?php
+                $testimonialProduct = $testimonialProductAt(5);
+                $imgPath = $testimonialProduct->image ?? '';
+                if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
+                  $imgUrl = $imgPath;
+                } elseif (Str::startsWith($imgPath, ['/','assets/'])) {
+                  $imgUrl = asset($imgPath);
+                } else {
+                  $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
+                }
+              ?>
+
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
+              
+              <div class="testimonial-product-info">
+                <span class="testimonial-scent-tag">Chosen Scent</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
+              </div>
+
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">Beli Varian Ini →</a>
+            </div>
+          </div>
+
+          <!-- Review 7 -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+            </div>
+
+            <p class="testimonial-text">Wajib punya! Aroma manisnya pas, banyak yang bilang wangi saya enak.</p>
+
+            <div class="testimonial-profile">
+              <div class="testimonial-reviewer-info">
+                <span class="testimonial-name">Isabella Rodriguez</span>
+              </div>
+            </div>
+
+            <div class="testimonial-purchase">
+              <?php
+                $testimonialProduct = $testimonialProductAt(6);
+                $imgPath = $testimonialProduct->image ?? '';
+                if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
+                  $imgUrl = $imgPath;
+                } elseif (Str::startsWith($imgPath, ['/','assets/'])) {
+                  $imgUrl = asset($imgPath);
+                } else {
+                  $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
+                }
+              ?>
+
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
+              
+              <div class="testimonial-product-info">
+                <span class="testimonial-scent-tag">Chosen Scent</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
+              </div>
+
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">Beli Varian Ini →</a>
+            </div>
+          </div>
+
+          <!-- Review 8 -->
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+            </div>
+
+            <p class="testimonial-text">Pas dipakai hangout, banyak yang tanya parfum apa — suka banget!</p>
+
+            <div class="testimonial-profile">
+              <div class="testimonial-reviewer-info">
+                <span class="testimonial-name">Samantha Johnson</span>
+              </div>
+            </div>
+
+            <div class="testimonial-purchase">
+              <?php
+                $testimonialProduct = $testimonialProductAt(7);
+                $imgPath = $testimonialProduct->image ?? '';
+                if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
+                  $imgUrl = $imgPath;
+                } elseif (Str::startsWith($imgPath, ['/','assets/'])) {
+                  $imgUrl = asset($imgPath);
+                } else {
+                  $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
+                }
+              ?>
+
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
+              
+              <div class="testimonial-product-info">
+                <span class="testimonial-scent-tag">Chosen Scent</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
+              </div>
+
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">Beli Varian Ini →</a>
+            </div>
+          </div>
+
           </div>
         </div>
       </div>
     </div>
-  </section>
-
+</section>
   
   <section class="quiz-banner-section" id="quiz-banner-section" style="background:#F5F5F7; padding:6rem 2rem; text-align:center;">
     <div style="max-width:760px; margin:0 auto;">
@@ -260,6 +577,32 @@
 <script src="<?php echo e(asset('js/hero.js')); ?>"></script>
 <script src="<?php echo e(asset('js/navbar.js')); ?>"></script>
 <script src="<?php echo e(asset('js/catalog.js')); ?>"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const slider = document.querySelector('.testimonials-slider');
+  if(!slider) return;
+  const track = slider.querySelector('.testimonials-cards');
+  const sourceCards = Array.from(track.querySelectorAll('.testimonial-card')).map(card => card.cloneNode(true));
+  const topCards = sourceCards.filter((_, index) => index % 2 === 0);
+  const bottomCards = sourceCards.filter((_, index) => index % 2 === 1);
+
+  function createRow(cards, modifier){
+    const row = document.createElement('div');
+    row.className = `testimonial-row testimonial-row--${modifier}`;
+
+    const inner = document.createElement('div');
+    inner.className = 'testimonial-row-track';
+
+    [...cards, ...cards, ...cards, ...cards].forEach(card => inner.appendChild(card.cloneNode(true)));
+    row.appendChild(inner);
+    return row;
+  }
+
+  track.innerHTML = '';
+  track.appendChild(createRow(topCards, 'top'));
+  track.appendChild(createRow(bottomCards, 'bottom'));
+});
+</script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/home.blade.php ENDPATH**/ ?>

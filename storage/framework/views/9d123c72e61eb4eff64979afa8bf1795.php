@@ -1,10 +1,13 @@
-﻿
-
 <?php $__env->startSection('title', $product->name . ' — Perfu.me'); ?>
 <?php $__env->startSection('description', $product->description); ?>
 
 <?php $__env->startSection('styles'); ?>
 <style>
+  /* Hide Floating WA Widget completely on Product Detail Page */
+  #floating-wa-container {
+    display: none !important;
+  }
+
   body {
     background: #FFFFFF;
     color: #0D0D0D;
@@ -46,14 +49,22 @@
   }
 
   .detail-brand-watermark {
-    font-family: 'Zaloga', Georgia, serif;
     font-size: 2.5rem;
     font-weight: 400;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
     color: #000000;
     margin-bottom: 2rem;
     text-align: center;
+  }
+
+  .detail-brand-watermark.is-signature {
+    font-family: 'Zaloga', Georgia, serif;
+    letter-spacing: 0.02em;
+  }
+
+  .detail-brand-watermark.is-refill {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
   }
 
   .detail-img-box {
@@ -456,11 +467,12 @@
   }
 
   .related-title {
-    font-family: 'Zaloga', Georgia, serif;
-    font-size: 2.2rem;
-    font-weight: 300;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 400;
     color: #0D0D0D;
-    margin: 0;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.5rem;
   }
 
   .related-link-all {
@@ -472,10 +484,28 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    transition: color 0.2s;
+    position: relative;
+    transition: color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .related-link-all:hover { color: #555555; }
+  .related-link-all::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: #0D0D0D;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .related-link-all:hover {
+    color: #0D0D0D;
+  }
+
+  .related-link-all:hover::after {
+    width: 100%;
+  }
 
   .related-grid {
     display: grid;
@@ -632,7 +662,7 @@
     <div class="detail-hero-grid">
       
       <div class="detail-media-col">
-        <div class="detail-brand-watermark"><?php echo e($isSignature ? 'PARFU.ME' : 'REFILL'); ?></div>
+        <div class="detail-brand-watermark <?php echo e($isSignature ? 'is-signature' : 'is-refill'); ?>"><?php echo e($isSignature ? 'Perfu.me' : 'REFILL'); ?></div>
         <div class="detail-img-box">
           <img src="<?php echo e(asset($product->image)); ?>" alt="<?php echo e($product->name); ?>" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
         </div>
@@ -891,4 +921,4 @@
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/product-detail.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/product-detail.blade.php ENDPATH**/ ?>

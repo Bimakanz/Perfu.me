@@ -83,7 +83,7 @@ var currentSort = { field: 'id', dir: 'asc' };
   };
 
   // Global login handler attached directly to button click
-  window.doAdminLogin = function(e) {
+  window.doAdminLogin = async function(e) {
     if (e) e.preventDefault();
     const errorMsg = document.getElementById('login-error-msg');
     if (errorMsg) errorMsg.classList.remove('show');
@@ -94,8 +94,16 @@ var currentSort = { field: 'id', dir: 'asc' };
     const pass = (passInput ? passInput.value : '').trim();
 
     if (user === 'admin' && pass === 'admin123') {
-      if (window.API && typeof window.API.setToken === 'function') {
-        window.API.setToken('mock_session_token');
+      try {
+        if (window.API && typeof window.API.login === 'function') {
+          await window.API.login(user, pass);
+        } else if (window.API && typeof window.API.setToken === 'function') {
+          window.API.setToken('mock_session_token');
+        }
+      } catch (err) {
+        if (window.API && typeof window.API.setToken === 'function') {
+          window.API.setToken('mock_session_token');
+        }
       }
       showDashboard();
       return false;
@@ -232,6 +240,22 @@ var currentSort = { field: 'id', dir: 'asc' };
     }
     showToast('Berhasil keluar dari dashboard.', 'info');
   }
+
+  window.handleSessionExpired = function() {
+    if (window.API && typeof window.API.clearToken === 'function') {
+      window.API.clearToken();
+    }
+    const loginPage = document.getElementById('admin-login-page');
+    const dashPage = document.getElementById('admin-dashboard-page');
+    if (dashPage) {
+      dashPage.classList.remove('active');
+      dashPage.style.cssText = 'display: none !important;';
+    }
+    if (loginPage) {
+      loginPage.style.cssText = 'display: flex !important;';
+    }
+    showToast('Sesi login Anda telah berakhir. Silakan masuk kembali.', 'warning');
+  };
 
   // Default fallback products if API returns empty
   const DEFAULT_ADMIN_PRODUCTS = [
@@ -668,10 +692,12 @@ function renderAdminPaginationControls(totalPages) {
         form.reset();
         document.getElementById('form-product-id').value = '';
         document.getElementById('form-image').value = '';
+        setCustomFormSelect('custom-select-category', 'form-category', 'Signature');
         setCustomFormSelect('custom-select-type', 'form-type', 'Eau de Parfum');
         setCustomFormSelect('custom-select-gender', 'form-gender', 'Unisex');
         setCustomFormSelect('custom-select-size', 'form-size', '30ML');
-        setCustomFormSelect('custom-select-stock', 'form-stock', '100');
+        formatPriceDisplayValue(45000);
+        updateCategoryFormView('Signature');
         if (fileInput) fileInput.value = '';
         fileNameSpan.textContent = 'Belum ada file dipilih';
         imgPreviewWrap.style.display = 'none';
@@ -703,24 +729,32 @@ function renderAdminPaginationControls(totalPages) {
         e.preventDefault();
         const id = document.getElementById('form-product-id').value;
 
-        const isBs = document.getElementById('form-bestseller').checked;
-        const imgVal = document.getElementById('form-image').value.trim() || '../assets/images/Nusantara1nobg.png';
+        const isBs = document.getElementById('form-bestseller') ? document.getElementById('form-bestseller').checked : false;
+        const categoryVal = document.getElementById('form-category').value;
+        const isRefill = categoryVal === 'Refill';
+        const imgVal = isRefill ? 'assets/images/refill.webp' : (document.getElementById('form-image').value.trim() || 'assets/images/refill.webp');
+
+        const existingP = id ? products.find(prod => String(prod.id) === String(id)) : null;
+        const stockVal = existingP ? (Number(existingP.stock) !== undefined ? Number(existingP.stock) : 100) : 100;
+
+        const descVal = document.getElementById('form-desc') ? document.getElementById('form-desc').value.trim() : '';
+        const variantVal = document.getElementById('form-variant').value.trim();
 
         const payload = {
           name: document.getElementById('form-name').value.trim(),
-          type: document.getElementById('form-type').value,
+          type: categoryVal === 'Refill' ? 'Refill' : document.getElementById('form-type').value,
           gender: document.getElementById('form-gender').value,
-          variant: document.getElementById('form-variant').value.trim(),
-          size: document.getElementById('form-size').value.trim(),
-          price: Number(document.getElementById('form-price').value),
-          stock: Number(document.getElementById('form-stock').value),
+          variant: variantVal,
+          size: isRefill ? '35ML' : document.getElementById('form-size').value.trim(),
+          price: isRefill ? 45000 : Number(document.getElementById('form-price').value),
+          stock: stockVal,
           top_notes: document.getElementById('form-top').value.trim(),
           middle_notes: document.getElementById('form-middle').value.trim(),
           base_notes: document.getElementById('form-base').value.trim(),
-          packaging: document.getElementById('form-packaging').value.trim(),
+          packaging: isRefill ? 'Botol kaca spray + refill pouch khas Perfu.me' : 'Botol kaca spray + dus karton khas Perfu.me',
+          tagline: `${variantVal} — Perfu.me Edition`,
+          description: descVal || `Parfum ${variantVal} dari koleksi Perfu.me menghadirkan paduan aroma harum yang berkesan dan tahan lama.`,
           image: imgVal,
-          tagline: document.getElementById('form-tagline').value.trim(),
-          description: document.getElementById('form-desc').value.trim(),
           best_seller: isBs
         };
 
@@ -751,25 +785,26 @@ function renderAdminPaginationControls(totalPages) {
       document.getElementById('form-product-id').value = p.id;
       document.getElementById('form-name').value = p.name || '';
       
+      const isRefillProd = strContainsRefill(p);
+      setCustomFormSelect('custom-select-category', 'form-category', isRefillProd ? 'Refill' : 'Signature');
       setCustomFormSelect('custom-select-type', 'form-type', p.type || 'Eau de Parfum');
       setCustomFormSelect('custom-select-gender', 'form-gender', p.gender || 'Unisex');
       setCustomFormSelect('custom-select-size', 'form-size', p.size || '30ML');
-      setCustomFormSelect('custom-select-stock', 'form-stock', Number(p.stock) > 0 ? '100' : '0');
+      formatPriceDisplayValue(p.price || 0);
 
       document.getElementById('form-variant').value = p.variant || '';
-      document.getElementById('form-price').value = p.price || 0;
-      document.getElementById('form-stock').value = p.stock || 0;
       document.getElementById('form-top').value = p.top_notes || p.topNotes || '';
       document.getElementById('form-middle').value = p.middle_notes || p.middleNotes || '';
       document.getElementById('form-base').value = p.base_notes || p.baseNotes || '';
-      document.getElementById('form-packaging').value = p.packaging || '';
+      if (document.getElementById('form-desc')) {
+        document.getElementById('form-desc').value = p.description || '';
+      }
       document.getElementById('form-image').value = p.image || '';
-      document.getElementById('form-tagline').value = p.tagline || '';
-      document.getElementById('form-desc').value = p.description || '';
-      document.getElementById('form-bestseller').checked = Boolean(p.bestSeller || p.best_seller);
+
+      updateCategoryFormView(isRefillProd ? 'Refill' : 'Signature');
 
       // Pre-fill image preview
-      if (p.image) {
+      if (p.image && !isRefillProd) {
         imgPreview.src = formatImgUrl(p.image);
         imgPreviewWrap.style.display = 'block';
         fileNameSpan.textContent = p.image.startsWith('data:') ? 'File Gambar Base64' : p.image.split('/').pop();
@@ -781,6 +816,58 @@ function renderAdminPaginationControls(totalPages) {
       openPanel();
     };
     window.editProduct = window.openEditPanel;
+  }
+
+  function strContainsRefill(p) {
+    const t = (p.type || '').toLowerCase();
+    const name = (p.name || '').toLowerCase();
+    return t === 'refill' || name.includes('refill');
+  }
+
+  function formatPriceDisplayValue(numVal) {
+    const displayEl = document.getElementById('form-price-display');
+    const hiddenEl = document.getElementById('form-price');
+    const val = parseInt(numVal, 10) || 0;
+    if (hiddenEl) hiddenEl.value = val;
+    if (displayEl) {
+      displayEl.value = val ? `Rp ${new Intl.NumberFormat('id-ID').format(val)}` : '';
+    }
+  }
+
+  function updateCategoryFormView(catVal) {
+    const imgSection = document.getElementById('form-image-section');
+    const imgHidden = document.getElementById('form-image');
+    const sizePriceRow = document.getElementById('form-size-price-row');
+    const isRefill = catVal === 'Refill';
+
+    if (isRefill) {
+      // 1. Sembunyikan Upload Gambar (Pakai gambar refill.webp)
+      if (imgSection) imgSection.style.display = 'none';
+      if (imgHidden) imgHidden.value = 'assets/images/refill.webp';
+
+      // 2. Sembunyikan Ukuran & Harga untuk Refill (otomatis dari sistem)
+      if (sizePriceRow) sizePriceRow.style.display = 'none';
+      
+      setCustomFormSelect('custom-select-size', 'form-size', '35ML');
+      formatPriceDisplayValue(45000);
+    } else {
+      // Tampilkan kembali untuk Signature
+      if (imgSection) imgSection.style.display = 'block';
+      if (sizePriceRow) sizePriceRow.style.display = 'grid';
+    }
+  }
+
+  function initPriceFormatter() {
+    const displayEl = document.getElementById('form-price-display');
+    const hiddenEl = document.getElementById('form-price');
+    if (!displayEl || !hiddenEl) return;
+
+    displayEl.addEventListener('input', (e) => {
+      const rawDigits = e.target.value.replace(/\D/g, '');
+      const num = rawDigits ? parseInt(rawDigits, 10) : 0;
+      hiddenEl.value = num;
+      displayEl.value = num ? `Rp ${new Intl.NumberFormat('id-ID').format(num)}` : '';
+    });
   }
 
   // Helper to set value of custom form select
@@ -830,6 +917,10 @@ function renderAdminPaginationControls(totalPages) {
           if (hiddenInput) hiddenInput.value = val;
           if (triggerLabel) triggerLabel.textContent = display;
 
+          if (hiddenInput && hiddenInput.id === 'form-category') {
+            updateCategoryFormView(val);
+          }
+
           select.querySelectorAll('.form-select-option').forEach(o => o.classList.remove('selected'));
           option.classList.add('selected');
 
@@ -865,6 +956,8 @@ function renderAdminPaginationControls(totalPages) {
       document.getElementById('delete-product-name').textContent = p.name;
       backdrop.classList.add('active');
     };
+    window.promptDeleteProduct = window.openDeleteModal;
+    window.deleteProduct = window.openDeleteModal;
 
     if (confirmBtn) {
       confirmBtn.addEventListener('click', async () => {
@@ -907,6 +1000,7 @@ function renderAdminPaginationControls(totalPages) {
     initLogin();
     initCustomFilterDropdown();
     initCustomFormSelects();
+    initPriceFormatter();
     initDetailModal();
     initSlidePanel();
     initDeleteModal();

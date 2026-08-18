@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 
 <head>
@@ -132,20 +132,53 @@
     document.addEventListener('DOMContentLoaded', function () {
       const container = document.getElementById('floating-wa-container');
       const waBtn = document.getElementById('floating-wa-btn');
-      const waMenu = document.getElementById('floating-wa-menu');
-      const heroEl = document.getElementById('hero');
+      const heroEl = document.getElementById('hero') || document.querySelector('.hero-section');
+      const isProductDetail = document.getElementById('product-detail-page') || 
+                              document.querySelector('.product-detail-container') || 
+                              window.location.pathname.includes('/product/') ||
+                              document.body.classList.contains('product-detail');
+
+      // Jika di Halaman Product Detail, sembunyikan widget WA 100%
+      if (isProductDetail && container) {
+        container.style.display = 'none';
+        return;
+      }
 
       if (container && waBtn) {
-        // 1. Always show the WA widget fixed in the corner
-        container.classList.add('visible');
+        function checkScrollPosition() {
+          const scrollY = window.scrollY || window.pageYOffset;
+          
+          if (heroEl) {
+            // Halaman Home dengan Hero Section: Tampil HANYA jika scroll melewati hero section
+            const triggerPoint = Math.max(200, heroEl.offsetHeight - 120);
+            if (scrollY > triggerPoint) {
+              container.classList.add('visible');
+            } else {
+              container.classList.remove('visible');
+              container.classList.remove('active');
+            }
+          } else {
+            // Halaman tanpa Hero Section (Katalog, Detail Produk, Quiz): Tampil setelah scroll > 150px
+            if (scrollY > 150) {
+              container.classList.add('visible');
+            } else {
+              container.classList.remove('visible');
+              container.classList.remove('active');
+            }
+          }
+        }
 
-        // 2. Toggle menu popover when green WA button is clicked
+        // Check on initial scroll & scroll event
+        window.addEventListener('scroll', checkScrollPosition, { passive: true });
+        checkScrollPosition();
+
+        // Toggle menu popover when green WA button is clicked
         waBtn.addEventListener('click', function (e) {
           e.stopPropagation();
           container.classList.toggle('active');
         });
 
-        // 3. Close menu when clicking outside
+        // Close menu when clicking outside
         document.addEventListener('click', function (e) {
           if (!container.contains(e.target)) {
             container.classList.remove('active');

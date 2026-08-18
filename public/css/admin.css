@@ -101,7 +101,7 @@
 }
 
 .admin-login-logo {
-  font-family: var(--font-serif);
+  font-family: 'Zaloga', var(--font-serif);
   font-size: 1.65rem;
   letter-spacing: 0.06em;
   color: var(--black);
@@ -280,7 +280,7 @@
 }
 
 .admin-brand-title {
-  font-family: var(--font-serif);
+  font-family: 'Zaloga', var(--font-serif);
   font-size: 1.45rem;
   font-weight: 500;
   color: #0D0D0D;
