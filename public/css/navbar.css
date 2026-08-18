@@ -1,152 +1,159 @@
-/* ============================================================
+﻿/* ============================================================
    NAVBAR — Clean White Luxury (Ref Image Exact Match)
    ============================================================ */
 
 #navbar {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  z-index: 1000 !important;
-  padding: 0.9rem 4rem !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  background: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  border-bottom: 1px solid rgba(229, 229, 229, 0.8) !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  transform: translateY(-100%) !important;
-  pointer-events: none !important;
-  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    padding: 0.9rem 4rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border-bottom: 1px solid rgba(229, 229, 229, 0.8) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(-100%) !important;
+    pointer-events: none !important;
+    transition:
+        opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        visibility 0.4s !important;
 }
 
 #navbar.scrolled {
-  opacity: 1 !important;
-  visibility: visible !important;
-  transform: translateY(0) !important;
-  pointer-events: auto !important;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05) !important;
 }
 
 /* Brand Logo */
 .nav-brand {
-  display: flex !important;
-  flex-direction: column !important;
-  cursor: pointer !important;
-  gap: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    cursor: pointer !important;
+    gap: 0 !important;
 }
 
 .nav-brand-name {
-  font-family: 'Zaloga', 'Cormorant Garamond', Georgia, serif !important;
-  font-size: 1.5rem !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.05em !important;
-  color: #0D0D0D !important;
-  line-height: 1 !important;
+    font-family: "Cormorant Garamond", Georgia, serif !important;
+    font-size: 1.5rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.05em !important;
+    color: #0d0d0d !important;
+    line-height: 1 !important;
 }
 
 .nav-brand-sub {
-  font-family: 'Inter', system-ui, sans-serif !important;
-  font-size: 0.52rem !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.28em !important;
-  text-transform: uppercase !important;
-  color: #8A8A8A !important;
-  margin-top: 2px !important;
+    font-family: "Inter", system-ui, sans-serif !important;
+    font-size: 0.52rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.28em !important;
+    text-transform: uppercase !important;
+    color: #8a8a8a !important;
+    margin-top: 2px !important;
 }
 
 /* Nav Links */
 .nav-links {
-  display: flex !important;
-  align-items: center !important;
-  gap: 2.75rem !important;
-  list-style: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 2.75rem !important;
+    list-style: none !important;
 }
 
 .nav-links a {
-  font-family: 'Inter', system-ui, sans-serif !important;
-  font-size: 0.95rem !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.12em !important;
-  text-transform: uppercase !important;
-  color: #333333 !important;
-  position: relative !important;
-  transition: color 0.25s !important;
-  text-decoration: none !important;
+    font-family: "Inter", system-ui, sans-serif !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    color: #333333 !important;
+    position: relative !important;
+    transition: color 0.25s !important;
+    text-decoration: none !important;
 }
 
 .nav-links a::after {
-  content: '' !important;
-  position: absolute !important;
-  bottom: -4px !important;
-  left: 0 !important;
-  width: 0 !important;
-  height: 1.5px !important;
-  background: #0D0D0D !important;
-  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    content: "" !important;
+    position: absolute !important;
+    bottom: -4px !important;
+    left: 0 !important;
+    width: 0 !important;
+    height: 1.5px !important;
+    background: #0d0d0d !important;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .nav-links a:hover {
-  color: #0D0D0D !important;
+    color: #0d0d0d !important;
 }
 
 .nav-links a:hover::after {
-  width: 100% !important;
+    width: 100% !important;
 }
 
 /* Nav Actions */
 .nav-actions {
-  display: flex !important;
-  align-items: center !important;
-  gap: 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
 }
 
 .btn-nav-buy {
-  padding: 0.65rem 1.6rem !important;
-  background: #0D0D0D !important;
-  color: #FFFFFF !important;
-  border-radius: 100px !important;
-  font-family: 'Inter', system-ui, sans-serif !important;
-  font-size: 0.95rem !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.04em !important;
-  text-decoration: none !important;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  border: 1px solid #0D0D0D !important;
-  display: inline-block !important;
+    padding: 0.65rem 1.6rem !important;
+    background: #0d0d0d !important;
+    color: #ffffff !important;
+    border-radius: 100px !important;
+    font-family: "Inter", system-ui, sans-serif !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
+    text-decoration: none !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    border: 1px solid #0d0d0d !important;
+    display: inline-block !important;
 }
 
 .btn-nav-buy:hover {
-  background: #1A1A1A !important;
-  transform: translateY(-1px) !important;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
+    background: #1a1a1a !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
 }
 
 .nav-admin-btn {
-  font-family: 'Inter', system-ui, sans-serif !important;
-  font-size: 0.72rem !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.08em !important;
-  text-transform: uppercase !important;
-  color: #8A8A8A !important;
-  padding: 0.55rem 1.1rem !important;
-  border: 1px solid #E5E5E5 !important;
-  border-radius: 4px !important;
-  transition: all 0.25s !important;
-  text-decoration: none !important;
-  display: inline-block !important;
+    font-family: "Inter", system-ui, sans-serif !important;
+    font-size: 0.72rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    color: #8a8a8a !important;
+    padding: 0.55rem 1.1rem !important;
+    border: 1px solid #e5e5e5 !important;
+    border-radius: 4px !important;
+    transition: all 0.25s !important;
+    text-decoration: none !important;
+    display: inline-block !important;
 }
 
 .nav-admin-btn:hover {
-  border-color: #0D0D0D !important;
-  color: #0D0D0D !important;
+    border-color: #0d0d0d !important;
+    color: #0d0d0d !important;
 }
 
 /* Responsive */
 @media (max-width: 900px) {
-  #navbar { padding: 1rem 1.5rem !important; }
-  .nav-links { display: none !important; }
+    #navbar {
+        padding: 1rem 1.5rem !important;
+    }
+    .nav-links {
+        display: none !important;
+    }
 }

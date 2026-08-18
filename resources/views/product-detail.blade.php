@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', $product->name . ' — Perfu.me')
 @section('description', $product->description)
@@ -146,7 +146,7 @@
   }
 
   .detail-features-list li::before {
-    content: "✓";
+    content: "✔";
     font-weight: 700;
     color: #000000;
     font-size: 0.9rem;
@@ -662,7 +662,7 @@
           <li>Parfum oil grade A, alkohol 90%</li>
           <li>Tanpa pewarna tambahan</li>
           <li>{{ $product->packaging ?? 'Botol kaca spray + dus karton' }}</li>
-          <li>Tahan 6–10 jam</li>
+          <li>Tahan 6–10 jam di kulit</li>
         </ul>
 
         <div class="detail-scent-notes-box">
@@ -886,3 +886,4 @@
 </script>
 <script src="{{ asset('js/navbar.js') }}"></script>
 @endsection
+

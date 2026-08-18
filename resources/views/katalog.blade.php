@@ -1,7 +1,7 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
-@section('title', 'Katalog Parfum — Perfu.me')
-@section('description', 'Temukan seluruh koleksi parfum premium Perfu.me — Vanessence, Dynamyst, Nusantara Series, dan Roll-On Mini. Tersedia dalam berbagai varian aroma eksklusif.')
+@section('title', 'Katalog Parfum — Parfu.me')
+@section('description', 'Temukan seluruh koleksi parfum premium Parfu.me — Vanessence, Dynamyst, Nusantara Series, dan Roll-On Mini. Tersedia dalam berbagai varian aroma eksklusif.')
 
 @section('styles')
 <style>
@@ -363,7 +363,7 @@
   .product-card-name { font-family: 'Zaloga', Georgia, serif; font-size: 1.2rem; font-weight: 400; color: #0D0D0D; margin-bottom: 0.4rem; line-height: 1.2; }
   .product-card-tagline { font-size: 0.78rem; color: #8A8A8A; margin-bottom: 1rem; font-style: italic; }
   .product-card-price-row { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 1rem; }
-  .product-card-price { font-family: 'Inter', system-ui, sans-serif; font-size: 1.12rem; font-weight: 700; color: #0D0D0D; }
+  .product-card-price { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.3rem; font-weight: 500; color: #0D0D0D; }
   .product-card-price-slash { font-size: 0.8rem; color: #C0C0C0; text-decoration: line-through; }
   .product-card-actions { display: flex; gap: 0.5rem; }
 
@@ -1117,9 +1117,9 @@
           <p class="product-detail-desc">${product.description || 'Detail parfum resmi Perfu.me dengan aroma pilihan.'}</p>
 
           <div class="product-detail-notes">
-            <div class="product-detail-note"><strong>Top Notes</strong><span>${product.top_notes || '–'}</span></div>
-            <div class="product-detail-note"><strong>Heart Notes</strong><span>${product.middle_notes || '–'}</span></div>
-            <div class="product-detail-note"><strong>Base Notes</strong><span>${product.base_notes || '–'}</span></div>
+            <div class="product-detail-note"><strong>Top Notes</strong><span>${product.top_notes || '—'}</span></div>
+            <div class="product-detail-note"><strong>Heart Notes</strong><span>${product.middle_notes || '—'}</span></div>
+            <div class="product-detail-note"><strong>Base Notes</strong><span>${product.base_notes || '—'}</span></div>
           </div>
 
           <div class="product-detail-price-wrap">
@@ -1247,3 +1247,4 @@
 </script>
 <script src="{{ asset('js/navbar.js') }}"></script>
 @endsection
+
