@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 
 <head>
@@ -13,10 +13,10 @@
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
 
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- FontAwesome 6 Icon Library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -136,19 +136,8 @@
       const heroEl = document.getElementById('hero');
 
       if (container && waBtn) {
-        // 1. Scroll listener: Only show after scrolling past hero section
-        function checkScroll() {
-          const heroHeight = heroEl ? heroEl.offsetHeight : 450;
-          if (window.scrollY > (heroHeight - 120)) {
-            container.classList.add('visible');
-          } else {
-            container.classList.remove('visible');
-            container.classList.remove('active'); // Close menu when scrolling back to hero
-          }
-        }
-
-        window.addEventListener('scroll', checkScroll);
-        checkScroll();
+        // 1. Always show the WA widget fixed in the corner
+        container.classList.add('visible');
 
         // 2. Toggle menu popover when green WA button is clicked
         waBtn.addEventListener('click', function (e) {
@@ -171,3 +160,4 @@
 
 </body>
 </html>
+

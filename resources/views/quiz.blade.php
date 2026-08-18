@@ -1,7 +1,7 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Scent Finder Quiz — Perfu.me')
-@section('description', 'Temukan parfum terbaik untuk karakter Anda melalui 5 pertanyaan simpel dari Perfu.me.')
+@section('description', 'Temukan parfum terbaik untuk karakter Anda melalui 5 pertanyaan simpel dari Parfu.me.')
 
 @section('styles')
   <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
