@@ -1933,3 +1933,203 @@ select.form-control:hover {
   overflow-x: auto;
   overflow-y: visible !important;
 }
+
+/* ── Admin Modal Backdrop Styles ───────────────────────────── */
+.admin-modal-backdrop,
+#logout-modal-backdrop,
+#delete-modal-backdrop,
+#detail-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: none !important;
+  opacity: 0;
+  pointer-events: none;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+.admin-modal-backdrop.active,
+#logout-modal-backdrop.active,
+#delete-modal-backdrop.active,
+#detail-modal-backdrop.active {
+  display: flex !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.admin-modal {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 440px;
+  width: 90%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  transform: scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.admin-modal-backdrop.active .admin-modal,
+#logout-modal-backdrop.active .admin-modal {
+  transform: scale(1);
+}
+
+.admin-modal-icon.warning {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #FEF2F2;
+  color: #DC2626;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.admin-modal-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #0D0D0D;
+  margin-bottom: 0.5rem;
+}
+
+.admin-modal-desc {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.9rem;
+  color: #555555;
+  line-height: 1.5;
+  margin-bottom: 1.75rem;
+}
+
+.admin-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.admin-modal-actions button {
+  flex: 1;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.admin-btn-secondary {
+  background: #F4F4F5;
+  color: #3F3F46;
+  border-color: #E4E4E7 !important;
+}
+
+.admin-btn-secondary:hover {
+  background: #E4E4E7;
+}
+
+.admin-btn-primary {
+  background: #DC2626;
+  color: #FFFFFF;
+}
+
+.admin-btn-primary:hover {
+  background: #B91C1C;
+}
+
+.admin-welcome-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s ease;
+}
+
+.admin-welcome-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.admin-welcome-card {
+  text-align: center;
+  color: #ffffff;
+  padding: 3rem;
+  max-width: 460px;
+  width: 90%;
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.admin-welcome-overlay.active .admin-welcome-card {
+  transform: translateY(0) scale(1);
+}
+
+.welcome-sparkle-icon {
+  font-size: 2.8rem;
+  margin-bottom: 0.75rem;
+  display: inline-block;
+  animation: welcomePulse 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes welcomePulse {
+  0% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+  100% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 24px rgba(255,255,255,0.7)); }
+}
+
+.welcome-brand-logo {
+  font-family: 'Zaloga', Georgia, serif;
+  font-size: 2.2rem;
+  letter-spacing: 0.05em;
+  color: #FFFFFF;
+  margin-bottom: 0.25rem;
+}
+
+.welcome-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: #E5E5E5;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+.welcome-subtext {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8A8A8A;
+  margin-bottom: 2rem;
+}
+
+.welcome-progress-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 100px;
+  overflow: hidden;
+  position: relative;
+}
+
+.welcome-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #FFFFFF, #C0C0C0);
+  border-radius: 100px;
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}

@@ -8,7 +8,7 @@
   body {
     background: #FFFFFF;
     color: #0D0D0D;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Manrope', system-ui, sans-serif;
     margin: 0;
     padding-bottom: 100px; /* space for sticky bottom bar */
   }
@@ -46,14 +46,24 @@
   }
 
   .detail-brand-watermark {
-    font-family: 'Zaloga', Georgia, serif;
     font-size: 2.5rem;
-    font-weight: 400;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
     color: #000000;
     margin-bottom: 2rem;
     text-align: center;
+    text-transform: uppercase;
+  }
+
+  .detail-brand-watermark.is-signature {
+    font-family: 'Zaloga', Georgia, serif;
+    letter-spacing: 0.04em;
+    font-weight: normal;
+    text-transform: none;
+  }
+
+  .detail-brand-watermark.is-refill {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: 0.18em;
+    font-weight: 300;
   }
 
   .detail-img-box {
@@ -632,7 +642,7 @@
     <div class="detail-hero-grid">
       {{-- Media Column --}}
       <div class="detail-media-col">
-        <div class="detail-brand-watermark">{{ $isSignature ? 'PARFU.ME' : 'REFILL' }}</div>
+        <div class="detail-brand-watermark {{ $isSignature ? 'is-signature' : 'is-refill' }}">{{ $isSignature ? 'Perfu.me' : 'REFILL' }}</div>
         <div class="detail-img-box">
           <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
         </div>

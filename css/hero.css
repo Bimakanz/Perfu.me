@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    HERO SECTION — High-End Cinematic Luxury (Dark Overlay & 3 Bottles)
    ============================================================ */
 
@@ -83,7 +83,7 @@
     display: inline-flex !important;
     align-items: center !important;
     gap: 0.5rem !important;
-    font-family: "Inter", system-ui, sans-serif !important;
+    font-family: "Manrope", sans-serif !important;
     font-size: 0.85rem !important;
     font-weight: 700 !important;
     letter-spacing: 0.28em !important;
@@ -109,7 +109,7 @@
 }
 
 .hero-desc {
-    font-family: "Inter", system-ui, sans-serif !important;
+    font-family: "Manrope", sans-serif !important;
     font-size: 1.45rem !important;
     line-height: 1.75 !important;
     color: #f4f4f5 !important;
@@ -131,7 +131,7 @@
     color: #0d0d0d !important;
     border: 1px solid #ffffff !important;
     border-radius: 4px !important;
-    font-family: "Inter", system-ui, sans-serif !important;
+    font-family: "Manrope", sans-serif !important;
     font-size: 0.78rem !important;
     font-weight: 600 !important;
     letter-spacing: 0.08em !important;
@@ -156,7 +156,7 @@
     color: #ffffff !important;
     border: 1px solid rgba(255, 255, 255, 0.3) !important;
     border-radius: 4px !important;
-    font-family: "Inter", system-ui, sans-serif !important;
+    font-family: "Manrope", sans-serif !important;
     font-size: 0.78rem !important;
     font-weight: 600 !important;
     letter-spacing: 0.08em !important;

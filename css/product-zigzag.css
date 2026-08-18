@@ -15,10 +15,11 @@
 
 .showcase-header h2 {
   font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-size: clamp(3.2rem, 5.5vw, 4.8rem);
   font-weight: 300;
   color: var(--black);
   margin-bottom: 0.75rem;
+  line-height: 1.1;
 }
 
 .showcase-header p {

@@ -20,57 +20,8 @@ var currentSort = { field: 'id', dir: 'asc' };
   }
 
   // ── Toast Helper (Luxury Toast Notification) ─────────────
-  function showToast(message, type = 'success', title = '') {
-    let container = document.getElementById('toast-container');
-    if (!container) {
-      container = document.createElement('div');
-      container.id = 'toast-container';
-      document.body.appendChild(container);
-    }
-
-    const toast = document.createElement('div');
-    toast.className = `toast ${type}`;
-
-    let iconSvg = '';
-    let defaultTitle = '';
-
-    if (type === 'success') {
-      defaultTitle = 'ADMIN PORTAL';
-      iconSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`;
-    } else if (type === 'error') {
-      defaultTitle = 'PERHATIAN';
-      iconSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>`;
-    } else {
-      defaultTitle = 'ADMIN INVENTORY';
-      iconSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`;
-    }
-
-    toast.innerHTML = `
-      <div class="toast-icon-box">${iconSvg}</div>
-      <div class="toast-content">
-        <div class="toast-title">${title || defaultTitle}</div>
-        <div class="toast-message">${message}</div>
-      </div>
-      <button class="toast-close" aria-label="Tutup">&times;</button>
-      <div class="toast-progress"></div>
-    `;
-
-    const closeBtn = toast.querySelector('.toast-close');
-    if (closeBtn) {
-      closeBtn.onclick = () => removeToast(toast);
-    }
-
-    container.appendChild(toast);
-
-    const timer = setTimeout(() => {
-      removeToast(toast);
-    }, 3500);
-
-    function removeToast(el) {
-      clearTimeout(timer);
-      el.classList.add('toast-hiding');
-      setTimeout(() => el.remove(), 300);
-    }
+  function showToast(message, type = 'info', title = null) {
+    return;
   }
 
   // Password visibility toggle
@@ -133,12 +84,6 @@ var currentSort = { field: 'id', dir: 'asc' };
     // Handle Login Submit
     if (form) {
       form.addEventListener('submit', window.doAdminLogin);
-    }
-
-    // Logout button handler
-    const logoutBtn = document.getElementById('admin-logout-btn');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', logout);
     }
 
     // Search input listener
@@ -209,37 +154,37 @@ var currentSort = { field: 'id', dir: 'asc' };
   function showDashboard() {
     const loginPage = document.getElementById('admin-login-page');
     const dashPage = document.getElementById('admin-dashboard-page');
-    
-    if (loginPage) {
-      loginPage.style.cssText = 'display: none !important;';
-    }
+    const welcomeOverlay = document.getElementById('admin-welcome-overlay');
+    const progressFill = document.getElementById('welcome-progress-fill');
+
+    // Step 1: Langsung pindah ke dashboard dulu
+    if (loginPage) loginPage.style.cssText = 'display: none !important;';
     if (dashPage) {
       dashPage.style.cssText = 'display: block !important;';
       dashPage.classList.add('active');
     }
 
-    // Load initial products fallback immediately to render UI
     products = [...DEFAULT_ADMIN_PRODUCTS];
     try { renderTable(); } catch (e) {}
     try { updateStats(); } catch (e) {}
-
-    // Async fetch from database in background
     loadDashboardData();
+
+    // Step 2: Tampilkan loading overlay DI DALAM dashboard
+    if (welcomeOverlay && progressFill) {
+      progressFill.style.width = '0%';
+      welcomeOverlay.classList.add('active');
+
+      setTimeout(() => {
+        progressFill.style.width = '100%';
+      }, 50);
+
+      setTimeout(() => {
+        welcomeOverlay.classList.remove('active');
+      }, 1200);
+    }
   }
 
-  function logout() {
-    window.API.logout();
-    const loginPage = document.getElementById('admin-login-page');
-    const dashPage = document.getElementById('admin-dashboard-page');
-    if (dashPage) {
-      dashPage.classList.remove('active');
-      dashPage.style.cssText = 'display: none !important;';
-    }
-    if (loginPage) {
-      loginPage.style.cssText = 'display: flex !important;';
-    }
-    showToast('Berhasil keluar dari dashboard.', 'info');
-  }
+
 
   window.handleSessionExpired = function() {
     if (window.API && typeof window.API.clearToken === 'function') {
@@ -974,6 +919,74 @@ function renderAdminPaginationControls(totalPages) {
     }
   }
 
+  // ── 7.5. Logout Confirmation Modal ──────────
+  window.openLogoutModal = function (e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const backdrop = document.getElementById('logout-modal-backdrop');
+    if (backdrop) backdrop.classList.add('active');
+  };
+
+  window.closeLogoutModal = function () {
+    const backdrop = document.getElementById('logout-modal-backdrop');
+    if (backdrop) backdrop.classList.remove('active');
+  };
+
+  function logout() {
+    // 1. Tutup semua modal dulu sebelum pindah layar
+    document.querySelectorAll('.admin-modal-backdrop').forEach(function(b) {
+      b.classList.remove('active');
+    });
+    // 2. Bersihkan session
+    if (window.API && typeof window.API.logout === 'function') {
+      window.API.logout();
+    }
+    // 3. Baru pindah ke layar login
+    const loginPage = document.getElementById('admin-login-page');
+    const dashPage = document.getElementById('admin-dashboard-page');
+    if (dashPage) {
+      dashPage.classList.remove('active');
+      dashPage.style.cssText = 'display: none !important;';
+    }
+    if (loginPage) {
+      loginPage.style.cssText = 'display: flex !important;';
+    }
+  }
+
+  function initLogoutModal() {
+    const logoutBtn = document.getElementById('admin-logout-btn');
+    const backdrop = document.getElementById('logout-modal-backdrop');
+    const cancelBtn = document.getElementById('btn-cancel-logout');
+    const confirmBtn = document.getElementById('btn-confirm-logout');
+
+    if (logoutBtn) {
+      logoutBtn.onclick = window.openLogoutModal;
+    }
+
+    if (cancelBtn) {
+      cancelBtn.onclick = function (e) {
+        if (e) e.preventDefault();
+        window.closeLogoutModal();
+      };
+    }
+
+    if (backdrop) {
+      backdrop.onclick = function (e) {
+        if (e.target === backdrop) window.closeLogoutModal();
+      };
+    }
+
+    if (confirmBtn) {
+      confirmBtn.onclick = function (e) {
+        if (e) e.preventDefault();
+        window.closeLogoutModal();
+        logout();
+      };
+    }
+  }
+
   // ── 8. Table Header Sort ─────────────────────────────────────
   function initTableSorting() {
     const headers = document.querySelectorAll('#admin-products-table th[data-sort]');
@@ -1004,5 +1017,6 @@ function renderAdminPaginationControls(totalPages) {
     initDetailModal();
     initSlidePanel();
     initDeleteModal();
+    initLogoutModal();
     initTableSorting();
   });
