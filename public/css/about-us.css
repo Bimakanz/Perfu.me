@@ -45,11 +45,11 @@
 
 .about-us-heading {
   font-family: var(--font-serif);
-  font-size: clamp(2.8rem, 4.5vw, 3.8rem);
+  font-size: clamp(2rem, 3.2vw, 2.7rem);
   font-weight: 300;
   color: var(--black);
-  line-height: 1.1;
-  margin-bottom: 2rem;
+  line-height: 1.15;
+  margin-bottom: 1.75rem;
 }
 
 .about-us-paragraph {
@@ -150,7 +150,7 @@
 
 /* Stats Row at the Top/Bottom (Neat & Serif Typography) */
 .about-us-stats-row {
-  margin-top: 5rem;
+  margin-top: 10rem;
   margin-bottom: 4rem;
   border-top: none;
   border-bottom: 1px solid var(--silver-light);

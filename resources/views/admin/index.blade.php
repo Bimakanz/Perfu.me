@@ -148,16 +148,14 @@
             <div class="admin-stat-icon-bg">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
-                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
-                </path>
-                <line x1="12" y1="9" x2="12" y2="13"></line>
-                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
               </svg>
             </div>
-            <span class="admin-stat-tag">Perlu Restok</span>
+            <span class="admin-stat-tag">Tersedia</span>
           </div>
-          <div class="admin-stat-value" id="stat-lowstock">0</div>
-          <div class="admin-stat-label">Stok Menipis (&lt; 20 Pcs)</div>
+          <div class="admin-stat-value" id="stat-ready">0</div>
+          <div class="admin-stat-label">Produk Status Ready</div>
         </div>
 
         <div class="admin-stat-card danger">
@@ -169,10 +167,10 @@
                 <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
               </svg>
             </div>
-            <span class="admin-stat-tag">Kritis</span>
+            <span class="admin-stat-tag">Kosong</span>
           </div>
           <div class="admin-stat-value" id="stat-outofstock">0</div>
-          <div class="admin-stat-label">Stok Habis (0 Pcs)</div>
+          <div class="admin-stat-label">Produk Status Habis</div>
         </div>
       </div>
 
@@ -193,10 +191,10 @@
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
               <input type="text" id="admin-table-search" class="admin-search-input"
-                placeholder="Cari nama atau varian...">
+                placeholder="Cari nama produk / varian...">
             </div>
 
-            <!-- Custom Filter Select Dropdown Component -->
+            <!-- Custom Filter Dropdown -->
             <div class="custom-select-wrap" id="custom-filter-wrap">
               <button type="button" class="custom-select-trigger" id="custom-filter-trigger">
                 <span class="custom-select-label" id="custom-filter-label">Semua Status Stok</span>
@@ -213,11 +211,11 @@
                 <div class="custom-select-option" data-value="bestseller">
                   <span class="opt-dot bestseller"></span> Best Seller Only
                 </div>
-                <div class="custom-select-option" data-value="lowstock">
-                  <span class="opt-dot lowstock"></span> Stok Menipis (&lt; 20 Pcs)
+                <div class="custom-select-option" data-value="ready">
+                  <span class="opt-dot bestseller"></span> Status Ready
                 </div>
                 <div class="custom-select-option" data-value="outofstock">
-                  <span class="opt-dot outofstock"></span> Stok Habis (0 Pcs)
+                  <span class="opt-dot outofstock"></span> Status Habis
                 </div>
               </div>
               <input type="hidden" id="admin-filter-status" value="all">
@@ -431,8 +429,25 @@
           <input type="number" id="form-price" class="form-control" placeholder="150000" min="0" required>
         </div>
         <div class="form-group">
-          <label for="form-stock" class="form-label">Jumlah Stok Ready <span>*</span></label>
-          <input type="number" id="form-stock" class="form-control" placeholder="42" min="0" required>
+          <label class="form-label">Status Stok <span>*</span></label>
+          <input type="hidden" id="form-stock" value="100">
+          <div class="form-select-custom" id="custom-select-stock">
+            <div class="form-select-trigger">
+              <span class="trigger-label">Ready (Stok Tersedia)</span>
+              <svg class="form-select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+            <div class="form-select-options">
+              <div class="form-select-option selected" data-value="100" data-display="Ready (Stok Tersedia)">
+                <span>Ready (Stok Tersedia)</span><span class="opt-check">✓</span>
+              </div>
+              <div class="form-select-option" data-value="0" data-display="Habis (Stok Kosong)">
+                <span>Habis (Stok Kosong)</span><span class="opt-check">✓</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

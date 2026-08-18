@@ -46,14 +46,22 @@
   }
 
   .detail-brand-watermark {
-    font-family: 'Zaloga', Georgia, serif;
     font-size: 2.5rem;
     font-weight: 400;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
     color: #000000;
     margin-bottom: 2rem;
     text-align: center;
+  }
+
+  .detail-brand-watermark.is-signature {
+    font-family: 'Zaloga', Georgia, serif;
+    letter-spacing: 0.02em;
+  }
+
+  .detail-brand-watermark.is-refill {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
   }
 
   .detail-img-box {
@@ -456,11 +464,12 @@
   }
 
   .related-title {
-    font-family: 'Zaloga', Georgia, serif;
-    font-size: 2.2rem;
-    font-weight: 300;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 400;
     color: #0D0D0D;
-    margin: 0;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.5rem;
   }
 
   .related-link-all {
@@ -472,10 +481,28 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    transition: color 0.2s;
+    position: relative;
+    transition: color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .related-link-all:hover { color: #555555; }
+  .related-link-all::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: #0D0D0D;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .related-link-all:hover {
+    color: #0D0D0D;
+  }
+
+  .related-link-all:hover::after {
+    width: 100%;
+  }
 
   .related-grid {
     display: grid;
@@ -632,7 +659,7 @@
     <div class="detail-hero-grid">
       {{-- Media Column --}}
       <div class="detail-media-col">
-        <div class="detail-brand-watermark">{{ $isSignature ? 'PARFU.ME' : 'REFILL' }}</div>
+        <div class="detail-brand-watermark {{ $isSignature ? 'is-signature' : 'is-refill' }}">{{ $isSignature ? 'Perfu.me' : 'REFILL' }}</div>
         <div class="detail-img-box">
           <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
         </div>

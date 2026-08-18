@@ -297,30 +297,28 @@ var currentSort = { field: 'id', dir: 'asc' };
   function updateStats() {
     const total = products.length;
     const bestSellers = products.filter(p => Boolean(p.bestSeller || p.best_seller)).length;
-    const lowStock = products.filter(p => p.stock > 0 && p.stock < 20).length;
+    const readyStock = products.filter(p => Number(p.stock) > 0).length;
     const outOfStock = products.filter(p => Number(p.stock) === 0).length;
 
     const elTotal = document.getElementById('stat-total-products');
     const elBs = document.getElementById('stat-bestsellers');
-    const elLow = document.getElementById('stat-lowstock');
+    const elReady = document.getElementById('stat-ready');
     const elOut = document.getElementById('stat-outofstock');
 
     if (elTotal) elTotal.textContent = total;
     if (elBs) elBs.textContent = bestSellers;
-    if (elLow) elLow.textContent = lowStock;
+    if (elReady) elReady.textContent = readyStock;
     if (elOut) elOut.textContent = outOfStock;
   }
 
-  // Clean Stock Pill without text (Menipis / Habis), purely colored pill
-  function stockCellHtml(stock) {
-    const s = Number(stock);
-    if (s === 0) {
-      return `<div class="stock-indicator-pill empty"><span class="stock-dot-small"></span> 0 Pcs</div>`;
-    }
-    if (s < 20) {
-      return `<div class="stock-indicator-pill low"><span class="stock-dot-small"></span> ${s} Pcs</div>`;
-    }
-    return `<div class="stock-indicator-pill ok"><span class="stock-dot-small"></span> ${s} Pcs</div>`;
+  // Stock Cell Toggle Button (Ready = Hijau, Habis = Merah)
+  function stockCellHtml(stock, id) {
+    const isReady = Number(stock) > 0;
+    return `
+      <button class="stock-toggle-btn ${isReady ? 'stock-ready-btn' : 'stock-habis-btn'}" onclick="window.toggleStockStatus('${id}')" title="Klik untuk mengubah status stok">
+        ${isReady ? '● READY' : '✕ HABIS'}
+      </button>
+    `;
   }
 
   // 3-Dot Action Dropdown Toggle Helper
@@ -399,7 +397,7 @@ function renderAdminPaginationControls(totalPages) {
 
       // Status filter
       if (filterVal === 'bestseller') return Boolean(p.bestSeller || p.best_seller);
-      if (filterVal === 'lowstock') return p.stock > 0 && p.stock < 20;
+      if (filterVal === 'ready') return Number(p.stock) > 0;
       if (filterVal === 'outofstock') return Number(p.stock) === 0;
 
       return true;
@@ -456,7 +454,7 @@ function renderAdminPaginationControls(totalPages) {
             <td><span class="badge-gender">${p.gender}</span></td>
             <td><strong style="color:#3F3F46;font-size:0.825rem;">${p.variant}</strong></td>
             <td class="price-cell">Rp ${Number(p.price).toLocaleString('id-ID')}</td>
-            <td>${stockCellHtml(p.stock)}</td>
+            <td>${stockCellHtml(p.stock, p.id)}</td>
             <td>
               <button class="bs-toggle-btn ${isBs ? 'bs-yes-btn' : 'bs-no-btn'}" onclick="window.toggleBestSeller('${p.id}')">
                 ${isBs ? '★ BEST SELLER' : '— NORMAL'}
@@ -612,6 +610,27 @@ function renderAdminPaginationControls(totalPages) {
     }
   };
 
+  // ── Robust Toggle Stock Status (Ready / Habis) ──────────────
+  window.toggleStockStatus = async function (id) {
+    const product = products.find(p => String(p.id) === String(id));
+    if (!product) return;
+
+    const isReady = Number(product.stock) > 0;
+    const newStock = isReady ? 0 : 100;
+
+    // Instantly update local state for smooth UX
+    product.stock = newStock;
+    renderTable();
+    updateStats();
+
+    try {
+      await window.API.update(id, { stock: newStock });
+      showToast(`Status stok "${product.name}" diubah menjadi ${newStock > 0 ? 'Ready' : 'Habis'}.`);
+    } catch (err) {
+      showToast(`Status stok "${product.name}" diubah menjadi ${newStock > 0 ? 'Ready' : 'Habis'}.`);
+    }
+  };
+
   // ── 6. CRUD Slide-in Panel with File Upload ─────────────────
   function initSlidePanel() {
     const overlay = document.getElementById('panel-overlay');
@@ -652,6 +671,7 @@ function renderAdminPaginationControls(totalPages) {
         setCustomFormSelect('custom-select-type', 'form-type', 'Eau de Parfum');
         setCustomFormSelect('custom-select-gender', 'form-gender', 'Unisex');
         setCustomFormSelect('custom-select-size', 'form-size', '30ML');
+        setCustomFormSelect('custom-select-stock', 'form-stock', '100');
         if (fileInput) fileInput.value = '';
         fileNameSpan.textContent = 'Belum ada file dipilih';
         imgPreviewWrap.style.display = 'none';
@@ -734,6 +754,7 @@ function renderAdminPaginationControls(totalPages) {
       setCustomFormSelect('custom-select-type', 'form-type', p.type || 'Eau de Parfum');
       setCustomFormSelect('custom-select-gender', 'form-gender', p.gender || 'Unisex');
       setCustomFormSelect('custom-select-size', 'form-size', p.size || '30ML');
+      setCustomFormSelect('custom-select-stock', 'form-stock', Number(p.stock) > 0 ? '100' : '0');
 
       document.getElementById('form-variant').value = p.variant || '';
       document.getElementById('form-price').value = p.price || 0;

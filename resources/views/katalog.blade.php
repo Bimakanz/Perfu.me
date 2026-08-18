@@ -35,8 +35,8 @@
   .katalog-breadcrumb span { color: #C0C0C0; }
 
   .katalog-page-title {
-    font-family: 'Zaloga', Georgia, serif;
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.75rem, 3vw, 2.3rem);
     font-weight: 300;
     letter-spacing: 0.02em;
     color: #0D0D0D;
@@ -360,7 +360,7 @@
 
   .product-card-body { padding: 1.25rem; }
   .product-card-meta { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #8A8A8A; margin-bottom: 0.4rem; }
-  .product-card-name { font-family: 'Zaloga', Georgia, serif; font-size: 1.2rem; font-weight: 400; color: #0D0D0D; margin-bottom: 0.4rem; line-height: 1.2; }
+  .product-card-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.05rem; font-weight: 500; color: #0D0D0D; margin-bottom: 0.35rem; line-height: 1.25; }
   .product-card-tagline { font-size: 0.78rem; color: #8A8A8A; margin-bottom: 1rem; font-style: italic; }
   .product-card-price-row { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 1rem; }
   .product-card-price { font-family: 'Inter', system-ui, sans-serif; font-size: 1.12rem; font-weight: 700; color: #0D0D0D; }
@@ -598,8 +598,8 @@
 
   .product-detail-name {
     margin: 0 0 0.75rem;
-    font-family: 'Zaloga', Georgia, serif;
-    font-size: clamp(2rem, 3vw, 2.7rem);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.6rem, 2.5vw, 2.1rem);
     font-weight: 400;
     color: #0D0D0D;
   }
@@ -653,7 +653,7 @@
   }
 
   .product-detail-price {
-    font-family: 'Zaloga', Georgia, serif;
+    font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: 2rem;
     color: #0D0D0D;
   }
@@ -1006,7 +1006,7 @@
       html += `
         <div class="katalog-section-divider-title" style="grid-column: 1/-1; margin-bottom: 0.5rem;">
           <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #b45309;">SIGNATURE COLLECTION</div>
-          <h2 style="font-family: 'Zaloga', Georgia, serif; font-size: 1.8rem; font-weight: 300; margin: 0.2rem 0 1rem; color: #0D0D0D;">Parfum Signature</h2>
+          <h2 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.35rem; font-weight: 400; margin: 0.2rem 0 1rem; color: #0D0D0D;">Parfum Signature</h2>
         </div>
         ${signatureProds.map(renderCard).join('')}
       `;
@@ -1026,7 +1026,7 @@
       html += `
         <div class="katalog-section-divider-title" style="grid-column: 1/-1; margin-bottom: 0.5rem;">
           <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #8A8A8A;">REFILL COLLECTION</div>
-          <h2 style="font-family: 'Zaloga', Georgia, serif; font-size: 1.8rem; font-weight: 300; margin: 0.2rem 0 1rem; color: #0D0D0D;">Koleksi Parfum Refill</h2>
+          <h2 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.35rem; font-weight: 400; margin: 0.2rem 0 1rem; color: #0D0D0D;">Koleksi Parfum Refill</h2>
         </div>
         ${refillProds.map(renderCard).join('')}
       `;

@@ -32,7 +32,7 @@
   --glass-blur:     blur(14px);
 
   /* Typography */
-  --font-serif:     'Zaloga', 'Cormorant Garamond', Georgia, serif;
+  --font-serif:     'Cormorant Garamond', Georgia, serif;
   --font-sans:      'Inter', system-ui, sans-serif;
 
   /* Transitions */
