@@ -63,7 +63,7 @@
 
   {{-- 3. HERO SECTION --}}
   <header id="hero">
-    <img src="{{ asset('assets/images/herosectionbaru2parfum.png') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
+    <img src="{{ asset('assets/images/herosectionbaru2parfumtanpawm.png') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
     <div class="hero-overlay-dark"></div>
 
     <div class="hero-grid">
@@ -242,7 +242,7 @@
       <div>
         <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Kontak</h4>
         <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7;">
-          WhatsApp: +62 813-8341-5432<br>
+          WhatsApp: <a href="https://wa.me/6281383415432?text=Halo%20Perfu.me,%20saya%20tertarik%20dengan%20produk%20parfumnya" target="_blank" rel="noopener" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none; display:inline-block;">+62 813-8341-5432</a><br>
           Email: perfumeofficial30@gmail.com<br>
           Instagram: <a href="https://www.instagram.com/perfu.mefragrance/" target="_blank" rel="noopener" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none;">@perfu.mefragrance</a><br>
           <a href="https://maps.app.goo.gl/xui1fMK73WXR1DD29" target="_blank" rel="noopener" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none; display:inline-block; margin-top:0.2rem;">Jl. Lingkar Dramaga RT 03/04 Desa Dramaga</a>
