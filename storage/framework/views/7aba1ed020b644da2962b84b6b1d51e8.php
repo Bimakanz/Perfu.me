@@ -1,25 +1,23 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Perfu.me — Luxury & Nusantara Fragrance Series'); ?>
+<?php $__env->startSection('description', 'Perfu.me menghadirkan koleksi parfum premium vanessence, dynamyst, dan seri nusantara dengan konsentrat parfum grade A dan ketahanan aromatis hingga 10 jam.'); ?>
 
-@section('title', 'Perfu.me — Luxury & Nusantara Fragrance Series')
-@section('description', 'Perfu.me menghadirkan koleksi parfum premium vanessence, dynamyst, dan seri nusantara dengan konsentrat parfum grade A dan ketahanan aromatis hingga 10 jam.')
-
-@section('meta')
+<?php $__env->startSection('meta'); ?>
 <meta name="keywords" content="perfu.me, perfu.me, parfum nusantara, vanessence, dynamyst, eau de parfum, parfum lokal">
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('styles')
-<link rel="stylesheet" href="{{ asset('css/splash.css') }}">
-<link rel="stylesheet" href="{{ asset('css/hero.css') }}">
-<link rel="stylesheet" href="{{ asset('css/about-us.css') }}">
-<link rel="stylesheet" href="{{ asset('css/testimonials.css') }}">
-<link rel="stylesheet" href="{{ asset('css/catalog.css') }}">
-<link rel="stylesheet" href="{{ asset('css/pdp.css') }}">
-<link rel="stylesheet" href="{{ asset('css/product-zigzag.css') }}">
-@endsection
+<?php $__env->startSection('styles'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('css/splash.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/hero.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/about-us.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/testimonials.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/catalog.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/pdp.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/product-zigzag.css')); ?>">
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
-  {{-- 1. TYPEWRITER INTRO SPLASH SCREEN --}}
+  
   <div id="splash" role="dialog" aria-modal="true" aria-label="Welcome screen">
     <div class="splash-content">
       <div class="splash-title">
@@ -29,7 +27,7 @@
     </div>
   </div>
 
-  {{-- 2. NAVBAR --}}
+  
   <nav id="navbar" aria-label="Main Navigation">
     <div class="nav-brand" data-nav="home">
       <a href="/" style="text-decoration:none; color:inherit;"><span class="nav-brand-name">Perfu.me</span></a>
@@ -61,9 +59,9 @@
     </div>
   </nav>
 
-  {{-- 3. HERO SECTION --}}
+  
   <header id="hero">
-    <img src="{{ asset('assets/images/herosectionbaru2parfum.png') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
+    <img src="<?php echo e(asset('assets/images/herosectionbaru2parfum.png')); ?>" alt="Hero Cinematic Background" class="hero-cinematic-bg">
     <div class="hero-overlay-dark"></div>
 
     <div class="hero-grid">
@@ -81,7 +79,7 @@
     </div>
   </header>
 
-  {{-- 3.5. ABOUT US SECTION (Our Story & Mission) --}}
+  
   <section id="about-story-section" class="about-us-section">
     <div class="about-us-container">
 
@@ -105,7 +103,7 @@
 
         <!-- Right Column: Dominant Visual Showcase (Image + Floating Slogan Card) -->
         <div class="about-us-visual-col">
-          <img src="{{ asset('assets/images/abotus.png') }}" alt="Perfu.me Signature Fragrances" class="about-us-single-img">
+          <img src="<?php echo e(asset('assets/images/abotus.png')); ?>" alt="Perfu.me Signature Fragrances" class="about-us-single-img">
 
           <!-- Floating Luxury Slogan Card (Sharp Edges) -->
           <div class="floating-slogan-card">
@@ -138,48 +136,48 @@
     </div>
   </section>
 
-  {{-- 4. PRODUCTS ZIGZAG CATALOG SHOWCASE --}}
+  
   <section class="products-showcase-section" id="produk-section">
     <div class="showcase-header">
       <h2>Perfu.me Signatures</h2>
     </div>
 
-    @php
+    <?php
       $signatureProducts = \App\Models\Product::where('best_seller', true)
           ->where('type', 'Signature')
           ->orderBy('id')
           ->take(2)
           ->get();
-    @endphp
+    ?>
 
     <div id="produk-section-list">
-      @foreach($signatureProducts as $index => $product)
-      <div class="product-zigzag-item {{ $index % 2 != 0 ? 'reversed' : '' }}">
+      <?php $__currentLoopData = $signatureProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <div class="product-zigzag-item <?php echo e($index % 2 != 0 ? 'reversed' : ''); ?>">
         <div class="product-zigzag-image-col">
-          <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="product-zigzag-img" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+          <img src="<?php echo e(asset($product->image)); ?>" alt="<?php echo e($product->name); ?>" class="product-zigzag-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
         </div>
         <div class="product-zigzag-text-col">
-          <span class="product-zigzag-tagline">{{ $product->tagline }}</span>
-          <h3 class="product-zigzag-name">{{ $product->name }}</h3>
-          <p class="product-zigzag-desc">{{ $product->description }}</p>
+          <span class="product-zigzag-tagline"><?php echo e($product->tagline); ?></span>
+          <h3 class="product-zigzag-name"><?php echo e($product->name); ?></h3>
+          <p class="product-zigzag-desc"><?php echo e($product->description); ?></p>
           <div class="product-zigzag-notes">
-            <span>{{ $product->top_notes }}</span>
-            <span>{{ $product->middle_notes }}</span>
-            <span>{{ $product->base_notes }}</span>
+            <span><?php echo e($product->top_notes); ?></span>
+            <span><?php echo e($product->middle_notes); ?></span>
+            <span><?php echo e($product->base_notes); ?></span>
           </div>
           <div class="product-zigzag-actions">
-            <a href="{{ route('product.detail', $product->id) }}" class="btn-zigzag-primary">Lihat Detail & Beli</a>
+            <a href="<?php echo e(route('product.detail', $product->id)); ?>" class="btn-zigzag-primary">Lihat Detail & Beli</a>
           </div>
         </div>
       </div>
-      @endforeach
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
   </section>
 
 
 
   <section id="testimoni-section" class="testimonials-section">
-    @php
+    <?php
       use Illuminate\Support\Str;
 
       $testimonialProductNames = [
@@ -226,7 +224,7 @@
       }
 
       $testimonialProductAt = fn ($index) => $testimonialProducts->get($index) ?? $testimonialProducts->first();
-    @endphp
+    ?>
 
     <div class="testimonials-container">
       
@@ -244,43 +242,43 @@
           <div class="testimonial-row testimonial-row--top">
             <div class="testimonial-row-track">
               
-              @php
+              <?php
                 $rowTopData = [
                   ['name' => 'Raditya Ghani', 'text' => 'Parfumnya recommended banget! Wanginya tahan seharian, dari pagi dipakai sampai malam pun masih wangi.', 'idx' => 0],
                   ['name' => 'Agustin Putri', 'text' => 'Wanginya masih menempel di kerudung meskipun sudah 3 hari. Kualitasnya juara, fix bakal borong lagi!', 'idx' => 1],
                   ['name' => 'Victoria Thompson', 'text' => 'Wangi manisnya lembut dan tidak terlalu menyengat — banyak yang tanya parfum apa ini!', 'idx' => 2],
                   ['name' => 'John Peter', 'text' => 'Tidak lengket di kulit, elegan — cocok dipakai ke acara formal maupun santai.', 'idx' => 3],
                 ];
-              @endphp
+              ?>
 
               <!-- Set Utama + Set Duplikasi (Supaya Seamless Loop) -->
-              @foreach(array_merge($rowTopData, $rowTopData) as $item)
+              <?php $__currentLoopData = array_merge($rowTopData, $rowTopData); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="testimonial-card">
                   <div class="testimonial-stars">
                     <span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span>
                   </div>
-                  <p class="testimonial-text">"{{ $item['text'] }}"</p>
+                  <p class="testimonial-text">"<?php echo e($item['text']); ?>"</p>
                   <div class="testimonial-profile">
-                    <div class="testimonial-reviewer-info"><span class="testimonial-name">{{ $item['name'] }}</span></div>
+                    <div class="testimonial-reviewer-info"><span class="testimonial-name"><?php echo e($item['name']); ?></span></div>
                   </div>
                   <div class="testimonial-purchase">
-                    @php
+                    <?php
                       $tProd = $testimonialProductAt($item['idx']);
                       $imgPath = $tProd->image ?? '';
                       $imgUrl = filter_var($imgPath, FILTER_VALIDATE_URL) ? $imgPath : (Str::startsWith($imgPath, ['/','assets/']) ? asset($imgPath) : asset('assets/images/'.($imgPath ?: 'refill.webp')));
-                    @endphp
-                    <img loading="lazy" src="{{ $imgUrl }}" alt="{{ $tProd->name ?? '' }}" class="testimonial-product-img" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+                    ?>
+                    <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($tProd->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
                     <div class="testimonial-product-info">
                       <span class="testimonial-scent-tag">Chosen Scent</span>
-                      <span class="testimonial-product-name">{{ $tProd->name ?? '' }}</span>
+                      <span class="testimonial-product-name"><?php echo e($tProd->name ?? ''); ?></span>
                     </div>
-                    <a href="{{ isset($tProd->id) ? route('product.detail', $tProd->id) : '#' }}" class="testimonial-buy">
+                    <a href="<?php echo e(isset($tProd->id) ? route('product.detail', $tProd->id) : '#'); ?>" class="testimonial-buy">
                       <span class="buy-text-desktop">Beli Varian Ini →</span>
                       <span class="buy-text-mobile">Beli →</span>
                     </a>
                   </div>
                 </div>
-              @endforeach
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
             </div>
           </div>
@@ -289,43 +287,43 @@
           <div class="testimonial-row testimonial-row--bottom">
             <div class="testimonial-row-track">
               
-              @php
+              <?php
                 $rowBottomData = [
                   ['name' => 'Natalie Martinez', 'text' => 'Pengiriman cepat dan kemasannya rapi. Wanginya tahan lama, recommended!', 'idx' => 4],
                   ['name' => 'Gabrielle Williams', 'text' => 'Aromanya sophisticated, enak dipakai seharian. Banyak yang tanya mereknya.', 'idx' => 5],
                   ['name' => 'Isabella Rodriguez', 'text' => 'Wajib punya! Aroma manisnya pas, banyak yang bilang wangi saya enak.', 'idx' => 6],
                   ['name' => 'Samantha Johnson', 'text' => 'Pas dipakai hangout, banyak yang tanya parfum apa — suka banget!', 'idx' => 7],
                 ];
-              @endphp
+              ?>
 
               <!-- Set Utama + Set Duplikasi (Supaya Seamless Loop) -->
-              @foreach(array_merge($rowBottomData, $rowBottomData) as $item)
+              <?php $__currentLoopData = array_merge($rowBottomData, $rowBottomData); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="testimonial-card">
                   <div class="testimonial-stars">
                     <span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span>
                   </div>
-                  <p class="testimonial-text">"{{ $item['text'] }}"</p>
+                  <p class="testimonial-text">"<?php echo e($item['text']); ?>"</p>
                   <div class="testimonial-profile">
-                    <div class="testimonial-reviewer-info"><span class="testimonial-name">{{ $item['name'] }}</span></div>
+                    <div class="testimonial-reviewer-info"><span class="testimonial-name"><?php echo e($item['name']); ?></span></div>
                   </div>
                   <div class="testimonial-purchase">
-                    @php
+                    <?php
                       $tProd = $testimonialProductAt($item['idx']);
                       $imgPath = $tProd->image ?? '';
                       $imgUrl = filter_var($imgPath, FILTER_VALIDATE_URL) ? $imgPath : (Str::startsWith($imgPath, ['/','assets/']) ? asset($imgPath) : asset('assets/images/'.($imgPath ?: 'refill.webp')));
-                    @endphp
-                    <img loading="lazy" src="{{ $imgUrl }}" alt="{{ $tProd->name ?? '' }}" class="testimonial-product-img" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+                    ?>
+                    <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($tProd->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
                     <div class="testimonial-product-info">
                       <span class="testimonial-scent-tag">Chosen Scent</span>
-                      <span class="testimonial-product-name">{{ $tProd->name ?? '' }}</span>
+                      <span class="testimonial-product-name"><?php echo e($tProd->name ?? ''); ?></span>
                     </div>
-                    <a href="{{ isset($tProd->id) ? route('product.detail', $tProd->id) : '#' }}" class="testimonial-buy">
+                    <a href="<?php echo e(isset($tProd->id) ? route('product.detail', $tProd->id) : '#'); ?>" class="testimonial-buy">
                       <span class="buy-text-desktop">Beli Varian Ini →</span>
                       <span class="buy-text-mobile">Beli →</span>
                     </a>
                   </div>
                 </div>
-              @endforeach
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
             </div>
           </div>
@@ -336,7 +334,7 @@
     </div>
   </section>
 
-  {{-- 5. QUIZ PROMOTION BANNER SECTION --}}
+  
   <section class="quiz-banner-section" id="quiz-banner-section" style="background:#F5F5F7; padding:6rem 2rem; text-align:center;">
     <div style="max-width:760px; margin:0 auto;">
       <span style="font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#8A8A8A; display:inline-block; margin-bottom:1rem;">FIND YOUR SIGNATURE SCENT</span>
@@ -352,14 +350,15 @@
     </div>
   </section>
 
-  {{-- 6. FOOTER --}}
-  @include('partials.footer')
+  
+  <?php echo $__env->make('partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scripts')
-<script src="{{ asset('js/splash.js') }}"></script>
-<script src="{{ asset('js/hero.js') }}"></script>
-<script src="{{ asset('js/navbar.js') }}"></script>
-<script src="{{ asset('js/catalog.js') }}"></script>
-@endsection
+<?php $__env->startSection('scripts'); ?>
+<script src="<?php echo e(asset('js/splash.js')); ?>"></script>
+<script src="<?php echo e(asset('js/hero.js')); ?>"></script>
+<script src="<?php echo e(asset('js/navbar.js')); ?>"></script>
+<script src="<?php echo e(asset('js/catalog.js')); ?>"></script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/home.blade.php ENDPATH**/ ?>

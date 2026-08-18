@@ -1,9 +1,7 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Katalog Parfum — Perfu.me'); ?>
+<?php $__env->startSection('description', 'Temukan seluruh koleksi parfum premium Perfu.me — Vanessence, Dynamyst, Nusantara Series, dan Roll-On Mini. Tersedia dalam berbagai varian aroma eksklusif.'); ?>
 
-@section('title', 'Katalog Parfum — Perfu.me')
-@section('description', 'Temukan seluruh koleksi parfum premium Perfu.me — Vanessence, Dynamyst, Nusantara Series, dan Roll-On Mini. Tersedia dalam berbagai varian aroma eksklusif.')
-
-@section('styles')
+<?php $__env->startSection('styles'); ?>
 <style>
   /* ── Katalog Page Specific Styles ──────────────────── */
   body {
@@ -771,11 +769,11 @@
     cursor: not-allowed;
   }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
-  {{-- NAVBAR --}}
+  
   <nav id="navbar" aria-label="Main Navigation">
     <div class="nav-brand">
       <a href="/" class="nav-brand-name" style="text-decoration:none; color:inherit;">Perfu.me</a>
@@ -807,7 +805,7 @@
     </div>
   </nav>
 
-  {{-- PAGE HEADER --}}
+  
   <div class="katalog-header">
     <div class="katalog-breadcrumb">
       <a href="/">Home</a>
@@ -819,7 +817,7 @@
     <a href="/quiz" class="katalog-hook">Masih bingung pilih parfum? <small>Mulai quiz untuk rekomendasi parfum keseharian Anda.</small></a>
   </div>
 
-  {{-- BODY: SIDEBAR + GRID --}}
+  
   <div class="katalog-body">
 
     <aside class="katalog-sidebar">
@@ -898,22 +896,22 @@
     </main>
   </div>
 
-  {{-- FOOTER --}}
-  @include('partials.footer')
+  
+  <?php echo $__env->make('partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scripts')
+<?php $__env->startSection('scripts'); ?>
 <script>
   let currentPage = 1;
   const ITEMS_PER_PAGE = 15;
 
   const ALL_PRODUCTS = [
-    { id: 1, name: 'Vanessence', type: 'Signature', gender: 'Wanita', variant: 'Gourmand Vanilla', size: '30ML', price: 45000, stock: 30, best_seller: true, image: '{{ asset("assets/images/vanessence.webp") }}', tagline: 'Feminin, manis, dan memikat' },
-    { id: 2, name: 'Dynamyst', type: 'Signature', gender: 'Pria', variant: 'Spicy Woody', size: '30ML', price: 45000, stock: 25, best_seller: true, image: '{{ asset("assets/images/dynamyst.png") }}', tagline: 'Maskulin, tegas, penuh energi' }
+    { id: 1, name: 'Vanessence', type: 'Signature', gender: 'Wanita', variant: 'Gourmand Vanilla', size: '30ML', price: 45000, stock: 30, best_seller: true, image: '<?php echo e(asset("assets/images/vanessence.webp")); ?>', tagline: 'Feminin, manis, dan memikat' },
+    { id: 2, name: 'Dynamyst', type: 'Signature', gender: 'Pria', variant: 'Spicy Woody', size: '30ML', price: 45000, stock: 25, best_seller: true, image: '<?php echo e(asset("assets/images/dynamyst.png")); ?>', tagline: 'Maskulin, tegas, penuh energi' }
   ];
 
-  const FALLBACK_IMG = '{{ asset("assets/images/refill.webp") }}';
+  const FALLBACK_IMG = '<?php echo e(asset("assets/images/refill.webp")); ?>';
 
   function formatPrice(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
 
@@ -1211,5 +1209,6 @@
     initKatalog();
   });
 </script>
-<script src="{{ asset('js/navbar.js') }}"></script>
-@endsection
+<script src="<?php echo e(asset('js/navbar.js')); ?>"></script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/katalog.blade.php ENDPATH**/ ?>
