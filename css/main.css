@@ -996,3 +996,288 @@ button {
   }
 }
 
+/* ============================================================
+   NEW FOOTER — ZALOGA MONOCHROME LUXURY DESIGN
+   ============================================================ */
+
+#footer-section.site-footer {
+  background-color: #0A0A0A;
+  color: #FFFFFF;
+  padding-top: 4rem;
+  padding-bottom: 0;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 2. Newsletter Subscribe Bar */
+.footer-newsletter-wrap {
+  max-width: 640px;
+  margin: 0 auto 1.5rem auto;
+}
+
+.footer-newsletter-box {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  padding: 5px 5px 5px 22px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.footer-newsletter-box:focus-within {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.12);
+}
+
+.footer-newsletter-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #FFFFFF;
+  font-size: 0.92rem;
+  font-family: inherit;
+}
+
+.footer-newsletter-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-newsletter-btn {
+  background: #FFFFFF;
+  color: #0D0D0D;
+  border: none;
+  outline: none;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  position: relative;
+}
+
+.footer-newsletter-btn:hover {
+  background: #E5E5E5;
+  transform: scale(1.02);
+}
+
+.footer-newsletter-subtext {
+  text-align: center;
+  font-size: 0.82rem;
+  color: #8A8A8A;
+  margin-top: 0.85rem;
+  margin-bottom: 2.5rem;
+  line-height: 1.5;
+}
+
+/* 3. Social Media Row */
+.footer-social-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.footer-social-link {
+  color: #FFFFFF;
+  font-size: 1.2rem;
+  transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.footer-social-link:hover {
+  background: #FFFFFF;
+  color: #0D0D0D !important;
+  transform: translateY(-3px);
+}
+
+/* 4. Column Grid with Top Dividers */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-col-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.25);
+  margin-bottom: 1.25rem;
+}
+
+.footer-col-title {
+  color: #E5E5E5;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.footer-col-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.footer-col-list li {
+  font-size: 0.85rem;
+  color: #8A8A8A;
+  line-height: 1.5;
+}
+
+/* 5. Underline Effect for Every Pressable Button & Link in Footer */
+#footer-section a,
+#footer-section button.footer-btn-underline,
+.footer-link {
+  position: relative;
+  text-decoration: none !important;
+  color: #A0A0A0;
+  transition: color 0.25s ease;
+  display: inline-block;
+}
+
+#footer-section a::after,
+.footer-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background-color: #FFFFFF;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+#footer-section a:hover::after,
+.footer-link:hover::after {
+  width: 100%;
+}
+
+#footer-section a:hover,
+.footer-link:hover {
+  color: #FFFFFF !important;
+}
+
+/* Disable text underline on social icon circles & subscribe pill */
+.footer-social-link::after,
+.footer-newsletter-btn::after {
+  display: none !important;
+}
+
+/* 6. Marquee Ticker Banner */
+.footer-marquee-strip {
+  width: 100%;
+  background: #000000;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.85rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.footer-marquee-track {
+  display: inline-block;
+  white-space: nowrap;
+  animation: footerMarquee 35s linear infinite;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.footer-marquee-track span.dot {
+  margin: 0 1rem;
+  color: #8A8A8A;
+}
+
+@keyframes footerMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* 7. Bottom Bar */
+.footer-bottom-bar {
+  background: #050505;
+  padding: 1.5rem 2rem;
+  font-size: 0.78rem;
+  color: #8A8A8A;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-bottom-content {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Responsive Rules */
+@media (max-width: 992px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  #footer-section.site-footer {
+    padding-top: 3rem;
+  }
+  .footer-brand-title {
+    font-size: clamp(2.8rem, 14vw, 5.5rem);
+  }
+  .footer-newsletter-box {
+    flex-direction: column;
+    border-radius: 16px;
+    padding: 8px;
+    gap: 8px;
+  }
+  .footer-newsletter-input {
+    width: 100%;
+    padding: 10px 14px;
+    text-align: center;
+  }
+  .footer-newsletter-btn {
+    width: 100%;
+    border-radius: 12px;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .footer-bottom-content {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
+
+

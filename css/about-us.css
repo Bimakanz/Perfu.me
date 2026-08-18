@@ -7,7 +7,7 @@
   position: relative;
   width: 100%;
   background-color: var(--white, #ffffff);
-  padding: 4.5rem 3.5rem 3.5rem 3.5rem;
+  padding: 0.1rem 3.5rem 3.5rem 3.5rem;
   overflow: hidden;
 }
 
@@ -248,11 +248,12 @@
   letter-spacing: 0.01em;
 }
 
-/* Stats Row (Tight Spacing at the Bottom) */
+/* Stats Row (Positioned at the Bottom with Line Below) */
 .about-us-stats-row {
   margin-top: 3.5rem;
-  padding-top: 2.5rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
@@ -315,7 +316,7 @@
 
 @media (max-width: 1024px) {
   .about-us-section {
-    padding: 3.5rem 2rem 3.0rem 2rem;
+    padding: 3.5rem 2rem 2.5rem 2rem;
   }
 
   .about-us-grid {
@@ -344,15 +345,15 @@
 
 @media (max-width: 640px) {
   .about-us-section {
-    padding: 3rem 1.25rem;
+    padding: 2.5rem 1.25rem;
   }
 
   .about-us-heading {
-    font-size: 2rem;
+    font-size: 1.85rem;
   }
 
   .about-us-single-img {
-    max-height: 380px;
+    max-height: 340px;
   }
 
   .floating-slogan-card {
@@ -365,12 +366,18 @@
 
   .about-us-stats-row {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.75rem;
     margin-top: 2.5rem;
-    padding-top: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
   }
 
   .stat-item:not(:last-child)::after {
     display: none;
+  }
+
+  .stat-item:not(:last-child) {
+    padding-bottom: 1.25rem;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
   }
 }
