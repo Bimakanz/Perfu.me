@@ -736,6 +736,9 @@
     </div>
 
   </main>
+
+  {{-- FOOTER --}}
+  @include('partials.footer')
 @endsection
 
 @section('scripts')
