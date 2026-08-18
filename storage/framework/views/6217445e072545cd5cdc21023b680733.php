@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- SEO -->
-  <title>@yield('title', 'Perfu.me — Luxury & Nusantara Fragrance Series')</title>
-  <meta name="description" content="@yield('description', 'Perfu.me menghadirkan koleksi parfum premium vanessence, dynamyst, dan seri nusantara dengan konsentrat parfum grade A dan ketahanan aromatis hingga 10 jam.')">
-  @yield('meta')
+  <title><?php echo $__env->yieldContent('title', 'Perfu.me — Luxury & Nusantara Fragrance Series'); ?></title>
+  <meta name="description" content="<?php echo $__env->yieldContent('description', 'Perfu.me menghadirkan koleksi parfum premium vanessence, dynamyst, dan seri nusantara dengan konsentrat parfum grade A dan ketahanan aromatis hingga 10 jam.'); ?>">
+  <?php echo $__env->yieldContent('meta'); ?>
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
@@ -22,16 +22,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Core CSS -->
-  <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+  <link rel="stylesheet" href="<?php echo e(asset('css/main.css')); ?>">
+  <link rel="stylesheet" href="<?php echo e(asset('css/navbar.css')); ?>">
 
   <!-- Page-specific CSS -->
-  @yield('styles')
+  <?php echo $__env->yieldContent('styles'); ?>
 </head>
 
 <body>
 
-  @yield('content')
+  <?php echo $__env->yieldContent('content'); ?>
 
   <!-- Toast Container -->
   <div id="toast-container"></div>
@@ -124,8 +124,8 @@
   </div>
 
   <!-- Core JS -->
-  <script src="{{ asset('js/db.js') }}"></script>
-  <script src="{{ asset('js/cart-search.js') }}"></script>
+  <script src="<?php echo e(asset('js/db.js')); ?>"></script>
+  <script src="<?php echo e(asset('js/cart-search.js')); ?>"></script>
 
   <!-- Scroll Listener & Toggle for Floating WA Widget -->
   <script>
@@ -189,8 +189,9 @@
   </script>
 
   <!-- Page-specific JS -->
-  @yield('scripts')
+  <?php echo $__env->yieldContent('scripts'); ?>
 
 </body>
 </html>
 
+<?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/layouts/app.blade.php ENDPATH**/ ?>

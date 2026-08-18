@@ -64,12 +64,10 @@
     font-weight: 500;
 }
 
-/* Grid: Left "What our customers are saying" + Right Cards */
 .testimonials-grid {
     display: block;
 }
 
-/* Left side text panel */
 .testimonials-side {
     display: flex;
     flex-direction: column;
@@ -104,7 +102,7 @@
 
 .testimonials-slider::before,
 .testimonials-slider::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     bottom: 0;
@@ -115,12 +113,20 @@
 
 .testimonials-slider::before {
     left: 0;
-    background: linear-gradient(90deg, var(--off-white) 0%, rgba(249,249,249,0) 70%);
+    background: linear-gradient(
+        90deg,
+        var(--off-white) 0%,
+        rgba(249, 249, 249, 0) 70%
+    );
 }
 
 .testimonials-slider::after {
     right: 0;
-    background: linear-gradient(270deg, var(--off-white) 0%, rgba(249,249,249,0) 70%);
+    background: linear-gradient(
+        270deg,
+        var(--off-white) 0%,
+        rgba(249, 249, 249, 0) 70%
+    );
 }
 
 .testimonials-cards {
@@ -221,7 +227,7 @@
     font-size: 1.35rem;
 }
 
-/* Reviewer Profile Row (Clean: Nama Tanpa Foto & Role) */
+/* Reviewer Profile Row */
 .testimonial-profile {
     display: flex;
     align-items: center;
@@ -244,19 +250,21 @@
     letter-spacing: -0.01em;
 }
 
-/* Purchase / product info (Luxury Scent Signature Style) */
+/* Purchase / product info */
 .testimonial-purchase {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.65rem;
     margin-top: 0.5rem;
     padding-top: 0.85rem;
     border-top: 1px dashed rgba(13, 13, 13, 0.12);
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .testimonial-product-img {
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
     object-fit: cover;
     border-radius: 8px;
     border: 1px solid var(--silver-light);
@@ -311,7 +319,14 @@
     box-shadow: 0 4px 12px rgba(13, 13, 13, 0.15);
 }
 
-/* Slider controls */
+.buy-text-desktop {
+    display: inline;
+}
+
+.buy-text-mobile {
+    display: none;
+}
+
 .testimonial-slider-btn {
     display: none;
 }
@@ -326,7 +341,7 @@
 
 @media (max-width: 992px) {
     .testimonials-section {
-        padding: 6rem 2rem;
+        padding: 4rem 2rem;
     }
 
     .testimonials-grid {
@@ -356,45 +371,51 @@
     }
 }
 
-@media (max-width: 600px) {
-    .testimonials-section {
-        padding: 5rem 1.5rem;
+@media (max-width: 768px) {
+    .testimonial-row .testimonial-card {
+        flex-basis: 80% !important;
+        width: 80% !important;
     }
 
-    .testimonials-heading {
-        font-size: 2rem;
-    }
-
-    .testimonials-side-heading {
-        font-size: 1.65rem;
-    }
-
-    .testimonials-slider::before,
-    .testimonials-slider::after {
+    .buy-text-desktop {
         display: none;
     }
 
+    .buy-text-mobile {
+        display: inline;
+    }
+}
+
+@media (max-width: 600px) {
+    .testimonials-slider {
+        margin: 0 -1rem;
+        padding: 0 1rem;
+        overflow: hidden;
+    }
+
+    /* Set ukuran item relatif terhadap container viewport */
     .testimonial-row .testimonial-card {
-        flex-basis: 100%;
-        width: 100%;
+        flex: 0 0 clamp(260px, 78vw, 320px) !important;
+        width: clamp(260px, 78vw, 320px) !important;
+        min-width: clamp(260px, 78vw, 320px) !important;
+        box-sizing: border-box !important;
     }
 
     .testimonial-card {
-        padding: 1.75rem;
-        min-height: 0;
-    }
-
-    .testimonials-cards .testimonial-card .testimonial-profile {
-        transform: translateX(0) !important;
+        padding: 1.15rem !important;
     }
 
     .testimonial-purchase {
-        flex-wrap: wrap;
+        flex-wrap: nowrap !important;
+        gap: 0.4rem;
+    }
+
+    .testimonial-product-name {
+        font-size: 0.75rem;
     }
 
     .testimonial-buy {
-        width: 100%;
-        text-align: center;
-        margin-top: 0.25rem;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.65rem;
     }
 }

@@ -1,25 +1,23 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Perfu.me — Luxury & Nusantara Fragrance Series'); ?>
+<?php $__env->startSection('description', 'Perfu.me menghadirkan koleksi parfum premium vanessence, dynamyst, dan seri nusantara dengan konsentrat parfum grade A dan ketahanan aromatis hingga 10 jam.'); ?>
 
-@section('title', 'Perfu.me — Luxury & Nusantara Fragrance Series')
-@section('description', 'Perfu.me menghadirkan koleksi parfum premium vanessence, dynamyst, dan seri nusantara dengan konsentrat parfum grade A dan ketahanan aromatis hingga 10 jam.')
-
-@section('meta')
+<?php $__env->startSection('meta'); ?>
 <meta name="keywords" content="perfu.me, perfu.me, parfum nusantara, vanessence, dynamyst, eau de parfum, parfum lokal">
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('styles')
-<link rel="stylesheet" href="{{ asset('css/splash.css') }}">
-<link rel="stylesheet" href="{{ asset('css/hero.css') }}">
-<link rel="stylesheet" href="{{ asset('css/about-us.css') }}">
-<link rel="stylesheet" href="{{ asset('css/testimonials.css') }}">
-<link rel="stylesheet" href="{{ asset('css/catalog.css') }}">
-<link rel="stylesheet" href="{{ asset('css/pdp.css') }}">
-<link rel="stylesheet" href="{{ asset('css/product-zigzag.css') }}">
-@endsection
+<?php $__env->startSection('styles'); ?>
+<link rel="stylesheet" href="<?php echo e(asset('css/splash.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/hero.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/about-us.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/testimonials.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/catalog.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/pdp.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/product-zigzag.css')); ?>">
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
-  {{-- 1. TYPEWRITER INTRO SPLASH SCREEN --}}
+  
   <div id="splash" role="dialog" aria-modal="true" aria-label="Welcome screen">
     <div class="splash-content">
       <div class="splash-title">
@@ -29,7 +27,7 @@
     </div>
   </div>
 
-  {{-- 2. NAVBAR --}}
+  
   <nav id="navbar" aria-label="Main Navigation">
     <div class="nav-brand" data-nav="home">
       <a href="/" style="text-decoration:none; color:inherit;"><span class="nav-brand-name">Perfu.me</span></a>
@@ -61,9 +59,9 @@
     </div>
   </nav>
 
-  {{-- 3. HERO SECTION --}}
+  
   <header id="hero">
-    <img src="{{ asset('assets/images/herosectionbaru2parfumtanpawm.png') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
+    <img src="<?php echo e(asset('assets/images/herosectionbaru2parfumtanpawm.png')); ?>" alt="Hero Cinematic Background" class="hero-cinematic-bg">
     <div class="hero-overlay-dark"></div>
 
     <div class="hero-grid">
@@ -81,7 +79,7 @@
     </div>
   </header>
 
-  {{-- 3.5. ABOUT US SECTION (Our Story & Mission) --}}
+  
   <section id="about-story-section" class="about-us-section">
     <div class="about-us-container">
 
@@ -118,7 +116,7 @@
         <!-- Right Column: Interactive Visuals & Slogan Card -->
         <div class="about-us-visual-col">
           <div class="about-us-image-container">
-            <img src="{{ asset('assets/images/aboutus.png') }}" alt="Perfu.me Signature Fragrances" class="about-us-single-img">
+            <img src="<?php echo e(asset('assets/images/aboutus.png')); ?>" alt="Perfu.me Signature Fragrances" class="about-us-single-img">
           </div>
           <!-- Floating Slogan Card -->
           <div class="floating-slogan-card">
@@ -134,13 +132,13 @@
     </div>
   </section>
 
-  {{-- 4. PRODUCTS ZIGZAG CATALOG SHOWCASE --}}
+  
   <section class="products-showcase-section" id="produk-section">
     <div class="showcase-header">
       <h2>Perfu.me Signatures</h2>
     </div>
 
-    @php
+    <?php
       // Ambil 2 produk signature (best seller) untuk ditampilkan di homepage.
       // Idealnya, logika ini ada di Controller yang memanggil view ini.
       $signatureProducts = \App\Models\Product::where('best_seller', true)
@@ -148,35 +146,35 @@
           ->orderBy('id')
           ->take(2)
           ->get();
-    @endphp
+    ?>
 
     <div id="produk-section-list">
-      @foreach($signatureProducts as $index => $product)
-      <div class="product-zigzag-item {{ $index % 2 != 0 ? 'reversed' : '' }}">
+      <?php $__currentLoopData = $signatureProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <div class="product-zigzag-item <?php echo e($index % 2 != 0 ? 'reversed' : ''); ?>">
         <div class="product-zigzag-image-col">
-          <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="product-zigzag-img" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+          <img src="<?php echo e(asset($product->image)); ?>" alt="<?php echo e($product->name); ?>" class="product-zigzag-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
         </div>
         <div class="product-zigzag-text-col">
-          <span class="product-zigzag-tagline">{{ $product->tagline }}</span>
-          <h3 class="product-zigzag-name">{{ $product->name }}</h3>
-          <p class="product-zigzag-desc">{{ $product->description }}</p>
+          <span class="product-zigzag-tagline"><?php echo e($product->tagline); ?></span>
+          <h3 class="product-zigzag-name"><?php echo e($product->name); ?></h3>
+          <p class="product-zigzag-desc"><?php echo e($product->description); ?></p>
           <div class="product-zigzag-notes">
-            <span>{{ $product->top_notes }}</span>
-            <span>{{ $product->middle_notes }}</span>
-            <span>{{ $product->base_notes }}</span>
+            <span><?php echo e($product->top_notes); ?></span>
+            <span><?php echo e($product->middle_notes); ?></span>
+            <span><?php echo e($product->base_notes); ?></span>
           </div>
           <div class="product-zigzag-actions">
-            <a href="{{ route('product.detail', $product->id) }}" class="btn-zigzag-primary">Lihat Detail & Beli</a>
+            <a href="<?php echo e(route('product.detail', $product->id)); ?>" class="btn-zigzag-primary">Lihat Detail & Beli</a>
           </div>
         </div>
       </div>
-      @endforeach
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
   </section>
 
-  {{-- 4.5. TESTIMONIALS SECTION --}}
+  
  <section id="testimoni-section" class="testimonials-section">
-    @php
+    <?php
       use Illuminate\Support\Str;
 
       $testimonialProductNames = [
@@ -223,7 +221,7 @@
       }
 
       $testimonialProductAt = fn ($index) => $testimonialProducts->get($index) ?? $testimonialProducts->first();
-    @endphp
+    ?>
 
     <div class="testimonials-container">
       <div class="testimonials-header">
@@ -254,7 +252,7 @@
             </div>
 
             <div class="testimonial-purchase">
-              @php
+              <?php
                 $testimonialProduct = $testimonialProductAt(0);
                 $imgPath = $testimonialProduct->image ?? '';
                 if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
@@ -264,16 +262,16 @@
                 } else {
                   $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
                 }
-              @endphp
+              ?>
 
-              <img loading="lazy" src="{{ $imgUrl }}" alt="{{ $testimonialProduct->name ?? '' }}" class="testimonial-product-img" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
               
               <div class="testimonial-product-info">
                 <span class="testimonial-scent-tag">Chosen Scent</span>
-                <span class="testimonial-product-name">{{ $testimonialProduct->name ?? '' }}</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
               </div>
 
-              <a href="{{ isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#' }}" class="testimonial-buy">
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">
                 <span class="buy-text-desktop">Beli Varian Ini →</span>
                 <span class="buy-text-mobile">Beli →</span>
               </a>
@@ -297,7 +295,7 @@
             </div>
 
             <div class="testimonial-purchase">
-              @php
+              <?php
                 $testimonialProduct = $testimonialProductAt(1);
                 $imgPath = $testimonialProduct->image ?? '';
                 if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
@@ -307,16 +305,16 @@
                 } else {
                   $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
                 }
-              @endphp
+              ?>
 
-              <img loading="lazy" src="{{ $imgUrl }}" alt="{{ $testimonialProduct->name ?? '' }}" class="testimonial-product-img" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
               
               <div class="testimonial-product-info">
                 <span class="testimonial-scent-tag">Chosen Scent</span>
-                <span class="testimonial-product-name">{{ $testimonialProduct->name ?? '' }}</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
               </div>
 
-              <a href="{{ isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#' }}" class="testimonial-buy">
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">
                 <span class="buy-text-desktop">Beli Varian Ini →</span>
                 <span class="buy-text-mobile">Beli →</span>
               </a>
@@ -338,7 +336,7 @@
             </div>
 
             <div class="testimonial-purchase">
-              @php
+              <?php
                 $testimonialProduct = $testimonialProductAt(2);
                 $imgPath = $testimonialProduct->image ?? '';
                 if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
@@ -348,16 +346,16 @@
                 } else {
                   $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
                 }
-              @endphp
+              ?>
 
-              <img loading="lazy" src="{{ $imgUrl }}" alt="{{ $testimonialProduct->name ?? '' }}" class="testimonial-product-img" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
               
               <div class="testimonial-product-info">
                 <span class="testimonial-scent-tag">Chosen Scent</span>
-                <span class="testimonial-product-name">{{ $testimonialProduct->name ?? '' }}</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
               </div>
 
-              <a href="{{ isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#' }}" class="testimonial-buy">
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">
                 <span class="buy-text-desktop">Beli Varian Ini →</span>
                 <span class="buy-text-mobile">Beli →</span>
               </a>
@@ -379,7 +377,7 @@
             </div>
 
             <div class="testimonial-purchase">
-              @php
+              <?php
                 $testimonialProduct = $testimonialProductAt(3);
                 $imgPath = $testimonialProduct->image ?? '';
                 if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
@@ -389,16 +387,16 @@
                 } else {
                   $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
                 }
-              @endphp
+              ?>
 
-              <img loading="lazy" src="{{ $imgUrl }}" alt="{{ $testimonialProduct->name ?? '' }}" class="testimonial-product-img" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
               
               <div class="testimonial-product-info">
                 <span class="testimonial-scent-tag">Chosen Scent</span>
-                <span class="testimonial-product-name">{{ $testimonialProduct->name ?? '' }}</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
               </div>
 
-              <a href="{{ isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#' }}" class="testimonial-buy">
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">
                 <span class="buy-text-desktop">Beli Varian Ini →</span>
                 <span class="buy-text-mobile">Beli →</span>
               </a>
@@ -420,7 +418,7 @@
             </div>
 
             <div class="testimonial-purchase">
-              @php
+              <?php
                 $testimonialProduct = $testimonialProductAt(4);
                 $imgPath = $testimonialProduct->image ?? '';
                 if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
@@ -430,16 +428,16 @@
                 } else {
                   $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
                 }
-              @endphp
+              ?>
 
-              <img loading="lazy" src="{{ $imgUrl }}" alt="{{ $testimonialProduct->name ?? '' }}" class="testimonial-product-img" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
               
               <div class="testimonial-product-info">
                 <span class="testimonial-scent-tag">Chosen Scent</span>
-                <span class="testimonial-product-name">{{ $testimonialProduct->name ?? '' }}</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
               </div>
 
-              <a href="{{ isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#' }}" class="testimonial-buy">
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">
                 <span class="buy-text-desktop">Beli Varian Ini →</span>
                 <span class="buy-text-mobile">Beli →</span>
               </a>
@@ -461,7 +459,7 @@
             </div>
 
             <div class="testimonial-purchase">
-              @php
+              <?php
                 $testimonialProduct = $testimonialProductAt(5);
                 $imgPath = $testimonialProduct->image ?? '';
                 if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
@@ -471,16 +469,16 @@
                 } else {
                   $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
                 }
-              @endphp
+              ?>
 
-              <img loading="lazy" src="{{ $imgUrl }}" alt="{{ $testimonialProduct->name ?? '' }}" class="testimonial-product-img" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
               
               <div class="testimonial-product-info">
                 <span class="testimonial-scent-tag">Chosen Scent</span>
-                <span class="testimonial-product-name">{{ $testimonialProduct->name ?? '' }}</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
               </div>
 
-              <a href="{{ isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#' }}" class="testimonial-buy">
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">
                 <span class="buy-text-desktop">Beli Varian Ini →</span>
                 <span class="buy-text-mobile">Beli →</span>
               </a>
@@ -502,7 +500,7 @@
             </div>
 
             <div class="testimonial-purchase">
-              @php
+              <?php
                 $testimonialProduct = $testimonialProductAt(6);
                 $imgPath = $testimonialProduct->image ?? '';
                 if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
@@ -512,16 +510,16 @@
                 } else {
                   $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
                 }
-              @endphp
+              ?>
 
-              <img loading="lazy" src="{{ $imgUrl }}" alt="{{ $testimonialProduct->name ?? '' }}" class="testimonial-product-img" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
               
               <div class="testimonial-product-info">
                 <span class="testimonial-scent-tag">Chosen Scent</span>
-                <span class="testimonial-product-name">{{ $testimonialProduct->name ?? '' }}</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
               </div>
 
-              <a href="{{ isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#' }}" class="testimonial-buy">
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">
                 <span class="buy-text-desktop">Beli Varian Ini →</span>
                 <span class="buy-text-mobile">Beli →</span>
               </a>
@@ -543,7 +541,7 @@
             </div>
 
             <div class="testimonial-purchase">
-              @php
+              <?php
                 $testimonialProduct = $testimonialProductAt(7);
                 $imgPath = $testimonialProduct->image ?? '';
                 if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
@@ -553,16 +551,16 @@
                 } else {
                   $imgUrl = asset('assets/images/'.($imgPath ?: 'refill.webp'));
                 }
-              @endphp
+              ?>
 
-              <img loading="lazy" src="{{ $imgUrl }}" alt="{{ $testimonialProduct->name ?? '' }}" class="testimonial-product-img" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+              <img loading="lazy" src="<?php echo e($imgUrl); ?>" alt="<?php echo e($testimonialProduct->name ?? ''); ?>" class="testimonial-product-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
               
               <div class="testimonial-product-info">
                 <span class="testimonial-scent-tag">Chosen Scent</span>
-                <span class="testimonial-product-name">{{ $testimonialProduct->name ?? '' }}</span>
+                <span class="testimonial-product-name"><?php echo e($testimonialProduct->name ?? ''); ?></span>
               </div>
 
-              <a href="{{ isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#' }}" class="testimonial-buy">
+              <a href="<?php echo e(isset($testimonialProduct->id) ? route('product.detail', $testimonialProduct->id) : '#'); ?>" class="testimonial-buy">
                 <span class="buy-text-desktop">Beli Varian Ini →</span>
                 <span class="buy-text-mobile">Beli →</span>
               </a>
@@ -574,7 +572,7 @@
       </div>
     </div>
 </section>
-  {{-- 5. QUIZ PROMOTION BANNER SECTION --}}
+  
   <section class="quiz-banner-section" id="quiz-banner-section" style="background:#F5F5F7; padding:6rem 2rem; text-align:center;">
     <div style="max-width:760px; margin:0 auto;">
       <span style="font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#8A8A8A; display:inline-block; margin-bottom:1rem;">FIND YOUR SIGNATURE SCENT</span>
@@ -590,7 +588,7 @@
     </div>
   </section>
 
-  {{-- 6. FOOTER --}}
+  
   <footer id="footer-section" style="background:#0D0D0D; color:#FFF; padding:5rem 4rem 2.5rem 4rem;">
     <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:4rem;">
       <div>
@@ -602,12 +600,12 @@
       <div>
         <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Best Seller</h4>
         <ul style="list-style:none; display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem; color:#8A8A8A; padding:0; margin:0;">
-          @php
+          <?php
             $bestSellers = \App\Models\Product::where('best_seller', true)->take(6)->get();
-          @endphp
-          @foreach($bestSellers as $bs)
-            <li><a href="/produk/{{ $bs->id }}" class="footer-collection-link">{{ $bs->name }}</a></li>
-          @endforeach
+          ?>
+          <?php $__currentLoopData = $bestSellers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <li><a href="/produk/<?php echo e($bs->id); ?>" class="footer-collection-link"><?php echo e($bs->name); ?></a></li>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </ul>
       </div>
       <div>
@@ -626,13 +624,13 @@
     </div>
   </footer>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scripts')
-<script src="{{ asset('js/splash.js') }}"></script>
-<script src="{{ asset('js/hero.js') }}"></script>
-<script src="{{ asset('js/navbar.js') }}"></script>
-<script src="{{ asset('js/catalog.js') }}"></script>
+<?php $__env->startSection('scripts'); ?>
+<script src="<?php echo e(asset('js/splash.js')); ?>"></script>
+<script src="<?php echo e(asset('js/hero.js')); ?>"></script>
+<script src="<?php echo e(asset('js/navbar.js')); ?>"></script>
+<script src="<?php echo e(asset('js/catalog.js')); ?>"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   const slider = document.querySelector('.testimonials-slider');
@@ -659,4 +657,6 @@ document.addEventListener('DOMContentLoaded', function(){
   track.appendChild(createRow(bottomCards, 'bottom'));
 });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/home.blade.php ENDPATH**/ ?>
