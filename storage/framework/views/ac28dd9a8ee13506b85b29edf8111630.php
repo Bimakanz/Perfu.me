@@ -1,9 +1,9 @@
-﻿@extends('layouts.app')
+﻿
 
-@section('title', 'Katalog Parfum — Parfu.me')
-@section('description', 'Temukan seluruh koleksi parfum premium Parfu.me — Vanessence, Dynamyst, Nusantara Series, dan Roll-On Mini. Tersedia dalam berbagai varian aroma eksklusif.')
+<?php $__env->startSection('title', 'Katalog Parfum — Parfu.me'); ?>
+<?php $__env->startSection('description', 'Temukan seluruh koleksi parfum premium Parfu.me — Vanessence, Dynamyst, Nusantara Series, dan Roll-On Mini. Tersedia dalam berbagai varian aroma eksklusif.'); ?>
 
-@section('styles')
+<?php $__env->startSection('styles'); ?>
 <style>
   /* ── Katalog Page Specific Styles ──────────────────── */
   body {
@@ -772,11 +772,11 @@
     cursor: not-allowed;
   }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
-  {{-- NAVBAR --}}
+  
   <nav id="navbar" aria-label="Main Navigation">
     <div class="nav-brand">
       <a href="/" class="nav-brand-name" style="text-decoration:none; color:inherit;">Perfu.me</a>
@@ -808,7 +808,7 @@
     </div>
   </nav>
 
-  {{-- PAGE HEADER --}}
+  
   <div class="katalog-header">
     <div class="katalog-breadcrumb">
       <a href="/">Home</a>
@@ -820,7 +820,7 @@
     <a href="/quiz" class="katalog-hook">Masih bingung pilih parfum? <small>Mulai quiz untuk rekomendasi parfum keseharian Anda.</small></a>
   </div>
 
-  {{-- BODY: SIDEBAR + GRID --}}
+  
   <div class="katalog-body">
 
     <aside class="katalog-sidebar">
@@ -899,7 +899,7 @@
     </main>
   </div>
 
-  {{-- FOOTER --}}
+  
   <footer id="footer-section" style="background:#0D0D0D; color:#FFF; padding:5rem 4rem 2.5rem 4rem; margin-top: 5rem; position:relative; z-index:1;">
     <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:4rem;">
       <div>
@@ -911,12 +911,12 @@
       <div>
         <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Best Seller</h4>
         <ul style="list-style:none; display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem; color:#8A8A8A; padding:0; margin:0;">
-          @php
+          <?php
             $bestSellers = \App\Models\Product::where('best_seller', true)->take(6)->get();
-          @endphp
-          @foreach($bestSellers as $bs)
-            <li><a href="/produk/{{ $bs->id }}" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none; transition:color 0.2s;">{{ $bs->name }}</a></li>
-          @endforeach
+          ?>
+          <?php $__currentLoopData = $bestSellers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <li><a href="/produk/<?php echo e($bs->id); ?>" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none; transition:color 0.2s;"><?php echo e($bs->name); ?></a></li>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </ul>
       </div>
       <div>
@@ -935,19 +935,19 @@
     </div>
   </footer>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scripts')
+<?php $__env->startSection('scripts'); ?>
 <script>
   let currentPage = 1;
   const ITEMS_PER_PAGE = 15;
 
   const ALL_PRODUCTS = [
-    { id: 1, name: 'Vanessence', type: 'Signature', gender: 'Wanita', variant: 'Gourmand Vanilla', size: '30ML', price: 45000, stock: 30, best_seller: true, image: '{{ asset("assets/images/penisence.webp") }}', tagline: 'Feminin, manis, dan memikat' },
-    { id: 2, name: 'Dynamyst', type: 'Signature', gender: 'Pria', variant: 'Spicy Woody', size: '30ML', price: 45000, stock: 25, best_seller: true, image: '{{ asset("assets/images/dynamyst.png") }}', tagline: 'Maskulin, tegas, penuh energi' }
+    { id: 1, name: 'Vanessence', type: 'Signature', gender: 'Wanita', variant: 'Gourmand Vanilla', size: '30ML', price: 45000, stock: 30, best_seller: true, image: '<?php echo e(asset("assets/images/penisence.webp")); ?>', tagline: 'Feminin, manis, dan memikat' },
+    { id: 2, name: 'Dynamyst', type: 'Signature', gender: 'Pria', variant: 'Spicy Woody', size: '30ML', price: 45000, stock: 25, best_seller: true, image: '<?php echo e(asset("assets/images/dynamyst.png")); ?>', tagline: 'Maskulin, tegas, penuh energi' }
   ];
 
-  const FALLBACK_IMG = '{{ asset("assets/images/refill.webp") }}';
+  const FALLBACK_IMG = '<?php echo e(asset("assets/images/refill.webp")); ?>';
 
   function formatPrice(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
 
@@ -1245,6 +1245,8 @@
     initKatalog();
   });
 </script>
-<script src="{{ asset('js/navbar.js') }}"></script>
-@endsection
+<script src="<?php echo e(asset('js/navbar.js')); ?>"></script>
+<?php $__env->stopSection(); ?>
 
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/katalog.blade.php ENDPATH**/ ?>

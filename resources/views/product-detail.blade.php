@@ -146,7 +146,7 @@
   }
 
   .detail-features-list li::before {
-    content: "âœ“";
+    content: "✔";
     font-weight: 700;
     color: #000000;
     font-size: 0.9rem;
@@ -191,7 +191,7 @@
     color: #111111;
   }
 
-  /* â”€â”€ Sticky Bottom Bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  /* ── Sticky Bottom Bar ────────────────────────────────────────── */
   .sticky-bottom-bar {
     position: fixed;
     bottom: 0;
@@ -623,9 +623,9 @@
     {{-- Breadcrumb --}}
     <div class="detail-breadcrumb">
       <a href="/">Home</a>
-      <span>â€º</span>
+      <span>›</span>
       <a href="/katalog">{{ $isSignature ? 'Signature Collection' : 'Refill Collection' }}</a>
-      <span>â€º</span>
+      <span>›</span>
       <span style="color:#000000; font-weight:600;">{{ $product->name }}</span>
     </div>
 
@@ -710,7 +710,7 @@
                 <img src="{{ asset($rel->image) }}" alt="{{ $rel->name }}" loading="lazy" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
               </div>
               <div class="related-card-body">
-                <div class="related-card-tag">{{ $relIsSig ? 'Signature' : 'Refill' }} â€¢ {{ $rel->gender }}</div>
+                <div class="related-card-tag">{{ $relIsSig ? 'Signature' : 'Refill' }} • {{ $rel->gender }}</div>
                 <div class="related-card-name">
                   <span class="related-card-title-text">{{ $rel->name }}</span>
                 </div>
@@ -738,7 +738,7 @@
         {{-- Custom Luxury Dropdown for Size Selection --}}
         <div class="custom-size-dropdown" id="custom-size-dropdown">
           <button type="button" class="custom-size-trigger" id="custom-size-trigger">
-            <span id="custom-size-label">{{ $isSignature ? 'Signature 30ml' : 'Refill 35ml â€” Rp 45.000' }}</span>
+            <span id="custom-size-label">{{ $isSignature ? 'Signature 30ml' : 'Refill 35ml — Rp 45.000' }}</span>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           
@@ -746,16 +746,16 @@
             @if($isSignature)
               <div class="custom-size-opt active" data-size="30ml" data-price="{{ $product->price }}">Signature 30ml</div>
             @else
-              <div class="custom-size-opt" data-size="15ml" data-price="20000">Refill 15ml â€” Rp 20.000</div>
-              <div class="custom-size-opt active" data-size="35ml" data-price="45000">Refill 35ml â€” Rp 45.000</div>
-              <div class="custom-size-opt" data-size="50ml" data-price="65000">Refill 50ml â€” Rp 65.000</div>
+              <div class="custom-size-opt" data-size="15ml" data-price="20000">Refill 15ml — Rp 20.000</div>
+              <div class="custom-size-opt active" data-size="35ml" data-price="45000">Refill 35ml — Rp 45.000</div>
+              <div class="custom-size-opt" data-size="50ml" data-price="65000">Refill 50ml — Rp 65.000</div>
             @endif
           </div>
         </div>
 
         {{-- Quantity counter (- 1 +) --}}
         <div class="qty-counter">
-          <button class="qty-btn" onclick="changeQty(-1)">âˆ’</button>
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
           <span class="qty-val" id="qty-val">1</span>
           <button class="qty-btn" onclick="changeQty(1)">+</button>
         </div>

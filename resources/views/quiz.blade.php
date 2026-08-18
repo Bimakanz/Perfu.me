@@ -886,7 +886,7 @@
               <img src="${p.image}" alt="${p.name}" onerror="this.src='/assets/images/refill.webp'">
             </div>
             <div class="rec-card-body">
-              <div class="rec-card-tag">${p.type} â€¢ ${p.gender}</div>
+              <div class="rec-card-tag">${p.type} • ${p.gender}</div>
               <div class="rec-card-name">${p.name}</div>
               <div class="rec-card-notes">
                 <strong>Varian:</strong> ${p.variant}<br>

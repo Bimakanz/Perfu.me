@@ -1,5 +1,5 @@
 ﻿/* ============================================================
-   HERO SECTION â€” High-End Cinematic Luxury (Dark Overlay & 3 Bottles)
+   HERO SECTION — High-End Cinematic Luxury (Dark Overlay & 3 Bottles)
    ============================================================ */
 
 /* Custom Font Zaloga */
@@ -28,22 +28,28 @@
 
 /* Cinematic Background Image */
 .hero-cinematic-bg {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: 75% center !important;
-  opacity: 1.0 !important;
-  filter: brightness(1.02) contrast(1.02) !important;
-  z-index: 1 !important;
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: 75% center !important;
+    opacity: 1 !important;
+    filter: brightness(1.02) contrast(1.02) !important;
+    z-index: 1 !important;
 }
 
 .hero-overlay-dark {
-  position: absolute !important;
-  inset: 0 !important;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.45) 45%, rgba(0, 0, 0, 0.05) 75%, rgba(0, 0, 0, 0) 100%) !important;
-  z-index: 2 !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.82) 0%,
+        rgba(0, 0, 0, 0.45) 45%,
+        rgba(0, 0, 0, 0.05) 75%,
+        rgba(0, 0, 0, 0) 100%
+    ) !important;
+    z-index: 2 !important;
 }
 
 /* Clear canvas interference */
