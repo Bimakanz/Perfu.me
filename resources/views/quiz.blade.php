@@ -1,7 +1,7 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Scent Finder Quiz — Perfu.me')
-@section('description', 'Temukan parfum terbaik untuk karakter Anda melalui 5 pertanyaan simpel dari Perfu.me.')
+@section('description', 'Temukan parfum terbaik untuk karakter Anda melalui 5 pertanyaan simpel dari Parfu.me.')
 
 @section('styles')
   <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
@@ -47,13 +47,22 @@
       margin-bottom: 0.1rem;
     }
 
-    .quiz-title {
-      font-family: 'Zaloga', Georgia, serif;
-      font-size: clamp(2.4rem, 4vw, 3.6rem);
-      font-weight: 300;
+    .results-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.8rem;
+      font-weight: 400;
       color: #0D0D0D;
-      line-height: 1.15;
-      margin-bottom: 1rem;
+      line-height: 1.25;
+      margin-bottom: 0.5rem;
+    }
+
+    .quiz-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 400;
+      color: #0D0D0D;
+      line-height: 1.2;
+      margin-bottom: 0.85rem;
     }
 
     .quiz-subtitle {
@@ -132,7 +141,7 @@
     }
 
     .question-text {
-      font-family: 'Zaloga', Georgia, serif;
+      font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: clamp(1.8rem, 3vw, 2.4rem);
       font-weight: 400;
       color: #0D0D0D;
@@ -330,7 +339,7 @@
     }
 
     .results-title {
-      font-family: 'Zaloga', Georgia, serif;
+      font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 2.6rem;
       font-weight: 300;
       color: #0D0D0D;

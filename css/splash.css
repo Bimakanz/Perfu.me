@@ -1,76 +1,80 @@
-/* ============================================================
+﻿/* ============================================================
    SPLASH SCREEN — Typewriter Intro & Slide Up Curtain
    ============================================================ */
 
 #splash {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  background: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 1.25rem;
-  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
-  will-change: transform;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+    will-change: transform;
 }
 
 #splash.slide-up {
-  transform: translateY(-100%);
-  pointer-events: none;
+    transform: translateY(-100%);
+    pointer-events: none;
 }
 
 .splash-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 /* Typewriter Title: Parfu.me */
 .splash-title {
-  font-family: 'Zaloga', 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(3.5rem, 7vw, 5.8rem);
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  color: #0D0D0D;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    font-family: "Zaloga", Georgia, serif;
+    font-size: clamp(3.5rem, 7vw, 5.8rem);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: #0d0d0d;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Blinking Cursor */
 .typing-cursor {
-  display: inline-block;
-  font-family: var(--font-sans);
-  font-weight: 300;
-  color: #71717A;
-  margin-left: 4px;
-  animation: blink 0.7s infinite alternate;
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-weight: 300;
+    color: #71717a;
+    margin-left: 4px;
+    animation: blink 0.7s infinite alternate;
 }
 
 @keyframes blink {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 /* Slogan: smell good, feel confident */
 .splash-slogan {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.35em;
-  text-transform: lowercase;
-  color: #52525B;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: lowercase;
+    color: #52525b;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .splash-slogan.show {
-  opacity: 1;
-  transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
 }

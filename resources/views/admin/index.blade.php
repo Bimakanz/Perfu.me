@@ -6,14 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Portal — Perfu.me Dashboard</title>
   <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>">
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤</text></svg>">
 
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="{{ asset('css/main.css') }}">
   <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
@@ -148,16 +146,14 @@
             <div class="admin-stat-icon-bg">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
-                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
-                </path>
-                <line x1="12" y1="9" x2="12" y2="13"></line>
-                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
               </svg>
             </div>
-            <span class="admin-stat-tag">Perlu Restok</span>
+            <span class="admin-stat-tag">Tersedia</span>
           </div>
-          <div class="admin-stat-value" id="stat-lowstock">0</div>
-          <div class="admin-stat-label">Stok Menipis (&lt; 20 Pcs)</div>
+          <div class="admin-stat-value" id="stat-ready">0</div>
+          <div class="admin-stat-label">Produk Status Ready</div>
         </div>
 
         <div class="admin-stat-card danger">
@@ -169,10 +165,10 @@
                 <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
               </svg>
             </div>
-            <span class="admin-stat-tag">Kritis</span>
+            <span class="admin-stat-tag">Kosong</span>
           </div>
           <div class="admin-stat-value" id="stat-outofstock">0</div>
-          <div class="admin-stat-label">Stok Habis (0 Pcs)</div>
+          <div class="admin-stat-label">Produk Status Habis</div>
         </div>
       </div>
 
@@ -193,10 +189,10 @@
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
               <input type="text" id="admin-table-search" class="admin-search-input"
-                placeholder="Cari nama atau varian...">
+                placeholder="Cari nama produk / varian...">
             </div>
 
-            <!-- Custom Filter Select Dropdown Component -->
+            <!-- Custom Filter Dropdown -->
             <div class="custom-select-wrap" id="custom-filter-wrap">
               <button type="button" class="custom-select-trigger" id="custom-filter-trigger">
                 <span class="custom-select-label" id="custom-filter-label">Semua Status Stok</span>
@@ -213,11 +209,11 @@
                 <div class="custom-select-option" data-value="bestseller">
                   <span class="opt-dot bestseller"></span> Best Seller Only
                 </div>
-                <div class="custom-select-option" data-value="lowstock">
-                  <span class="opt-dot lowstock"></span> Stok Menipis (&lt; 20 Pcs)
+                <div class="custom-select-option" data-value="ready">
+                  <span class="opt-dot bestseller"></span> Status Ready
                 </div>
                 <div class="custom-select-option" data-value="outofstock">
-                  <span class="opt-dot outofstock"></span> Stok Habis (0 Pcs)
+                  <span class="opt-dot outofstock"></span> Status Habis
                 </div>
               </div>
               <input type="hidden" id="admin-filter-status" value="all">
@@ -319,7 +315,7 @@
       </div>
 
       <div class="admin-detail-footer">
-        <button class="btn-action-zero" id="detail-btn-zero">🚫 Set 0 Stok</button>
+        <button class="btn-action-zero" id="detail-btn-zero">🔒 Set 0 Stok</button>
         <button class="btn-action-edit" id="detail-btn-edit">✏️ Edit Produk Ini</button>
         <button class="admin-btn-secondary" id="detail-btn-close">Tutup</button>
       </div>
@@ -349,28 +345,48 @@
 
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Tipe Produk / Kategori <span>*</span></label>
-          <input type="hidden" id="form-type" value="Signature">
-          <div class="form-select-custom" id="custom-select-type">
+          <label class="form-label">Kategori <span>*</span></label>
+          <input type="hidden" id="form-category" value="Signature">
+          <div class="form-select-custom" id="custom-select-category">
             <div class="form-select-trigger">
-              <span class="trigger-label">Signature</span>
+              <span class="trigger-label">Signature Collection</span>
               <svg class="form-select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </div>
             <div class="form-select-options">
-              <div class="form-select-option selected" data-value="Signature"><span>Signature</span><span
-                  class="opt-check">✓</span></div>
-              <div class="form-select-option" data-value="Refill"><span>Refill</span><span
-                  class="opt-check">✓</span></div>
-              <div class="form-select-option" data-value="Eau de Parfum"><span>Eau de Parfum</span><span
-                  class="opt-check">✓</span></div>
-              <div class="form-select-option" data-value="Roll-on"><span>Roll-on</span><span class="opt-check">✓</span>
+              <div class="form-select-option selected" data-value="Signature" data-display="Signature Collection">
+                <span>Signature Collection</span><span class="opt-check">✔</span>
+              </div>
+              <div class="form-select-option" data-value="Refill" data-display="Refill Collection">
+                <span>Refill Collection</span><span class="opt-check">✔</span>
               </div>
             </div>
           </div>
         </div>
+
+        <div class="form-group">
+          <label class="form-label">Tipe / Konsentrasi Parfum <span>*</span></label>
+          <input type="hidden" id="form-type" value="Eau de Parfum">
+          <div class="form-select-custom" id="custom-select-type">
+            <div class="form-select-trigger">
+              <span class="trigger-label">Eau de Parfum</span>
+              <svg class="form-select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+            <div class="form-select-options">
+              <div class="form-select-option selected" data-value="Eau de Parfum"><span>Eau de Parfum</span><span
+                  class="opt-check">✔</span></div>
+              <div class="form-select-option" data-value="Roll-on"><span>Roll-on</span><span class="opt-check">✔</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
         <div class="form-group">
           <label class="form-label">Target Gender <span>*</span></label>
           <input type="hidden" id="form-gender" value="Unisex">
@@ -384,20 +400,20 @@
             </div>
             <div class="form-select-options">
               <div class="form-select-option selected" data-value="Unisex"><span>Unisex</span><span
-                  class="opt-check">✓</span></div>
-              <div class="form-select-option" data-value="Pria"><span>Pria</span><span class="opt-check">✓</span></div>
-              <div class="form-select-option" data-value="Wanita"><span>Wanita</span><span class="opt-check">✓</span>
+                  class="opt-check">✔</span></div>
+              <div class="form-select-option" data-value="Pria"><span>Pria</span><span class="opt-check">✔</span></div>
+              <div class="form-select-option" data-value="Wanita"><span>Wanita</span><span class="opt-check">✔</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="form-row">
         <div class="form-group">
           <label for="form-variant" class="form-label">Varian Aroma <span>*</span></label>
           <input type="text" id="form-variant" class="form-control" placeholder="Woody Floral, Gourmand..." required>
         </div>
+      </div>
+
+      <div class="form-row" id="form-size-price-row">
         <div class="form-group">
           <label class="form-label">Ukuran Botol <span>*</span></label>
           <input type="hidden" id="form-size" value="30ML">
@@ -410,33 +426,27 @@
               </svg>
             </div>
             <div class="form-select-options">
-              <div class="form-select-option selected" data-value="30ML" data-display="30ML (Standard Size)"><span>30ML
-                  (Standard Size)</span><span class="opt-check">✓</span></div>
+              <div class="form-select-option" data-value="35ML" data-display="35ML (Refill Standard Size)"><span>35ML
+                  (Refill Standard Size)</span><span class="opt-check">✔</span></div>
+              <div class="form-select-option selected" data-value="30ML" data-display="30ML (Signature Size)"><span>30ML
+                  (Signature Size)</span><span class="opt-check">✔</span></div>
               <div class="form-select-option" data-value="50ML" data-display="50ML (Medium Size)"><span>50ML (Medium
-                  Size)</span><span class="opt-check">✓</span></div>
+                  Size)</span><span class="opt-check">✔</span></div>
               <div class="form-select-option" data-value="100ML" data-display="100ML (Full Size)"><span>100ML (Full
-                  Size)</span><span class="opt-check">✓</span></div>
+                  Size)</span><span class="opt-check">✔</span></div>
               <div class="form-select-option" data-value="10ML" data-display="10ML (Roll-On / Mini)"><span>10ML (Roll-On
-                  / Mini)</span><span class="opt-check">✓</span></div>
+                  / Mini)</span><span class="opt-check">✔</span></div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="form-section-title">2. HARGA &amp; MANAJEMEN STOK</div>
-
-      <div class="form-row">
         <div class="form-group">
-          <label for="form-price" class="form-label">Harga Jual (Rp) <span>*</span></label>
-          <input type="number" id="form-price" class="form-control" placeholder="150000" min="0" required>
-        </div>
-        <div class="form-group">
-          <label for="form-stock" class="form-label">Jumlah Stok Ready <span>*</span></label>
-          <input type="number" id="form-stock" class="form-control" placeholder="42" min="0" required>
+          <label for="form-price-display" class="form-label">Harga Jual (Rp) <span>*</span></label>
+          <input type="text" id="form-price-display" class="form-control" placeholder="Rp 45.000" required autocomplete="off">
+          <input type="hidden" id="form-price" value="45000">
         </div>
       </div>
 
-      <div class="form-section-title">3. SCENT PYRAMID NOTES</div>
+      <div class="form-section-title">2. SCENT PYRAMID NOTES</div>
 
       <div class="form-group">
         <label for="form-top" class="form-label">Top Notes <span>*</span></label>
@@ -451,43 +461,37 @@
         <input type="text" id="form-base" class="form-control" placeholder="Sandalwood, Musk, Amber" required>
       </div>
 
-      <div class="form-section-title">4. GAMBAR &amp; DESKRIPSI PRODUK</div>
+      <div id="form-image-section">
+        <div class="form-section-title">3. GAMBAR PRODUK SIGNATURE</div>
 
-      <div class="form-group">
-        <label for="form-image-file" class="form-label">Upload File Gambar Produk <span>*</span></label>
-        <div class="file-upload-box">
-          <input type="file" id="form-image-file" accept="image/*" style="display:none;">
-          <button type="button" class="btn-choose-file" onclick="document.getElementById('form-image-file').click()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="17 8 12 3 7 8"></polyline>
-              <line x1="12" y1="3" x2="12" y2="15"></line>
-            </svg>
-            Pilih File Gambar
-          </button>
-          <span class="file-chosen-name" id="file-chosen-name">Belum ada file dipilih</span>
+        <div class="form-group">
+          <label for="form-image-file" class="form-label">Upload File Gambar Produk Signature <span>*</span></label>
+          <div class="file-upload-box">
+            <input type="file" id="form-image-file" accept="image/*" style="display:none;">
+            <button type="button" class="btn-choose-file" onclick="document.getElementById('form-image-file').click()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              Pilih File Gambar
+            </button>
+            <span class="file-chosen-name" id="file-chosen-name">Belum ada file dipilih</span>
+          </div>
+
+          <input type="hidden" id="form-image">
+
+          <div id="crud-img-preview-wrap" style="display:none; margin-top:0.85rem;">
+            <div style="font-size:0.68rem; font-weight:700; color:#8A8A8A; letter-spacing:0.1em; margin-bottom:0.35rem;">
+              PREVIEW GAMBAR:</div>
+            <img id="crud-img-preview" src="" alt="Preview Gambar Produk"
+              style="width:96px; height:96px; object-fit:cover; border-radius:10px; border:1px solid #E4E4E7; box-shadow:0 4px 12px rgba(0,0,0,0.06);">
+          </div>
         </div>
-
-        <input type="hidden" id="form-image">
-
-        <div id="crud-img-preview-wrap" style="display:none; margin-top:0.85rem;">
-          <div style="font-size:0.68rem; font-weight:700; color:#8A8A8A; letter-spacing:0.1em; margin-bottom:0.35rem;">
-            PREVIEW GAMBAR:</div>
-          <img id="crud-img-preview" src="" alt="Preview Gambar Produk"
-            style="width:96px; height:96px; object-fit:cover; border-radius:10px; border:1px solid #E4E4E7; box-shadow:0 4px 12px rgba(0,0,0,0.06);">
-        </div>
       </div>
 
       <div class="form-group">
-        <label for="form-packaging" class="form-label">Kemasan &amp; Detail Kemasan</label>
-        <input type="text" id="form-packaging" class="form-control" placeholder="Botol kaca spray 30ml, dus karton">
-      </div>
-      <div class="form-group">
-        <label for="form-tagline" class="form-label">Tagline Singkat</label>
-        <input type="text" id="form-tagline" class="form-control" placeholder="Elegan, segar, dan abadi">
-      </div>
-      <div class="form-group">
-        <label for="form-desc" class="form-label">Deskripsi Lengkap Produk</label>
+        <label for="form-desc" class="form-label">Deskripsi Lengkap Produk (Opsional)</label>
         <textarea id="form-desc" class="form-control" rows="3"
           placeholder="Tuliskan cerita dan deskripsi lengkap aroma..."></textarea>
       </div>
