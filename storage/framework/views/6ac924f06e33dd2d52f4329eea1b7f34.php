@@ -99,7 +99,7 @@
           <div class="admin-user-avatar">A</div>
           <span>Administrator</span>
         </div>
-        <button id="admin-logout-btn" class="admin-logout-btn">Keluar</button>
+        <button id="admin-logout-btn" class="admin-logout-btn" type="button" onclick="openLogoutModal(event)">Keluar</button>
       </div>
     </header>
 
@@ -255,7 +255,6 @@
         <div class="katalog-pagination" id="admin-pagination"></div>
       </div>
     </main>
-  </div>
 
   <!-- ============================================================
        3. PRODUCT DETAIL PREVIEW MODAL
@@ -536,8 +535,43 @@
     </div>
   </div>
 
-  <!-- Toast Container -->
-  <div id="toast-container"></div>
+  <!-- ADMIN WELCOME TRANSITION OVERLAY -->
+  <div id="admin-welcome-overlay" class="admin-welcome-overlay">
+    <div class="admin-welcome-card">
+      <div class="welcome-sparkle-icon">✨</div>
+      <div class="welcome-brand-logo">Perfu.me Admin</div>
+      <div class="welcome-title">Selamat Datang, Administrator</div>
+      <div class="welcome-subtext" id="welcome-subtext">Mempersiapkan Inventaris &amp; Katalog...</div>
+      <div class="welcome-progress-bar">
+        <div class="welcome-progress-fill" id="welcome-progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGOUT CONFIRMATION MODAL -->
+  <div id="logout-modal-backdrop" class="admin-modal-backdrop">
+    <div class="admin-modal">
+      <div class="admin-modal-icon warning" style="background:#FEF2F2; color:#DC2626;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
+      </div>
+      <h3 class="admin-modal-title">Konfirmasi Keluar</h3>
+      <p class="admin-modal-desc">
+        Apakah Anda yakin ingin keluar dari Admin Dashboard?
+      </p>
+      <div class="admin-modal-actions">
+        <button type="button" id="btn-cancel-logout" class="admin-btn-secondary">Batal</button>
+        <button type="button" id="btn-confirm-logout" class="admin-btn-primary" style="background:#DC2626; border-color:#DC2626;">Ya, Keluar</button>
+      </div>
+    </div>
+  </div>
+</div> <!-- /admin-dashboard-page -->
+
+  <!-- Toast Container (Disabled) -->
+  <div id="toast-container" style="display:none !important;"></div>
 
   <!-- Scripts -->
   <script src="<?php echo e(asset('js/db.js')); ?>"></script>
@@ -545,4 +579,4 @@
 </body>
 
 </html>
-<?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/admin/index.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/admin/index.blade.php ENDPATH**/ ?>

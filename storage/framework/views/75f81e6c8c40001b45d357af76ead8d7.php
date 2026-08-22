@@ -85,4 +85,4 @@
     </div>
   </div>
 </footer>
-<?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/partials/footer.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/partials/footer.blade.php ENDPATH**/ ?>

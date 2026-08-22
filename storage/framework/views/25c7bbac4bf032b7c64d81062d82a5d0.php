@@ -70,7 +70,7 @@
           Perfu.me
         </h1>
         <p class="hero-desc">
-          Lahir dari pengalaman panjang, kini hadir 2 racikan signature orisinal pertama kami. Diformulasikan dengan Perfume Oil Grade A untuk ketahanan lebih dari jam.
+          Lahir dari pengalaman panjang, kini hadir 2 racikan signature orisinal pertama kami. Diformulasikan dengan Perfume Oil Grade A untuk ketahanan lebih dari 8 jam.
         </p>
         <div class="hero-btn-group">
           <a href="#produk-section" class="btn-hero-primary">Jelajahi Koleksi</a>
@@ -361,4 +361,4 @@
 <script src="<?php echo e(asset('js/navbar.js')); ?>"></script>
 <script src="<?php echo e(asset('js/catalog.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/home.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/home.blade.php ENDPATH**/ ?>

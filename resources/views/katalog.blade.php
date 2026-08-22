@@ -9,7 +9,7 @@
   body {
     background: #FAFAFA;
     color: #0D0D0D;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Manrope', sans-serif;
     margin: 0;
   }
 
@@ -363,7 +363,7 @@
   .product-card-name { font-family: 'Zaloga', Georgia, serif; font-size: 1.2rem; font-weight: 400; color: #0D0D0D; margin-bottom: 0.4rem; line-height: 1.2; }
   .product-card-tagline { font-size: 0.78rem; color: #8A8A8A; margin-bottom: 1rem; font-style: italic; }
   .product-card-price-row { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 1rem; }
-  .product-card-price { font-family: 'Inter', system-ui, sans-serif; font-size: 1.12rem; font-weight: 700; color: #0D0D0D; }
+  .product-card-price { font-family: 'Manrope', sans-serif; font-size: 1.12rem; font-weight: 700; color: #0D0D0D; }
   .product-card-price-slash { font-size: 0.8rem; color: #C0C0C0; text-decoration: line-through; }
   .product-card-actions { display: flex; gap: 0.5rem; }
 

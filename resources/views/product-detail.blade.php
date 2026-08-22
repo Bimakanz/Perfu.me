@@ -669,7 +669,7 @@
 
         {{-- Keunggulan / Key Features List --}}
         <ul class="detail-features-list">
-          <li>Parfum oil grade A, alkohol 90%</li>
+          <li>Parfum oil grade A, alkohol food grade</li>
           <li>Tanpa pewarna tambahan</li>
           <li>{{ $product->packaging ?? 'Botol kaca spray + dus karton' }}</li>
           <li>Tahan 6–10 jam</li>

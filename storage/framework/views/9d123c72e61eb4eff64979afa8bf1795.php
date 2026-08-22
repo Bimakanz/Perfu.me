@@ -3,15 +3,10 @@
 
 <?php $__env->startSection('styles'); ?>
 <style>
-  /* Hide Floating WA Widget completely on Product Detail Page */
-  #floating-wa-container {
-    display: none !important;
-  }
-
   body {
     background: #FFFFFF;
     color: #0D0D0D;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Manrope', system-ui, sans-serif;
     margin: 0;
     padding-bottom: 100px; /* space for sticky bottom bar */
   }
@@ -50,21 +45,23 @@
 
   .detail-brand-watermark {
     font-size: 2.5rem;
-    font-weight: 400;
     color: #000000;
     margin-bottom: 2rem;
     text-align: center;
+    text-transform: uppercase;
   }
 
   .detail-brand-watermark.is-signature {
     font-family: 'Zaloga', Georgia, serif;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
+    font-weight: normal;
+    text-transform: none;
   }
 
   .detail-brand-watermark.is-refill {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 300;
   }
 
   .detail-img-box {
@@ -157,7 +154,7 @@
   }
 
   .detail-features-list li::before {
-    content: "✔";
+    content: "✓";
     font-weight: 700;
     color: #000000;
     font-size: 0.9rem;
@@ -467,12 +464,11 @@
   }
 
   .related-title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1.6rem;
-    font-weight: 400;
+    font-family: 'Zaloga', Georgia, serif;
+    font-size: 2.2rem;
+    font-weight: 300;
     color: #0D0D0D;
-    letter-spacing: 0.02em;
-    margin-bottom: 0.5rem;
+    margin: 0;
   }
 
   .related-link-all {
@@ -484,28 +480,10 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    position: relative;
-    transition: color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: color 0.2s;
   }
 
-  .related-link-all::after {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 0;
-    height: 1.5px;
-    background: #0D0D0D;
-    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .related-link-all:hover {
-    color: #0D0D0D;
-  }
-
-  .related-link-all:hover::after {
-    width: 100%;
-  }
+  .related-link-all:hover { color: #555555; }
 
   .related-grid {
     display: grid;
@@ -692,10 +670,10 @@
 
         
         <ul class="detail-features-list">
-          <li>Parfum oil grade A, alkohol 90%</li>
+          <li>Parfum oil grade A, alkohol food grade</li>
           <li>Tanpa pewarna tambahan</li>
           <li><?php echo e($product->packaging ?? 'Botol kaca spray + dus karton'); ?></li>
-          <li>Tahan 6–10 jam di kulit</li>
+          <li>Tahan 6–10 jam</li>
         </ul>
 
         <div class="detail-scent-notes-box">
@@ -805,40 +783,7 @@
   </div>
 
   
-  <footer id="footer-section" style="background:#0D0D0D; color:#FFF; padding:6rem 4rem 8rem 4rem; margin-top: 7rem; position:relative; z-index:1;">
-    <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:4rem;">
-      <div>
-        <div style="font-family:'Zaloga', Georgia, serif; font-size:2rem; font-weight:300; letter-spacing:0.05em; margin-bottom:0.75rem;">Perfu.me</div>
-        <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7; max-width:380px;">
-          Perfu.me lahir dari sebuah keyakinan sederhana: setiap orang berhak tampil harum tanpa harus mengeluarkan biaya yang mahal. Karena itu, kami menghadirkan parfum dengan kualitas aroma premium, karakter yang khas, dan harga yang tetap ramah di kantong.
-        </p>
-      </div>
-      <div>
-        <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Best Seller</h4>
-        <ul style="list-style:none; display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem; color:#8A8A8A; padding:0; margin:0;">
-          <?php
-            $bestSellers = \App\Models\Product::where('best_seller', true)->take(6)->get();
-          ?>
-          <?php $__currentLoopData = $bestSellers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <li><a href="/produk/<?php echo e($bs->id); ?>" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none; transition:color 0.2s;"><?php echo e($bs->name); ?></a></li>
-          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-        </ul>
-      </div>
-      <div>
-        <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Kontak</h4>
-        <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7;">
-          WhatsApp: <a href="https://wa.me/6281383415432?text=Halo%20Perfu.me,%20saya%20tertarik%20dengan%20produk%20parfumnya" target="_blank" rel="noopener" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none; display:inline-block;">+62 813-8341-5432</a><br>
-          Email: perfumeofficial30@gmail.com<br>
-          Instagram: <a href="https://www.instagram.com/perfu.mefragrance/" target="_blank" rel="noopener" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none;">@perfu.mefragrance</a><br>
-          <a href="https://maps.app.goo.gl/xui1fMK73WXR1DD29" target="_blank" rel="noopener" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none; display:inline-block; margin-top:0.2rem;">Jl. Lingkar Dramaga RT 03/04 Desa Dramaga</a>
-        </p>
-      </div>
-    </div>
-    <div style="max-width:1200px; margin:0 auto; padding-top:2rem; border-top:1px solid rgba(192,192,192,0.1); display:flex; justify-content: space-between; align-items:center; font-size:0.75rem; color:#8A8A8A;">
-      <div>&copy; 2026 Perfu.me. All rights reserved.</div>
-      <div>Monochrome Luxury Aesthetic System</div>
-    </div>
-  </footer>
+  <?php echo $__env->make('partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
 <?php $__env->stopSection(); ?>
 
@@ -920,5 +865,4 @@
 <script src="<?php echo e(asset('js/navbar.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
 
-
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/product-detail.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/product-detail.blade.php ENDPATH**/ ?>

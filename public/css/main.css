@@ -1009,7 +1009,7 @@ button {
   position: relative;
   z-index: 10;
   overflow: hidden;
-  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-family: var(--font-sans);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
