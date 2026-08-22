@@ -2078,17 +2078,7 @@ select.form-control:hover {
   transform: translateY(0) scale(1);
 }
 
-.welcome-sparkle-icon {
-  font-size: 2.8rem;
-  margin-bottom: 0.75rem;
-  display: inline-block;
-  animation: welcomePulse 1.8s ease-in-out infinite alternate;
-}
 
-@keyframes welcomePulse {
-  0% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
-  100% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 24px rgba(255,255,255,0.7)); }
-}
 
 .welcome-brand-logo {
   font-family: 'Zaloga', Georgia, serif;

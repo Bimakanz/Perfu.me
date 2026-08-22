@@ -214,33 +214,35 @@
       left: 50%;
       transform: translate(-50%, -50%) scale(0.85);
       z-index: 100000;
-      background: rgba(28, 28, 30, 0.82);
+      background: rgba(15, 15, 18, 0.55);
       color: #FFFFFF;
-      padding: 1.6rem 2.25rem;
-      border-radius: 18px;
+      padding: 2.2rem 3rem;
+      border-radius: 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 1rem;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.22);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      gap: 1.25rem;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(40px) saturate(190%);
+      -webkit-backdrop-filter: blur(40px) saturate(190%);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       text-align: center;
-      max-width: 320px;
+      width: 90%;
+      max-width: 420px;
+      min-width: 320px;
       pointer-events: none;
       opacity: 0;
       animation: popInCenterBox 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     `;
 
     box.innerHTML = `
-      <div style="width: 54px; height: 54px; border-radius: 50%; background: #10B981; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <div style="width: 68px; height: 68px; border-radius: 50%; background: #10B981; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.45), inset 0 2px 0 rgba(255,255,255,0.4);">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
       </div>
-      <div style="font-size: 0.9rem; font-weight: 600; line-height: 1.5; color: #FFFFFF; letter-spacing: 0.02em;">
+      <div style="font-size: 1.05rem; font-weight: 600; line-height: 1.5; color: #FFFFFF; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7); letter-spacing: -0.01em;">
         ${message}
       </div>
     `;
@@ -436,7 +438,7 @@
       });
       waMsg += `\n*Total Harga: ${formatPrice(subtotal)}*`;
 
-      checkoutBtn.href = `https://wa.me/6281234567890?text=${encodeURIComponent(waMsg)}`;
+      checkoutBtn.href = `https://wa.me/6281383415432?text=${encodeURIComponent(waMsg)}`;
     }
   }
 

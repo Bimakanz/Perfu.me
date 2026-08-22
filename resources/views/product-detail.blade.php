@@ -1,16 +1,21 @@
 @extends('layouts.app')
 
 @section('title', $product->name . ' — Perfu.me')
-@section('description', $product->description)
+@section('description', Str::limit($product->description, 160))
+@section('og_type', 'product')
+@section('og_title', $product->name . ' — Perfu.me')
+@section('og_description', Str::limit($product->description, 160))
+@section('og_image', asset($product->image))
+@section('canonical', url('/produk/' . $product->id))
 
 @section('styles')
 <style>
   body {
     background: #FFFFFF;
     color: #0D0D0D;
-    font-family: 'Manrope', system-ui, sans-serif;
+    font-family: 'Manrope', sans-serif;
     margin: 0;
-    padding-bottom: 100px; /* space for sticky bottom bar */
+    padding-bottom: 100px;
   }
 
   .detail-page-container {
@@ -95,7 +100,7 @@
   }
 
   .detail-product-name {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: clamp(2rem, 3.5vw, 2.75rem);
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -593,36 +598,7 @@
 @section('content')
 
   {{-- NAVBAR --}}
-  <nav id="navbar" aria-label="Main Navigation">
-    <div class="nav-brand">
-      <a href="/" class="nav-brand-name" style="text-decoration:none; color:inherit;">Perfu.me</a>
-    </div>
-
-    <ul class="nav-links">
-      <li><a href="/katalog">Katalog</a></li>
-      <li><a href="/quiz">Quiz</a></li>
-      <li><a href="/#about-story-section">Tentang</a></li>
-      <li><a href="/#testimoni-section">Testimoni</a></li>
-      <li><a href="/#footer-section">Kontak</a></li>
-    </ul>
-
-    <div class="nav-actions">
-      <button id="btn-open-search" class="nav-icon-btn" aria-label="Cari Parfum" title="Cari Parfum">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-      </button>
-      <button id="btn-open-cart" class="nav-icon-btn" aria-label="Keranjang Belanja" title="Keranjang Belanja">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <path d="M16 10a4 4 0 0 1-8 0"></path>
-        </svg>
-        <span class="cart-badge-count" id="cart-badge-count">0</span>
-      </button>
-    </div>
-  </nav>
+  @include('partials.navbar')
 
   @php
     $isSignature = strtolower($product->type) === 'signature' || str_contains(strtolower($product->name), 'dynamyst') || str_contains(strtolower($product->name), 'vanessence');
@@ -804,7 +780,7 @@
     document.getElementById('qty-val').textContent = currentQty;
 
     const waMessage = `Halo, saya ingin memesan ${productName} (Varian: ${selectedSize}, Jumlah: ${currentQty} pcs) total seharga ${formattedPrice}`;
-    document.getElementById('btn-order-wa').href = `https://wa.me/6281234567890?text=${encodeURIComponent(waMessage)}`;
+    document.getElementById('btn-order-wa').href = `https://wa.me/6281383415432?text=${encodeURIComponent(waMessage)}`;
   }
 
   function initCustomSizeDropdown() {

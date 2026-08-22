@@ -538,7 +538,6 @@
   <!-- ADMIN WELCOME TRANSITION OVERLAY -->
   <div id="admin-welcome-overlay" class="admin-welcome-overlay">
     <div class="admin-welcome-card">
-      <div class="welcome-sparkle-icon">✨</div>
       <div class="welcome-brand-logo">Perfu.me Admin</div>
       <div class="welcome-title">Selamat Datang, Administrator</div>
       <div class="welcome-subtext" id="welcome-subtext">Mempersiapkan Inventaris &amp; Katalog...</div>

@@ -130,7 +130,7 @@
 
           <div class="product-cta-group">
             <a
-              href="https://wa.me/6281234567890?text=Halo%2C%20saya%20ingin%20memesan%20${encodeURIComponent(p.name)}%20(${p.size})%20seharga%20${encodeURIComponent(formatPrice(p.price))}"
+              href="https://wa.me/6281383415432?text=Halo%2C%20saya%20ingin%20memesan%20${encodeURIComponent(p.name)}%20(${p.size})%20seharga%20${encodeURIComponent(formatPrice(p.price))}"
               target="_blank"
               rel="noopener"
               class="btn-whatsapp-full"

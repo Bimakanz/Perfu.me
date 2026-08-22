@@ -776,36 +776,8 @@
 @section('content')
 
   {{-- NAVBAR --}}
-  <nav id="navbar" aria-label="Main Navigation">
-    <div class="nav-brand">
-      <a href="/" class="nav-brand-name" style="text-decoration:none; color:inherit;">Perfu.me</a>
-    </div>
-
-    <ul class="nav-links">
-      <li><a href="/katalog" style="color:#0D0D0D; font-weight:700; text-decoration:underline; text-underline-offset:4px;">Katalog</a></li>
-      <li><a href="/quiz">Quiz</a></li>
-      <li><a href="/#about-story-section">Tentang</a></li>
-      <li><a href="/#testimoni-section">Testimoni</a></li>
-      <li><a href="/#footer-section">Kontak</a></li>
-    </ul>
-
-    <div class="nav-actions">
-      <button id="btn-open-search" class="nav-icon-btn" aria-label="Cari Parfum" title="Cari Parfum">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-      </button>
-      <button id="btn-open-cart" class="nav-icon-btn" aria-label="Keranjang Belanja" title="Keranjang Belanja">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <path d="M16 10a4 4 0 0 1-8 0"></path>
-        </svg>
-        <span class="cart-badge-count" id="cart-badge-count">0</span>
-      </button>
-    </div>
-  </nav>
+  {{-- NAVBAR --}}
+  @include('partials.navbar', ['activeNav' => 'katalog'])
 
   {{-- PAGE HEADER --}}
   <div class="katalog-header">
@@ -956,7 +928,7 @@
             <span class="product-card-price">${formatPrice(p.price)}</span>
           </div>
           <div class="product-card-actions">
-            <a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20ingin%20memesan%20${encodeURIComponent(p.name)}%20(${p.size})%20seharga%20${encodeURIComponent(formatPrice(p.price))}" target="_blank" rel="noopener" class="btn-card-wa" onclick="event.stopPropagation()">Pesan WhatsApp</a>
+            <a href="https://wa.me/6281383415432?text=Halo%2C%20saya%20ingin%20memesan%20${encodeURIComponent(p.name)}%20(${p.size})%20seharga%20${encodeURIComponent(formatPrice(p.price))}" target="_blank" rel="noopener" class="btn-card-wa" onclick="event.stopPropagation()">Pesan WhatsApp</a>
             <button class="btn-card-cart" onclick="event.stopPropagation(); window.addToCart(${p.id})" title="Masukkan ke Keranjang">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
             </button>
@@ -1069,7 +1041,7 @@
     const content = document.getElementById('product-detail-content');
     if (!modal || !content) return;
 
-    const whatsappUrl = `https://wa.me/6281234567890?text=Halo%2C%20saya%20ingin%20memesan%20${encodeURIComponent(product.name)}%20(${product.size})%20seharga%20${encodeURIComponent(formatPrice(product.price))}`;
+    const whatsappUrl = `https://wa.me/6281383415432?text=Halo%2C%20saya%20ingin%20memesan%20${encodeURIComponent(product.name)}%20(${product.size})%20seharga%20${encodeURIComponent(formatPrice(product.price))}`;
 
     content.innerHTML = `
       <div class="product-detail-grid">

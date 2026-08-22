@@ -8,10 +8,31 @@
   <!-- SEO -->
   <title><?php echo $__env->yieldContent('title', 'Perfu.me — Luxury & Nusantara Fragrance Series'); ?></title>
   <meta name="description" content="<?php echo $__env->yieldContent('description', 'Perfu.me menghadirkan koleksi parfum premium vanessence, dynamyst, dan seri nusantara dengan konsentrat parfum grade A dan ketahanan aromatis hingga 10 jam.'); ?>">
+  <link rel="canonical" href="<?php echo $__env->yieldContent('canonical', url()->current()); ?>">
+
+  <!-- OpenGraph / Social Sharing -->
+  <meta property="og:type"        content="<?php echo $__env->yieldContent('og_type', 'website'); ?>">
+  <meta property="og:site_name"   content="Perfu.me">
+  <meta property="og:title"       content="<?php echo $__env->yieldContent('og_title', 'Perfu.me — Luxury & Nusantara Fragrance Series'); ?>">
+  <meta property="og:description" content="<?php echo $__env->yieldContent('og_description', 'Perfu.me menghadirkan koleksi parfum premium dengan konsentrat grade A, ketahanan aromatis hingga 10 jam.'); ?>">
+  <meta property="og:url"         content="<?php echo $__env->yieldContent('canonical', url()->current()); ?>">
+  <meta property="og:image"       content="<?php echo $__env->yieldContent('og_image', asset('assets/images/herosectionbaru2parfum.png')); ?>">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale"      content="id_ID">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="<?php echo $__env->yieldContent('og_title', 'Perfu.me — Luxury & Nusantara Fragrance Series'); ?>">
+  <meta name="twitter:description" content="<?php echo $__env->yieldContent('og_description', 'Perfu.me menghadirkan koleksi parfum premium dengan konsentrat grade A, ketahanan aromatis hingga 10 jam.'); ?>">
+  <meta name="twitter:image"       content="<?php echo $__env->yieldContent('og_image', asset('assets/images/herosectionbaru2parfum.png')); ?>">
+
   <?php echo $__env->yieldContent('meta'); ?>
 
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="<?php echo e(asset('favicon.svg')); ?>">
+  <link rel="icon" type="image/x-icon" href="<?php echo e(asset('favicon.ico')); ?>">
+  <meta name="theme-color" content="#0D0D0D">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

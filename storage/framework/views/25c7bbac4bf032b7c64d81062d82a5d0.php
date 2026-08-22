@@ -28,36 +28,7 @@
   </div>
 
   
-  <nav id="navbar" aria-label="Main Navigation">
-    <div class="nav-brand" data-nav="home">
-      <a href="/" style="text-decoration:none; color:inherit;"><span class="nav-brand-name">Perfu.me</span></a>
-    </div>
-
-    <ul class="nav-links">
-      <li><a href="/katalog">Katalog</a></li>
-      <li><a href="/quiz">Quiz</a></li>
-      <li><a href="#about-story-section" data-nav="about-story-section">Tentang</a></li>
-      <li><a href="#testimoni-section" data-nav="testimoni-section">Testimoni</a></li>
-      <li><a href="#footer-section" data-nav="footer-section">Kontak</a></li>
-    </ul>
-
-    <div class="nav-actions">
-      <button id="btn-open-search" class="nav-icon-btn" aria-label="Cari Parfum" title="Cari Parfum">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-      </button>
-      <button id="btn-open-cart" class="nav-icon-btn" aria-label="Keranjang Belanja" title="Keranjang Belanja">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <path d="M16 10a4 4 0 0 1-8 0"></path>
-        </svg>
-        <span class="cart-badge-count" id="cart-badge-count">0</span>
-      </button>
-    </div>
-  </nav>
+  <?php echo $__env->make('partials.navbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
   
   <header id="hero">
@@ -335,18 +306,16 @@
   </section>
 
   
-  <section class="quiz-banner-section" id="quiz-banner-section" style="background:#F5F5F7; padding:6rem 2rem; text-align:center;">
-    <div style="max-width:760px; margin:0 auto;">
-      <span style="font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#8A8A8A; display:inline-block; margin-bottom:1rem;">FIND YOUR SIGNATURE SCENT</span>
-      <h2 style="font-family:var(--font-serif); font-size:clamp(2.4rem, 4vw, 3.4rem); font-weight:300; color:#0D0D0D; line-height:1.2; margin-bottom:1.25rem;">
+  <section class="quiz-banner-section" id="quiz-banner-section" style="background:#F5F5F7; padding: 4.5rem 2rem 5rem !important; margin: 0 !important; text-align:center; position:relative; z-index:5; clear:both;">
+    <div class="quiz-banner-inner" style="max-width:760px; margin:0 auto; display:flex; flex-direction:column; align-items:center;">
+      <span class="quiz-banner-tag" style="font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#8A8A8A; display:inline-block; margin-bottom:0.85rem;">FIND YOUR SIGNATURE SCENT</span>
+      <h2 class="quiz-banner-heading" style="font-family:var(--font-serif); font-size:clamp(2.2rem, 3.5vw, 3rem); font-weight:300; color:#0D0D0D; line-height:1.2; margin:0 0 1rem 0;">
         Masih Bingung Memilih Aroma Parfum Yang Pas?
       </h2>
-      <p style="font-size:1.02rem; color:#555555; line-height:1.75; margin-bottom:2.5rem; max-width:620px; margin-left:auto; margin-right:auto;">
-        Jawab 5 pertanyaan simpel untuk menemukan varian parfum Perfu.me yang paling cocok dengan kepribadian & aktivitas harian Anda.
+      <p class="quiz-banner-desc" style="font-size:0.98rem; color:#555555; line-height:1.7; margin:0 auto 2.25rem auto; max-width:620px;">
+        Jawab 5 pertanyaan simpel untuk menemukan varian parfum Perfu.me yang paling cocok dengan kepribadian &amp; aktivitas harian Anda.
       </p>
-      <a href="/quiz" style="display:inline-flex; align-items:center; gap:0.6rem; padding:1.05rem 2.4rem; background:#0D0D0D; color:#FFFFFF; border-radius:999px; font-size:0.88rem; font-weight:700; letter-spacing:0.06em; text-decoration:none; transition:all 0.25s ease; box-shadow:0 6px 20px rgba(0,0,0,0.12);" onmouseover="this.style.background='#252525'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#0D0D0D'; this.style.transform='translateY(0)';">
-        Ikuti Quiz 
-      </a>
+      <a href="/quiz" class="quiz-banner-btn" style="display:inline-flex; align-items:center; justify-content:center; gap:0.6rem; padding:0.95rem 2.5rem; background:#0D0D0D; color:#FFFFFF; border-radius:999px; font-size:0.88rem; font-weight:700; letter-spacing:0.06em; text-decoration:none; box-shadow:0 6px 20px rgba(0,0,0,0.12);">Ikuti Quiz</a>
     </div>
   </section>
 

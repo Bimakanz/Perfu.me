@@ -44,25 +44,29 @@ var currentSort = { field: 'id', dir: 'asc' };
     const user = (userInput ? userInput.value : '').trim();
     const pass = (passInput ? passInput.value : '').trim();
 
-    if (user === 'admin' && pass === 'admin123') {
-      try {
-        if (window.API && typeof window.API.login === 'function') {
-          await window.API.login(user, pass);
-        } else if (window.API && typeof window.API.setToken === 'function') {
-          window.API.setToken('mock_session_token');
-        }
-      } catch (err) {
-        if (window.API && typeof window.API.setToken === 'function') {
-          window.API.setToken('mock_session_token');
-        }
+    if (!user || !pass) {
+      if (errorMsg) {
+        errorMsg.textContent = 'Username dan password tidak boleh kosong.';
+        errorMsg.classList.add('show');
       }
-      showDashboard();
       return false;
     }
 
-    if (errorMsg) {
-      errorMsg.textContent = 'Username atau password salah.';
-      errorMsg.classList.add('show');
+    try {
+      if (window.API && typeof window.API.login === 'function') {
+        const result = await window.API.login(user, pass);
+        if (result && result.success) {
+          showDashboard();
+          return false;
+        }
+      }
+      // Fallback: API tidak tersedia, tolak login
+      throw { message: 'Server tidak dapat dihubungi.' };
+    } catch (err) {
+      if (errorMsg) {
+        errorMsg.textContent = (err && err.message) ? err.message : 'Username atau password salah.';
+        errorMsg.classList.add('show');
+      }
     }
     return false;
   };
