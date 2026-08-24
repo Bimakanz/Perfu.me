@@ -127,14 +127,80 @@
   window.flyToCartAnimation = flyToCartAnimation;
 
   // ── Add to Cart Function ──────────────────────────────────
-  window.addToCart = async function (productId, qty = 1, evt = null) {
+  // ── Size Selection Modal for Refill Products ──────────────
+  function openSizePickerModal(product, qty, evt) {
+    let modal = document.getElementById('refill-size-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'refill-size-modal';
+      modal.style.cssText = `
+        position: fixed; inset: 0; background: rgba(0, 0, 0, 0.65);
+        z-index: 100005; display: flex; align-items: center; justify-content: center;
+        padding: 1.5rem; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        opacity: 0; transition: opacity 0.25s ease;
+      `;
+      document.body.appendChild(modal);
+    }
+
+    const sizes = [
+      { size: '15ml', price: 20000, label: '15ml — Rp 20.000' },
+      { size: '35ml', price: 45000, label: '35ml — Rp 45.000 (Populer)' },
+      { size: '50ml', price: 65000, label: '50ml — Rp 65.000' }
+    ];
+
+    modal.innerHTML = `
+      <div style="background: #FFFFFF; border-radius: 0px; border: 1px solid #1A1A1A; max-width: 420px; width: 100%; padding: 2.5rem 2rem; box-shadow: 0 30px 60px rgba(0,0,0,0.3); text-align: center; position: relative; font-family: 'Manrope', sans-serif;">
+        <button id="btn-close-size-modal" style="position: absolute; top: 1.25rem; right: 1.25rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #8A8A8A; line-height: 1;">&times;</button>
+        
+        <div style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #8A8A8A; margin-bottom: 0.6rem;">PILIH UKURAN BOTOL</div>
+        <h3 style="font-family: 'Zaloga', Georgia, serif; font-size: 1.75rem; font-weight: 400; color: #0D0D0D; margin: 0 0 0.5rem; letter-spacing: 0.02em;">${product.name}</h3>
+        <p style="font-size: 0.85rem; color: #666666; margin: 0 0 1.75rem; line-height: 1.5;">Pilih ukuran botol refill yang Anda inginkan:</p>
+
+        <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 0.5rem;">
+          ${sizes.map(s => `
+            <button class="modal-size-opt-btn" data-size="${s.size}" data-price="${s.price}" style="
+              display: flex; align-items: center; justify-content: space-between;
+              padding: 1.05rem 1.4rem; background: #FFFFFF; border: 1px solid #1A1A1A;
+              border-radius: 0px; font-family: 'Manrope', sans-serif; font-size: 0.88rem;
+              font-weight: 700; letter-spacing: 0.05em; color: #0D0D0D; cursor: pointer; transition: all 0.2s ease;
+            " onmouseover="this.style.background='#0D0D0D'; this.style.color='#FFFFFF';" onmouseout="this.style.background='#FFFFFF'; this.style.color='#0D0D0D';">
+              <span>${s.size.toUpperCase()}</span>
+              <span>Rp ${Number(s.price).toLocaleString('id-ID')}</span>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    modal.style.display = 'flex';
+    setTimeout(() => { modal.style.opacity = '1'; }, 10);
+
+    const closeModal = () => {
+      modal.style.opacity = '0';
+      setTimeout(() => { modal.style.display = 'none'; }, 250);
+    };
+
+    document.getElementById('btn-close-size-modal').onclick = closeModal;
+    modal.onclick = (e) => { if (e.target === modal) closeModal(); };
+
+    modal.querySelectorAll('.modal-size-opt-btn').forEach(btn => {
+      btn.onclick = () => {
+        const chosenSize = btn.getAttribute('data-size');
+        const chosenPrice = Number(btn.getAttribute('data-price'));
+        closeModal();
+        execAddToCart(product, qty, chosenSize, chosenPrice, evt);
+      };
+    });
+  }
+
+  // ── Main Add to Cart Handler ──────────────────────────────
+  window.addToCart = async function (productId, qty = 1, evt = null, selectedSize = null, selectedPrice = null) {
     let product = PRODUCTS_DATA.find(p => p.id === Number(productId));
 
-    // If not in cache, try fetching directly from API
     if (!product && window.API && typeof window.API.getById === 'function') {
       try {
         product = await window.API.getById(Number(productId));
-        if (product) PRODUCTS_DATA.push(product); // add to cache
+        if (product) PRODUCTS_DATA.push(product);
       } catch (e) {}
     }
 
@@ -143,19 +209,40 @@
       return;
     }
 
+    const isRefill = String(product.type || '').toLowerCase() === 'refill' ||
+                     String(product.name || '').toLowerCase().includes('refill') ||
+                     (!String(product.name || '').toLowerCase().includes('vanessence') &&
+                      !String(product.name || '').toLowerCase().includes('dynamyst') &&
+                      !String(product.name || '').toLowerCase().includes('nusantara'));
+
+    // If refill product and size was not explicitly provided (e.g. clicked from catalog listing card)
+    if (isRefill && !selectedSize) {
+      openSizePickerModal(product, qty, evt);
+      return;
+    }
+
+    const finalSize = selectedSize || product.size || '30ml';
+    const finalPrice = selectedPrice || product.price || 45000;
+
+    execAddToCart(product, qty, finalSize, finalPrice, evt);
+  };
+
+  function execAddToCart(product, qty, chosenSize, chosenPrice, evt) {
     let cart = getCart();
-    const existingIndex = cart.findIndex(item => item.id === product.id);
+    const cartItemKey = `${product.id}_${chosenSize}`;
+    const existingIndex = cart.findIndex(item => (item.cartKey || `${item.id}_${item.size}`) === cartItemKey);
 
     if (existingIndex > -1) {
       cart[existingIndex].qty += qty;
     } else {
       cart.push({
+        cartKey: cartItemKey,
         id: product.id,
         name: product.name,
         type: product.type,
         variant: product.variant,
-        size: product.size,
-        price: product.price,
+        size: chosenSize,
+        price: chosenPrice,
         image: product.image,
         qty: qty
       });
@@ -165,24 +252,24 @@
     flyToCartAnimation(product.image, evt || window.event);
     showCenterToast('Produk telah ditambahkan ke keranjang belanja');
     renderCartItems();
-  };
+  }
 
-  // ── Remove & Update Qty (No notifications/animations on delete) ──
-  window.removeFromCart = function (id) {
+  // ── Remove & Update Qty by Unique Cart Item Key ──────────
+  window.removeFromCart = function (cartKey) {
     let cart = getCart();
-    cart = cart.filter(i => i.id !== Number(id));
+    cart = cart.filter(i => (i.cartKey || String(i.id)) !== String(cartKey));
     saveCart(cart);
     renderCartItems();
   };
 
-  window.updateCartQty = function (id, delta) {
+  window.updateCartQty = function (cartKey, delta) {
     let cart = getCart();
-    const item = cart.find(i => i.id === Number(id));
+    const item = cart.find(i => (i.cartKey || String(i.id)) === String(cartKey));
     if (!item) return;
 
     item.qty += delta;
     if (item.qty <= 0) {
-      cart = cart.filter(i => i.id !== Number(id));
+      cart = cart.filter(i => (i.cartKey || String(i.id)) !== String(cartKey));
     }
 
     saveCart(cart);
@@ -407,21 +494,22 @@
 
     container.innerHTML = cart.map(item => {
       const imgSrc = formatImgUrl(item.image);
+      const keyArg = `'${item.cartKey || item.id}'`;
       return `
         <div class="cart-item-card">
           <img src="${imgSrc}" alt="${item.name}" class="cart-item-img" onerror="this.src='/assets/images/refill.webp'">
           <div class="cart-item-details">
             <div class="cart-item-name">${item.name}</div>
-            <div class="cart-item-variant">${item.variant} · ${item.size}</div>
+            <div class="cart-item-variant">${item.variant ? item.variant + ' · ' : ''}${item.size.toUpperCase()}</div>
             <div class="cart-item-price">${formatPrice(item.price)}</div>
 
             <div class="cart-qty-control">
-              <button class="qty-btn" onclick="window.updateCartQty(${item.id}, -1)">−</button>
+              <button class="qty-btn" onclick="window.updateCartQty(${keyArg}, -1)">−</button>
               <span class="qty-num">${item.qty}</span>
-              <button class="qty-btn" onclick="window.updateCartQty(${item.id}, 1)">+</button>
+              <button class="qty-btn" onclick="window.updateCartQty(${keyArg}, 1)">+</button>
             </div>
           </div>
-          <button class="cart-item-remove" onclick="window.removeFromCart(${item.id})" title="Hapus produk">&times;</button>
+          <button class="cart-item-remove" onclick="window.removeFromCart(${keyArg})" title="Hapus produk">&times;</button>
         </div>
       `;
     }).join('');

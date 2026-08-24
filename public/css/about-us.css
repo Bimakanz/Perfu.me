@@ -284,9 +284,9 @@
 }
 
 .stat-number {
-  font-family: var(--font-serif, serif);
+  font-family: 'Manrope', var(--font-sans, sans-serif);
   font-size: clamp(2.8rem, 4vw, 3.8rem);
-  font-weight: 300;
+  font-weight: 600;
   color: var(--black, #111111);
   line-height: 1;
   letter-spacing: -0.02em;

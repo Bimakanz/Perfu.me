@@ -34,7 +34,7 @@
 
   {{-- 3. HERO SECTION --}}
   <header id="hero">
-    <img src="{{ asset('assets/images/herosectionbaru2parfum.png') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
+    <img src="{{ asset('assets/images/herosectionbaru2parfumtanpawm.png') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
     <div class="hero-overlay-dark"></div>
 
     <div class="hero-grid">
@@ -46,7 +46,7 @@
           Lahir dari pengalaman panjang, kini hadir 2 racikan signature orisinal pertama kami. Diformulasikan dengan Perfume Oil Grade A untuk ketahanan lebih dari 8 jam.
         </p>
         <div class="hero-btn-group">
-          <a href="#produk-section" class="btn-hero-primary">Jelajahi Koleksi</a>
+          <a href="/katalog" class="btn-hero-primary">Jelajahi Koleksi</a>
         </div>
       </div>
     </div>

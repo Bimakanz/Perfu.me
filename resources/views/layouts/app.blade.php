@@ -16,7 +16,7 @@
   <meta property="og:title"       content="@yield('og_title', 'Perfu.me — Luxury & Nusantara Fragrance Series')">
   <meta property="og:description" content="@yield('og_description', 'Perfu.me menghadirkan koleksi parfum premium dengan konsentrat grade A, ketahanan aromatis hingga 10 jam.')">
   <meta property="og:url"         content="@yield('canonical', url()->current())">
-  <meta property="og:image"       content="@yield('og_image', asset('assets/images/herosectionbaru2parfum.png'))">
+  <meta property="og:image"       content="@yield('og_image', asset('assets/images/herosectionbaru2parfumtanpawm.png'))">
   <meta property="og:image:width"  content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale"      content="id_ID">
@@ -25,7 +25,7 @@
   <meta name="twitter:card"        content="summary_large_image">
   <meta name="twitter:title"       content="@yield('og_title', 'Perfu.me — Luxury & Nusantara Fragrance Series')">
   <meta name="twitter:description" content="@yield('og_description', 'Perfu.me menghadirkan koleksi parfum premium dengan konsentrat grade A, ketahanan aromatis hingga 10 jam.')">
-  <meta name="twitter:image"       content="@yield('og_image', asset('assets/images/herosectionbaru2parfum.png'))">
+  <meta name="twitter:image"       content="@yield('og_image', asset('assets/images/herosectionbaru2parfumtanpawm.png'))">
 
   @yield('meta')
 
@@ -154,14 +154,14 @@
       const container = document.getElementById('floating-wa-container');
       const waBtn = document.getElementById('floating-wa-btn');
       const heroEl = document.getElementById('hero') || document.querySelector('.hero-section');
-      const isProductDetail = document.getElementById('product-detail-page') || 
-                              document.querySelector('.product-detail-container') || 
-                              window.location.pathname.includes('/product/') ||
-                              document.body.classList.contains('product-detail');
+      
+      const path = window.location.pathname.toLowerCase();
+      // Izinkan HANYA pada Halaman Beranda ("/", "") dan Katalog ("/katalog")
+      const isAllowedPage = (path === '/' || path === '' || path.startsWith('/katalog'));
 
-      // Jika di Halaman Product Detail, sembunyikan widget WA 100%
-      if (isProductDetail && container) {
-        container.style.display = 'none';
+      if (!isAllowedPage && container) {
+        container.style.display = 'none !important';
+        container.remove(); // Hapus total elemen dari DOM pada halaman non-Home & non-Katalog
         return;
       }
 
@@ -170,7 +170,7 @@
           const scrollY = window.scrollY || window.pageYOffset;
           
           if (heroEl) {
-            // Halaman Home dengan Hero Section: Tampil HANYA jika scroll melewati hero section
+            // Halaman Home: Tampil setelah scroll melewati Hero Section
             const triggerPoint = Math.max(200, heroEl.offsetHeight - 120);
             if (scrollY > triggerPoint) {
               container.classList.add('visible');
@@ -179,7 +179,7 @@
               container.classList.remove('active');
             }
           } else {
-            // Halaman tanpa Hero Section (Katalog, Detail Produk, Quiz): Tampil setelah scroll > 150px
+            // Halaman Katalog: Tampil setelah scroll > 150px
             if (scrollY > 150) {
               container.classList.add('visible');
             } else {
@@ -189,7 +189,6 @@
           }
         }
 
-        // Check on initial scroll & scroll event
         window.addEventListener('scroll', checkScrollPosition, { passive: true });
         checkScrollPosition();
 

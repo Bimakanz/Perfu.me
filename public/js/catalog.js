@@ -70,7 +70,7 @@
       const baseStr = p.base_notes || p.baseNotes || '';
 
       const categoryTag = `${(p.gender || 'UNISEX').toUpperCase()} • ${(p.variant || '').toUpperCase()}`;
-      const originalPrice = 220000;
+      const originalPrice = 55000;
 
       // Handle base64 or valid image src
       let imgSrc = p.image || 'assets/images/Nusantara1nobg.png';

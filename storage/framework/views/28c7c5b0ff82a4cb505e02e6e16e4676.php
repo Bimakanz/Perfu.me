@@ -1,10 +1,8 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Scent Finder Quiz — Perfu.me'); ?>
+<?php $__env->startSection('description', 'Temukan parfum terbaik untuk karakter Anda melalui 5 pertanyaan simpel dari Parfu.me.'); ?>
 
-@section('title', 'Scent Finder Quiz — Perfu.me')
-@section('description', 'Temukan parfum terbaik untuk karakter Anda melalui 5 pertanyaan simpel dari Parfu.me.')
-
-@section('styles')
-  <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+<?php $__env->startSection('styles'); ?>
+  <link rel="stylesheet" href="<?php echo e(asset('css/navbar.css')); ?>">
   <style>
     body {
       background-color: #FAFAFA;
@@ -520,13 +518,13 @@
       }
     }
   </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
-  {{-- NAVBAR --}}
-  @include('partials.navbar', ['activeNav' => 'quiz'])
+<?php $__env->startSection('content'); ?>
+  
+  <?php echo $__env->make('partials.navbar', ['activeNav' => 'quiz'], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-  {{-- Header --}}
+  
   <header class="quiz-hero-header" id="quiz-hero-header">
     <h1 class="quiz-title" id="quiz-hero-title">Temukan Aroma Parfum Anda</h1>
     <p class="quiz-subtitle" id="quiz-hero-subtitle">
@@ -534,12 +532,12 @@
     </p>
   </header>
 
-  {{-- Main Seamless Quiz Box --}}
+  
   <main class="quiz-main-container">
 
-    {{-- Stage 1: Active Questions --}}
+    
     <div id="quiz-active-stage">
-      {{-- Progress Bar --}}
+      
       <div class="quiz-progress-wrap">
         <div class="quiz-progress-bar-bg">
           <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
@@ -550,7 +548,7 @@
         </div>
       </div>
 
-      {{-- Question 1 --}}
+      
       <div class="question-block active" data-step="1">
         <div class="question-text">
           "Saya suka bau yang manis dan hangat."
@@ -576,7 +574,7 @@
         </div>
       </div>
 
-      {{-- Question 2 --}}
+      
       <div class="question-block" data-step="2">
         <div class="question-text">
           "Saya sering beraktivitas di luar ruangan (outdoor)."
@@ -602,7 +600,7 @@
         </div>
       </div>
 
-      {{-- Question 3 --}}
+      
       <div class="question-block" data-step="3">
         <div class="question-text">
           "Saya lebih menyukai wangi bunga dan alam yang segar."
@@ -628,7 +626,7 @@
         </div>
       </div>
 
-      {{-- Question 4 --}}
+      
       <div class="question-block" data-step="4">
         <div class="question-text">
           "Saya butuh parfum eksklusif untuk acara formal atau pesta."
@@ -654,7 +652,7 @@
         </div>
       </div>
 
-      {{-- Question 5 --}}
+      
       <div class="question-block" data-step="5">
         <div class="question-text">
           "Saya lebih suka parfum yang praktis dan mudah dibawa kemana-mana."
@@ -680,17 +678,17 @@
         </div>
       </div>
 
-      {{-- Navigation Actions --}}
+      
       <div class="quiz-actions-row">
         <button type="button" class="btn-quiz-prev" id="btn-quiz-prev" disabled>KEMBALI</button>
         <button type="button" class="btn-quiz-next" id="btn-quiz-next" disabled>SELANJUTNYA</button>
       </div>
     </div>
 
-    {{-- Stage 2: Results Display --}}
+    
     <div id="quiz-results-stage" class="quiz-results-wrapper">
       <div class="results-grid" id="results-grid-container">
-        {{-- Dynamically populated via JS matching DB products --}}
+        
       </div>
 
       <div style="text-align: center; margin-top: 2rem;">
@@ -706,14 +704,14 @@
 
   </main>
 
-  {{-- FOOTER --}}
-  @include('partials.footer')
-@endsection
+  
+  <?php echo $__env->make('partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+<?php $__env->stopSection(); ?>
 
-@section('scripts')
+<?php $__env->startSection('scripts'); ?>
   <script>
     // Products Database passed from Laravel PHP
-    const DB_PRODUCTS = @json(\App\Models\Product::all());
+    const DB_PRODUCTS = <?php echo json_encode(\App\Models\Product::all(), 15, 512) ?>;
 
     let currentStep = 1;
     const totalSteps = 5;
@@ -900,4 +898,6 @@
       updateQuestionStep();
     }
   </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/quiz.blade.php ENDPATH**/ ?>

@@ -582,14 +582,15 @@ button {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.25rem;
+  font-family: 'Manrope', var(--font-sans, sans-serif);
   font-size: 0.95rem;
   color: #52525B;
 }
 
 .cart-subtotal-row strong {
-  font-family: var(--font-serif);
-  font-size: 1.65rem;
-  font-weight: 500;
+  font-family: 'Manrope', var(--font-sans, sans-serif);
+  font-size: 1.45rem;
+  font-weight: 700;
   color: #0D0D0D;
 }
 
@@ -1287,7 +1288,7 @@ button {
     text-align: center;
   }
 }
-}
+
 
 /* Quiz Promotion Banner Section */
 .quiz-banner-section {
