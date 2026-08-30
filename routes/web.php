@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Product;
+use App\Models\Testimonial;
 
 /*
 |--------------------------------------------------------------------------
@@ -9,15 +11,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Storefront — Blade Views
-Route::get('/', fn() => view('home'))->name('home');
+Route::get('/', function () {
+    // Ambil 8 testimoni terbaru beserta relasi produknya
+    $testimonials = Testimonial::with('product')->latest()->take(8)->get();
+
+    // Pecah menjadi 2 bagian untuk baris atas dan baris bawah pada slider
+    $half = ceil($testimonials->count() / 2);
+    $testimonialsTop = $testimonials->slice(0, $half);
+    $testimonialsBottom = $testimonials->slice($half);
+
+    return view('home', compact('testimonialsTop', 'testimonialsBottom'));
+})->name('home');
+
 Route::get('/katalog', fn() => view('katalog'))->name('katalog');
 Route::get('/quiz', fn() => view('quiz'))->name('quiz');
+
 Route::get('/produk/{id}', function ($id) {
-    $product = \App\Models\Product::find($id);
+    $product = Product::find($id);
     if (!$product) abort(404);
     
     // Fetch 4 related/other products
-    $relatedProducts = \App\Models\Product::where('id', '!=', $id)
+    $relatedProducts = Product::where('id', '!=', $id)
         ->inRandomOrder()
         ->take(4)
         ->get();
@@ -27,11 +41,22 @@ Route::get('/produk/{id}', function ($id) {
 
 // Admin Portal — Blade Views
 Route::get('/admin', fn() => view('admin.index'))->name('admin');
+
+Route::get('/admin/testimoni', function () {
+    // Ambil data produk untuk dropdown pilihan di form tambah testimoni
+    $products = Product::select('id', 'name')->orderBy('name')->get();
+    
+    // Ambil data testimoni agar tampil di daftar sebelah kanan
+    $testimonials = Testimonial::with('product')->latest()->get();
+
+    return view('admin.testimoni', compact('products', 'testimonials'));
+})->name('admin.testimoni');
+
 Route::get('/admin/produk/{id}', function ($id) {
-    $product = \App\Models\Product::find($id);
+    $product = Product::find($id);
     if (!$product) abort(404);
 
-    $relatedProducts = \App\Models\Product::where('id', '!=', $id)
+    $relatedProducts = Product::where('id', '!=', $id)
         ->inRandomOrder()
         ->take(4)
         ->get();
@@ -39,10 +64,11 @@ Route::get('/admin/produk/{id}', function ($id) {
     return view('admin.product-detail', compact('product', 'relatedProducts'));
 })->name('admin.product.detail');
 
+
 // Sitemap — Dynamic XML
 Route::get('/sitemap.xml', function () {
     $baseUrl = url('/');
-    $products = \App\Models\Product::select('id', 'updated_at')->get();
+    $products = Product::select('id', 'updated_at')->get();
 
     $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
     $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
@@ -62,4 +88,3 @@ Route::get('/sitemap.xml', function () {
 
     return response($xml, 200)->header('Content-Type', 'application/xml');
 })->name('sitemap');
-
