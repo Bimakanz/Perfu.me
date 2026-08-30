@@ -25,8 +25,19 @@ Route::get('/produk/{id}', function ($id) {
     return view('product-detail', compact('product', 'relatedProducts'));
 })->name('product.detail');
 
-// Admin Portal — Blade View
+// Admin Portal — Blade Views
 Route::get('/admin', fn() => view('admin.index'))->name('admin');
+Route::get('/admin/produk/{id}', function ($id) {
+    $product = \App\Models\Product::find($id);
+    if (!$product) abort(404);
+
+    $relatedProducts = \App\Models\Product::where('id', '!=', $id)
+        ->inRandomOrder()
+        ->take(4)
+        ->get();
+
+    return view('admin.product-detail', compact('product', 'relatedProducts'));
+})->name('admin.product.detail');
 
 // Sitemap — Dynamic XML
 Route::get('/sitemap.xml', function () {

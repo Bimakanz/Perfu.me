@@ -5,16 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Portal — Perfu.me Dashboard</title>
-  <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
-  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+  <link rel="icon" type="image/svg+xml" href="<?php echo e(asset('favicon.svg')); ?>">
+  <link rel="icon" type="image/x-icon" href="<?php echo e(asset('favicon.ico')); ?>">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+  <link rel="stylesheet" href="<?php echo e(asset('css/main.css')); ?>">
+  <link rel="stylesheet" href="<?php echo e(asset('css/admin.css')); ?>">
 </head>
 
 <body>
@@ -25,8 +25,8 @@
   <div id="admin-login-page" class="admin-page">
     <!-- Left Section: Perfume Image Showcase + Welcome Greeting -->
     <div class="admin-login-left">
-      <img src="{{ asset('assets/images/adminhero.webp') }}" alt="Perfume Showcase" class="admin-login-left-img"
-        id="login-left-img" onerror="this.src='{{ asset('assets/images/penisence.webp') }}'">
+      <img src="<?php echo e(asset('assets/images/adminhero.webp')); ?>" alt="Perfume Showcase" class="admin-login-left-img"
+        id="login-left-img" onerror="this.src='<?php echo e(asset('assets/images/penisence.webp')); ?>'">
       <div class="admin-login-left-overlay">
         <div class="admin-brand-mark">Perfu.me</div>
         <div class="admin-brand-tagline">Nusantara &amp; Luxury Fragrance Series</div>
@@ -510,8 +510,9 @@
   <div id="toast-container" style="display:none !important;"></div>
 
   <!-- Scripts -->
-  <script src="{{ asset('js/db.js') }}"></script>
-  <script src="{{ asset('js/admin.js') }}"></script>
+  <script src="<?php echo e(asset('js/db.js')); ?>"></script>
+  <script src="<?php echo e(asset('js/admin.js')); ?>"></script>
 </body>
 
 </html>
+<?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/admin/index.blade.php ENDPATH**/ ?>

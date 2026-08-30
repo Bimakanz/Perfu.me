@@ -914,28 +914,39 @@
     const signatureProds = paginatedProducts.filter(isSignature);
     const refillProds = paginatedProducts.filter(p => !isSignature(p));
 
-    const renderCard = (p) => `
-      <div class="product-card" onclick="window.location.href='/produk/${p.id}'" role="button" tabindex="0">
-        <div class="product-card-img-wrap">
-          <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='${FALLBACK_IMG}'">
-          ${p.best_seller ? '<span class="best-seller-badge">Best Seller</span>' : ''}
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-meta">${p.type.toUpperCase()} • ${p.gender.toUpperCase()} • ${p.variant.toUpperCase()}</div>
-          <div class="product-card-name">${p.name}</div>
-          <div class="product-card-tagline">${p.tagline || ''}</div>
-          <div class="product-card-price-row">
-            <span class="product-card-price">${formatPrice(p.price)}</span>
+    const renderCard = (p) => {
+      const isOutOfStock = Number(p.stock || 0) <= 0;
+      const waAction = isOutOfStock 
+        ? `class="btn-card-wa btn-out-of-stock" data-tooltip="Stok Produk Habis" onclick="event.stopPropagation()"`
+        : `href="https://wa.me/6281383415432?text=Halo%2C%20saya%20ingin%20memesan%20${encodeURIComponent(p.name)}%20(${p.size})%20seharga%20${encodeURIComponent(formatPrice(p.price))}" target="_blank" rel="noopener" class="btn-card-wa" onclick="event.stopPropagation()"`;
+
+      const cartAction = isOutOfStock
+        ? `disabled class="btn-card-cart btn-out-of-stock" data-tooltip="Stok Produk Habis" onclick="event.stopPropagation()"`
+        : `class="btn-card-cart" onclick="event.stopPropagation(); window.addToCart(${p.id})" title="Masukkan ke Keranjang"`;
+
+      return `
+        <div class="product-card" onclick="window.location.href='/produk/${p.id}'" role="button" tabindex="0">
+          <div class="product-card-img-wrap">
+            <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='${FALLBACK_IMG}'">
+            ${isOutOfStock ? '<span class="best-seller-badge" style="background:#71717A;">Stok Habis</span>' : (p.best_seller ? '<span class="best-seller-badge">Best Seller</span>' : '')}
           </div>
-          <div class="product-card-actions">
-            <a href="https://wa.me/6281383415432?text=Halo%2C%20saya%20ingin%20memesan%20${encodeURIComponent(p.name)}%20(${p.size})%20seharga%20${encodeURIComponent(formatPrice(p.price))}" target="_blank" rel="noopener" class="btn-card-wa" onclick="event.stopPropagation()">Pesan WhatsApp</a>
-            <button class="btn-card-cart" onclick="event.stopPropagation(); window.addToCart(${p.id})" title="Masukkan ke Keranjang">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-            </button>
+          <div class="product-card-body">
+            <div class="product-card-meta">${p.type.toUpperCase()} • ${p.gender.toUpperCase()} • ${p.variant.toUpperCase()}</div>
+            <div class="product-card-name">${p.name}</div>
+            <div class="product-card-tagline">${p.tagline || ''}</div>
+            <div class="product-card-price-row">
+              <span class="product-card-price">${formatPrice(p.price)}</span>
+            </div>
+            <div class="product-card-actions">
+              <a ${waAction}>${isOutOfStock ? 'Stok Habis' : 'Pesan WhatsApp'}</a>
+              <button ${cartAction}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    `;
+      `;
+    };
 
     let html = '';
 

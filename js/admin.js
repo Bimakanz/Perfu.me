@@ -37,6 +37,7 @@ var currentSort = { field: 'id', dir: 'asc' };
   window.doAdminLogin = async function(e) {
     if (e) e.preventDefault();
     const errorMsg = document.getElementById('login-error-msg');
+    const submitBtn = document.getElementById('login-submit-btn');
     if (errorMsg) errorMsg.classList.remove('show');
 
     const userInput = document.getElementById('admin-user-input');
@@ -56,16 +57,45 @@ var currentSort = { field: 'id', dir: 'asc' };
       if (window.API && typeof window.API.login === 'function') {
         const result = await window.API.login(user, pass);
         if (result && result.success) {
-          showDashboard();
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Masuk ke Dashboard';
+          }
+          showDashboard(true);
           return false;
         }
       }
-      // Fallback: API tidak tersedia, tolak login
       throw { message: 'Server tidak dapat dihubungi.' };
     } catch (err) {
       if (errorMsg) {
-        errorMsg.textContent = (err && err.message) ? err.message : 'Username atau password salah.';
+        const msg = (err && err.message) ? err.message : 'Username atau password salah.';
+        errorMsg.textContent = msg;
         errorMsg.classList.add('show');
+      }
+
+      // Handle 3-minute lockout disable
+      if (err && (err.locked || (err.status === 429))) {
+        let seconds = err.retry_after || 180;
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.style.opacity = '0.5';
+          submitBtn.style.cursor = 'not-allowed';
+          
+          if (window._lockoutTimer) clearInterval(window._lockoutTimer);
+          window._lockoutTimer = setInterval(() => {
+            seconds--;
+            if (seconds <= 0) {
+              clearInterval(window._lockoutTimer);
+              submitBtn.disabled = false;
+              submitBtn.style.opacity = '1';
+              submitBtn.style.cursor = 'pointer';
+              submitBtn.textContent = 'Masuk ke Dashboard';
+              if (errorMsg) errorMsg.classList.remove('show');
+            } else {
+              submitBtn.textContent = `Tunggu (${seconds}d)...`;
+            }
+          }, 1000);
+        }
       }
     }
     return false;
@@ -108,7 +138,7 @@ var currentSort = { field: 'id', dir: 'asc' };
     // Check existing session
     try {
       if (window.API && typeof window.API.hasToken === 'function' && window.API.hasToken()) {
-        showDashboard();
+        showDashboard(false);
       }
     } catch (e) {}
   }
@@ -155,7 +185,7 @@ var currentSort = { field: 'id', dir: 'asc' };
     });
   }
 
-  function showDashboard() {
+  function showDashboard(isFreshLogin = false) {
     const loginPage = document.getElementById('admin-login-page');
     const dashPage = document.getElementById('admin-dashboard-page');
     const welcomeOverlay = document.getElementById('admin-welcome-overlay');
@@ -173,8 +203,8 @@ var currentSort = { field: 'id', dir: 'asc' };
     try { updateStats(); } catch (e) {}
     loadDashboardData();
 
-    // Step 2: Tampilkan loading overlay DI DALAM dashboard
-    if (welcomeOverlay && progressFill) {
+    // Step 2: Tampilkan loading overlay HANYA JIKA baru login berhasil
+    if (isFreshLogin && welcomeOverlay && progressFill) {
       progressFill.style.width = '0%';
       welcomeOverlay.classList.add('active');
 
@@ -185,10 +215,10 @@ var currentSort = { field: 'id', dir: 'asc' };
       setTimeout(() => {
         welcomeOverlay.classList.remove('active');
       }, 1200);
+    } else if (welcomeOverlay) {
+      welcomeOverlay.classList.remove('active');
     }
   }
-
-
 
   window.handleSessionExpired = function() {
     if (window.API && typeof window.API.clearToken === 'function') {
@@ -476,12 +506,12 @@ function renderAdminPaginationControls(totalPages) {
     }
   }
 
-  // ── 3. Product Detail Modal ──────────────────────────────
+  // ── 3. Product Detail Modal (PDP Mirror for Admin) ─────────
   function initDetailModal() {
     const backdrop = document.getElementById('detail-modal-backdrop');
     const closeBtn = document.getElementById('btn-close-detail');
     const btnClose = document.getElementById('detail-btn-close');
-    const btnZero = document.getElementById('detail-btn-zero');
+    const btnToggleStock = document.getElementById('detail-btn-toggle-stock');
     const btnEdit = document.getElementById('detail-btn-edit');
 
     if (closeBtn) closeBtn.addEventListener('click', closeDetailModal);
@@ -494,52 +524,8 @@ function renderAdminPaginationControls(totalPages) {
     }
 
     window.openDetailModal = function (id) {
-      const p = products.find(prod => String(prod.id) === String(id));
-      if (!p) return;
-
-      detailTargetId = id;
-
-      document.getElementById('detail-gender').textContent = (p.gender || 'UNISEX').toUpperCase();
-      document.getElementById('detail-name').textContent = p.name;
-      document.getElementById('detail-img').src = formatImgUrl(p.image);
-      document.getElementById('detail-meta').textContent = `${(p.type || 'Eau de Parfum').toUpperCase()} · ${(p.size || '30ML').toUpperCase()}`;
-      document.getElementById('detail-price').textContent = `Rp ${Number(p.price).toLocaleString('id-ID')}`;
-      document.getElementById('detail-tagline').textContent = p.tagline ? `"${p.tagline}"` : '';
-      document.getElementById('detail-desc').textContent = p.description || 'Tidak ada deskripsi.';
-
-      document.getElementById('detail-top').textContent = p.top_notes || p.topNotes || '—';
-      document.getElementById('detail-middle').textContent = p.middle_notes || p.middleNotes || '—';
-      document.getElementById('detail-base').textContent = p.base_notes || p.baseNotes || '—';
-
-      document.getElementById('detail-packaging').textContent = p.packaging || 'Botol kaca spray';
-      document.getElementById('detail-bestseller').textContent = Boolean(p.bestSeller || p.best_seller) ? '★ Ya (Best Seller)' : 'Bukan Best Seller';
-
-      // Stock Pill inside Modal
-      const stockPill = document.getElementById('detail-stock-status-pill');
-      if (stockPill) {
-        stockPill.innerHTML = stockCellHtml(p.stock);
-      }
-
-      // Configure Action buttons in detail modal
-      if (btnZero) {
-        const isZero = Number(p.stock) === 0;
-        btnZero.disabled = isZero;
-        btnZero.style.opacity = isZero ? '0.4' : '1';
-        btnZero.style.cursor = isZero ? 'not-allowed' : 'pointer';
-        btnZero.onclick = () => {
-          closeDetailModal();
-          window.quickZeroStock(p.id);
-        };
-      }
-
-      if (btnEdit) {
-        btnEdit.onclick = () => {
-          closeDetailModal();
-          window.openEditPanel(p.id);
-        };
-      }
-
-      backdrop.classList.add('active');
+      if (!id) return;
+      window.location.href = `/admin/produk/${id}`;
     };
   }
 

@@ -461,6 +461,57 @@
     transform: translateY(-1px);
   }
 
+  /* Out of Stock (Stok Habis) Styles & Tooltip */
+  .btn-out-of-stock {
+    background: #A1A1AA !important;
+    color: #FFFFFF !important;
+    border-color: #A1A1AA !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    position: relative;
+  }
+
+  .btn-out-of-stock:hover {
+    background: #888888 !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Custom Hover Tooltip for Disabled Action */
+  [data-tooltip] {
+    position: relative;
+  }
+
+  [data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: rgba(15, 15, 18, 0.92);
+    color: #FFFFFF;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.45rem 0.85rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  [data-tooltip]:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
   @media (max-width: 900px) {
     .detail-hero-grid { grid-template-columns: 1fr; gap: 2rem; }
     .bottom-bar-product-info { display: none; }
@@ -811,7 +862,7 @@
   let selectedSize = "<?php echo e($isSignature ? '30ml' : '35ml'); ?>";
   const isSignature = <?php echo e($isSignature ? 'true' : 'false'); ?>;
   const productName = <?php echo json_encode($product->name, 15, 512) ?>;
-  const productId = <?php echo e($product->id); ?>;
+  const productStock = <?php echo e((int)($product->stock ?? 0)); ?>;
 
   function updateDisplay() {
     const totalPrice = selectedPrice * currentQty;
@@ -821,8 +872,37 @@
     document.getElementById('bar-price-text').textContent = formattedPrice;
     document.getElementById('qty-val').textContent = currentQty;
 
-    const waMessage = `Halo, saya ingin memesan ${productName} (Varian: ${selectedSize}, Jumlah: ${currentQty} pcs) total seharga ${formattedPrice}`;
-    document.getElementById('btn-order-wa').href = `https://wa.me/6281383415432?text=${encodeURIComponent(waMessage)}`;
+    const waBtn = document.getElementById('btn-order-wa');
+    const cartBtn = document.querySelector('.btn-bottom-cart');
+
+    if (productStock <= 0) {
+      if (waBtn) {
+        waBtn.removeAttribute('href');
+        waBtn.removeAttribute('target');
+        waBtn.classList.add('btn-out-of-stock');
+        waBtn.setAttribute('data-tooltip', 'Stok Produk Habis');
+        waBtn.onclick = (e) => e.preventDefault();
+      }
+      if (cartBtn) {
+        cartBtn.disabled = true;
+        cartBtn.classList.add('btn-out-of-stock');
+        cartBtn.setAttribute('data-tooltip', 'Stok Produk Habis');
+      }
+    } else {
+      if (waBtn) {
+        const waMessage = `Halo, saya ingin memesan ${productName} (Varian: ${selectedSize}, Jumlah: ${currentQty} pcs) total seharga ${formattedPrice}`;
+        waBtn.href = `https://wa.me/6281383415432?text=${encodeURIComponent(waMessage)}`;
+        waBtn.target = '_blank';
+        waBtn.classList.remove('btn-out-of-stock');
+        waBtn.removeAttribute('data-tooltip');
+        waBtn.onclick = null;
+      }
+      if (cartBtn) {
+        cartBtn.disabled = false;
+        cartBtn.classList.remove('btn-out-of-stock');
+        cartBtn.removeAttribute('data-tooltip');
+      }
+    }
   }
 
   function initCustomSizeDropdown() {
@@ -863,14 +943,16 @@
   }
 
   function changeQty(delta) {
+    if (productStock <= 0) return;
     currentQty += delta;
     if (currentQty < 1) currentQty = 1;
     updateDisplay();
   }
 
   function addSelectedToCart(evt) {
+    if (productStock <= 0) return;
     if (window.addToCart) {
-      window.addToCart(productId, currentQty, evt || window.event);
+      window.addToCart(productId, currentQty, evt || window.event, selectedSize, selectedPrice);
     }
   }
 

@@ -16,15 +16,59 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
+        $ip = $request->ip();
+        $attemptsKey = 'login_attempts_' . $ip;
+        $lockoutKey  = 'login_lockout_' . $ip;
+
+        // Check if currently locked out
+        if (Cache::has($lockoutKey)) {
+            $secondsRemaining = Cache::get($lockoutKey) - time();
+            if ($secondsRemaining > 0) {
+                $minutes = ceil($secondsRemaining / 60);
+                return response()->json([
+                    'success' => false,
+                    'message' => "Terlalu banyak percobaan gagal. Silakan coba lagi dalam {$secondsRemaining} detik ({$minutes} menit).",
+                    'retry_after' => $secondsRemaining,
+                    'locked' => true,
+                ], 429);
+            } else {
+                Cache::forget($lockoutKey);
+                Cache::forget($attemptsKey);
+            }
+        }
+
         $validUser = $request->username === config('admin.username');
         $validPass = $request->password === config('admin.password');
 
         if (!$validUser || !$validPass) {
+            $attempts = (int) Cache::get($attemptsKey, 0) + 1;
+            
+            if ($attempts >= 3) {
+                $lockoutUntil = time() + 180; // 3 minutes = 180 seconds
+                Cache::put($lockoutKey, $lockoutUntil, 180);
+                Cache::forget($attemptsKey);
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Anda telah 3 kali salah memasukkan password. Akun terkunci selama 3 menit.',
+                    'retry_after' => 180,
+                    'locked' => true,
+                ], 429);
+            }
+
+            Cache::put($attemptsKey, $attempts, 180);
+            $remaining = 3 - $attempts;
+
             return response()->json([
                 'success' => false,
-                'message' => 'Username atau password salah.',
+                'message' => "Username atau password salah. sisa percobaan: {$remaining}x lagi.",
+                'remaining_attempts' => $remaining,
             ], 401);
         }
+
+        // Login success: Clear failed attempts
+        Cache::forget($attemptsKey);
+        Cache::forget($lockoutKey);
 
         // Generate a simple token and cache it for 8 hours
         $token = Str::random(64);
