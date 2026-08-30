@@ -15,10 +15,11 @@
 
 .showcase-header h2 {
   font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-size: clamp(3.2rem, 5.5vw, 4.8rem);
   font-weight: 300;
   color: var(--black);
   margin-bottom: 0.75rem;
+  line-height: 1.1;
 }
 
 .showcase-header p {
@@ -174,16 +175,16 @@
 }
 
 .zigzag-price-main {
-  font-family: var(--font-serif);
-  font-size: 2.25rem;
-  font-weight: 500;
+  font-family: 'Manrope', var(--font-sans, sans-serif);
+  font-size: 2rem;
+  font-weight: 700;
   color: var(--black);
 }
 
 .zigzag-price-slash {
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
-  color: #aaa;
+  font-family: 'Manrope', var(--font-sans, sans-serif);
+  font-size: 1.05rem;
+  color: #888888;
   text-decoration: line-through;
 }
 

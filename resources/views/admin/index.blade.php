@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Portal — Perfu.me Dashboard</title>
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -99,7 +99,7 @@
           <div class="admin-user-avatar">A</div>
           <span>Administrator</span>
         </div>
-        <button id="admin-logout-btn" class="admin-logout-btn">Keluar</button>
+        <button id="admin-logout-btn" class="admin-logout-btn" type="button" onclick="openLogoutModal(event)">Keluar</button>
       </div>
     </header>
 
@@ -255,72 +255,8 @@
         <div class="katalog-pagination" id="admin-pagination"></div>
       </div>
     </main>
-  </div>
 
-  <!-- ============================================================
-       3. PRODUCT DETAIL PREVIEW MODAL
-       ============================================================ -->
-  <div id="detail-modal-backdrop" class="admin-modal-backdrop">
-    <div class="admin-detail-modal">
-      <div class="admin-detail-head">
-        <div>
-          <span class="badge-gender" id="detail-gender">UNISEX</span>
-          <h3 class="admin-detail-name" id="detail-name">Product Name</h3>
-        </div>
-        <button class="admin-panel-close" id="btn-close-detail" aria-label="Tutup Detail">&times;</button>
-      </div>
 
-      <div class="admin-detail-body">
-        <!-- Left: Image & Stock Status -->
-        <div class="admin-detail-img-col">
-          <div class="admin-detail-img-box">
-            <img id="detail-img" src="" alt="Product Image"
-              onerror="this.src='{{ asset('assets/images/Nusantara1nobg.png') }}'">
-          </div>
-          <div id="detail-stock-status-pill" style="margin-top:1rem; text-align:center;"></div>
-        </div>
-
-        <!-- Right: Specs, Scent Notes & Description -->
-        <div class="admin-detail-info-col">
-          <div
-            style="font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#8A8A8A;"
-            id="detail-meta">
-            EAU DE PARFUM · 30ML
-          </div>
-          <div class="admin-detail-price" id="detail-price">Rp 150.000</div>
-          <div class="admin-detail-tagline" id="detail-tagline">"Elegan, segar, dan abadi"</div>
-          <p class="admin-detail-desc" id="detail-desc">Deskripsi produk...</p>
-
-          <div class="form-section-title">SCENT PYRAMID NOTES</div>
-          <div class="detail-notes-grid">
-            <div class="detail-note-box">
-              <span class="detail-note-lbl">TOP NOTES</span>
-              <span class="detail-note-val" id="detail-top">Bergamot, Lemon</span>
-            </div>
-            <div class="detail-note-box">
-              <span class="detail-note-lbl">HEART NOTES</span>
-              <span class="detail-note-val" id="detail-middle">Melati, Mawar</span>
-            </div>
-            <div class="detail-note-box">
-              <span class="detail-note-lbl">BASE NOTES</span>
-              <span class="detail-note-val" id="detail-base">Sandalwood, Musk</span>
-            </div>
-          </div>
-
-          <div class="detail-specs-list">
-            <div><strong>Detail Kemasan:</strong> <span id="detail-packaging">Botol kaca spray 30ml</span></div>
-            <div><strong>Status Best Seller:</strong> <span id="detail-bestseller">Ya (Best Seller)</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="admin-detail-footer">
-        <button class="btn-action-zero" id="detail-btn-zero">🔒 Set 0 Stok</button>
-        <button class="btn-action-edit" id="detail-btn-edit">✏️ Edit Produk Ini</button>
-        <button class="admin-btn-secondary" id="detail-btn-close">Tutup</button>
-      </div>
-    </div>
-  </div>
 
   <!-- ============================================================
        4. CREATE / EDIT SLIDE-IN PANEL FORM (WITH FILE UPLOADER)
@@ -536,8 +472,42 @@
     </div>
   </div>
 
-  <!-- Toast Container -->
-  <div id="toast-container"></div>
+  <!-- ADMIN WELCOME TRANSITION OVERLAY -->
+  <div id="admin-welcome-overlay" class="admin-welcome-overlay">
+    <div class="admin-welcome-card">
+      <div class="welcome-brand-logo">Perfu.me Admin</div>
+      <div class="welcome-title">Selamat Datang, Administrator</div>
+      <div class="welcome-subtext" id="welcome-subtext">Mempersiapkan Inventaris &amp; Katalog...</div>
+      <div class="welcome-progress-bar">
+        <div class="welcome-progress-fill" id="welcome-progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGOUT CONFIRMATION MODAL -->
+  <div id="logout-modal-backdrop" class="admin-modal-backdrop">
+    <div class="admin-modal">
+      <div class="admin-modal-icon warning" style="background:#FEF2F2; color:#DC2626;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
+      </div>
+      <h3 class="admin-modal-title">Konfirmasi Keluar</h3>
+      <p class="admin-modal-desc">
+        Apakah Anda yakin ingin keluar dari Admin Dashboard?
+      </p>
+      <div class="admin-modal-actions">
+        <button type="button" id="btn-cancel-logout" class="admin-btn-secondary">Batal</button>
+        <button type="button" id="btn-confirm-logout" class="admin-btn-primary" style="background:#DC2626; border-color:#DC2626;">Ya, Keluar</button>
+      </div>
+    </div>
+  </div>
+</div> <!-- /admin-dashboard-page -->
+
+  <!-- Toast Container (Disabled) -->
+  <div id="toast-container" style="display:none !important;"></div>
 
   <!-- Scripts -->
   <script src="{{ asset('js/db.js') }}"></script>

@@ -1,22 +1,27 @@
 @extends('layouts.app')
 
 @section('title', $product->name . ' — Perfu.me')
-@section('description', $product->description)
+@section('description', Str::limit($product->description, 160))
+@section('og_type', 'product')
+@section('og_title', $product->name . ' — Perfu.me')
+@section('og_description', Str::limit($product->description, 160))
+@section('og_image', asset($product->image))
+@section('canonical', url('/produk/' . $product->id))
 
 @section('styles')
 <style>
   body {
     background: #FFFFFF;
     color: #0D0D0D;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Manrope', sans-serif;
     margin: 0;
-    padding-bottom: 100px; /* space for sticky bottom bar */
+    padding-bottom: 100px;
   }
 
   .detail-page-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 3rem 2rem 5rem;
+    padding: 6.5rem 2rem 5rem;
   }
 
   @media (max-width: 768px) {
@@ -29,14 +34,36 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.8rem;
-    color: #666666;
-    margin-bottom: 2.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8A8A8A;
+    margin-bottom: 2rem;
+    padding: 0;
+    background: transparent;
+    border: none;
   }
 
-  .detail-breadcrumb a { color: #666666; text-decoration: none; transition: color 0.2s; }
-  .detail-breadcrumb a:hover { color: #000000; }
-  .detail-breadcrumb span { color: #CCCCCC; }
+  .detail-breadcrumb a {
+    color: #8A8A8A;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .detail-breadcrumb a:hover {
+    color: #0D0D0D;
+  }
+
+  .detail-breadcrumb .sep {
+    color: #C0C0C0;
+    font-size: 0.72rem;
+    user-select: none;
+  }
+
+  .detail-breadcrumb .current {
+    color: #0D0D0D;
+    font-weight: 600;
+  }
 
   .detail-hero-grid {
     display: grid;
@@ -52,14 +79,24 @@
   }
 
   .detail-brand-watermark {
-    font-family: 'Zaloga', Georgia, serif;
     font-size: 2.5rem;
-    font-weight: 400;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
     color: #000000;
     margin-bottom: 2rem;
     text-align: center;
+    text-transform: uppercase;
+  }
+
+  .detail-brand-watermark.is-signature {
+    font-family: 'Zaloga', Georgia, serif;
+    letter-spacing: 0.04em;
+    font-weight: normal;
+    text-transform: none;
+  }
+
+  .detail-brand-watermark.is-refill {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: 0.18em;
+    font-weight: 300;
   }
 
   .detail-img-box {
@@ -91,7 +128,7 @@
   }
 
   .detail-product-name {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: clamp(2rem, 3.5vw, 2.75rem);
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -432,6 +469,57 @@
     transform: translateY(-1px);
   }
 
+  /* Out of Stock (Stok Habis) Styles & Tooltip */
+  .btn-out-of-stock {
+    background: #A1A1AA !important;
+    color: #FFFFFF !important;
+    border-color: #A1A1AA !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    position: relative;
+  }
+
+  .btn-out-of-stock:hover {
+    background: #888888 !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Custom Hover Tooltip for Disabled Action */
+  [data-tooltip] {
+    position: relative;
+  }
+
+  [data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: rgba(15, 15, 18, 0.92);
+    color: #FFFFFF;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.45rem 0.85rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  [data-tooltip]:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
   @media (max-width: 900px) {
     .detail-hero-grid { grid-template-columns: 1fr; gap: 2rem; }
     .bottom-bar-product-info { display: none; }
@@ -521,10 +609,29 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    transition: color 0.2s;
+    position: relative;
+    padding-bottom: 2px;
+    transition: color 0.25s ease;
   }
 
-  .related-link-all:hover { color: #555555; }
+  .related-link-all::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background-color: #0D0D0D;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .related-link-all:hover {
+    color: #0D0D0D;
+  }
+
+  .related-link-all:hover::after {
+    width: calc(100% - 1.2rem);
+  }
 
   .related-grid {
     display: grid;
@@ -632,6 +739,7 @@
 @section('content')
 
   {{-- NAVBAR --}}
+<<<<<<< HEAD
   <nav id="navbar" aria-label="Main Navigation">
     <div class="nav-brand">
       <a href="/" class="nav-brand-name" style="text-decoration:none; color:inherit;">Perfu.me</a>
@@ -669,6 +777,9 @@
       </button>
     </div>
   </nav>
+=======
+  @include('partials.navbar')
+>>>>>>> edbe8dcbab26b2f5f74ee130913c97e891f3055f
 
   {{-- Mobile Menu Drawer --}}
   <div id="nav-mobile-menu" class="nav-mobile-menu" role="dialog" aria-label="Menu Navigasi Mobile">
@@ -703,19 +814,19 @@
   @endphp
 
   <div class="detail-page-container">
-    {{-- Breadcrumb --}}
+    {{-- Breadcrumb Navigation (Matching Katalog Style) --}}
     <div class="detail-breadcrumb">
       <a href="/">Home</a>
-      <span>›</span>
-      <a href="/katalog">{{ $isSignature ? 'Signature Collection' : 'Refill Collection' }}</a>
-      <span>›</span>
-      <span style="color:#000000; font-weight:600;">{{ $product->name }}</span>
+      <span class="sep">›</span>
+      <a href="/katalog">{{ $isSignature ? 'Signature' : 'Katalog' }}</a>
+      <span class="sep">›</span>
+      <span class="current">{{ $product->name }}</span>
     </div>
 
     <div class="detail-hero-grid">
       {{-- Media Column --}}
       <div class="detail-media-col">
-        <div class="detail-brand-watermark">{{ $isSignature ? 'PARFU.ME' : 'REFILL' }}</div>
+        <div class="detail-brand-watermark {{ $isSignature ? 'is-signature' : 'is-refill' }}">{{ $isSignature ? 'Perfu.me' : 'REFILL' }}</div>
         <div class="detail-img-box">
           <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
         </div>
@@ -742,7 +853,7 @@
 
         {{-- Keunggulan / Key Features List --}}
         <ul class="detail-features-list">
-          <li>Parfum oil grade A, alkohol 90%</li>
+          <li>Parfum oil grade A, alkohol food grade</li>
           <li>Tanpa pewarna tambahan</li>
           <li>{{ $product->packaging ?? 'Botol kaca spray + dus karton' }}</li>
           <li>Tahan 6–10 jam</li>
@@ -866,7 +977,7 @@
   let selectedSize = "{{ $isSignature ? '30ml' : '35ml' }}";
   const isSignature = {{ $isSignature ? 'true' : 'false' }};
   const productName = @json($product->name);
-  const productId = {{ $product->id }};
+  const productStock = {{ (int)($product->stock ?? 0) }};
 
   function updateDisplay() {
     const totalPrice = selectedPrice * currentQty;
@@ -876,8 +987,37 @@
     document.getElementById('bar-price-text').textContent = formattedPrice;
     document.getElementById('qty-val').textContent = currentQty;
 
-    const waMessage = `Halo, saya ingin memesan ${productName} (Varian: ${selectedSize}, Jumlah: ${currentQty} pcs) total seharga ${formattedPrice}`;
-    document.getElementById('btn-order-wa').href = `https://wa.me/6281234567890?text=${encodeURIComponent(waMessage)}`;
+    const waBtn = document.getElementById('btn-order-wa');
+    const cartBtn = document.querySelector('.btn-bottom-cart');
+
+    if (productStock <= 0) {
+      if (waBtn) {
+        waBtn.removeAttribute('href');
+        waBtn.removeAttribute('target');
+        waBtn.classList.add('btn-out-of-stock');
+        waBtn.setAttribute('data-tooltip', 'Stok Produk Habis');
+        waBtn.onclick = (e) => e.preventDefault();
+      }
+      if (cartBtn) {
+        cartBtn.disabled = true;
+        cartBtn.classList.add('btn-out-of-stock');
+        cartBtn.setAttribute('data-tooltip', 'Stok Produk Habis');
+      }
+    } else {
+      if (waBtn) {
+        const waMessage = `Halo, saya ingin memesan ${productName} (Varian: ${selectedSize}, Jumlah: ${currentQty} pcs) total seharga ${formattedPrice}`;
+        waBtn.href = `https://wa.me/6281383415432?text=${encodeURIComponent(waMessage)}`;
+        waBtn.target = '_blank';
+        waBtn.classList.remove('btn-out-of-stock');
+        waBtn.removeAttribute('data-tooltip');
+        waBtn.onclick = null;
+      }
+      if (cartBtn) {
+        cartBtn.disabled = false;
+        cartBtn.classList.remove('btn-out-of-stock');
+        cartBtn.removeAttribute('data-tooltip');
+      }
+    }
   }
 
   function initCustomSizeDropdown() {
@@ -918,14 +1058,16 @@
   }
 
   function changeQty(delta) {
+    if (productStock <= 0) return;
     currentQty += delta;
     if (currentQty < 1) currentQty = 1;
     updateDisplay();
   }
 
   function addSelectedToCart(evt) {
+    if (productStock <= 0) return;
     if (window.addToCart) {
-      window.addToCart(productId, currentQty, evt || window.event);
+      window.addToCart(productId, currentQty, evt || window.event, selectedSize, selectedPrice);
     }
   }
 

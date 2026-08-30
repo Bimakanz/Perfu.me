@@ -28,19 +28,24 @@
         const targetId = el.getAttribute('data-nav');
 
         if (targetId === 'admin') {
-          window.location.href = 'admin/index.html';
+          window.location.href = '/admin';
           return;
         }
 
-        e.preventDefault();
         const targetEl = document.getElementById(targetId) || document.querySelector(`[data-section="${targetId}"]`);
 
         if (targetEl) {
+          e.preventDefault();
           const navHeight = navbar.offsetHeight || 70;
           const targetPos = targetEl.getBoundingClientRect().top + window.scrollY - navHeight;
           window.scrollTo({ top: targetPos, behavior: 'smooth' });
         } else if (targetId === 'home') {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          if (window.location.pathname === '/' || window.location.pathname === '') {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            window.location.href = '/';
+          }
         }
 
         // Close mobile menu if open

@@ -32,9 +32,9 @@
 
     .quiz-hero-header {
       text-align: center;
-      padding: 8rem 1.5rem 1rem;
+      padding: 5.5rem 1.5rem 0.5rem;
       max-width: 800px;
-      margin: 0 auto 3rem;
+      margin: 0 auto 1.5rem;
     }
 
     .quiz-badge {
@@ -49,28 +49,28 @@
 
     .results-title {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.8rem;
+      font-size: 2.5rem;
       font-weight: 400;
       color: #0D0D0D;
-      line-height: 1.25;
-      margin-bottom: 0.5rem;
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
     }
 
     .quiz-title {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-size: 2.5rem;
       font-weight: 400;
       color: #0D0D0D;
       line-height: 1.2;
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.5rem;
     }
 
     .quiz-subtitle {
-      font-size: 0.98rem;
+      font-size: 0.9rem;
       color: #555555;
-      line-height: 1.7;
+      line-height: 1.5;
       max-width: 600px;
-      margin: 0 auto 1.5rem;
+      margin: 0 auto 1rem;
     }
 
     /* Seamless Quiz Container (No Box / No Card) */
@@ -326,30 +326,30 @@
 
     .results-header {
       text-align: center;
-      margin-bottom: 3.5rem;
+      margin-bottom: 1.5rem;
     }
 
     .results-subtitle {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: #8A8A8A;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
     }
 
     .results-title {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 2.6rem;
+      font-size: 2.5rem;
       font-weight: 300;
       color: #0D0D0D;
-      margin: 0 0 0.5rem;
+      margin: 0 0 0.25rem;
     }
 
     .results-desc {
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       color: #555555;
-      max-width: 550px;
+      max-width: 520px;
       margin: 0 auto;
     }
 
@@ -357,14 +357,14 @@
     .results-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin-bottom: 3.5rem;
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
     }
 
     .rec-card {
       background: #FFFFFF;
       border: 1px solid #E5E5E5;
-      border-radius: 16px;
+      border-radius: 14px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -373,18 +373,18 @@
     }
 
     .rec-card:hover {
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
     }
 
     .rec-match-badge {
       position: absolute;
-      top: 0.85rem;
-      right: 0.85rem;
+      top: 0.65rem;
+      right: 0.65rem;
       background: rgba(13, 13, 13, 0.9);
       color: #FFFFFF;
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 700;
-      padding: 0.4rem 0.75rem;
+      padding: 0.3rem 0.65rem;
       border-radius: 999px;
       letter-spacing: 0.05em;
       z-index: 2;
@@ -393,7 +393,7 @@
 
     .rec-img-wrap {
       width: 100%;
-      padding-top: 90%;
+      padding-top: 68%;
       position: relative;
       background: #F4F4F5;
       overflow: hidden;
@@ -413,26 +413,26 @@
     }
 
     .rec-card-body {
-      padding: 1.5rem 1.75rem;
+      padding: 1rem 1.15rem 1.15rem;
       display: flex;
       flex-direction: column;
       flex: 1;
     }
 
     .rec-card-tag {
-      font-size: 0.68rem;
+      font-size: 0.64rem;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #8A8A8A;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.25rem;
     }
 
     .rec-card-name {
-      font-size: 1.25rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: #0D0D0D;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.35rem;
       position: relative;
       width: fit-content;
       max-width: 100%;
@@ -456,29 +456,29 @@
     }
 
     .rec-card-notes {
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       color: #666666;
-      margin-bottom: 1rem;
-      line-height: 1.5;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
     }
 
     .rec-card-price {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: #0D0D0D;
       margin-top: auto;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
 
     .rec-btn-detail {
       display: block;
       width: 100%;
-      padding: 0.75rem;
+      padding: 0.65rem;
       background: #0D0D0D;
       color: #FFFFFF;
       border: none;
       border-radius: 8px;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 700;
       text-align: center;
       text-decoration: none;
@@ -586,6 +586,7 @@
 
 @section('content')
   {{-- NAVBAR --}}
+<<<<<<< HEAD
   <nav id="navbar" aria-label="Main Navigation">
     <div class="nav-brand" data-nav="home">
       <a href="/" style="text-decoration:none; color:inherit;"><span class="nav-brand-name">Perfu.me</span></a>
@@ -625,6 +626,9 @@
       </button>
     </div>
   </nav>
+=======
+  @include('partials.navbar', ['activeNav' => 'quiz'])
+>>>>>>> edbe8dcbab26b2f5f74ee130913c97e891f3055f
 
   {{-- Mobile Menu Drawer --}}
   <div id="nav-mobile-menu" class="nav-mobile-menu" role="dialog" aria-label="Menu Navigasi Mobile">

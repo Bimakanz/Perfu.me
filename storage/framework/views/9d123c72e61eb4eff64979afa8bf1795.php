@@ -1,39 +1,61 @@
 <?php $__env->startSection('title', $product->name . ' — Perfu.me'); ?>
-<?php $__env->startSection('description', $product->description); ?>
+<?php $__env->startSection('description', Str::limit($product->description, 160)); ?>
+<?php $__env->startSection('og_type', 'product'); ?>
+<?php $__env->startSection('og_title', $product->name . ' — Perfu.me'); ?>
+<?php $__env->startSection('og_description', Str::limit($product->description, 160)); ?>
+<?php $__env->startSection('og_image', asset($product->image)); ?>
+<?php $__env->startSection('canonical', url('/produk/' . $product->id)); ?>
 
 <?php $__env->startSection('styles'); ?>
 <style>
-  /* Hide Floating WA Widget completely on Product Detail Page */
-  #floating-wa-container {
-    display: none !important;
-  }
-
   body {
     background: #FFFFFF;
     color: #0D0D0D;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Manrope', sans-serif;
     margin: 0;
-    padding-bottom: 100px; /* space for sticky bottom bar */
+    padding-bottom: 100px;
   }
 
   .detail-page-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 3rem 2rem 5rem;
+    padding: 6.5rem 2rem 5rem;
   }
 
   .detail-breadcrumb {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.8rem;
-    color: #666666;
-    margin-bottom: 2.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8A8A8A;
+    margin-bottom: 2rem;
+    padding: 0;
+    background: transparent;
+    border: none;
   }
 
-  .detail-breadcrumb a { color: #666666; text-decoration: none; transition: color 0.2s; }
-  .detail-breadcrumb a:hover { color: #000000; }
-  .detail-breadcrumb span { color: #CCCCCC; }
+  .detail-breadcrumb a {
+    color: #8A8A8A;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .detail-breadcrumb a:hover {
+    color: #0D0D0D;
+  }
+
+  .detail-breadcrumb .sep {
+    color: #C0C0C0;
+    font-size: 0.72rem;
+    user-select: none;
+  }
+
+  .detail-breadcrumb .current {
+    color: #0D0D0D;
+    font-weight: 600;
+  }
 
   .detail-hero-grid {
     display: grid;
@@ -50,21 +72,23 @@
 
   .detail-brand-watermark {
     font-size: 2.5rem;
-    font-weight: 400;
     color: #000000;
     margin-bottom: 2rem;
     text-align: center;
+    text-transform: uppercase;
   }
 
   .detail-brand-watermark.is-signature {
     font-family: 'Zaloga', Georgia, serif;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
+    font-weight: normal;
+    text-transform: none;
   }
 
   .detail-brand-watermark.is-refill {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 300;
   }
 
   .detail-img-box {
@@ -96,7 +120,7 @@
   }
 
   .detail-product-name {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: clamp(2rem, 3.5vw, 2.75rem);
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -157,7 +181,7 @@
   }
 
   .detail-features-list li::before {
-    content: "✔";
+    content: "✓";
     font-weight: 700;
     color: #000000;
     font-size: 0.9rem;
@@ -437,6 +461,57 @@
     transform: translateY(-1px);
   }
 
+  /* Out of Stock (Stok Habis) Styles & Tooltip */
+  .btn-out-of-stock {
+    background: #A1A1AA !important;
+    color: #FFFFFF !important;
+    border-color: #A1A1AA !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    position: relative;
+  }
+
+  .btn-out-of-stock:hover {
+    background: #888888 !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Custom Hover Tooltip for Disabled Action */
+  [data-tooltip] {
+    position: relative;
+  }
+
+  [data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: rgba(15, 15, 18, 0.92);
+    color: #FFFFFF;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.45rem 0.85rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  [data-tooltip]:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
   @media (max-width: 900px) {
     .detail-hero-grid { grid-template-columns: 1fr; gap: 2rem; }
     .bottom-bar-product-info { display: none; }
@@ -467,12 +542,11 @@
   }
 
   .related-title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1.6rem;
-    font-weight: 400;
+    font-family: 'Zaloga', Georgia, serif;
+    font-size: 2.2rem;
+    font-weight: 300;
     color: #0D0D0D;
-    letter-spacing: 0.02em;
-    margin-bottom: 0.5rem;
+    margin: 0;
   }
 
   .related-link-all {
@@ -485,17 +559,18 @@
     align-items: center;
     gap: 0.4rem;
     position: relative;
-    transition: color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    padding-bottom: 2px;
+    transition: color 0.25s ease;
   }
 
   .related-link-all::after {
     content: '';
     position: absolute;
-    bottom: -3px;
+    bottom: 0;
     left: 0;
     width: 0;
     height: 1.5px;
-    background: #0D0D0D;
+    background-color: #0D0D0D;
     transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -504,7 +579,7 @@
   }
 
   .related-link-all:hover::after {
-    width: 100%;
+    width: calc(100% - 1.2rem);
   }
 
   .related-grid {
@@ -613,36 +688,7 @@
 <?php $__env->startSection('content'); ?>
 
   
-  <nav id="navbar" aria-label="Main Navigation">
-    <div class="nav-brand">
-      <a href="/" class="nav-brand-name" style="text-decoration:none; color:inherit;">Perfu.me</a>
-    </div>
-
-    <ul class="nav-links">
-      <li><a href="/katalog">Katalog</a></li>
-      <li><a href="/quiz">Quiz</a></li>
-      <li><a href="/#about-story-section">Tentang</a></li>
-      <li><a href="/#testimoni-section">Testimoni</a></li>
-      <li><a href="/#footer-section">Kontak</a></li>
-    </ul>
-
-    <div class="nav-actions">
-      <button id="btn-open-search" class="nav-icon-btn" aria-label="Cari Parfum" title="Cari Parfum">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-      </button>
-      <button id="btn-open-cart" class="nav-icon-btn" aria-label="Keranjang Belanja" title="Keranjang Belanja">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <path d="M16 10a4 4 0 0 1-8 0"></path>
-        </svg>
-        <span class="cart-badge-count" id="cart-badge-count">0</span>
-      </button>
-    </div>
-  </nav>
+  <?php echo $__env->make('partials.navbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
   <?php
     $isSignature = strtolower($product->type) === 'signature' || str_contains(strtolower($product->name), 'dynamyst') || str_contains(strtolower($product->name), 'vanessence');
@@ -653,10 +699,10 @@
     
     <div class="detail-breadcrumb">
       <a href="/">Home</a>
-      <span>›</span>
-      <a href="/katalog"><?php echo e($isSignature ? 'Signature Collection' : 'Refill Collection'); ?></a>
-      <span>›</span>
-      <span style="color:#000000; font-weight:600;"><?php echo e($product->name); ?></span>
+      <span class="sep">›</span>
+      <a href="/katalog"><?php echo e($isSignature ? 'Signature' : 'Katalog'); ?></a>
+      <span class="sep">›</span>
+      <span class="current"><?php echo e($product->name); ?></span>
     </div>
 
     <div class="detail-hero-grid">
@@ -692,10 +738,10 @@
 
         
         <ul class="detail-features-list">
-          <li>Parfum oil grade A, alkohol 90%</li>
+          <li>Parfum oil grade A, alkohol food grade</li>
           <li>Tanpa pewarna tambahan</li>
           <li><?php echo e($product->packaging ?? 'Botol kaca spray + dus karton'); ?></li>
-          <li>Tahan 6–10 jam di kulit</li>
+          <li>Tahan 6–10 jam</li>
         </ul>
 
         <div class="detail-scent-notes-box">
@@ -805,40 +851,7 @@
   </div>
 
   
-  <footer id="footer-section" style="background:#0D0D0D; color:#FFF; padding:6rem 4rem 8rem 4rem; margin-top: 7rem; position:relative; z-index:1;">
-    <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:4rem; margin-bottom:4rem;">
-      <div>
-        <div style="font-family:'Zaloga', Georgia, serif; font-size:2rem; font-weight:300; letter-spacing:0.05em; margin-bottom:0.75rem;">Perfu.me</div>
-        <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7; max-width:380px;">
-          Perfu.me lahir dari sebuah keyakinan sederhana: setiap orang berhak tampil harum tanpa harus mengeluarkan biaya yang mahal. Karena itu, kami menghadirkan parfum dengan kualitas aroma premium, karakter yang khas, dan harga yang tetap ramah di kantong.
-        </p>
-      </div>
-      <div>
-        <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Best Seller</h4>
-        <ul style="list-style:none; display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem; color:#8A8A8A; padding:0; margin:0;">
-          <?php
-            $bestSellers = \App\Models\Product::where('best_seller', true)->take(6)->get();
-          ?>
-          <?php $__currentLoopData = $bestSellers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <li><a href="/produk/<?php echo e($bs->id); ?>" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none; transition:color 0.2s;"><?php echo e($bs->name); ?></a></li>
-          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-        </ul>
-      </div>
-      <div>
-        <h4 style="color:#C0C0C0; margin-bottom:1.25rem; font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase;">Kontak</h4>
-        <p style="font-size:0.85rem; color:#8A8A8A; line-height:1.7;">
-          WhatsApp: <a href="https://wa.me/6281383415432?text=Halo%20Perfu.me,%20saya%20tertarik%20dengan%20produk%20parfumnya" target="_blank" rel="noopener" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none; display:inline-block;">+62 813-8341-5432</a><br>
-          Email: perfumeofficial30@gmail.com<br>
-          Instagram: <a href="https://www.instagram.com/perfu.mefragrance/" target="_blank" rel="noopener" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none;">@perfu.mefragrance</a><br>
-          <a href="https://maps.app.goo.gl/xui1fMK73WXR1DD29" target="_blank" rel="noopener" class="footer-collection-link" style="color:#8A8A8A; text-decoration:none; display:inline-block; margin-top:0.2rem;">Jl. Lingkar Dramaga RT 03/04 Desa Dramaga</a>
-        </p>
-      </div>
-    </div>
-    <div style="max-width:1200px; margin:0 auto; padding-top:2rem; border-top:1px solid rgba(192,192,192,0.1); display:flex; justify-content: space-between; align-items:center; font-size:0.75rem; color:#8A8A8A;">
-      <div>&copy; 2026 Perfu.me. All rights reserved.</div>
-      <div>Monochrome Luxury Aesthetic System</div>
-    </div>
-  </footer>
+  <?php echo $__env->make('partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
 <?php $__env->stopSection(); ?>
 
@@ -849,7 +862,7 @@
   let selectedSize = "<?php echo e($isSignature ? '30ml' : '35ml'); ?>";
   const isSignature = <?php echo e($isSignature ? 'true' : 'false'); ?>;
   const productName = <?php echo json_encode($product->name, 15, 512) ?>;
-  const productId = <?php echo e($product->id); ?>;
+  const productStock = <?php echo e((int)($product->stock ?? 0)); ?>;
 
   function updateDisplay() {
     const totalPrice = selectedPrice * currentQty;
@@ -859,8 +872,37 @@
     document.getElementById('bar-price-text').textContent = formattedPrice;
     document.getElementById('qty-val').textContent = currentQty;
 
-    const waMessage = `Halo, saya ingin memesan ${productName} (Varian: ${selectedSize}, Jumlah: ${currentQty} pcs) total seharga ${formattedPrice}`;
-    document.getElementById('btn-order-wa').href = `https://wa.me/6281234567890?text=${encodeURIComponent(waMessage)}`;
+    const waBtn = document.getElementById('btn-order-wa');
+    const cartBtn = document.querySelector('.btn-bottom-cart');
+
+    if (productStock <= 0) {
+      if (waBtn) {
+        waBtn.removeAttribute('href');
+        waBtn.removeAttribute('target');
+        waBtn.classList.add('btn-out-of-stock');
+        waBtn.setAttribute('data-tooltip', 'Stok Produk Habis');
+        waBtn.onclick = (e) => e.preventDefault();
+      }
+      if (cartBtn) {
+        cartBtn.disabled = true;
+        cartBtn.classList.add('btn-out-of-stock');
+        cartBtn.setAttribute('data-tooltip', 'Stok Produk Habis');
+      }
+    } else {
+      if (waBtn) {
+        const waMessage = `Halo, saya ingin memesan ${productName} (Varian: ${selectedSize}, Jumlah: ${currentQty} pcs) total seharga ${formattedPrice}`;
+        waBtn.href = `https://wa.me/6281383415432?text=${encodeURIComponent(waMessage)}`;
+        waBtn.target = '_blank';
+        waBtn.classList.remove('btn-out-of-stock');
+        waBtn.removeAttribute('data-tooltip');
+        waBtn.onclick = null;
+      }
+      if (cartBtn) {
+        cartBtn.disabled = false;
+        cartBtn.classList.remove('btn-out-of-stock');
+        cartBtn.removeAttribute('data-tooltip');
+      }
+    }
   }
 
   function initCustomSizeDropdown() {
@@ -901,14 +943,16 @@
   }
 
   function changeQty(delta) {
+    if (productStock <= 0) return;
     currentQty += delta;
     if (currentQty < 1) currentQty = 1;
     updateDisplay();
   }
 
   function addSelectedToCart(evt) {
+    if (productStock <= 0) return;
     if (window.addToCart) {
-      window.addToCart(productId, currentQty, evt || window.event);
+      window.addToCart(productId, currentQty, evt || window.event, selectedSize, selectedPrice);
     }
   }
 
@@ -919,6 +963,5 @@
 </script>
 <script src="<?php echo e(asset('js/navbar.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
-
 
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/product-detail.blade.php ENDPATH**/ ?>

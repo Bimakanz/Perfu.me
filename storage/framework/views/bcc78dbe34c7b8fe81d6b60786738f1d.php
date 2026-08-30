@@ -8,15 +8,36 @@
   <!-- SEO -->
   <title><?php echo $__env->yieldContent('title', 'Perfu.me — Luxury & Nusantara Fragrance Series'); ?></title>
   <meta name="description" content="<?php echo $__env->yieldContent('description', 'Perfu.me menghadirkan koleksi parfum premium vanessence, dynamyst, dan seri nusantara dengan konsentrat parfum grade A dan ketahanan aromatis hingga 10 jam.'); ?>">
+  <link rel="canonical" href="<?php echo $__env->yieldContent('canonical', url()->current()); ?>">
+
+  <!-- OpenGraph / Social Sharing -->
+  <meta property="og:type"        content="<?php echo $__env->yieldContent('og_type', 'website'); ?>">
+  <meta property="og:site_name"   content="Perfu.me">
+  <meta property="og:title"       content="<?php echo $__env->yieldContent('og_title', 'Perfu.me — Luxury & Nusantara Fragrance Series'); ?>">
+  <meta property="og:description" content="<?php echo $__env->yieldContent('og_description', 'Perfu.me menghadirkan koleksi parfum premium dengan konsentrat grade A, ketahanan aromatis hingga 10 jam.'); ?>">
+  <meta property="og:url"         content="<?php echo $__env->yieldContent('canonical', url()->current()); ?>">
+  <meta property="og:image"       content="<?php echo $__env->yieldContent('og_image', asset('assets/images/herosectionbaru2parfumtanpawm.png')); ?>">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale"      content="id_ID">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="<?php echo $__env->yieldContent('og_title', 'Perfu.me — Luxury & Nusantara Fragrance Series'); ?>">
+  <meta name="twitter:description" content="<?php echo $__env->yieldContent('og_description', 'Perfu.me menghadirkan koleksi parfum premium dengan konsentrat grade A, ketahanan aromatis hingga 10 jam.'); ?>">
+  <meta name="twitter:image"       content="<?php echo $__env->yieldContent('og_image', asset('assets/images/herosectionbaru2parfumtanpawm.png')); ?>">
+
   <?php echo $__env->yieldContent('meta'); ?>
 
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="<?php echo e(asset('favicon.svg')); ?>">
+  <link rel="icon" type="image/x-icon" href="<?php echo e(asset('favicon.ico')); ?>">
+  <meta name="theme-color" content="#0D0D0D">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- FontAwesome 6 Icon Library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -68,7 +89,7 @@
         <span>Total Harga</span>
         <strong id="cart-subtotal-price">Rp 0</strong>
       </div>
-      <a href="#" id="btn-cart-checkout-wa" target="_blank" rel="noopener" class="btn-cart-checkout">
+      <a href="" id="btn-cart-checkout-wa" target="_blank" rel="noopener" class="btn-cart-checkout">
         Checkout via WhatsApp
       </a>
     </div>
@@ -133,14 +154,14 @@
       const container = document.getElementById('floating-wa-container');
       const waBtn = document.getElementById('floating-wa-btn');
       const heroEl = document.getElementById('hero') || document.querySelector('.hero-section');
-      const isProductDetail = document.getElementById('product-detail-page') || 
-                              document.querySelector('.product-detail-container') || 
-                              window.location.pathname.includes('/product/') ||
-                              document.body.classList.contains('product-detail');
+      
+      const path = window.location.pathname.toLowerCase();
+      // Izinkan HANYA pada Halaman Beranda ("/", "") dan Katalog ("/katalog")
+      const isAllowedPage = (path === '/' || path === '' || path.startsWith('/katalog'));
 
-      // Jika di Halaman Product Detail, sembunyikan widget WA 100%
-      if (isProductDetail && container) {
-        container.style.display = 'none';
+      if (!isAllowedPage && container) {
+        container.style.display = 'none !important';
+        container.remove(); // Hapus total elemen dari DOM pada halaman non-Home & non-Katalog
         return;
       }
 
@@ -149,7 +170,7 @@
           const scrollY = window.scrollY || window.pageYOffset;
           
           if (heroEl) {
-            // Halaman Home dengan Hero Section: Tampil HANYA jika scroll melewati hero section
+            // Halaman Home: Tampil setelah scroll melewati Hero Section
             const triggerPoint = Math.max(200, heroEl.offsetHeight - 120);
             if (scrollY > triggerPoint) {
               container.classList.add('visible');
@@ -158,7 +179,7 @@
               container.classList.remove('active');
             }
           } else {
-            // Halaman tanpa Hero Section (Katalog, Detail Produk, Quiz): Tampil setelah scroll > 150px
+            // Halaman Katalog: Tampil setelah scroll > 150px
             if (scrollY > 150) {
               container.classList.add('visible');
             } else {
@@ -168,7 +189,6 @@
           }
         }
 
-        // Check on initial scroll & scroll event
         window.addEventListener('scroll', checkScrollPosition, { passive: true });
         checkScrollPosition();
 

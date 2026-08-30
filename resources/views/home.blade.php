@@ -30,6 +30,7 @@
   </div>
 
   {{-- 2. NAVBAR --}}
+<<<<<<< HEAD
   <nav id="navbar" aria-label="Main Navigation">
     <div class="nav-brand" data-nav="home">
       <a href="/" style="text-decoration:none; color:inherit;"><span class="nav-brand-name">Perfu.me</span></a>
@@ -67,6 +68,9 @@
       </button>
     </div>
   </nav>
+=======
+  @include('partials.navbar')
+>>>>>>> edbe8dcbab26b2f5f74ee130913c97e891f3055f
 
   {{-- Mobile Menu Drawer --}}
   <div id="nav-mobile-menu" class="nav-mobile-menu" role="dialog" aria-label="Menu Navigasi Mobile">
@@ -97,7 +101,7 @@
 
   {{-- 3. HERO SECTION --}}
   <header id="hero">
-    <img src="{{ asset('assets/images/herosectionbaru2parfum.png') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
+    <img src="{{ asset('assets/images/herosectionbaru2parfumtanpawm.png') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
     <div class="hero-overlay-dark"></div>
 
     <div class="hero-grid">
@@ -106,10 +110,10 @@
           Perfu.me
         </h1>
         <p class="hero-desc">
-          Lahir dari pengalaman panjang, kini hadir 2 racikan signature orisinal pertama kami. Diformulasikan dengan Perfume Oil Grade A untuk ketahanan lebih dari jam.
+          Lahir dari pengalaman panjang, kini hadir 2 racikan signature orisinal pertama kami. Diformulasikan dengan Perfume Oil Grade A untuk ketahanan lebih dari 8 jam.
         </p>
         <div class="hero-btn-group">
-          <a href="#produk-section" class="btn-hero-primary">Jelajahi Koleksi</a>
+          <a href="/katalog" class="btn-hero-primary">Jelajahi Koleksi</a>
         </div>
       </div>
     </div>
@@ -371,6 +375,7 @@
   </section>
 
   {{-- 5. QUIZ PROMOTION BANNER SECTION --}}
+<<<<<<< HEAD
   <section class="quiz-banner-section" id="quiz-banner-section" style="background:#F5F5F7; padding:clamp(3rem, 6vw, 6rem) clamp(1.25rem, 4vw, 2rem); text-align:center;">
     <div style="max-width:760px; margin:0 auto;">
       <span style="font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#8A8A8A; display:inline-block; margin-bottom:1rem;">FIND YOUR SIGNATURE SCENT</span>
@@ -383,6 +388,18 @@
       <a href="/quiz" style="display:inline-flex; align-items:center; gap:0.6rem; padding:1.05rem 2.4rem; background:#0D0D0D; color:#FFFFFF; border-radius:999px; font-size:0.88rem; font-weight:700; letter-spacing:0.06em; text-decoration:none; transition:all 0.25s ease; box-shadow:0 6px 20px rgba(0,0,0,0.12);" onmouseover="this.style.background='#252525'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#0D0D0D'; this.style.transform='translateY(0)';">
         Ikuti Quiz
       </a>
+=======
+  <section class="quiz-banner-section" id="quiz-banner-section" style="background:#F5F5F7; padding: 4.5rem 2rem 5rem !important; margin: 0 !important; text-align:center; position:relative; z-index:5; clear:both;">
+    <div class="quiz-banner-inner" style="max-width:760px; margin:0 auto; display:flex; flex-direction:column; align-items:center;">
+      <span class="quiz-banner-tag" style="font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#8A8A8A; display:inline-block; margin-bottom:0.85rem;">FIND YOUR SIGNATURE SCENT</span>
+      <h2 class="quiz-banner-heading" style="font-family:var(--font-serif); font-size:clamp(2.2rem, 3.5vw, 3rem); font-weight:300; color:#0D0D0D; line-height:1.2; margin:0 0 1rem 0;">
+        Masih Bingung Memilih Aroma Parfum Yang Pas?
+      </h2>
+      <p class="quiz-banner-desc" style="font-size:0.98rem; color:#555555; line-height:1.7; margin:0 auto 2.25rem auto; max-width:620px;">
+        Jawab 5 pertanyaan simpel untuk menemukan varian parfum Perfu.me yang paling cocok dengan kepribadian &amp; aktivitas harian Anda.
+      </p>
+      <a href="/quiz" class="quiz-banner-btn" style="display:inline-flex; align-items:center; justify-content:center; gap:0.6rem; padding:0.95rem 2.5rem; background:#0D0D0D; color:#FFFFFF; border-radius:999px; font-size:0.88rem; font-weight:700; letter-spacing:0.06em; text-decoration:none; box-shadow:0 6px 20px rgba(0,0,0,0.12);">Ikuti Quiz</a>
+>>>>>>> edbe8dcbab26b2f5f74ee130913c97e891f3055f
     </div>
   </section>
 

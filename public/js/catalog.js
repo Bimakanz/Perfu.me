@@ -70,7 +70,7 @@
       const baseStr = p.base_notes || p.baseNotes || '';
 
       const categoryTag = `${(p.gender || 'UNISEX').toUpperCase()} • ${(p.variant || '').toUpperCase()}`;
-      const originalPrice = 220000;
+      const originalPrice = 55000;
 
       // Handle base64 or valid image src
       let imgSrc = p.image || 'assets/images/Nusantara1nobg.png';
@@ -89,6 +89,15 @@
             <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='assets/images/refill.webp'">
           </div>
         </div>`;
+
+      const isOutOfStock = Number(p.stock || 0) <= 0;
+      const waAction = isOutOfStock
+        ? `class="btn-whatsapp-full btn-out-of-stock" data-tooltip="Stok Produk Habis" onclick="event.preventDefault();"`
+        : `href="https://wa.me/6281383415432?text=Halo%2C%20saya%20ingin%20memesan%20${encodeURIComponent(p.name)}%20(${p.size})%20seharga%20${encodeURIComponent(formatPrice(p.price))}" target="_blank" rel="noopener" class="btn-whatsapp-full"`;
+
+      const cartAction = isOutOfStock
+        ? `disabled class="btn-add-cart-icon btn-out-of-stock" data-tooltip="Stok Produk Habis"`
+        : `class="btn-add-cart-icon" onclick="window.addToCart(${p.id})" title="Masukkan ke Keranjang"`;
 
       const detailsHtml = `
         <div class="zigzag-info-col">
@@ -129,19 +138,10 @@
           </div>
 
           <div class="product-cta-group">
-            <a
-              href="https://wa.me/6281234567890?text=Halo%2C%20saya%20ingin%20memesan%20${encodeURIComponent(p.name)}%20(${p.size})%20seharga%20${encodeURIComponent(formatPrice(p.price))}"
-              target="_blank"
-              rel="noopener"
-              class="btn-whatsapp-full"
-            >
-              Pesan via WhatsApp
+            <a ${waAction}>
+              ${isOutOfStock ? 'Stok Habis' : 'Pesan via WhatsApp'}
             </a>
-            <button
-              class="btn-add-cart-icon"
-              onclick="window.addToCart(${p.id})"
-              title="Masukkan ke Keranjang"
-            >
+            <button ${cartAction}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
             </button>
           </div>
