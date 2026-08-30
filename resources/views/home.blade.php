@@ -58,8 +58,42 @@
         </svg>
         <span class="cart-badge-count" id="cart-badge-count">0</span>
       </button>
+
+      {{-- Hamburger Button (Mobile Only) --}}
+      <button id="nav-hamburger" class="nav-hamburger" aria-label="Buka Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </nav>
+
+  {{-- Mobile Menu Drawer --}}
+  <div id="nav-mobile-menu" class="nav-mobile-menu" role="dialog" aria-label="Menu Navigasi Mobile">
+    <ul class="nav-mobile-links">
+      <li><a href="/katalog">Katalog</a></li>
+      <li><a href="/quiz">Quiz</a></li>
+      <li><a href="#about-story-section">Tentang</a></li>
+      <li><a href="#testimoni-section">Testimoni</a></li>
+      <li><a href="#footer-section">Kontak</a></li>
+    </ul>
+    <div class="nav-mobile-actions">
+      <span class="nav-mobile-actions-label">Cari &amp; Keranjang</span>
+      <button id="btn-open-search-mobile" class="nav-icon-btn" aria-label="Cari Parfum" onclick="document.getElementById('btn-open-search').click(); window.closeMobileMenu && window.closeMobileMenu();">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+      <button id="btn-open-cart-mobile" class="nav-icon-btn" aria-label="Keranjang Belanja" onclick="document.getElementById('btn-open-cart').click(); window.closeMobileMenu && window.closeMobileMenu();" style="position:relative;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
 
   {{-- 3. HERO SECTION --}}
   <header id="hero">
@@ -337,17 +371,17 @@
   </section>
 
   {{-- 5. QUIZ PROMOTION BANNER SECTION --}}
-  <section class="quiz-banner-section" id="quiz-banner-section" style="background:#F5F5F7; padding:6rem 2rem; text-align:center;">
+  <section class="quiz-banner-section" id="quiz-banner-section" style="background:#F5F5F7; padding:clamp(3rem, 6vw, 6rem) clamp(1.25rem, 4vw, 2rem); text-align:center;">
     <div style="max-width:760px; margin:0 auto;">
       <span style="font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#8A8A8A; display:inline-block; margin-bottom:1rem;">FIND YOUR SIGNATURE SCENT</span>
-      <h2 style="font-family:var(--font-serif); font-size:clamp(2.4rem, 4vw, 3.4rem); font-weight:300; color:#0D0D0D; line-height:1.2; margin-bottom:1.25rem;">
+      <h2 style="font-family:var(--font-serif); font-size:clamp(1.8rem, 5vw, 3.4rem); font-weight:300; color:#0D0D0D; line-height:1.2; margin-bottom:1.25rem;">
         Masih Bingung Memilih Aroma Parfum Yang Pas?
       </h2>
-      <p style="font-size:1.02rem; color:#555555; line-height:1.75; margin-bottom:2.5rem; max-width:620px; margin-left:auto; margin-right:auto;">
-        Jawab 5 pertanyaan simpel untuk menemukan varian parfum Perfu.me yang paling cocok dengan kepribadian & aktivitas harian Anda.
+      <p style="font-size:clamp(0.9rem, 2.5vw, 1.02rem); color:#555555; line-height:1.75; margin-bottom:2.5rem; max-width:620px; margin-left:auto; margin-right:auto;">
+        Jawab 5 pertanyaan simpel untuk menemukan varian parfum Perfu.me yang paling cocok dengan kepribadian &amp; aktivitas harian Anda.
       </p>
       <a href="/quiz" style="display:inline-flex; align-items:center; gap:0.6rem; padding:1.05rem 2.4rem; background:#0D0D0D; color:#FFFFFF; border-radius:999px; font-size:0.88rem; font-weight:700; letter-spacing:0.06em; text-decoration:none; transition:all 0.25s ease; box-shadow:0 6px 20px rgba(0,0,0,0.12);" onmouseover="this.style.background='#252525'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#0D0D0D'; this.style.transform='translateY(0)';">
-        Ikuti Quiz 
+        Ikuti Quiz
       </a>
     </div>
   </section>

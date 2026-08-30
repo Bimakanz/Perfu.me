@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Scent Finder Quiz — Perfu.me')
 @section('description', 'Temukan parfum terbaik untuk karakter Anda melalui 5 pertanyaan simpel dari Parfu.me.')
@@ -512,11 +512,73 @@
     @media (max-width: 860px) {
       .results-grid {
         grid-template-columns: repeat(1, 1fr);
+        gap: 1.5rem;
       }
 
       .scale-wrapper {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1.25rem;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .quiz-hero-header {
+        padding: 5.5rem 1rem 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .quiz-main-container {
+        padding: 0 1rem;
+        margin-bottom: 4rem;
+      }
+
+      .question-text {
+        font-size: 1.45rem;
+        margin-bottom: 2.25rem;
+      }
+
+      .scale-circles-group {
+        gap: 0.45rem;
+        width: 100%;
+        max-width: 320px;
+      }
+
+      .scale-circle-btn.size-large {
+        width: 38px;
+        height: 38px;
+      }
+
+      .scale-circle-btn.size-medium {
+        width: 32px;
+        height: 32px;
+      }
+
+      .scale-circle-btn.size-small {
+        width: 26px;
+        height: 26px;
+      }
+
+      .scale-circle-btn.size-neutral {
+        width: 22px;
+        height: 22px;
+      }
+
+      .quiz-actions-row {
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
+      }
+
+      .btn-quiz-next {
+        padding: 0.75rem 1.6rem;
+        font-size: 0.8rem;
+      }
+
+      .results-title {
+        font-size: 2rem;
+      }
+
+      .rec-card-body {
+        padding: 1.25rem;
       }
     }
   </style>
@@ -554,8 +616,42 @@
         </svg>
         <span class="cart-badge-count" id="cart-badge-count">0</span>
       </button>
+
+      {{-- Hamburger Button (Mobile Only) --}}
+      <button id="nav-hamburger" class="nav-hamburger" aria-label="Buka Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </nav>
+
+  {{-- Mobile Menu Drawer --}}
+  <div id="nav-mobile-menu" class="nav-mobile-menu" role="dialog" aria-label="Menu Navigasi Mobile">
+    <ul class="nav-mobile-links">
+      <li><a href="/katalog">Katalog</a></li>
+      <li><a href="/quiz" style="font-weight:800;">Quiz</a></li>
+      <li><a href="/#about-story-section">Tentang</a></li>
+      <li><a href="/#testimoni-section">Testimoni</a></li>
+      <li><a href="/#footer-section">Kontak</a></li>
+    </ul>
+    <div class="nav-mobile-actions">
+      <span class="nav-mobile-actions-label">Cari &amp; Keranjang</span>
+      <button class="nav-icon-btn" aria-label="Cari Parfum" onclick="document.getElementById('btn-open-search').click(); window.closeMobileMenu && window.closeMobileMenu();">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+      <button class="nav-icon-btn" aria-label="Keranjang Belanja" onclick="document.getElementById('btn-open-cart').click(); window.closeMobileMenu && window.closeMobileMenu();" style="position:relative;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
 
   {{-- Header --}}
   <header class="quiz-hero-header" id="quiz-hero-header">

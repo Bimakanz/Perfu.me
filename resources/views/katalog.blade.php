@@ -715,10 +715,27 @@
 
   @media (max-width: 768px) {
     .katalog-body { grid-template-columns: 1fr; }
-    .katalog-sidebar { position: static; border-right: none; border-bottom: 1px solid #E5E5E5; padding-right: 0; padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+    .katalog-sidebar {
+      position: static;
+      border-right: none;
+      border-bottom: 1px solid #E5E5E5;
+      padding-right: 0;
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+      display: none; /* hidden by default on mobile */
+    }
+    .katalog-sidebar.mobile-open {
+      display: block;
+    }
     .katalog-main { padding-left: 0; }
-    .katalog-header { padding: 5rem 1.5rem 2rem; }
-    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .katalog-header { padding: 5rem 1.25rem 2rem; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.85rem; }
+    #btn-mobile-filter { display: inline-flex !important; }
+    .katalog-hook { font-size: 0.82rem !important; padding: 0.85rem 1rem !important; }
+  }
+
+  @media (max-width: 380px) {
+    .product-grid { grid-template-columns: 1fr; }
   }
 
   /* ── Pagination Styling (Clean Text Luxury) ───────────────── */
@@ -804,8 +821,42 @@
         </svg>
         <span class="cart-badge-count" id="cart-badge-count">0</span>
       </button>
+
+      {{-- Hamburger Button (Mobile Only) --}}
+      <button id="nav-hamburger" class="nav-hamburger" aria-label="Buka Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </nav>
+
+  {{-- Mobile Menu Drawer --}}
+  <div id="nav-mobile-menu" class="nav-mobile-menu" role="dialog" aria-label="Menu Navigasi Mobile">
+    <ul class="nav-mobile-links">
+      <li><a href="/katalog" style="font-weight:800;">Katalog</a></li>
+      <li><a href="/quiz">Quiz</a></li>
+      <li><a href="/#about-story-section">Tentang</a></li>
+      <li><a href="/#testimoni-section">Testimoni</a></li>
+      <li><a href="/#footer-section">Kontak</a></li>
+    </ul>
+    <div class="nav-mobile-actions">
+      <span class="nav-mobile-actions-label">Cari &amp; Keranjang</span>
+      <button class="nav-icon-btn" aria-label="Cari Parfum" onclick="document.getElementById('btn-open-search').click(); window.closeMobileMenu && window.closeMobileMenu();">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+      <button class="nav-icon-btn" aria-label="Keranjang Belanja" onclick="document.getElementById('btn-open-cart').click(); window.closeMobileMenu && window.closeMobileMenu();" style="position:relative;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
 
   {{-- PAGE HEADER --}}
   <div class="katalog-header">
@@ -816,7 +867,14 @@
     </div>
     <h1 class="katalog-page-title">Koleksi Parfum</h1>
     <p class="katalog-page-sub">Semua koleksi wewangian eksklusif Perfu.me</p>
-    <a href="/quiz" class="katalog-hook">Masih bingung pilih parfum? <small>Mulai quiz untuk rekomendasi parfum keseharian Anda.</small></a>
+    <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center; margin-top:1rem;">
+      <a href="/quiz" class="katalog-hook">Masih bingung pilih parfum? <small>Mulai quiz untuk rekomendasi parfum keseharian Anda.</small></a>
+      {{-- Mobile Filter Toggle --}}
+      <button id="btn-mobile-filter" onclick="toggleMobileFilter()" style="display:none; align-items:center; gap:0.5rem; padding:0.75rem 1.1rem; background:#FFFFFF; border:1px solid #E5E5E5; border-radius:999px; font-size:0.82rem; font-weight:600; color:#0D0D0D; cursor:pointer; transition:all 0.2s;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        Filter
+      </button>
+    </div>
   </div>
 
   {{-- BODY: SIDEBAR + GRID --}}
@@ -1210,6 +1268,15 @@
     initCustomSortDropdown();
     initKatalog();
   });
+
+  // Mobile filter sidebar toggle
+  function toggleMobileFilter() {
+    const sidebar = document.querySelector('.katalog-sidebar');
+    const btn = document.getElementById('btn-mobile-filter');
+    if (!sidebar) return;
+    const isOpen = sidebar.classList.toggle('mobile-open');
+    if (btn) btn.textContent = isOpen ? '✕ Tutup Filter' : '⚙ Filter';
+  }
 </script>
 <script src="{{ asset('js/navbar.js') }}"></script>
 @endsection

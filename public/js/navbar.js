@@ -1,5 +1,5 @@
 /**
- * navbar.js — Smooth Scroll & Sticky Glassmorphism Navbar
+ * navbar.js — Smooth Scroll, Sticky Glassmorphism Navbar & Mobile Hamburger
  * Perfu.me E-Commerce Platform
  */
 
@@ -8,7 +8,7 @@
     const navbar = document.getElementById('navbar');
     if (!navbar) return;
 
-    // If page doesn't have a hero section (e.g. Katalog page), always show navbar immediately
+    // ── Scroll-based show/hide ─────────────────────────────
     const hasHero = !!document.getElementById('hero');
 
     function onScroll() {
@@ -22,7 +22,7 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    // Smooth Scroll Click Handlers
+    // ── Smooth Scroll Click Handlers ───────────────────────
     document.querySelectorAll('[data-nav]').forEach(el => {
       el.addEventListener('click', (e) => {
         const targetId = el.getAttribute('data-nav');
@@ -42,8 +42,66 @@
         } else if (targetId === 'home') {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // Close mobile menu if open
+        closeMobileMenu();
       });
     });
+
+    // ── Hamburger / Mobile Menu Toggle ─────────────────────
+    const hamburger = document.getElementById('nav-hamburger');
+    const mobileMenu = document.getElementById('nav-mobile-menu');
+
+    function openMobileMenu() {
+      if (!hamburger || !mobileMenu) return;
+      hamburger.classList.add('active');
+      mobileMenu.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+      if (!hamburger || !mobileMenu) return;
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    if (hamburger) {
+      hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (hamburger.classList.contains('active')) {
+          closeMobileMenu();
+        } else {
+          openMobileMenu();
+        }
+      });
+    }
+
+    // Close mobile menu when clicking a link inside it
+    if (mobileMenu) {
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          closeMobileMenu();
+        });
+      });
+    }
+
+    // Close mobile menu on outside click
+    document.addEventListener('click', (e) => {
+      if (mobileMenu && mobileMenu.classList.contains('open')) {
+        if (!navbar.contains(e.target) && !mobileMenu.contains(e.target)) {
+          closeMobileMenu();
+        }
+      }
+    });
+
+    // Close mobile menu on ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMobileMenu();
+    });
+
+    // Expose for use by other scripts
+    window.closeMobileMenu = closeMobileMenu;
   }
 
   document.addEventListener('DOMContentLoaded', initNavbar);

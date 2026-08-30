@@ -19,6 +19,12 @@
     padding: 3rem 2rem 5rem;
   }
 
+  @media (max-width: 768px) {
+    .detail-page-container {
+      padding: 1.5rem 1.1rem 3rem;
+    }
+  }
+
   .detail-breadcrumb {
     display: flex;
     align-items: center;
@@ -432,6 +438,49 @@
     .bottom-bar-controls { width: 100%; justify-content: space-between; }
   }
 
+  @media (max-width: 600px) {
+    .sticky-bottom-bar {
+      height: auto !important;
+      padding: 0.75rem 0 !important;
+    }
+    .bottom-bar-content {
+      padding: 0 1rem !important;
+      flex-wrap: wrap !important;
+      gap: 0.75rem !important;
+    }
+    .bottom-bar-controls {
+      width: 100% !important;
+      gap: 0.6rem !important;
+      flex-wrap: nowrap !important;
+      justify-content: space-between !important;
+    }
+    .custom-size-trigger {
+      padding: 0.65rem 0.9rem !important;
+      font-size: 0.8rem !important;
+      gap: 0.5rem !important;
+    }
+    .qty-counter {
+      padding: 0.2rem 0.4rem !important;
+    }
+    .qty-btn {
+      width: 30px !important;
+      height: 30px !important;
+      font-size: 1rem !important;
+    }
+    .btn-bottom-order {
+      padding: 0.75rem 1rem !important;
+      font-size: 0.82rem !important;
+      flex: 1 !important;
+    }
+    .btn-bottom-cart {
+      padding: 0.75rem 0.9rem !important;
+      font-size: 0.82rem !important;
+    }
+    body {
+      padding-bottom: 130px !important;
+    }
+  }
+
   /* Related Products Section */
   .related-section {
     border-top: 1px solid #EEEEEE;
@@ -611,8 +660,42 @@
         </svg>
         <span class="cart-badge-count" id="cart-badge-count">0</span>
       </button>
+
+      {{-- Hamburger Button (Mobile Only) --}}
+      <button id="nav-hamburger" class="nav-hamburger" aria-label="Buka Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </nav>
+
+  {{-- Mobile Menu Drawer --}}
+  <div id="nav-mobile-menu" class="nav-mobile-menu" role="dialog" aria-label="Menu Navigasi Mobile">
+    <ul class="nav-mobile-links">
+      <li><a href="/katalog">Katalog</a></li>
+      <li><a href="/quiz">Quiz</a></li>
+      <li><a href="/#about-story-section">Tentang</a></li>
+      <li><a href="/#testimoni-section">Testimoni</a></li>
+      <li><a href="/#footer-section">Kontak</a></li>
+    </ul>
+    <div class="nav-mobile-actions">
+      <span class="nav-mobile-actions-label">Cari &amp; Keranjang</span>
+      <button class="nav-icon-btn" aria-label="Cari Parfum" onclick="document.getElementById('btn-open-search').click(); window.closeMobileMenu && window.closeMobileMenu();">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+      <button class="nav-icon-btn" aria-label="Keranjang Belanja" onclick="document.getElementById('btn-open-cart').click(); window.closeMobileMenu && window.closeMobileMenu();" style="position:relative;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
 
   @php
     $isSignature = strtolower($product->type) === 'signature' || str_contains(strtolower($product->name), 'dynamyst') || str_contains(strtolower($product->name), 'vanessence');

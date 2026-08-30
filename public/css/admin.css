@@ -1933,3 +1933,94 @@ select.form-control:hover {
   overflow-x: auto;
   overflow-y: visible !important;
 }
+
+/* ── Mobile Responsive Rules for Admin Dashboard ──────────── */
+@media (max-width: 1024px) {
+  .admin-topbar {
+    padding: 0 1.25rem;
+  }
+
+  .admin-body {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .admin-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .admin-slide-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-topbar {
+    height: auto;
+    padding: 0.85rem 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .admin-topbar-right {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .admin-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .admin-table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 1rem;
+  }
+
+  .admin-table-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .search-wrap,
+  .custom-select-wrap,
+  .admin-add-btn {
+    width: 100%;
+  }
+
+  .custom-select-trigger {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .admin-add-btn {
+    justify-content: center;
+  }
+
+  .admin-detail-modal {
+    width: 95vw !important;
+    max-height: 90vh !important;
+  }
+
+  .admin-detail-body {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    padding: 1.25rem !important;
+  }
+
+  .detail-notes-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+}
