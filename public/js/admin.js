@@ -54,6 +54,11 @@ window.doAdminLogin = async function(e) {
     }
 
     try {
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Memproses...';
+      }
+
       if (window.API && typeof window.API.login === 'function') {
         const result = await window.API.login(user, pass);
         if (result && result.success) {
@@ -71,7 +76,14 @@ window.doAdminLogin = async function(e) {
       }
       throw { message: 'Server tidak dapat dihubungi.' };
     } catch (err) {
-      // ... (biarkan bagian error handling lockout di bawahnya tetap sama)
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Masuk ke Dashboard';
+      }
+      if (errorMsg) {
+        errorMsg.textContent = err.message || 'Login gagal. Periksa username dan password.';
+        errorMsg.classList.add('show');
+      }
     }
   };
 
@@ -90,8 +102,9 @@ window.doAdminLogin = async function(e) {
     }
 
     // Handle Login Submit
-    if (form) {
+    if (form && !form.dataset.adminLoginBound) {
       form.addEventListener('submit', window.doAdminLogin);
+      form.dataset.adminLoginBound = 'true';
     }
 
     // Search input listener
@@ -109,18 +122,31 @@ window.doAdminLogin = async function(e) {
       if (customTrigger) customTrigger.classList.remove('active');
     });
 
-   // Check existing session
-    try {
-      if (window.API && typeof window.API.hasToken === 'function' && window.API.hasToken()) {
-        // Cek apakah ini benar-benar baru login atau hanya me-refresh halaman (F5)
-        const isFresh = sessionStorage.getItem('just_logged_in') === 'true';
-        
-        // Hapus tandanya agar kalau di-refresh tidak muncul animasi terus
-        sessionStorage.removeItem('just_logged_in');
+    checkInitialAdminSession();
+  }
 
+  async function checkInitialAdminSession() {
+    if (!window.API || typeof window.API.hasToken !== 'function' || !window.API.hasToken()) {
+      showLogin();
+      return;
+    }
+
+    const isFresh = sessionStorage.getItem('just_logged_in') === 'true';
+    sessionStorage.removeItem('just_logged_in');
+
+    try {
+      const isAuthenticated = typeof window.API.checkAuth === 'function'
+        ? await window.API.checkAuth()
+        : true;
+
+      if (isAuthenticated) {
         showDashboard(isFresh);
+      } else {
+        showLogin('Sesi login Anda telah berakhir. Silakan masuk kembali.');
       }
-    } catch (e) {}
+    } catch (e) {
+      showLogin('Sesi login Anda tidak valid. Silakan masuk kembali.');
+    }
   }
 
   // ── Custom Filter Select Dropdown Controller ────────────────
@@ -174,13 +200,10 @@ function showDashboard(isFreshLogin = false) {
     // Step 1: Langsung pindah ke dashboard
     if (loginPage) loginPage.style.cssText = 'display: none !important;';
     if (dashPage) {
-      dashPage.style.cssText = 'display: block !important;';
+      dashPage.style.cssText = 'display: flex !important;';
       dashPage.classList.add('active');
     }
 
-    products = [...DEFAULT_ADMIN_PRODUCTS];
-    try { renderTable(); } catch (e) {}
-    try { updateStats(); } catch (e) {}
     loadDashboardData();
 
     // Step 2: Animasi Welcome Overlay
@@ -211,10 +234,12 @@ function showDashboard(isFreshLogin = false) {
     }
   }
 
-  window.handleSessionExpired = function() {
+  function showLogin(message = '') {
     if (window.API && typeof window.API.clearToken === 'function') {
       window.API.clearToken();
     }
+    sessionStorage.removeItem('just_logged_in');
+
     const loginPage = document.getElementById('admin-login-page');
     const dashPage = document.getElementById('admin-dashboard-page');
     if (dashPage) {
@@ -224,6 +249,16 @@ function showDashboard(isFreshLogin = false) {
     if (loginPage) {
       loginPage.style.cssText = 'display: flex !important;';
     }
+
+    const errorMsg = document.getElementById('login-error-msg');
+    if (errorMsg) {
+      errorMsg.textContent = message;
+      errorMsg.classList.toggle('show', Boolean(message));
+    }
+  }
+
+  window.handleSessionExpired = function() {
+    showLogin('Sesi login Anda telah berakhir. Silakan masuk kembali.');
     showToast('Sesi login Anda telah berakhir. Silakan masuk kembali.', 'warning');
   };
 
@@ -269,20 +304,23 @@ function showDashboard(isFreshLogin = false) {
 
   // ── 2. Dashboard Data & Table Rendering ─────────────────────
   async function loadDashboardData() {
-    products = [...DEFAULT_ADMIN_PRODUCTS];
+    products = [];
     renderTable();
     updateStats();
 
     try {
       if (window.API && typeof window.API.getAll === 'function') {
         const res = await window.API.getAll();
-        if (res && res.length > 0) {
-          products = res;
-          renderTable();
-          updateStats();
-        }
+        products = Array.isArray(res) ? res : [];
+        renderTable();
+        updateStats();
       }
-    } catch (err) {}
+    } catch (err) {
+      products = [];
+      renderTable();
+      updateStats();
+      showToast(err.message || 'Gagal memuat data produk.', 'error');
+    }
   }
 
   window.loadDashboardData = loadDashboardData;
@@ -386,7 +424,9 @@ function renderAdminPaginationControls(totalPages) {
 
     let filtered = products.filter(p => {
       // Search filter
-      const matchSearch = !searchVal || p.name.toLowerCase().includes(searchVal) || p.variant.toLowerCase().includes(searchVal);
+      const productName = String(p.name || '').toLowerCase();
+      const productVariant = String(p.variant || '').toLowerCase();
+      const matchSearch = !searchVal || productName.includes(searchVal) || productVariant.includes(searchVal);
       if (!matchSearch) return false;
 
       // Status filter
@@ -403,8 +443,9 @@ function renderAdminPaginationControls(totalPages) {
 
     // Sort
     filtered.sort((a, b) => {
-      let va = a[currentSort.field];
-      let vb = b[currentSort.field];
+      const sortField = currentSort.field === 'bestSeller' ? 'best_seller' : currentSort.field;
+      let va = a[sortField];
+      let vb = b[sortField];
       if (typeof va === 'string') va = va.toLowerCase();
       if (typeof vb === 'string') vb = vb.toLowerCase();
 
@@ -926,14 +967,18 @@ window.openLogoutModal = function (e) {
     }
   };
 
-  function logout() {
+  async function logout() {
     // 1. Tutup semua modal dulu sebelum pindah layar
     document.querySelectorAll('.admin-modal-backdrop').forEach(function(b) {
       b.classList.remove('active');
     });
     // 2. Bersihkan session
     if (window.API && typeof window.API.logout === 'function') {
-      window.API.logout();
+      try {
+        await window.API.logout();
+      } catch (e) {
+        window.API.clearToken();
+      }
     }
     // 3. Baru pindah ke layar login
     const loginPage = document.getElementById('admin-login-page');

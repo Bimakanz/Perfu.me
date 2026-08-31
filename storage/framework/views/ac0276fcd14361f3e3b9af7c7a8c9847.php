@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>@yield('title', 'Admin Portal — Perfu.me Dashboard')</title>
-  <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
-  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+  <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+  <title><?php echo $__env->yieldContent('title', 'Admin Portal — Perfu.me Dashboard'); ?></title>
+  <link rel="icon" type="image/svg+xml" href="<?php echo e(asset('favicon.svg')); ?>">
+  <link rel="icon" type="image/x-icon" href="<?php echo e(asset('favicon.ico')); ?>">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,8 +15,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+  <link rel="stylesheet" href="<?php echo e(asset('css/main.css')); ?>">
+  <link rel="stylesheet" href="<?php echo e(asset('css/admin.css')); ?>">
   <style>
     /* Styling Tambahan untuk Sidebar Layout */
     body { background-color: #F8F9FA; margin: 0; font-family: 'Inter', sans-serif; }
@@ -79,7 +79,7 @@
       z-index: 99;
     }
   </style>
-  @yield('styles')
+  <?php echo $__env->yieldContent('styles'); ?>
 </head>
 
 <body>
@@ -87,7 +87,7 @@
   <!-- ADMIN LOGIN PAGE (Jika belum login) -->
   <div id="admin-login-page" class="admin-page">
     <div class="admin-login-left">
-      <img class="admin-login-left-img" src="{{ asset('assets/images/adminhero.webp') }}" alt="Perfu.me Admin">
+      <img class="admin-login-left-img" src="<?php echo e(asset('assets/images/adminhero.webp')); ?>" alt="Perfu.me Admin">
       <div class="admin-login-left-overlay">
         <div class="admin-brand-mark">Perfu.me</div>
         <div class="admin-brand-tagline">Inventory &amp; Management</div>
@@ -138,11 +138,11 @@
       </div>
 
       <div class="admin-sidebar-menu">
-        <a href="/admin" class="admin-menu-item {{ request()->is('admin*') && !request()->is('admin/testimoni*') ? 'active' : '' }}">
+        <a href="/admin" class="admin-menu-item <?php echo e(request()->is('admin*') && !request()->is('admin/testimoni*') ? 'active' : ''); ?>">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
           Manajemen Produk
         </a>
-        <a href="/admin/testimoni" class="admin-menu-item {{ request()->is('admin/testimoni*') ? 'active' : '' }}">
+        <a href="/admin/testimoni" class="admin-menu-item <?php echo e(request()->is('admin/testimoni*') ? 'active' : ''); ?>">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
           Kelola Testimoni
         </a>
@@ -155,7 +155,7 @@
       <!-- Topbar Kanan -->
       <header class="admin-topbar-new">
         <div style="font-weight: 600; color: #111827; font-size: 1.05rem;">
-          @yield('page-title', 'Dashboard Overview')
+          <?php echo $__env->yieldContent('page-title', 'Dashboard Overview'); ?>
         </div>
 
         <div class="admin-topbar-right" style="display: flex; align-items: center; gap: 1.25rem;">
@@ -173,7 +173,7 @@
 
       <!-- Main Body Content -->
       <main class="admin-body" style="padding: 2.5rem;">
-        @yield('content')
+        <?php echo $__env->yieldContent('content'); ?>
       </main>
 
     </div>
@@ -201,7 +201,7 @@
     </div>
   </div>
 
-  <script src="{{ asset('js/db.js') }}"></script>
+  <script src="<?php echo e(asset('js/db.js')); ?>"></script>
   <script>
     (function () {
       function showLogin(message) {
@@ -349,6 +349,7 @@
     })();
   </script>
 
-  @yield('scripts')
+  <?php echo $__env->yieldContent('scripts'); ?>
 </body>
 </html>
+<?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/layouts/admin.blade.php ENDPATH**/ ?>

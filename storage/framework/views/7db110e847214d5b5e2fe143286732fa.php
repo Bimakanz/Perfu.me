@@ -1,14 +1,12 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', $product->name . ' — Perfu.me'); ?>
+<?php $__env->startSection('description', Str::limit($product->description, 160)); ?>
+<?php $__env->startSection('og_type', 'product'); ?>
+<?php $__env->startSection('og_title', $product->name . ' — Perfu.me'); ?>
+<?php $__env->startSection('og_description', Str::limit($product->description, 160)); ?>
+<?php $__env->startSection('og_image', asset($product->image)); ?>
+<?php $__env->startSection('canonical', url('/produk/' . $product->id)); ?>
 
-@section('title', $product->name . ' — Perfu.me')
-@section('description', Str::limit($product->description, 160))
-@section('og_type', 'product')
-@section('og_title', $product->name . ' — Perfu.me')
-@section('og_description', Str::limit($product->description, 160))
-@section('og_image', asset($product->image))
-@section('canonical', url('/produk/' . $product->id))
-
-@section('styles')
+<?php $__env->startSection('styles'); ?>
 <style>
   body {
     background: #FFFFFF;
@@ -734,14 +732,14 @@
     .related-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   }
 </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
-  {{-- NAVBAR --}}
-  @include('partials.navbar')
+  
+  <?php echo $__env->make('partials.navbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-  {{-- Mobile Menu Drawer --}}
+  
   <div id="nav-mobile-menu" class="nav-mobile-menu" role="dialog" aria-label="Menu Navigasi Mobile">
     <ul class="nav-mobile-links">
       <li><a href="/katalog">Katalog</a></li>
@@ -768,54 +766,57 @@
     </div>
   </div>
 
-  @php
+  <?php
     $isSignature = strtolower($product->type) === 'signature' || str_contains(strtolower($product->name), 'dynamyst') || str_contains(strtolower($product->name), 'vanessence');
     $initialPrice = $isSignature ? $product->price : 45000; // Default Refill 35ml = Rp 45.000
-  @endphp
+  ?>
 
   <div class="detail-page-container">
-    {{-- Breadcrumb Navigation (Matching Katalog Style) --}}
+    
     <div class="detail-breadcrumb">
       <a href="/">Home</a>
       <span class="sep">›</span>
-      <a href="/katalog">{{ $isSignature ? 'Signature' : 'Katalog' }}</a>
+      <a href="/katalog"><?php echo e($isSignature ? 'Signature' : 'Katalog'); ?></a>
       <span class="sep">›</span>
-      <span class="current">{{ $product->name }}</span>
+      <span class="current"><?php echo e($product->name); ?></span>
     </div>
 
     <div class="detail-hero-grid">
-      {{-- Media Column --}}
+      
       <div class="detail-media-col">
-        <div class="detail-brand-watermark {{ $isSignature ? 'is-signature' : 'is-refill' }}">{{ $isSignature ? 'Perfu.me' : 'REFILL' }}</div>
+        <div class="detail-brand-watermark <?php echo e($isSignature ? 'is-signature' : 'is-refill'); ?>"><?php echo e($isSignature ? 'Perfu.me' : 'REFILL'); ?></div>
         <div class="detail-img-box">
-          <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+          <img src="<?php echo e(asset($product->image)); ?>" alt="<?php echo e($product->name); ?>" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
         </div>
       </div>
 
-      {{-- Info Column --}}
+      
       <div class="detail-info-col">
         <div class="detail-status-pill">
-          {{ $product->stock > 0 ? 'Ready Stock' : 'Stok Habis' }}
+          <?php echo e($product->stock > 0 ? 'Ready Stock' : 'Stok Habis'); ?>
+
         </div>
 
-        <h1 class="detail-product-name">{{ $product->name }}</h1>
+        <h1 class="detail-product-name"><?php echo e($product->name); ?></h1>
 
         <div class="detail-price-text" id="display-price-text">
-          Rp {{ number_format($initialPrice, 0, ',', '.') }}
+          Rp <?php echo e(number_format($initialPrice, 0, ',', '.')); ?>
+
         </div>
         <div class="detail-shipping-note">
           <span class="shipping-word">Shipping</span> calculated at checkout.
         </div>
 
         <div class="detail-desc-text">
-          {{ $product->description }}
+          <?php echo e($product->description); ?>
+
         </div>
 
-        {{-- Keunggulan / Key Features List --}}
+        
         <ul class="detail-features-list">
           <li>Parfum oil grade A, alkohol food grade</li>
           <li>Tanpa pewarna tambahan</li>
-          <li>{{ $product->packaging ?? 'Botol kaca spray + dus karton' }}</li>
+          <li><?php echo e($product->packaging ?? 'Botol kaca spray + dus karton'); ?></li>
           <li>Tahan 6–10 jam</li>
         </ul>
 
@@ -824,23 +825,23 @@
           <div class="scent-notes-grid">
             <div class="scent-note-col">
               <strong>Top Notes</strong>
-              <span>{{ $product->top_notes ?? 'Fresh Notes' }}</span>
+              <span><?php echo e($product->top_notes ?? 'Fresh Notes'); ?></span>
             </div>
             <div class="scent-note-col">
               <strong>Heart Notes</strong>
-              <span>{{ $product->middle_notes ?? 'Floral Accord' }}</span>
+              <span><?php echo e($product->middle_notes ?? 'Floral Accord'); ?></span>
             </div>
             <div class="scent-note-col">
               <strong>Base Notes</strong>
-              <span>{{ $product->base_notes ?? 'Warm Musk' }}</span>
+              <span><?php echo e($product->base_notes ?? 'Warm Musk'); ?></span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    {{-- Rekomendasi Parfum Pilihan Lainnya --}}
-    @if(isset($relatedProducts) && count($relatedProducts) > 0)
+    
+    <?php if(isset($relatedProducts) && count($relatedProducts) > 0): ?>
       <section class="related-section">
         <div class="related-header">
           <div>
@@ -854,67 +855,67 @@
         </div>
 
         <div class="related-grid">
-          @foreach($relatedProducts as $rel)
-            @php
+          <?php $__currentLoopData = $relatedProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rel): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php
               $relIsSig = strtolower($rel->type) === 'signature' || str_contains(strtolower($rel->name), 'dynamyst') || str_contains(strtolower($rel->name), 'vanessence');
               $relPrice = $relIsSig ? $rel->price : 45000;
-            @endphp
-            <a href="/produk/{{ $rel->id }}" class="related-card">
+            ?>
+            <a href="/produk/<?php echo e($rel->id); ?>" class="related-card">
               <div class="related-img-wrap">
-                <img src="{{ asset($rel->image) }}" alt="{{ $rel->name }}" loading="lazy" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+                <img src="<?php echo e(asset($rel->image)); ?>" alt="<?php echo e($rel->name); ?>" loading="lazy" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
               </div>
               <div class="related-card-body">
-                <div class="related-card-tag">{{ $relIsSig ? 'Signature' : 'Refill' }} • {{ $rel->gender }}</div>
+                <div class="related-card-tag"><?php echo e($relIsSig ? 'Signature' : 'Refill'); ?> • <?php echo e($rel->gender); ?></div>
                 <div class="related-card-name">
-                  <span class="related-card-title-text">{{ $rel->name }}</span>
+                  <span class="related-card-title-text"><?php echo e($rel->name); ?></span>
                 </div>
-                <div class="related-card-price">Rp {{ number_format($relPrice, 0, ',', '.') }}</div>
+                <div class="related-card-price">Rp <?php echo e(number_format($relPrice, 0, ',', '.')); ?></div>
               </div>
             </a>
-          @endforeach
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
       </section>
-    @endif
+    <?php endif; ?>
   </div>
 
-  {{-- Sticky Bottom Bar --}}
+  
   <div class="sticky-bottom-bar">
     <div class="bottom-bar-content">
       <div class="bottom-bar-product-info">
-        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="bottom-bar-thumb" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+        <img src="<?php echo e(asset($product->image)); ?>" alt="<?php echo e($product->name); ?>" class="bottom-bar-thumb" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
         <div class="bottom-bar-title-group">
-          <div class="bottom-bar-title">{{ $product->name }}</div>
-          <div class="bottom-bar-price" id="bar-price-text">Rp {{ number_format($initialPrice, 0, ',', '.') }}</div>
+          <div class="bottom-bar-title"><?php echo e($product->name); ?></div>
+          <div class="bottom-bar-price" id="bar-price-text">Rp <?php echo e(number_format($initialPrice, 0, ',', '.')); ?></div>
         </div>
       </div>
 
       <div class="bottom-bar-controls">
-        {{-- Custom Luxury Dropdown for Size Selection --}}
+        
         <div class="custom-size-dropdown" id="custom-size-dropdown">
           <button type="button" class="custom-size-trigger" id="custom-size-trigger">
-            <span id="custom-size-label">{{ $isSignature ? 'Signature 30ml' : 'Refill 35ml — Rp 45.000' }}</span>
+            <span id="custom-size-label"><?php echo e($isSignature ? 'Signature 30ml' : 'Refill 35ml — Rp 45.000'); ?></span>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           
           <div class="custom-size-menu" id="custom-size-menu">
-            @if($isSignature)
-              <div class="custom-size-opt active" data-size="30ml" data-price="{{ $product->price }}">Signature 30ml</div>
-            @else
+            <?php if($isSignature): ?>
+              <div class="custom-size-opt active" data-size="30ml" data-price="<?php echo e($product->price); ?>">Signature 30ml</div>
+            <?php else: ?>
               <div class="custom-size-opt" data-size="15ml" data-price="20000">Refill 15ml — Rp 20.000</div>
               <div class="custom-size-opt active" data-size="35ml" data-price="45000">Refill 35ml — Rp 45.000</div>
               <div class="custom-size-opt" data-size="50ml" data-price="65000">Refill 50ml — Rp 65.000</div>
-            @endif
+            <?php endif; ?>
           </div>
         </div>
 
-        {{-- Quantity counter (- 1 +) --}}
+        
         <div class="qty-counter">
           <button class="qty-btn" onclick="changeQty(-1)">−</button>
           <span class="qty-val" id="qty-val">1</span>
           <button class="qty-btn" onclick="changeQty(1)">+</button>
         </div>
 
-        {{-- Action Buttons --}}
+        
         <a id="btn-order-wa" href="#" target="_blank" rel="noopener" class="btn-bottom-order">
           Pesan WhatsApp
         </a>
@@ -925,22 +926,22 @@
     </div>
   </div>
 
-  {{-- FOOTER --}}
-  @include('partials.footer')
+  
+  <?php echo $__env->make('partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scripts')
+<?php $__env->startSection('scripts'); ?>
 <script>
   let currentQty = 1;
-  let selectedPrice = {{ $initialPrice }};
-  let selectedSize = "{{ $isSignature ? '30ml' : '35ml' }}";
-  const isSignature = {{ $isSignature ? 'true' : 'false' }};
-  const productName = @json($product->name);
-  const productStock = {{ (int)($product->stock ?? 0) }};
+  let selectedPrice = <?php echo e($initialPrice); ?>;
+  let selectedSize = "<?php echo e($isSignature ? '30ml' : '35ml'); ?>";
+  const isSignature = <?php echo e($isSignature ? 'true' : 'false'); ?>;
+  const productName = <?php echo json_encode($product->name, 15, 512) ?>;
+  const productStock = <?php echo e((int)($product->stock ?? 0)); ?>;
   
   // INI TAMBAHANNYA AGAR TOMBOL KERANJANG BERFUNGSI
-  const productId = {{ $product->id }}; 
+  const productId = <?php echo e($product->id); ?>; 
 
   function updateDisplay() {
     const totalPrice = selectedPrice * currentQty;
@@ -1044,5 +1045,6 @@
     updateDisplay();
   });
 </script>
-<script src="{{ asset('js/navbar.js') }}"></script>
-@endsection
+<script src="<?php echo e(asset('js/navbar.js')); ?>"></script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/product-detail.blade.php ENDPATH**/ ?>

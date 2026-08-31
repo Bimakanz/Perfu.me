@@ -152,6 +152,7 @@ async function deleteTestimonial(id) {
             method: 'DELETE',
             headers: headers
         });
+        
         if (res.ok) {
             location.reload();
         } else {

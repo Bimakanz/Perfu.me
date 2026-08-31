@@ -68,9 +68,11 @@ class PerfumeAPI {
   }
 
   async logout() {
-    const res = await this._request('POST', '/auth/logout', null, true);
-    this.clearToken();
-    return res;
+    try {
+      return await this._request('POST', '/auth/logout', null, true);
+    } finally {
+      this.clearToken();
+    }
   }
 
   async checkAuth() {
