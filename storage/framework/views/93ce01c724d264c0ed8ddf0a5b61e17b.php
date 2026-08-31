@@ -1,9 +1,9 @@
-@extends('layouts.admin')
 
-@section('title', 'Kelola Testimoni - Perfu.me Admin')
-@section('page-title', 'Manajemen Ulasan & Testimoni Pelanggan')
 
-@section('content')
+<?php $__env->startSection('title', 'Kelola Testimoni - Perfu.me Admin'); ?>
+<?php $__env->startSection('page-title', 'Manajemen Ulasan & Testimoni Pelanggan'); ?>
+
+<?php $__env->startSection('content'); ?>
 <div style="display: grid; grid-template-columns: 380px 1fr; gap: 2rem; align-items: start;">
     
     <!-- KOLOM KIRI: FORM TAMBAH TESTIMONI -->
@@ -34,9 +34,9 @@
                 <label style="font-weight: 600; display: block; margin-bottom: 0.4rem; font-size: 0.85rem; color: #374151;">Terkait Produk (Opsional)</label>
                 <select id="product_id" style="width: 100%; padding: 10px 12px; border: 1px solid #D1D5DB; border-radius: 6px; font-size: 0.9rem; background: #fff;">
                     <option value="">-- Umum / Tanpa Produk Khusus --</option>
-                    @foreach($products as $product)
-                        <option value="{{ $product->id }}">{{ $product->name }}</option>
-                    @endforeach
+                    <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($product->id); ?>"><?php echo e($product->name); ?></option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
             </div>
 
@@ -50,35 +50,36 @@
     <div style="background: #FFFFFF; padding: 2rem; border-radius: 12px; border: 1px solid #EAEAEA; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
             <h3 style="margin: 0; font-size: 1.25rem; color: #111; font-family: 'Cormorant Garamond', serif;">Daftar Testimoni Aktif</h3>
-            <span style="background: #F3F4F6; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; color: #4B5563;" id="total-testi-count">{{ count($testimonials ?? []) }} Ulasan</span>
+            <span style="background: #F3F4F6; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; color: #4B5563;" id="total-testi-count"><?php echo e(count($testimonials ?? [])); ?> Ulasan</span>
         </div>
 
         <div id="testimonials-list-container" style="display: flex; flex-direction: column; gap: 1rem;">
-            @forelse($testimonials ?? [] as $testi)
+            <?php $__empty_1 = true; $__currentLoopData = $testimonials ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $testi): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                 <div style="padding: 1.25rem; border: 1px solid #E5E7EB; border-radius: 8px; background: #FAFAFA; display: flex; flex-direction: column; gap: 0.5rem;">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                         <div>
-                            <strong style="font-size: 0.95rem; color: #111;">{{ $testi->name }}</strong>
+                            <strong style="font-size: 0.95rem; color: #111;"><?php echo e($testi->name); ?></strong>
                             <div style="color: #D97706; font-size: 0.85rem; margin-top: 0.1rem;">
-                                {!! str_repeat('★', $testi->rating) !!}{!! str_repeat('☆', 5 - $testi->rating) !!}
+                                <?php echo str_repeat('★', $testi->rating); ?><?php echo str_repeat('☆', 5 - $testi->rating); ?>
+
                             </div>
                         </div>
-                        <button onclick="deleteTestimonial({{ $testi->id }})" style="background: transparent; border: none; color: #EF4444; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Hapus</button>
+                        <button onclick="deleteTestimonial(<?php echo e($testi->id); ?>)" style="background: transparent; border: none; color: #EF4444; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Hapus</button>
                     </div>
-                    <p style="margin: 0.25rem 0 0 0; color: #4B5563; font-size: 0.9rem; line-height: 1.4;">"{{ $testi->text }}"</p>
+                    <p style="margin: 0.25rem 0 0 0; color: #4B5563; font-size: 0.9rem; line-height: 1.4;">"<?php echo e($testi->text); ?>"</p>
                 </div>
-            @empty
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                 <div style="text-align: center; padding: 3rem 1rem; color: #9CA3AF; font-size: 0.9rem;">
                     Belum ada data testimoni tersimpan di database.
                 </div>
-            @endforelse
+            <?php endif; ?>
         </div>
     </div>
 
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scripts')
+<?php $__env->startSection('scripts'); ?>
 <script>
 document.getElementById('form-add-testimonial').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -149,4 +150,5 @@ async function deleteTestimonial(id) {
     }
 }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/admin/testimoni.blade.php ENDPATH**/ ?>

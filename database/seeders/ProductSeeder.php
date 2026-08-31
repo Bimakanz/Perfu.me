@@ -25,7 +25,7 @@ class ProductSeeder extends Seeder
                 'price'        => 45000,
                 'stock'        => 100,
                 'best_seller'  => true,
-                'image'        => 'assets/images/dynamyst.png',
+                'image'        => 'assets/images/dynamist.webp',
                 'description'  => 'Aroma fresh, sporty, dan clean dengan sentuhan hangat yang memberikan kesan maskulin, energik, dan percaya diri. Cocok digunakan untuk aktivitas sehari-hari.',
                 'tagline'      => 'Fresh, sporty, clean',
             ],
@@ -42,7 +42,7 @@ class ProductSeeder extends Seeder
                 'price'        => 45000,
                 'stock'        => 100,
                 'best_seller'  => true,
-                'image'        => 'assets/images/vanessence.webp', // Corrected from 'penisence.webp' based on image content
+                'image'        => 'assets/images/penisence.webp', // Corrected from 'penisence.webp' based on image content
                 'description'  => 'Aroma vanilla yang lembut, creamy, dan elegan dengan nuansa hangat yang menenangkan. Cocok untuk penggunaan sehari-hari maupun momen spesial.',
                 'tagline'      => 'Lembut, creamy, elegan',
             ],

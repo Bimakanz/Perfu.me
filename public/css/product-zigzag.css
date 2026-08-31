@@ -1,115 +1,119 @@
 /* ============================================================
-   PRODUCT ZIG-ZAG SHOWCASE — Ref Image Exact Match
+   PRODUCT ZIG-ZAG SHOWCASE — Ref Image Exact Match & Mobile Compatible
    ============================================================ */
 
 .products-showcase-section {
-  background: var(--white);
+  background: var(--white, #ffffff);
   padding: 6rem 3rem;
 }
 
 .showcase-header {
   text-align: center;
   max-width: 700px;
-  margin: 0 auto 5rem;
+  margin: 0 auto 4.5rem;
 }
 
 .showcase-header h2 {
-  font-family: var(--font-serif);
-  font-size: clamp(3.2rem, 5.5vw, 4.8rem);
+  font-family: var(--font-serif, 'Zaloga', serif);
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
   font-weight: 300;
-  color: var(--black);
+  color: var(--black, #0D0D0D);
   margin-bottom: 0.75rem;
   line-height: 1.1;
 }
 
 .showcase-header p {
   font-size: 1rem;
-  color: var(--silver-dark);
+  color: var(--silver-dark, #8A8A8A);
 }
 
-/* Zig-Zag Row Container */
+/* Zig-Zag Item Container */
+.product-zigzag-item,
 .product-zigzag-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5rem;
   align-items: center;
   max-width: 1200px;
-  margin: 0 auto 7rem;
+  margin: 0 auto 6rem;
 }
 
+.product-zigzag-item:last-child,
 .product-zigzag-row:last-child {
   margin-bottom: 0;
 }
 
-/* Reverse layout for even rows */
+/* Reverse layout for odd items */
+.product-zigzag-item.reversed .product-zigzag-image-col,
 .product-zigzag-row.reverse .zigzag-img-col {
   order: 2;
 }
 
+.product-zigzag-item.reversed .product-zigzag-text-col,
 .product-zigzag-row.reverse .zigzag-info-col {
   order: 1;
 }
 
 /* Image Column */
+.product-zigzag-image-col,
 .zigzag-img-col {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.zigzag-img-box {
-  width: 100%;
-  aspect-ratio: 1/1;
-  overflow: hidden;
-  border-radius: var(--radius-sm);
-  background: var(--off-white);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.06);
-}
-
+.product-zigzag-img,
 .zigzag-img-box img {
   width: 100%;
-  height: 100%;
+  max-width: 480px;
+  height: auto;
+  aspect-ratio: 1/1;
   object-fit: cover;
-  transition: transform 0.7s var(--ease-luxury);
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.product-zigzag-image-col:hover .product-zigzag-img,
 .zigzag-img-box:hover img {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 
-/* Info Column */
+/* Text Column */
+.product-zigzag-text-col,
 .zigzag-info-col {
   display: flex;
   flex-direction: column;
 }
 
-.zigzag-meta {
-  font-size: 0.65rem;
+.product-zigzag-tagline,
+.zigzag-tagline {
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--silver-dark);
-  margin-bottom: 0.75rem;
-}
-
-.zigzag-title {
-  font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
-  font-weight: 400;
-  color: var(--black);
-  line-height: 1.1;
+  color: #b45309;
   margin-bottom: 0.5rem;
 }
 
-.zigzag-tagline {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.1rem;
-  color: #666;
-  margin-bottom: 1.25rem;
+.product-zigzag-name,
+.zigzag-title {
+  font-family: var(--font-serif, 'Zaloga', serif);
+  font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+  font-weight: 400;
+  color: var(--black, #0D0D0D);
+  line-height: 1.15;
+  margin-bottom: 1rem;
 }
 
+.product-zigzag-desc,
 .zigzag-desc {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   line-height: 1.75;
+  /* Original (HEAD) */
+  color: #4a4a4a;
+  /* Incoming (origin) */
   color: #555;
   margin-bottom: 2rem;
 }
@@ -219,7 +223,7 @@
   background: #1B4D2E;
   border-color: #1B4D2E;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(27,77,46,0.25);
+  box-shadow: 0 8px 24px rgba(27, 77, 46, 0.25);
 }
 
 /* Feature Cards Section (Keunggulan) */
@@ -253,7 +257,7 @@
 
 .feature-card:hover {
   border-color: var(--silver);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
   transform: translateY(-4px);
 }
 
@@ -267,42 +271,114 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
-  transition: all 0.3s var(--ease-luxury);
 }
 
-.feature-card:hover .feature-icon {
+/* Notes Badges */
+.product-zigzag-notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.product-zigzag-notes span {
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.4rem 0.85rem;
+  background: #f4f4f5;
+  border: 1px solid #e4e4e7;
+  border-radius: 999px;
+  color: #333333;
+}
+
+.product-zigzag-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-zigzag-primary,
+.btn-whatsapp-full {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 2rem;
   background: #0D0D0D;
   color: #FFFFFF;
-  transform: scale(1.08);
-}
-
-.feature-title {
-  font-family: var(--font-serif);
-  font-size: 1.35rem;
-  font-weight: 400;
-  color: var(--black);
-  margin-bottom: 0.75rem;
-}
-
-.feature-desc {
+  border-radius: 999px;
   font-size: 0.85rem;
-  color: var(--silver-dark);
-  line-height: 1.6;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 }
 
+.btn-zigzag-primary:hover,
+.btn-whatsapp-full:hover {
+  background: #27272a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  color: #ffffff;
+}
+
+/* Responsive Rules */
 @media (max-width: 992px) {
-  .product-zigzag-row, .product-zigzag-row.reverse {
+  .products-showcase-section {
+    padding: 4.5rem 2rem;
+  }
+
+  .product-zigzag-item,
+  .product-zigzag-row {
     grid-template-columns: 1fr;
     gap: 2.5rem;
-    margin-bottom: 5rem;
+    margin-bottom: 4.5rem;
   }
-  .product-zigzag-row.reverse .zigzag-img-col { order: 1; }
-  .product-zigzag-row.reverse .zigzag-info-col { order: 2; }
-  .features-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .product-zigzag-item.reversed .product-zigzag-image-col,
+  .product-zigzag-row.reverse .zigzag-img-col {
+    order: 1;
+  }
+
+  .product-zigzag-item.reversed .product-zigzag-text-col,
+  .product-zigzag-row.reverse .zigzag-info-col {
+    order: 2;
+  }
+
+  .product-zigzag-text-col,
+  .zigzag-info-col {
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 600px) {
-  .products-showcase-section, .features-section { padding: 4rem 1.5rem; }
-  .zigzag-notes-grid { grid-template-columns: 1fr; gap: 1rem; }
-  .features-grid { grid-template-columns: 1fr; }
+  .products-showcase-section {
+    padding: 3.5rem 1.25rem;
+  }
+
+  .showcase-header {
+    margin-bottom: 3rem;
+  }
+
+  .product-zigzag-img,
+  .zigzag-img-box img {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  .product-zigzag-name,
+  .zigzag-title {
+    font-size: 1.85rem;
+  }
+
+  .product-zigzag-desc,
+  .zigzag-desc {
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+
+  .btn-zigzag-primary,
+  .btn-whatsapp-full {
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+  }
 }

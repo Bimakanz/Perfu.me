@@ -1,8 +1,6 @@
-@extends('layouts.admin')
+<?php $__env->startSection('title', 'Admin Portal — Manajemen Produk'); ?>
 
-@section('title', 'Admin Portal — Manajemen Produk')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
   <!-- Real-time Stats Cards Bar -->
   <div class="admin-stats-grid">
     <div class="admin-stat-card">
@@ -342,9 +340,10 @@
       </div>
     </div>
   </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scripts')
-  <script src="{{ asset('js/db.js') }}"></script>
-  <script src="{{ asset('js/admin.js') }}"></script>
-@endsection
+<?php $__env->startSection('scripts'); ?>
+  <script src="<?php echo e(asset('js/db.js')); ?>"></script>
+  <script src="<?php echo e(asset('js/admin.js')); ?>"></script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/admin/index.blade.php ENDPATH**/ ?>
