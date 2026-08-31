@@ -180,4 +180,4 @@
 
   <?php echo $__env->yieldContent('scripts'); ?>
 </body>
-</html><?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/layouts/admin.blade.php ENDPATH**/ ?>
+</html><?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/layouts/admin.blade.php ENDPATH**/ ?>
