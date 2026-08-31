@@ -60,6 +60,7 @@
                             <strong style="font-size: 0.95rem; color: #111;"><?php echo e($testi->name); ?></strong>
                             <div style="color: #D97706; font-size: 0.85rem; margin-top: 0.1rem;">
                                 <?php echo str_repeat('★', $testi->rating); ?><?php echo str_repeat('☆', 5 - $testi->rating); ?>
+
                             </div>
                         </div>
                         <button onclick="deleteTestimonial(<?php echo e($testi->id); ?>)" style="background: transparent; border: none; color: #EF4444; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Hapus</button>
@@ -162,5 +163,4 @@ async function deleteTestimonial(id) {
 }
 </script>
 <?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH resources\views/admin/testimoni.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/admin/testimoni.blade.php ENDPATH**/ ?>
