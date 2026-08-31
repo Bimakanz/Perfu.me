@@ -31,4 +31,4 @@
     </button>
   </div>
 </nav>
-<?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/partials/navbar.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/partials/navbar.blade.php ENDPATH**/ ?>

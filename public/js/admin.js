@@ -34,7 +34,7 @@ var currentSort = { field: 'id', dir: 'asc' };
   };
 
   // Global login handler attached directly to button click
-window.doAdminLogin = async function(e) {
+  window.doAdminLogin = async function(e) {
     if (e) e.preventDefault();
     const errorMsg = document.getElementById('login-error-msg');
     const submitBtn = document.getElementById('login-submit-btn');
@@ -54,11 +54,6 @@ window.doAdminLogin = async function(e) {
     }
 
     try {
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Memproses...';
-      }
-
       if (window.API && typeof window.API.login === 'function') {
         const result = await window.API.login(user, pass);
         if (result && result.success) {
@@ -66,25 +61,44 @@ window.doAdminLogin = async function(e) {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Masuk ke Dashboard';
           }
-          
-          // Tandai bahwa user baru saja melakukan login sukses secara manual
-          sessionStorage.setItem('just_logged_in', 'true');
-
           showDashboard(true);
           return false;
         }
       }
       throw { message: 'Server tidak dapat dihubungi.' };
     } catch (err) {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Masuk ke Dashboard';
-      }
       if (errorMsg) {
-        errorMsg.textContent = err.message || 'Login gagal. Periksa username dan password.';
+        const msg = (err && err.message) ? err.message : 'Username atau password salah.';
+        errorMsg.textContent = msg;
         errorMsg.classList.add('show');
       }
+
+      // Handle 3-minute lockout disable
+      if (err && (err.locked || (err.status === 429))) {
+        let seconds = err.retry_after || 180;
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.style.opacity = '0.5';
+          submitBtn.style.cursor = 'not-allowed';
+          
+          if (window._lockoutTimer) clearInterval(window._lockoutTimer);
+          window._lockoutTimer = setInterval(() => {
+            seconds--;
+            if (seconds <= 0) {
+              clearInterval(window._lockoutTimer);
+              submitBtn.disabled = false;
+              submitBtn.style.opacity = '1';
+              submitBtn.style.cursor = 'pointer';
+              submitBtn.textContent = 'Masuk ke Dashboard';
+              if (errorMsg) errorMsg.classList.remove('show');
+            } else {
+              submitBtn.textContent = `Tunggu (${seconds}d)...`;
+            }
+          }, 1000);
+        }
+      }
     }
+    return false;
   };
 
   // ── 1. Login Controller ─────────────────────────────────
@@ -102,9 +116,8 @@ window.doAdminLogin = async function(e) {
     }
 
     // Handle Login Submit
-    if (form && !form.dataset.adminLoginBound) {
+    if (form) {
       form.addEventListener('submit', window.doAdminLogin);
-      form.dataset.adminLoginBound = 'true';
     }
 
     // Search input listener
@@ -122,31 +135,12 @@ window.doAdminLogin = async function(e) {
       if (customTrigger) customTrigger.classList.remove('active');
     });
 
-    checkInitialAdminSession();
-  }
-
-  async function checkInitialAdminSession() {
-    if (!window.API || typeof window.API.hasToken !== 'function' || !window.API.hasToken()) {
-      showLogin();
-      return;
-    }
-
-    const isFresh = sessionStorage.getItem('just_logged_in') === 'true';
-    sessionStorage.removeItem('just_logged_in');
-
+    // Check existing session
     try {
-      const isAuthenticated = typeof window.API.checkAuth === 'function'
-        ? await window.API.checkAuth()
-        : true;
-
-      if (isAuthenticated) {
-        showDashboard(isFresh);
-      } else {
-        showLogin('Sesi login Anda telah berakhir. Silakan masuk kembali.');
+      if (window.API && typeof window.API.hasToken === 'function' && window.API.hasToken()) {
+        showDashboard(false);
       }
-    } catch (e) {
-      showLogin('Sesi login Anda tidak valid. Silakan masuk kembali.');
-    }
+    } catch (e) {}
   }
 
   // ── Custom Filter Select Dropdown Controller ────────────────
@@ -191,55 +185,45 @@ window.doAdminLogin = async function(e) {
     });
   }
 
-function showDashboard(isFreshLogin = false) {
+  function showDashboard(isFreshLogin = false) {
     const loginPage = document.getElementById('admin-login-page');
     const dashPage = document.getElementById('admin-dashboard-page');
     const welcomeOverlay = document.getElementById('admin-welcome-overlay');
     const progressFill = document.getElementById('welcome-progress-fill');
 
-    // Step 1: Langsung pindah ke dashboard
+    // Step 1: Langsung pindah ke dashboard dulu
     if (loginPage) loginPage.style.cssText = 'display: none !important;';
     if (dashPage) {
-      dashPage.style.cssText = 'display: flex !important;';
+      dashPage.style.cssText = 'display: block !important;';
       dashPage.classList.add('active');
     }
 
+    products = [...DEFAULT_ADMIN_PRODUCTS];
+    try { renderTable(); } catch (e) {}
+    try { updateStats(); } catch (e) {}
     loadDashboardData();
 
-    // Step 2: Animasi Welcome Overlay
+    // Step 2: Tampilkan loading overlay HANYA JIKA baru login berhasil
     if (isFreshLogin && welcomeOverlay && progressFill) {
-      welcomeOverlay.style.display = 'flex'; // Paksa tampil
-      progressFill.style.transition = 'none'; // Matikan transisi sebentar
-      progressFill.style.width = '0%'; // Kembalikan progress ke 0
-      
-      // Trik DOM Reflow: Memaksa browser mereset state animasi sebelum dijalankan lagi
-      void welcomeOverlay.offsetWidth; 
-
+      progressFill.style.width = '0%';
       welcomeOverlay.classList.add('active');
-      progressFill.style.transition = 'width 1s cubic-bezier(0.4, 0, 0.2, 1)'; // Nyalakan transisi
-      progressFill.style.width = '100%'; // Jalankan progress
 
       setTimeout(() => {
-        welcomeOverlay.classList.remove('active'); // Fade out overlay
-        
-        // Beri jeda waktu fade out CSS selesai (300ms) sebelum disembunyikan total
-        setTimeout(() => {
-          welcomeOverlay.style.display = 'none';
-        }, 300);
-      }, 1200);
+        progressFill.style.width = '100%';
+      }, 50);
 
+      setTimeout(() => {
+        welcomeOverlay.classList.remove('active');
+      }, 1200);
     } else if (welcomeOverlay) {
       welcomeOverlay.classList.remove('active');
-      welcomeOverlay.style.display = 'none';
     }
   }
 
-  function showLogin(message = '') {
+  window.handleSessionExpired = function() {
     if (window.API && typeof window.API.clearToken === 'function') {
       window.API.clearToken();
     }
-    sessionStorage.removeItem('just_logged_in');
-
     const loginPage = document.getElementById('admin-login-page');
     const dashPage = document.getElementById('admin-dashboard-page');
     if (dashPage) {
@@ -249,16 +233,6 @@ function showDashboard(isFreshLogin = false) {
     if (loginPage) {
       loginPage.style.cssText = 'display: flex !important;';
     }
-
-    const errorMsg = document.getElementById('login-error-msg');
-    if (errorMsg) {
-      errorMsg.textContent = message;
-      errorMsg.classList.toggle('show', Boolean(message));
-    }
-  }
-
-  window.handleSessionExpired = function() {
-    showLogin('Sesi login Anda telah berakhir. Silakan masuk kembali.');
     showToast('Sesi login Anda telah berakhir. Silakan masuk kembali.', 'warning');
   };
 
@@ -304,23 +278,20 @@ function showDashboard(isFreshLogin = false) {
 
   // ── 2. Dashboard Data & Table Rendering ─────────────────────
   async function loadDashboardData() {
-    products = [];
+    products = [...DEFAULT_ADMIN_PRODUCTS];
     renderTable();
     updateStats();
 
     try {
       if (window.API && typeof window.API.getAll === 'function') {
         const res = await window.API.getAll();
-        products = Array.isArray(res) ? res : [];
-        renderTable();
-        updateStats();
+        if (res && res.length > 0) {
+          products = res;
+          renderTable();
+          updateStats();
+        }
       }
-    } catch (err) {
-      products = [];
-      renderTable();
-      updateStats();
-      showToast(err.message || 'Gagal memuat data produk.', 'error');
-    }
+    } catch (err) {}
   }
 
   window.loadDashboardData = loadDashboardData;
@@ -424,9 +395,7 @@ function renderAdminPaginationControls(totalPages) {
 
     let filtered = products.filter(p => {
       // Search filter
-      const productName = String(p.name || '').toLowerCase();
-      const productVariant = String(p.variant || '').toLowerCase();
-      const matchSearch = !searchVal || productName.includes(searchVal) || productVariant.includes(searchVal);
+      const matchSearch = !searchVal || p.name.toLowerCase().includes(searchVal) || p.variant.toLowerCase().includes(searchVal);
       if (!matchSearch) return false;
 
       // Status filter
@@ -443,9 +412,8 @@ function renderAdminPaginationControls(totalPages) {
 
     // Sort
     filtered.sort((a, b) => {
-      const sortField = currentSort.field === 'bestSeller' ? 'best_seller' : currentSort.field;
-      let va = a[sortField];
-      let vb = b[sortField];
+      let va = a[currentSort.field];
+      let vb = b[currentSort.field];
       if (typeof va === 'string') va = va.toLowerCase();
       if (typeof vb === 'string') vb = vb.toLowerCase();
 
@@ -719,7 +687,7 @@ function renderAdminPaginationControls(totalPages) {
           middle_notes: document.getElementById('form-middle').value.trim(),
           base_notes: document.getElementById('form-base').value.trim(),
           packaging: isRefill ? 'Botol kaca spray + refill pouch khas Perfu.me' : 'Botol kaca spray + dus karton khas Perfu.me',
-          tagline: `${variantVal} — Perfu.me Edition`,
+          tagline: variantVal,
           description: descVal || `Parfum ${variantVal} dari koleksi Perfu.me menghadirkan paduan aroma harum yang berkesan dan tahan lama.`,
           image: imgVal,
           best_seller: isBs
@@ -911,23 +879,18 @@ function renderAdminPaginationControls(totalPages) {
     if (backdrop) backdrop.addEventListener('click', (e) => { if (e.target === backdrop) closeModal(); });
 
     function closeModal() {
-    if (backdrop) {
-      backdrop.classList.remove('active');
-      backdrop.style.display = 'none'; // Paksa sembunyi
+      if (backdrop) backdrop.classList.remove('active');
+      deleteTargetId = null;
     }
-    deleteTargetId = null;
-  }
 
-  window.openDeleteModal = function (id) {
-    const p = products.find(prod => String(prod.id) === String(id));
-    if (!p) return;
+    window.openDeleteModal = function (id) {
+      const p = products.find(prod => String(prod.id) === String(id));
+      if (!p) return;
 
-    deleteTargetId = id;
-    document.getElementById('delete-product-name').textContent = p.name;
-    
-    backdrop.style.display = 'flex'; // Paksa tampil
-    backdrop.classList.add('active');
-  };
+      deleteTargetId = id;
+      document.getElementById('delete-product-name').textContent = p.name;
+      backdrop.classList.add('active');
+    };
     window.promptDeleteProduct = window.openDeleteModal;
     window.deleteProduct = window.openDeleteModal;
 
@@ -947,38 +910,28 @@ function renderAdminPaginationControls(totalPages) {
   }
 
   // ── 7.5. Logout Confirmation Modal ──────────
-window.openLogoutModal = function (e) {
+  window.openLogoutModal = function (e) {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
     }
     const backdrop = document.getElementById('logout-modal-backdrop');
-    if (backdrop) {
-      backdrop.style.display = 'flex'; // Paksa tampilkan modal
-      backdrop.classList.add('active');
-    }
+    if (backdrop) backdrop.classList.add('active');
   };
 
   window.closeLogoutModal = function () {
     const backdrop = document.getElementById('logout-modal-backdrop');
-    if (backdrop) {
-      backdrop.classList.remove('active');
-      backdrop.style.display = 'none'; // Paksa sembunyikan modal
-    }
+    if (backdrop) backdrop.classList.remove('active');
   };
 
-  async function logout() {
+  function logout() {
     // 1. Tutup semua modal dulu sebelum pindah layar
     document.querySelectorAll('.admin-modal-backdrop').forEach(function(b) {
       b.classList.remove('active');
     });
     // 2. Bersihkan session
     if (window.API && typeof window.API.logout === 'function') {
-      try {
-        await window.API.logout();
-      } catch (e) {
-        window.API.clearToken();
-      }
+      window.API.logout();
     }
     // 3. Baru pindah ke layar login
     const loginPage = document.getElementById('admin-login-page');

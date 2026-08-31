@@ -78,14 +78,25 @@
       top: 0;
       z-index: 99;
     }
+    /* Prevent Login Flash Flicker on Page Navigation when Logged In */
+    html.has-admin-token #admin-login-page { display: none !important; }
+    html.has-admin-token #admin-dashboard-page { display: flex !important; }
   </style>
   <?php echo $__env->yieldContent('styles'); ?>
 </head>
 
 <body>
+  <script>
+    (function() {
+      var token = sessionStorage.getItem('admin_token');
+      if (token) {
+        document.documentElement.classList.add('has-admin-token');
+      }
+    })();
+  </script>
 
   <!-- ADMIN LOGIN PAGE (Jika belum login) -->
-  <div id="admin-login-page" class="admin-page">
+  <div id="admin-login-page" class="admin-page" style="display:none;">
     <div class="admin-login-left">
       <img class="admin-login-left-img" src="<?php echo e(asset('assets/images/adminhero.webp')); ?>" alt="Perfu.me Admin">
       <div class="admin-login-left-overlay">
@@ -352,4 +363,4 @@
   <?php echo $__env->yieldContent('scripts'); ?>
 </body>
 </html>
-<?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/layouts/admin.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/layouts/admin.blade.php ENDPATH**/ ?>

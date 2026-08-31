@@ -194,7 +194,7 @@
           <img src="<?php echo e(asset($product->image)); ?>" alt="<?php echo e($product->name); ?>" class="product-zigzag-img" onerror="this.src='<?php echo e(asset('assets/images/refill.webp')); ?>'">
         </div>
         <div class="product-zigzag-text-col">
-          <span class="product-zigzag-tagline"><?php echo e($product->tagline); ?></span>
+          <span class="product-zigzag-tagline"><?php echo e(Str::replace([' — Perfu.me Edition', ' - PERFU.ME EDITION', ' — PERFU.ME EDITION'], '', $product->tagline)); ?></span>
           <h3 class="product-zigzag-name"><?php echo e($product->name); ?></h3>
           <p class="product-zigzag-desc"><?php echo e($product->description); ?></p>
           <div class="product-zigzag-notes">
@@ -375,4 +375,4 @@
 <script src="<?php echo e(asset('js/navbar.js')); ?>"></script>
 <script src="<?php echo e(asset('js/catalog.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/home.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/home.blade.php ENDPATH**/ ?>

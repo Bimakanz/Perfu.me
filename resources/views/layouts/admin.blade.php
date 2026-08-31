@@ -78,14 +78,25 @@
       top: 0;
       z-index: 99;
     }
+    /* Prevent Login Flash Flicker on Page Navigation when Logged In */
+    html.has-admin-token #admin-login-page { display: none !important; }
+    html.has-admin-token #admin-dashboard-page { display: flex !important; }
   </style>
   @yield('styles')
 </head>
 
 <body>
+  <script>
+    (function() {
+      var token = sessionStorage.getItem('admin_token');
+      if (token) {
+        document.documentElement.classList.add('has-admin-token');
+      }
+    })();
+  </script>
 
   <!-- ADMIN LOGIN PAGE (Jika belum login) -->
-  <div id="admin-login-page" class="admin-page">
+  <div id="admin-login-page" class="admin-page" style="display:none;">
     <div class="admin-login-left">
       <img class="admin-login-left-img" src="{{ asset('assets/images/adminhero.webp') }}" alt="Perfu.me Admin">
       <div class="admin-login-left-overlay">

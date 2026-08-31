@@ -196,7 +196,7 @@
           <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="product-zigzag-img" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
         </div>
         <div class="product-zigzag-text-col">
-          <span class="product-zigzag-tagline">{{ $product->tagline }}</span>
+          <span class="product-zigzag-tagline">{{ Str::replace([' — Perfu.me Edition', ' - PERFU.ME EDITION', ' — PERFU.ME EDITION'], '', $product->tagline) }}</span>
           <h3 class="product-zigzag-name">{{ $product->name }}</h3>
           <p class="product-zigzag-desc">{{ $product->description }}</p>
           <div class="product-zigzag-notes">

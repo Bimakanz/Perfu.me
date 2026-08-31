@@ -703,7 +703,7 @@
           middle_notes: document.getElementById('form-middle').value.trim(),
           base_notes: document.getElementById('form-base').value.trim(),
           packaging: isRefill ? 'Botol kaca spray + refill pouch khas Perfu.me' : 'Botol kaca spray + dus karton khas Perfu.me',
-          tagline: `${variantVal} — Perfu.me Edition`,
+          tagline: variantVal,
           description: document.getElementById('form-desc') ? document.getElementById('form-desc').value.trim() : '',
           image: imgVal,
           best_seller: isBs
