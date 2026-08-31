@@ -86,7 +86,7 @@
       const imgHtml = `
         <div class="zigzag-img-col" onclick="window.location.href='/produk/${p.id}'" style="cursor:pointer;" title="Lihat detail ${p.name}">
           <div class="zigzag-img-box">
-            <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='assets/images/refill.webp'">
+            <img src="${imgSrc}" alt="${p.name}" loading="lazy" onerror="this.src='assets/images/refill.webp'">
           </div>
         </div>`;
 
@@ -161,7 +161,20 @@
       let products;
       if (window.API && typeof window.API.getAll === 'function') {
         const all = await window.API.getAll();
-        products = all.filter(p => p.type !== 'Refill' && (p.name.toLowerCase().includes('dynamyst') || p.name.toLowerCase().includes('vanessence')));
+        products = all.filter(p => {
+          const name = String(p.name || '').toLowerCase();
+          const type = String(p.type || '').toLowerCase();
+          const gender = String(p.gender || '').toLowerCase();
+          const variant = String(p.variant || '').toLowerCase();
+          const query = String(activeFilters.query || '').toLowerCase();
+
+          const isSignature = type !== 'refill' && (name.includes('dynamyst') || name.includes('vanessence'));
+          const matchGender = activeFilters.gender === 'all' || gender === String(activeFilters.gender).toLowerCase();
+          const matchVariant = activeFilters.variant === 'all' || variant === String(activeFilters.variant).toLowerCase();
+          const matchQuery = !query || name.includes(query) || variant.includes(query);
+
+          return isSignature && matchGender && matchVariant && matchQuery;
+        });
       }
       if (!products || products.length === 0) {
         products = FALLBACK_PRODUCTS.filter(p => p.type !== 'Refill');

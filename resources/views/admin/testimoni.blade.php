@@ -101,6 +101,7 @@ document.getElementById('form-add-testimonial').addEventListener('submit', async
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
+                'Authorization': `Bearer ${sessionStorage.getItem('admin_token') || ''}`,
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify(payload)
@@ -135,6 +136,7 @@ async function deleteTestimonial(id) {
         const res = await fetch(`/api/testimonials/${id}`, {
             method: 'DELETE',
             headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('admin_token') || ''}`,
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 'Accept': 'application/json'
             }

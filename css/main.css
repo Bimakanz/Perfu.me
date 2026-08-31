@@ -1015,9 +1015,9 @@ button {
 }
 
 .footer-container {
-  max-width: 1240px;
+  max-width: 1680px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 clamp(2rem, 5vw, 6rem);
   width: 100%;
 }
 
@@ -1119,7 +1119,7 @@ button {
 .footer-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+  gap: clamp(3rem, 6vw, 7rem);
   margin-bottom: 4rem;
 }
 
@@ -1241,8 +1241,9 @@ button {
 }
 
 .footer-bottom-content {
-  max-width: 1240px;
+  max-width: 1680px;
   margin: 0 auto;
+  padding: 0 clamp(0rem, 3vw, 4rem);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1360,4 +1361,3 @@ button {
   transform: translateY(-2px);
   color: #FFFFFF;
 }
-

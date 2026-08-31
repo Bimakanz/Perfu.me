@@ -85,12 +85,50 @@
 <body>
 
   <!-- ADMIN LOGIN PAGE (Jika belum login) -->
-  <div id="admin-login-page" class="admin-page" style="display:none;">
-    <!-- Sediakan form login seperti biasa -->
+  <div id="admin-login-page" class="admin-page">
+    <div class="admin-login-left">
+      <img class="admin-login-left-img" src="<?php echo e(asset('assets/images/adminhero.webp')); ?>" alt="Perfu.me Admin">
+      <div class="admin-login-left-overlay">
+        <div class="admin-brand-mark">Perfu.me</div>
+        <div class="admin-brand-tagline">Inventory &amp; Management</div>
+        <div class="admin-welcome-text">Kelola katalog parfum dengan cepat dan rapi.</div>
+        <div class="admin-welcome-sub">Masuk untuk mengatur produk, stok, best seller, dan testimoni pelanggan.</div>
+      </div>
+    </div>
+
+    <div class="admin-login-right">
+      <div class="admin-login-logo">Perfu.me Admin</div>
+      <div class="admin-login-logo-sub">Secure Dashboard</div>
+      <h1 class="admin-login-title">Masuk Admin</h1>
+      <p class="admin-login-subtitle">Gunakan akun administrator untuk membuka dashboard.</p>
+
+      <form id="admin-login-form" autocomplete="off">
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="admin-user-input">Username</label>
+          <input id="admin-user-input" class="admin-form-input" type="text" name="username" required>
+        </div>
+
+        <div class="admin-form-group">
+          <label class="admin-form-label" for="admin-pass-input">Password</label>
+          <div class="admin-input-wrap">
+            <input id="admin-pass-input" class="admin-form-input" type="password" name="password" required>
+            <button id="toggle-pass-btn" class="admin-toggle-pass" type="button" aria-label="Tampilkan password">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+          <div id="login-error-msg" class="admin-form-error"></div>
+        </div>
+
+        <button id="login-submit-btn" class="admin-login-btn" type="submit">Masuk ke Dashboard</button>
+      </form>
+    </div>
   </div>
 
   <!-- ADMIN DASHBOARD WRAPPER DENGAN SIDEBAR -->
-  <div class="admin-layout-wrapper" id="admin-dashboard-page">
+  <div class="admin-layout-wrapper" id="admin-dashboard-page" style="display:none;">
     
     <!-- SIDEBAR KIRI -->
     <aside class="admin-sidebar">
@@ -141,6 +179,16 @@
     </div>
   </div>
 
+  <div id="admin-welcome-overlay" class="admin-welcome-overlay" style="display:none;">
+    <div class="admin-welcome-card">
+      <div class="admin-welcome-logo">Perfu.me</div>
+      <div class="admin-welcome-title">Memuat Dashboard</div>
+      <div class="welcome-progress">
+        <div id="welcome-progress-fill" class="welcome-progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- LOGOUT CONFIRMATION MODAL -->
   <div id="logout-modal-backdrop" class="admin-modal-backdrop" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
     <div class="admin-modal" style="background: #FFFFFF; width: 100%; max-width: 420px; border-radius: 16px; padding: 2.5rem 2rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); text-align: center;">
@@ -153,31 +201,155 @@
     </div>
   </div>
 
-<script>
-    window.openLogoutModal = function (e) {
-      if (e) { 
-        e.preventDefault(); 
-        e.stopPropagation(); 
-      }
-      const backdrop = document.getElementById('logout-modal-backdrop');
-      if (backdrop) {
-        backdrop.style.display = 'flex'; // Paksa tampilkan modal
-      }
-    };
+  <script src="<?php echo e(asset('js/db.js')); ?>"></script>
+  <script>
+    (function () {
+      function showLogin(message) {
+        if (window.API && typeof window.API.clearToken === 'function') {
+          window.API.clearToken();
+        }
 
-    document.getElementById('btn-cancel-logout')?.addEventListener('click', function() {
-      document.getElementById('logout-modal-backdrop').style.display = 'none';
-    });
+        const loginPage = document.getElementById('admin-login-page');
+        const dashPage = document.getElementById('admin-dashboard-page');
+        const errorMsg = document.getElementById('login-error-msg');
 
-    document.getElementById('btn-confirm-logout')?.addEventListener('click', function() {
-      document.getElementById('logout-modal-backdrop').style.display = 'none';
-      if (window.API && typeof window.API.logout === 'function') {
-        window.API.logout();
+        if (dashPage) dashPage.style.cssText = 'display: none !important;';
+        if (loginPage) loginPage.style.cssText = 'display: flex !important;';
+        if (errorMsg) {
+          errorMsg.textContent = message || '';
+          errorMsg.classList.toggle('show', Boolean(message));
+        }
       }
-      window.location.href = '/admin';
-    });
+
+      function showDashboard() {
+        const loginPage = document.getElementById('admin-login-page');
+        const dashPage = document.getElementById('admin-dashboard-page');
+
+        if (loginPage) loginPage.style.cssText = 'display: none !important;';
+        if (dashPage) {
+          dashPage.style.cssText = 'display: flex !important;';
+          dashPage.classList.add('active');
+        }
+      }
+
+      window.openLogoutModal = function (e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+
+        const backdrop = document.getElementById('logout-modal-backdrop');
+        if (backdrop) {
+          backdrop.style.display = 'flex';
+          backdrop.classList.add('active');
+        }
+      };
+
+      window.closeLogoutModal = function () {
+        const backdrop = document.getElementById('logout-modal-backdrop');
+        if (backdrop) {
+          backdrop.classList.remove('active');
+          backdrop.style.display = 'none';
+        }
+      };
+
+      window.doAdminLogin = window.doAdminLogin || async function (e) {
+        if (e) e.preventDefault();
+
+        const errorMsg = document.getElementById('login-error-msg');
+        const submitBtn = document.getElementById('login-submit-btn');
+        const user = (document.getElementById('admin-user-input')?.value || '').trim();
+        const pass = (document.getElementById('admin-pass-input')?.value || '').trim();
+
+        if (errorMsg) errorMsg.classList.remove('show');
+        if (!user || !pass) {
+          if (errorMsg) {
+            errorMsg.textContent = 'Username dan password tidak boleh kosong.';
+            errorMsg.classList.add('show');
+          }
+          return false;
+        }
+
+        try {
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Memproses...';
+          }
+
+          const result = await window.API.login(user, pass);
+          if (result && result.success) {
+            sessionStorage.setItem('just_logged_in', 'true');
+            showDashboard();
+            if (typeof window.loadDashboardData === 'function') {
+              window.loadDashboardData();
+            }
+            return false;
+          }
+
+          throw { message: 'Login gagal.' };
+        } catch (err) {
+          if (errorMsg) {
+            errorMsg.textContent = err.message || 'Login gagal. Periksa username dan password.';
+            errorMsg.classList.add('show');
+          }
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Masuk ke Dashboard';
+          }
+        }
+
+        return false;
+      };
+
+      window.handleSessionExpired = window.handleSessionExpired || function () {
+        showLogin('Sesi login Anda telah berakhir. Silakan masuk kembali.');
+      };
+
+      document.addEventListener('DOMContentLoaded', async function () {
+        const loginForm = document.getElementById('admin-login-form');
+        if (loginForm && !loginForm.dataset.adminLoginBound) {
+          loginForm.addEventListener('submit', window.doAdminLogin);
+          loginForm.dataset.adminLoginBound = 'true';
+        }
+        document.getElementById('toggle-pass-btn')?.addEventListener('click', function () {
+          const input = document.getElementById('admin-pass-input');
+          if (input) input.type = input.type === 'password' ? 'text' : 'password';
+        });
+        document.getElementById('admin-logout-btn')?.addEventListener('click', window.openLogoutModal);
+        document.getElementById('btn-cancel-logout')?.addEventListener('click', window.closeLogoutModal);
+        document.getElementById('logout-modal-backdrop')?.addEventListener('click', function (e) {
+          if (e.target === e.currentTarget) window.closeLogoutModal();
+        });
+        document.getElementById('btn-confirm-logout')?.addEventListener('click', async function (e) {
+          if (e) e.preventDefault();
+          window.closeLogoutModal();
+          try {
+            if (window.API && typeof window.API.logout === 'function') {
+              await window.API.logout();
+            }
+          } catch (err) {
+            if (window.API && typeof window.API.clearToken === 'function') window.API.clearToken();
+          }
+          showLogin();
+        });
+
+        if (!window.API || !window.API.hasToken()) {
+          showLogin();
+          return;
+        }
+
+        const authenticated = await window.API.checkAuth();
+        if (authenticated) {
+          showDashboard();
+        } else {
+          showLogin('Sesi login Anda telah berakhir. Silakan masuk kembali.');
+        }
+      });
+    })();
   </script>
 
   <?php echo $__env->yieldContent('scripts'); ?>
 </body>
-</html><?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/layouts/admin.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/layouts/admin.blade.php ENDPATH**/ ?>

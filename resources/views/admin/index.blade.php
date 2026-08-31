@@ -345,6 +345,5 @@
 @endsection
 
 @section('scripts')
-  <script src="{{ asset('js/db.js') }}"></script>
   <script src="{{ asset('js/admin.js') }}"></script>
 @endsection

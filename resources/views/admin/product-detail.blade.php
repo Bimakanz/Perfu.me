@@ -721,5 +721,4 @@
     }
   });
 </script>
-<script src="{{ asset('js/db.js') }}"></script>
 @endsection
