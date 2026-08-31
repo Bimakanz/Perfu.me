@@ -54,6 +54,7 @@
         </div>
 
         <div id="testimonials-list-container" style="display: flex; flex-direction: column; gap: 1rem;">
+            @php /** @var \App\Models\Testimonial $testi */ @endphp
             @forelse($testimonials ?? [] as $testi)
                 <div style="padding: 1.25rem; border: 1px solid #E5E7EB; border-radius: 8px; background: #FAFAFA; display: flex; flex-direction: column; gap: 0.5rem;">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start;">
@@ -95,15 +96,20 @@ document.getElementById('form-add-testimonial').addEventListener('submit', async
         product_id: rawProductId ? rawProductId : null
     };
 
+    const token = sessionStorage.getItem('admin_token');
+    const headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    };
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+
     try {
         const res = await fetch('/api/testimonials', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${sessionStorage.getItem('admin_token') || ''}`,
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
+            headers: headers,
             body: JSON.stringify(payload)
         });
 
@@ -133,14 +139,20 @@ document.getElementById('form-add-testimonial').addEventListener('submit', async
 async function deleteTestimonial(id) {
     if (!confirm('Yakin ingin menghapus testimoni ini?')) return;
     try {
+        const token = sessionStorage.getItem('admin_token');
+        const headers = {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json'
+        };
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
         const res = await fetch(`/api/testimonials/${id}`, {
             method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('admin_token') || ''}`,
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                'Accept': 'application/json'
-            }
+            headers: headers
         });
+        
         if (res.ok) {
             location.reload();
         } else {

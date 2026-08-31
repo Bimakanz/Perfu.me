@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Kelola Testimoni - Perfu.me Admin'); ?>
 <?php $__env->startSection('page-title', 'Manajemen Ulasan & Testimoni Pelanggan'); ?>
 
@@ -54,6 +52,7 @@
         </div>
 
         <div id="testimonials-list-container" style="display: flex; flex-direction: column; gap: 1rem;">
+            <?php /** @var \App\Models\Testimonial $testi */ ?>
             <?php $__empty_1 = true; $__currentLoopData = $testimonials ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $testi): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                 <div style="padding: 1.25rem; border: 1px solid #E5E7EB; border-radius: 8px; background: #FAFAFA; display: flex; flex-direction: column; gap: 0.5rem;">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start;">
@@ -61,7 +60,6 @@
                             <strong style="font-size: 0.95rem; color: #111;"><?php echo e($testi->name); ?></strong>
                             <div style="color: #D97706; font-size: 0.85rem; margin-top: 0.1rem;">
                                 <?php echo str_repeat('★', $testi->rating); ?><?php echo str_repeat('☆', 5 - $testi->rating); ?>
-
                             </div>
                         </div>
                         <button onclick="deleteTestimonial(<?php echo e($testi->id); ?>)" style="background: transparent; border: none; color: #EF4444; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Hapus</button>
@@ -96,15 +94,20 @@ document.getElementById('form-add-testimonial').addEventListener('submit', async
         product_id: rawProductId ? rawProductId : null
     };
 
+    const token = sessionStorage.getItem('admin_token');
+    const headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    };
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+
     try {
         const res = await fetch('/api/testimonials', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${sessionStorage.getItem('admin_token') || ''}`,
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
+            headers: headers,
             body: JSON.stringify(payload)
         });
 
@@ -134,14 +137,20 @@ document.getElementById('form-add-testimonial').addEventListener('submit', async
 async function deleteTestimonial(id) {
     if (!confirm('Yakin ingin menghapus testimoni ini?')) return;
     try {
+        const token = sessionStorage.getItem('admin_token');
+        const headers = {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json'
+        };
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
         const res = await fetch(`/api/testimonials/${id}`, {
             method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('admin_token') || ''}`,
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                'Accept': 'application/json'
-            }
+            headers: headers
         });
+        
         if (res.ok) {
             location.reload();
         } else {
@@ -154,4 +163,4 @@ async function deleteTestimonial(id) {
 </script>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH D:\_DATA\Documents\Perfu.me\resources\views/admin/testimoni.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.admin', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH resources\views/admin/testimoni.blade.php ENDPATH**/ ?>
