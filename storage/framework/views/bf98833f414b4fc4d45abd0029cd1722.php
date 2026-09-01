@@ -363,4 +363,4 @@
   <?php echo $__env->yieldContent('scripts'); ?>
 </body>
 </html>
-<?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/layouts/admin.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\laragon\www\Perfu.me\resources\views/layouts/admin.blade.php ENDPATH**/ ?>

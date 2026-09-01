@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="<?php echo e(asset('css/catalog.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(asset('css/pdp.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(asset('css/product-zigzag.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('css/exchange-bottle.css')); ?>">
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -349,6 +350,86 @@
   </section>
 
   
+  <section id="exchange-bottle-section" class="exchange-bottle-section">
+    <!-- Editorial Watermarks -->
+    <div class="exchange-watermark exchange-watermark--top-left" aria-hidden="true">EXCHANGE</div>
+    <div class="exchange-watermark exchange-watermark--bottom-right" aria-hidden="true">CENTER</div>
+
+    <div class="exchange-container">
+      <!-- Section Header -->
+      <div class="exchange-header">
+        <h2 class="exchange-main-title">Exchange Your Empty Bottles</h2>
+        <p class="exchange-subtitle">
+          Kembalikan 10 botol kosong Perfu.me dan dapatkan 1 botol parfum baru (berisi penuh) sebagai bentuk komitmen dan apresiasi kami.
+        </p>
+      </div>
+
+      <!-- 3-Column Showcase Grid (Left Rules · Center Image · Right Rules) -->
+      <div class="exchange-grid">
+        
+        <!-- Left Column (Points 01 & 02) -->
+        <div class="exchange-col exchange-col--left">
+          <div class="exchange-item">
+            <span class="exchange-item-num">01 / REWARD</span>
+            <h3 class="exchange-item-title">10X Botol Kosong = 1 Botol Baru</h3>
+            <p class="exchange-item-desc">
+              Kumpulkan 10 botol kosong Perfu.me milik Anda dan tukarkan langsung dengan 1 botol parfum baru yang siap pakai dengan varian aroma pilihan Anda.
+            </p>
+          </div>
+
+          <div class="exchange-item">
+            <span class="exchange-item-num">02 / UNIFORMITY</span>
+            <h3 class="exchange-item-title">Ukuran Botol Harus Sama</h3>
+            <p class="exchange-item-desc">
+              Seluruh 10 botol yang dikembalikan wajib memiliki ukuran atau kapasitas yang sama persis (misalnya seluruhnya ukuran 30ml atau 50ml).
+            </p>
+          </div>
+        </div>
+
+        <!-- Center Column (Bottle Showcase with aboutus2.png) -->
+        <div class="exchange-center-visual">
+          <div class="exchange-img-wrap">
+            <img src="<?php echo e(asset('assets/images/aboutus2.png')); ?>" alt="Perfu.me Bottle Exchange Program" class="exchange-center-img" loading="lazy">
+          </div>
+        </div>
+
+        <!-- Right Column (Points 03 & 04) -->
+        <div class="exchange-col exchange-col--right">
+          <div class="exchange-item">
+            <span class="exchange-item-num">03 / CONDITION</span>
+            <h3 class="exchange-item-title">Kondisi Botol Masih Bagus</h3>
+            <p class="exchange-item-desc">
+              Botol harus dalam keadaan baik, tidak pecah atau retak, serta komponen tutup dan nozzle sprayer masih lengkap dan berfungsi dengan baik.
+            </p>
+          </div>
+
+          <div class="exchange-item">
+            <span class="exchange-item-num">04 / AUTHENTICITY</span>
+            <h3 class="exchange-item-title">Botol Original Perfu.me</h3>
+            <p class="exchange-item-desc">
+              Program penukaran ini khusus berlaku untuk botol original rilisan resmi dari Perfu.me dengan identitas atau label yang masih jelas.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom WhatsApp CTA Action -->
+      <div class="exchange-cta-wrap">
+        <a href="https://wa.me/6281383415432?text=Halo%20Perfu.me,%20saya%20ingin%20menukarkan%2010%20botol%20kosong%20Perfu.me%20saya%20dengan%201%20botol%20baru." target="_blank" rel="noopener" class="btn-exchange-wa">
+          <i class="fa-brands fa-whatsapp" style="font-size:1.15rem;"></i>
+          <span>Tukar Botol via WhatsApp</span>
+        </a>
+        <span class="exchange-cta-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          Proses penukaran cepat &amp; dapat langsung dikirimkan ke alamat workshop kami
+        </span>
+      </div>
+
+    </div>
+  </section>
+
+  
 
   <section class="quiz-banner-section" id="quiz-banner-section" style="background:#F5F5F7; padding:clamp(3rem, 6vw, 6rem) clamp(1.25rem, 4vw, 2rem); text-align:center;">
     <div style="max-width:760px; margin:0 auto;">
@@ -375,4 +456,4 @@
 <script src="<?php echo e(asset('js/navbar.js')); ?>"></script>
 <script src="<?php echo e(asset('js/catalog.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/home.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\Perfu.me\resources\views/home.blade.php ENDPATH**/ ?>
