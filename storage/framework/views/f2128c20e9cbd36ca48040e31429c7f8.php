@@ -214,4 +214,4 @@
 </body>
 </html>
 
-<?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/layouts/app.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\laragon\www\Perfu.me\resources\views/layouts/app.blade.php ENDPATH**/ ?>
