@@ -353,7 +353,7 @@
   <section id="exchange-bottle-section" class="exchange-bottle-section">
     <!-- Editorial Watermarks -->
     <div class="exchange-watermark exchange-watermark--top-left" aria-hidden="true">EXCHANGE</div>
-    <div class="exchange-watermark exchange-watermark--bottom-right" aria-hidden="true">PERFU.ME</div>
+    <div class="exchange-watermark exchange-watermark--bottom-right" aria-hidden="true">CENTER</div>
 
     <div class="exchange-container">
       <!-- Section Header -->

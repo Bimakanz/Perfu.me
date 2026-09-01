@@ -15,7 +15,7 @@
 
 @media (min-width: 1024px) {
   .exchange-bottle-section {
-    min-height: 100vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,13 +26,13 @@
 /* ── Editorial Watermark Typography (Snug Vertical Lock to Container) ── */
 .exchange-watermark {
   position: absolute;
-  font-family: var(--font-sans, 'Manrope', sans-serif);
+ font-family: var(--font-brand, var(--font-serif, 'Cormorant Garamond', Georgia, serif));
   font-size: 6rem;
   font-weight: 900;
   line-height: 0.85;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: rgba(13, 13, 13, 0.045);
+  color: rgba(13, 13, 13, 0.062);
   user-select: none;
   pointer-events: none;
   z-index: 1;
@@ -50,14 +50,14 @@
 
 @media (min-width: 1024px) {
   .exchange-watermark--top-left {
-    top: 20px;
-    transform: none;                 /* 👈 Hapus / ganti jadi none */
+    top: 50px;
+    transform: none;
     left: clamp(2rem, 4vw, 3.5rem);
   }
 
   .exchange-watermark--bottom-right {
-    bottom: 20px;
-    transform: none;                 /* 👈 Hapus / ganti jadi none */
+    bottom: 30px;
+    transform: none;
     right: clamp(2rem, 4vw, 3.5rem);
   }
 }
