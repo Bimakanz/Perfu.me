@@ -99,21 +99,57 @@
 
   
   <header id="hero">
-    <img src="<?php echo e(asset('assets/images/herosectionbaru2parfumtanpawm.png')); ?>" alt="Hero Cinematic Background" class="hero-cinematic-bg">
-    <div class="hero-overlay-dark"></div>
+    <video class="hero-video-bg" autoplay muted loop playsinline preload="auto">
+      <source src="<?php echo e(asset('assets/videos/perfume.mp4')); ?>" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay"></div>
 
-    <div class="hero-grid">
-      <div class="hero-text-col">
-        <h1 class="hero-heading">
-          Perfu.me
-        </h1>
+    <div class="hero-container">
+      <div class="hero-content">
+      
+
+        <h1 class="hero-heading">Perfu.me</h1>
+
+        <p class="hero-tagline">Smell good, feel confident</p>
+
         <p class="hero-desc">
-          Lahir dari pengalaman panjang, kini hadir 2 racikan signature orisinal pertama kami. Diformulasikan dengan Perfume Oil Grade A untuk ketahanan lebih dari 8 jam.
+          Lahir dari pengalaman panjang &amp; keahlian formulasi mendalam. Hadir dengan konsentrat Perfume Oil Grade A untuk aroma mewah berkarakter yang bertahan lebih dari 8 jam.
         </p>
+
         <div class="hero-btn-group">
-          <a href="/katalog" class="btn-hero-primary">Jelajahi Koleksi</a>
+          <a href="/katalog" class="btn-hero-primary">
+            <span>Jelajahi Koleksi</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a href="#about-story-section" data-nav="about-story-section" class="btn-hero-secondary">
+            <span>Tentang Kami</span>
+          </a>
         </div>
       </div>
+
+      <!-- Minimalist Bottom Highlight Strip -->
+      <div class="hero-highlights">
+        <div class="hero-highlight-item">
+          <span class="hero-highlight-num">01</span>
+          <span class="hero-highlight-label">GRADE A PERFUME OIL</span>
+        </div>
+        <div class="hero-highlight-sep"></div>
+        <div class="hero-highlight-item">
+          <span class="hero-highlight-num">02</span>
+          <span class="hero-highlight-label">8+ HOURS LONGEVITY</span>
+        </div>
+        <div class="hero-highlight-sep"></div>
+        <div class="hero-highlight-item">
+          <span class="hero-highlight-num">03</span>
+          <span class="hero-highlight-label">SIGNATURE ORIGINAL BLENDS</span>
+        </div>
+      </div>
+
+      <!-- Subtle Scroll Down Indicator -->
+      <a href="#about-story-section" data-nav="about-story-section" class="hero-scroll-indicator" aria-label="Scroll down">
+        <span class="hero-scroll-text">EXPLORE</span>
+        <span class="hero-scroll-bar"></span>
+      </a>
     </div>
   </header>
 
