@@ -916,12 +916,18 @@ function renderAdminPaginationControls(totalPages) {
       e.stopPropagation();
     }
     const backdrop = document.getElementById('logout-modal-backdrop');
-    if (backdrop) backdrop.classList.add('active');
+    if (backdrop) {
+      backdrop.style.cssText = 'display: flex !important; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(4px);';
+      backdrop.classList.add('active');
+    }
   };
 
   window.closeLogoutModal = function () {
     const backdrop = document.getElementById('logout-modal-backdrop');
-    if (backdrop) backdrop.classList.remove('active');
+    if (backdrop) {
+      backdrop.classList.remove('active');
+      backdrop.style.cssText = 'display: none !important;';
+    }
   };
 
   function logout() {
@@ -929,7 +935,9 @@ function renderAdminPaginationControls(totalPages) {
     document.querySelectorAll('.admin-modal-backdrop').forEach(function(b) {
       b.classList.remove('active');
     });
-    // 2. Bersihkan session
+    // 2. Bersihkan session & token
+    document.documentElement.classList.remove('has-admin-token');
+    sessionStorage.removeItem('admin_token');
     if (window.API && typeof window.API.logout === 'function') {
       window.API.logout();
     }
@@ -952,28 +960,28 @@ function renderAdminPaginationControls(totalPages) {
     const confirmBtn = document.getElementById('btn-confirm-logout');
 
     if (logoutBtn) {
-      logoutBtn.onclick = window.openLogoutModal;
+      logoutBtn.addEventListener('click', window.openLogoutModal);
     }
 
     if (cancelBtn) {
-      cancelBtn.onclick = function (e) {
+      cancelBtn.addEventListener('click', function (e) {
         if (e) e.preventDefault();
         window.closeLogoutModal();
-      };
+      });
     }
 
     if (backdrop) {
-      backdrop.onclick = function (e) {
+      backdrop.addEventListener('click', function (e) {
         if (e.target === backdrop) window.closeLogoutModal();
-      };
+      });
     }
 
     if (confirmBtn) {
-      confirmBtn.onclick = function (e) {
+      confirmBtn.addEventListener('click', function (e) {
         if (e) e.preventDefault();
         window.closeLogoutModal();
         logout();
-      };
+      });
     }
   }
 

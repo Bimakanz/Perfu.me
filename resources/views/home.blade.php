@@ -41,7 +41,6 @@
       <li><a href="/quiz">Quiz</a></li>
       <li><a href="#about-story-section" data-nav="about-story-section">Tentang</a></li>
       <li><a href="#testimoni-section" data-nav="testimoni-section">Testimoni</a></li>
-      <li><a href="#footer-section" data-nav="footer-section">Kontak</a></li>
     </ul>
 
     <div class="nav-actions">
@@ -79,7 +78,6 @@
       <li><a href="/quiz">Quiz</a></li>
       <li><a href="#about-story-section">Tentang</a></li>
       <li><a href="#testimoni-section">Testimoni</a></li>
-      <li><a href="#footer-section">Kontak</a></li>
     </ul>
     <div class="nav-mobile-actions">
       <span class="nav-mobile-actions-label">Cari &amp; Keranjang</span>
@@ -101,7 +99,7 @@
 
   {{-- 3. HERO SECTION --}}
   <header id="hero">
-    <img src="{{ asset('assets/images/herosectionbaru2parfumtanpawm.png') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
+    <img src="{{ asset('assets/images/herosectionbaru2parfumtanpawm.webp') }}" alt="Hero Cinematic Background" class="hero-cinematic-bg">
     <div class="hero-overlay-dark"></div>
 
     <div class="hero-grid">

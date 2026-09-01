@@ -11,7 +11,6 @@
     <li><a href="/katalog" <?php if($activeNav === 'katalog'): ?> style="color:#0D0D0D; font-weight:700; text-decoration:underline; text-underline-offset:4px;" <?php endif; ?>>Katalog</a></li>
     <li><a href="/#testimoni-section">Testimoni</a></li>
     <li><a href="/quiz" <?php if($activeNav === 'quiz'): ?> class="active" <?php endif; ?>>Quiz</a></li>
-    <li><a href="/#footer-section">Kontak</a></li>
   </ul>
 
   <div class="nav-actions">
@@ -31,4 +30,4 @@
     </button>
   </div>
 </nav>
-<?php /**PATH C:\laragon\www\Perfu.me\resources\views/partials/navbar.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/partials/navbar.blade.php ENDPATH**/ ?>
