@@ -216,6 +216,8 @@
   <script>
     (function () {
       function showLogin(message) {
+        document.documentElement.classList.remove('has-admin-token');
+        sessionStorage.removeItem('admin_token');
         if (window.API && typeof window.API.clearToken === 'function') {
           window.API.clearToken();
         }
@@ -342,7 +344,13 @@
           } catch (err) {
             if (window.API && typeof window.API.clearToken === 'function') window.API.clearToken();
           }
-          showLogin();
+          document.documentElement.classList.remove('has-admin-token');
+          sessionStorage.removeItem('admin_token');
+          if (window.location.pathname.startsWith('/admin/')) {
+            window.location.href = '/admin';
+          } else {
+            showLogin();
+          }
         });
 
         if (!window.API || !window.API.hasToken()) {

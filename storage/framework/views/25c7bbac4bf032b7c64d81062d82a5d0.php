@@ -39,7 +39,6 @@
       <li><a href="/quiz">Quiz</a></li>
       <li><a href="#about-story-section" data-nav="about-story-section">Tentang</a></li>
       <li><a href="#testimoni-section" data-nav="testimoni-section">Testimoni</a></li>
-      <li><a href="#footer-section" data-nav="footer-section">Kontak</a></li>
     </ul>
 
     <div class="nav-actions">
@@ -77,7 +76,6 @@
       <li><a href="/quiz">Quiz</a></li>
       <li><a href="#about-story-section">Tentang</a></li>
       <li><a href="#testimoni-section">Testimoni</a></li>
-      <li><a href="#footer-section">Kontak</a></li>
     </ul>
     <div class="nav-mobile-actions">
       <span class="nav-mobile-actions-label">Cari &amp; Keranjang</span>
@@ -99,7 +97,7 @@
 
   
   <header id="hero">
-    <video class="hero-video-bg" autoplay muted loop playsinline preload="auto">
+    <video class="hero-video-bg" autoplay muted loop playsinline preload="auto" poster="<?php echo e(asset('assets/images/herosectionbaru2parfumtanpawm.webp')); ?>">
       <source src="<?php echo e(asset('assets/videos/perfume.mp4')); ?>" type="video/mp4">
     </video>
     <div class="hero-video-overlay"></div>
@@ -492,4 +490,4 @@
 <script src="<?php echo e(asset('js/navbar.js')); ?>"></script>
 <script src="<?php echo e(asset('js/catalog.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\Perfu.me\resources\views/home.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/home.blade.php ENDPATH**/ ?>

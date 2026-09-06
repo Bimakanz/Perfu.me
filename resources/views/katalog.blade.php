@@ -342,20 +342,38 @@
   
   .product-card:hover .product-card-img-wrap img { transform: scale(1.06); }
 
-  .best-seller-badge {
+  /* Angled Corner Ribbon Badge for Best Seller & Out of Stock */
+  .corner-ribbon-wrap {
     position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
-    background: rgba(13, 13, 13, 0.9);
-    backdrop-filter: blur(4px);
+    top: 0;
+    left: 0;
+    width: 85px;
+    height: 85px;
+    overflow: hidden;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .corner-ribbon {
+    position: absolute;
+    top: 15px;
+    left: -32px;
+    width: 120px;
+    padding: 0.3rem 0;
+    background: #0D0D0D;
     color: #FFFFFF;
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    padding: 0.35rem 0.75rem;
-    border-radius: 4px;
-    z-index: 2;
+    text-align: center;
+    transform: rotate(-45deg);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    font-family: 'Manrope', sans-serif;
+  }
+
+  .corner-ribbon.out-of-stock-ribbon {
+    background: #71717A;
   }
 
   .product-card-body { padding: 1.25rem; }
@@ -832,7 +850,6 @@
     <h1 class="katalog-page-title">Koleksi Parfum</h1>
     <p class="katalog-page-sub">Semua koleksi wewangian eksklusif Perfu.me</p>
     <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center; margin-top:1rem;">
-      <a href="/quiz" class="katalog-hook">Masih bingung pilih parfum? <small>Mulai quiz untuk rekomendasi parfum keseharian Anda.</small></a>
       {{-- Mobile Filter Toggle --}}
       <button id="btn-mobile-filter" onclick="toggleMobileFilter()" style="display:none; align-items:center; gap:0.5rem; padding:0.75rem 1.1rem; background:#FFFFFF; border:1px solid #E5E5E5; border-radius:999px; font-size:0.82rem; font-weight:600; color:#0D0D0D; cursor:pointer; transition:all 0.2s;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
@@ -978,7 +995,7 @@
         <div class="product-card" onclick="window.location.href='/produk/${p.id}'" role="button" tabindex="0">
           <div class="product-card-img-wrap">
             <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='${FALLBACK_IMG}'">
-            ${isOutOfStock ? '<span class="best-seller-badge" style="background:#71717A;">Stok Habis</span>' : (p.best_seller ? '<span class="best-seller-badge">Best Seller</span>' : '')}
+            ${isOutOfStock ? '<div class="corner-ribbon-wrap"><div class="corner-ribbon out-of-stock-ribbon">Habis</div></div>' : (p.best_seller ? '<div class="corner-ribbon-wrap"><div class="corner-ribbon">Best Seller</div></div>' : '')}
           </div>
           <div class="product-card-body">
             <div class="product-card-meta">${p.type.toUpperCase()} • ${p.gender.toUpperCase()} • ${p.variant.toUpperCase()}</div>
