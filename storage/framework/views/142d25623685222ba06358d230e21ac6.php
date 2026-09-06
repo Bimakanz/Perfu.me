@@ -454,11 +454,7 @@
           <i class="fa-brands fa-whatsapp" style="font-size:1.15rem;"></i>
           <span>Tukar Botol via WhatsApp</span>
         </a>
-        <span class="exchange-cta-note">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-          Proses penukaran cepat &amp; dapat langsung dikirimkan ke alamat workshop kami
-        </span>
-      </div>
+        </div>
 
     </div>
   </section>
@@ -490,4 +486,4 @@
 <script src="<?php echo e(asset('js/navbar.js')); ?>"></script>
 <script src="<?php echo e(asset('js/catalog.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\bimag\Documents\SEKOLAH\Perfu.me\resources\views/home.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\Perfu.me\resources\views/home.blade.php ENDPATH**/ ?>
