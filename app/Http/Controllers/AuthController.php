@@ -37,8 +37,8 @@ class AuthController extends Controller
             }
         }
 
-        $validUser = $request->username === config('admin.username');
-        $validPass = $request->password === config('admin.password');
+        $validUser = hash_equals((string) config('admin.username'), (string) $request->username);
+        $validPass = hash_equals((string) config('admin.password'), (string) $request->password);
 
         if (!$validUser || !$validPass) {
             $attempts = (int) Cache::get($attemptsKey, 0) + 1;

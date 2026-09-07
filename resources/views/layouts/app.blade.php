@@ -16,7 +16,7 @@
   <meta property="og:title"       content="@yield('og_title', 'Perfu.me — Luxury & Nusantara Fragrance Series')">
   <meta property="og:description" content="@yield('og_description', 'Perfu.me menghadirkan koleksi parfum premium dengan konsentrat grade A, ketahanan aromatis hingga 10 jam.')">
   <meta property="og:url"         content="@yield('canonical', url()->current())">
-  <meta property="og:image"       content="@yield('og_image', asset('assets/images/herosectionbaru2parfumtanpawm.png'))">
+  <meta property="og:image"       content="@yield('og_image', asset('assets/images/herosectionbaru2parfumtanpawm.webp'))">
   <meta property="og:image:width"  content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:locale"      content="id_ID">
@@ -25,7 +25,7 @@
   <meta name="twitter:card"        content="summary_large_image">
   <meta name="twitter:title"       content="@yield('og_title', 'Perfu.me — Luxury & Nusantara Fragrance Series')">
   <meta name="twitter:description" content="@yield('og_description', 'Perfu.me menghadirkan koleksi parfum premium dengan konsentrat grade A, ketahanan aromatis hingga 10 jam.')">
-  <meta name="twitter:image"       content="@yield('og_image', asset('assets/images/herosectionbaru2parfumtanpawm.png'))">
+  <meta name="twitter:image"       content="@yield('og_image', asset('assets/images/herosectionbaru2parfumtanpawm.webp'))">
 
   @yield('meta')
 

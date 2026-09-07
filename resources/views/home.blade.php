@@ -258,26 +258,30 @@
       // Mengambil misalnya 8 data terbaru
       $dbTestimonials = \App\Models\Testimonial::with('product')->latest()->take(8)->get();
 
+      // Ambil sampel produk dari database agar dummy / fallback testimoni selalu terhubung ke produk nyata
+      $sampleProducts = \App\Models\Product::take(8)->get();
+      $firstProduct = $sampleProducts->first();
+
       // Jika data di database kurang dari 8, kita sediakan fallback data statis agar slider tetap penuh/tidak error
       $fallbackData = [
-          ['name' => 'Raditya Ghani', 'text' => 'Parfumnya recommended banget! Wanginya tahan seharian, dari pagi dipakai sampai malam pun masih wangi.', 'rating' => 5, 'product' => null],
-          ['name' => 'Agustin Putri', 'text' => 'Wanginya masih menempel di kerudung meskipun sudah 3 hari. Kualitasnya juara, fix bakal borong lagi!', 'rating' => 5, 'product' => null],
-          ['name' => 'Victoria Thompson', 'text' => 'Wangi manisnya lembut dan tidak terlalu menyengat — banyak yang tanya parfum apa ini!', 'rating' => 5, 'product' => null],
-          ['name' => 'John Peter', 'text' => 'Tidak lengket di kulit, elegan — cocok dipakai ke acara formal maupun santai.', 'rating' => 5, 'product' => null],
-          ['name' => 'Natalie Martinez', 'text' => 'Pengiriman cepat dan kemasannya rapi. Wanginya tahan lama, recommended!', 'rating' => 5, 'product' => null],
-          ['name' => 'Gabrielle Williams', 'text' => 'Aromanya sophisticated, enak dipakai seharian. Banyak yang tanya mereknya.', 'rating' => 5, 'product' => null],
-          ['name' => 'Isabella Rodriguez', 'text' => 'Wajib punya! Aroma manisnya pas, banyak yang bilang wangi saya enak.', 'rating' => 5, 'product' => null],
-          ['name' => 'Samantha Johnson', 'text' => 'Pas dipakai hangout, banyak yang tanya parfum apa — suka banget!', 'rating' => 5, 'product' => null],
+          ['name' => 'Raditya Ghani', 'text' => 'Parfumnya recommended banget! Wanginya tahan seharian, dari pagi dipakai sampai malam pun masih wangi.', 'rating' => 5, 'product' => $sampleProducts->get(0) ?? $firstProduct],
+          ['name' => 'Agustin Putri', 'text' => 'Wanginya masih menempel di kerudung meskipun sudah 3 hari. Kualitasnya juara, fix bakal borong lagi!', 'rating' => 5, 'product' => $sampleProducts->get(1) ?? $firstProduct],
+          ['name' => 'Victoria Thompson', 'text' => 'Wangi manisnya lembut dan tidak terlalu menyengat — banyak yang tanya parfum apa ini!', 'rating' => 5, 'product' => $sampleProducts->get(2) ?? $firstProduct],
+          ['name' => 'John Peter', 'text' => 'Tidak lengket di kulit, elegan — cocok dipakai ke acara formal maupun santai.', 'rating' => 5, 'product' => $sampleProducts->get(3) ?? $firstProduct],
+          ['name' => 'Natalie Martinez', 'text' => 'Pengiriman cepat dan kemasannya rapi. Wanginya tahan lama, recommended!', 'rating' => 5, 'product' => $sampleProducts->get(4) ?? $firstProduct],
+          ['name' => 'Gabrielle Williams', 'text' => 'Aromanya sophisticated, enak dipakai seharian. Banyak yang tanya mereknya.', 'rating' => 5, 'product' => $sampleProducts->get(5) ?? $firstProduct],
+          ['name' => 'Isabella Rodriguez', 'text' => 'Wajib punya! Aroma manisnya pas, banyak yang bilang wangi saya enak.', 'rating' => 5, 'product' => $sampleProducts->get(6) ?? $firstProduct],
+          ['name' => 'Samantha Johnson', 'text' => 'Pas dipakai hangout, banyak yang tanya parfum apa — suka banget!', 'rating' => 5, 'product' => $sampleProducts->get(7) ?? $firstProduct],
       ];
 
       // Jika database sudah ada isinya, kita mapping ke format yang sama
       if ($dbTestimonials->isNotEmpty()) {
-          $testimonialsList = $dbTestimonials->map(function($item) {
+          $testimonialsList = $dbTestimonials->map(function($item) use ($firstProduct) {
               return [
                   'name' => $item->name,
                   'text' => $item->text,
                   'rating' => $item->rating,
-                  'product' => $item->product // Relasi produk dari database
+                  'product' => $item->product ?? $firstProduct // Relasi produk dari database atau fallback ke firstProduct
               ];
           });
       } else {
@@ -307,7 +311,7 @@
           <div class="testimonial-row testimonial-row--top">
             <div class="testimonial-row-track">
               
-              <!-- Set Utama + Set Duplikasi (Supaya Seamless Loop) -->w
+              <!-- Set Utama + Set Duplikasi (Supaya Seamless Loop) -->
               @foreach($rowTopData->concat($rowTopData) as $item)
                 @php
                   $rating = $item['rating'] ?? 5;
@@ -327,9 +331,9 @@
                     <img loading="lazy" src="{{ $imgUrl }}" alt="{{ $tProd->name ?? 'Refill' }}" class="testimonial-product-img" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
                     <div class="testimonial-product-info">
                       <span class="testimonial-scent-tag">Chosen Scent</span>
-                      <span class="testimonial-product-name">{{ $tProd->name ?? 'Produk Umum' }}</span>
+                      <span class="testimonial-product-name">{{ $tProd->name ?? 'Produk Parfum' }}</span>
                     </div>
-                    <a href="{{ isset($tProd->id) ? route('product.detail', $tProd->id) : '#' }}" class="testimonial-buy">
+                    <a href="{{ isset($tProd->id) ? route('product.detail', $tProd->id) : route('catalog') }}" class="testimonial-buy">
                       <span class="buy-text-desktop">Beli Varian Ini →</span>
                       <span class="buy-text-mobile">Beli →</span>
                     </a>
@@ -364,9 +368,9 @@
                     <img loading="lazy" src="{{ $imgUrl }}" alt="{{ $tProd->name ?? 'Refill' }}" class="testimonial-product-img" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
                     <div class="testimonial-product-info">
                       <span class="testimonial-scent-tag">Chosen Scent</span>
-                      <span class="testimonial-product-name">{{ $tProd->name ?? 'Produk Umum' }}</span>
+                      <span class="testimonial-product-name">{{ $tProd->name ?? 'Produk Parfum' }}</span>
                     </div>
-                    <a href="{{ isset($tProd->id) ? route('product.detail', $tProd->id) : '#' }}" class="testimonial-buy">
+                    <a href="{{ isset($tProd->id) ? route('product.detail', $tProd->id) : route('catalog') }}" class="testimonial-buy">
                       <span class="buy-text-desktop">Beli Varian Ini →</span>
                       <span class="buy-text-mobile">Beli →</span>
                     </a>

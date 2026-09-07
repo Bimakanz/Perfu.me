@@ -22,7 +22,7 @@ class TestimonialController extends Controller
             'name'       => 'required|string|max:255',
             'text'       => 'required|string',
             'rating'     => 'required|integer|min:1|max:5',
-            'product_id' => 'nullable|exists:products,id'
+            'product_id' => 'required|exists:products,id'
         ]);
 
         if ($validator->fails()) {

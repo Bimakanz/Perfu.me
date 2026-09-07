@@ -26,8 +26,8 @@
                 
                 <div>
                     <label style="font-weight: 700; display: block; margin-bottom: 0.5rem; font-size: 0.85rem; color: #374151; font-family: 'Manrope', sans-serif;">Rating Bintang (1-5) *</label>
-                    <input type="hidden" id="rating" value="5">
                     <div class="form-select-custom" id="custom-select-rating">
+                        <input type="hidden" id="rating" value="5">
                         <div class="form-select-trigger">
                             <span class="trigger-label">★★★★★ (5 Bintang - Sempurna)</span>
                             <svg class="form-select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -49,21 +49,23 @@
                 </div>
 
                 <div>
-                    <label style="font-weight: 700; display: block; margin-bottom: 0.5rem; font-size: 0.85rem; color: #374151; font-family: 'Manrope', sans-serif;">Terkait Produk (Opsional)</label>
-                    <input type="hidden" id="product_id" value="">
+                    <label style="font-weight: 700; display: block; margin-bottom: 0.5rem; font-size: 0.85rem; color: #374151; font-family: 'Manrope', sans-serif;">Terkait Produk *</label>
+                    @php
+                        $firstProduct = $products->first();
+                        $defaultProdId = $firstProduct ? $firstProduct->id : '';
+                        $defaultProdName = $firstProduct ? $firstProduct->name : 'Pilih Produk';
+                    @endphp
                     <div class="form-select-custom" id="custom-select-product">
+                        <input type="hidden" id="product_id" value="{{ $defaultProdId }}">
                         <div class="form-select-trigger">
-                            <span class="trigger-label">-- Umum / Tanpa Produk Khusus --</span>
+                            <span class="trigger-label">{{ $defaultProdName }}</span>
                             <svg class="form-select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
                         </div>
                         <div class="form-select-options" style="max-height: 240px; overflow-y: auto;">
-                            <div class="form-select-option selected" data-value="" data-display="-- Umum / Tanpa Produk Khusus --">
-                                <span>-- Umum / Tanpa Produk Khusus --</span><span class="opt-check">✔</span>
-                            </div>
-                            @foreach($products as $product)
-                                <div class="form-select-option" data-value="{{ $product->id }}" data-display="{{ $product->name }}">
+                            @foreach($products as $index => $product)
+                                <div class="form-select-option {{ $index === 0 ? 'selected' : '' }}" data-value="{{ $product->id }}" data-display="{{ $product->name }}">
                                     <span>{{ $product->name }}</span><span class="opt-check">✔</span>
                                 </div>
                             @endforeach
@@ -179,16 +181,21 @@ function showToastBanner(message, type = 'success') {
 document.getElementById('form-add-testimonial').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('btn-submit');
+
+    const rawProductId = document.getElementById('product_id').value;
+    if (!rawProductId) {
+        showToastBanner('Silakan pilih produk terkait (wajib).', 'error');
+        return;
+    }
+
     btn.textContent = 'Menyimpan...';
     btn.disabled = true;
 
-    const rawProductId = document.getElementById('product_id').value;
-
     const payload = {
-        name: document.getElementById('name').value,
-        text: document.getElementById('text').value,
-        rating: document.getElementById('rating').value,
-        product_id: rawProductId ? rawProductId : null
+        name: document.getElementById('name').value.trim(),
+        text: document.getElementById('text').value.trim(),
+        rating: parseInt(document.getElementById('rating').value, 10) || 5,
+        product_id: parseInt(rawProductId, 10)
     };
 
     const token = sessionStorage.getItem('admin_token');
@@ -251,12 +258,15 @@ async function deleteTestimonial(id) {
         });
         
         if (res.ok) {
-            location.reload();
+            showToastBanner('Testimoni berhasil dihapus.', 'success');
+            setTimeout(() => {
+                location.reload();
+            }, 800);
         } else {
-            alert('Gagal menghapus data.');
+            showToastBanner('Gagal menghapus data testimoni.', 'error');
         }
     } catch (e) {
-        alert('Terjadi kesalahan.');
+        showToastBanner('Terjadi kesalahan pada sistem.', 'error');
     }
 }
 
@@ -264,7 +274,8 @@ async function deleteTestimonial(id) {
 function initCustomSelects() {
     document.querySelectorAll('.form-select-custom').forEach(customSelect => {
         const trigger = customSelect.querySelector('.form-select-trigger');
-        const hiddenInput = customSelect.querySelector('input[type="hidden"]');
+        const hiddenInput = customSelect.querySelector('input[type="hidden"]')
+                         || (customSelect.parentElement ? customSelect.parentElement.querySelector('input[type="hidden"]') : null);
         const label = customSelect.querySelector('.trigger-label');
         const options = customSelect.querySelectorAll('.form-select-option');
 
