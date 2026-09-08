@@ -110,7 +110,7 @@
 
         <h1 class="hero-heading">Perfu.me</h1>
 
-        <p class="hero-tagline">Smell good, feel confident</p>
+        <p class="hero-tagline">Smell good,<br class="hero-br-mobile"> Feel confident.</p>
 
         <p class="hero-desc">
           Lahir dari pengalaman panjang &amp; keahlian formulasi mendalam. Hadir dengan konsentrat Perfume Oil Grade A untuk aroma mewah berkarakter yang bertahan lebih dari 8 jam.
