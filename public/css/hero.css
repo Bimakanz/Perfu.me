@@ -404,12 +404,12 @@
     align-items: center !important;
   }
 
-  /* Background Video: Fokus ke Sisi Kanan di HP */
+  /* Background Video: Posisi Tengah agar 2 Parfum Terlihat Utuh di HP */
   .hero-video-bg {
     height: 100% !important;
     width: 100% !important;
     object-fit: cover !important;
-    object-position: right center !important;
+    object-position: center center !important;
     opacity: 0.9 !important;
     filter: brightness(0.82) contrast(1.08) !important;
   }
@@ -417,15 +417,15 @@
   .hero-video-overlay {
     background: linear-gradient(
       90deg,
-      rgba(13, 13, 13, 0.72) 0%,
-      rgba(13, 13, 13, 0.4) 55%,
-      rgba(13, 13, 13, 0.15) 100%
+      rgba(13, 13, 13, 0.68) 0%,
+      rgba(13, 13, 13, 0.35) 50%,
+      rgba(13, 13, 13, 0.4) 100%
     ),
     linear-gradient(
       180deg,
       rgba(13, 13, 13, 0.45) 0%,
       transparent 35%,
-      rgba(13, 13, 13, 0.35) 75%,
+      rgba(13, 13, 13, 0.3) 70%,
       rgba(13, 13, 13, 0.85) 100%
     ) !important;
   }
