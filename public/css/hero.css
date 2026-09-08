@@ -404,12 +404,12 @@
     align-items: center !important;
   }
 
-  /* Background Video: Posisi Tengah agar 2 Parfum Terlihat Utuh di HP */
+  /* Background Video: Geser Agak ke Kanan (65%) agar 2 Parfum Terlihat Utuh di HP */
   .hero-video-bg {
     height: 100% !important;
     width: 100% !important;
     object-fit: cover !important;
-    object-position: center center !important;
+    object-position: 65% center !important;
     opacity: 0.9 !important;
     filter: brightness(0.82) contrast(1.08) !important;
   }
