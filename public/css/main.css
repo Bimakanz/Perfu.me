@@ -1295,7 +1295,7 @@ button {
 .quiz-banner-section {
   background: #F5F5F7;
   padding: 7rem 2rem 8rem;
-  margin-top: 4rem;
+  margin-top: 0;
   margin-bottom: 2rem;
   text-align: center;
   position: relative;

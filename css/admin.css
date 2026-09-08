@@ -178,7 +178,7 @@
 
 .admin-toggle-pass {
   position: absolute;
-  right: 1rem;
+  right: 0.75rem;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
@@ -186,12 +186,26 @@
   transition: color 0.2s;
   background: none;
   border: none;
-  padding: 0;
+  padding: 0.35rem;
   line-height: 1;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 36px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.admin-toggle-pass:hover {
+.admin-toggle-pass:hover,
+.admin-toggle-pass:active {
   color: var(--charcoal);
+}
+
+.admin-toggle-pass svg {
+  pointer-events: none;
+  display: block;
 }
 
 .admin-form-error {
@@ -1870,16 +1884,28 @@ select.form-control:hover {
   margin-bottom: 3rem;
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .admin-pagination-wrapper .katalog-pagination {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
   margin: 0;
   padding: 0;
   border: none;
+  width: 100%;
+}
+
+.admin-pagination-desktop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.admin-pagination-mobile {
+  display: none;
 }
 
 .page-btn {
@@ -2353,6 +2379,69 @@ select.form-control:hover {
     font-size: 0.76rem !important;
   }
 
+  /* Mobile Responsive Clean Text Pagination */
+  .admin-pagination-wrapper {
+    margin-top: 1.5rem !important;
+    margin-bottom: 2.5rem !important;
+    padding: 0 0.5rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .admin-pagination-wrapper .katalog-pagination {
+    width: 100% !important;
+    justify-content: center !important;
+    gap: 0 !important;
+  }
+
+  .admin-pagination-desktop {
+    display: none !important;
+  }
+
+  .admin-pagination-mobile {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.65rem !important;
+    width: 100% !important;
+    max-width: 380px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .admin-pagination-mobile .page-btn {
+    padding: 0.35rem 0.5rem !important;
+    font-size: 0.88rem !important;
+    min-width: 28px !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
+  }
+
+  .admin-pagination-mobile .page-btn.page-nav {
+    font-size: 0.76rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em !important;
+    padding: 0.35rem 0.5rem !important;
+    white-space: nowrap !important;
+  }
+
+  .admin-pagination-mobile .page-btn.page-nav:hover:not(.disabled) {
+    letter-spacing: 0.12em !important;
+  }
+
+  .admin-pagination-mobile .page-btn.active {
+    color: #0D0D0D !important;
+    font-weight: 700 !important;
+    border-bottom: 2px solid #0D0D0D !important;
+  }
+
+  .admin-pagination-mobile .page-btn.disabled {
+    color: #D4D4D8 !important;
+    cursor: not-allowed !important;
+    opacity: 0.4 !important;
+    pointer-events: none !important;
+  }
+
   /* Compact Slide Panel (Form Tambah / Edit) */
   .admin-slide-panel {
     width: 100% !important;
@@ -2650,5 +2739,22 @@ select.form-control:hover {
     background: linear-gradient(90deg, #FFFFFF, #C0C0C0);
     border-radius: 100px;
     transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+/* ── Ultra-small screens (below 380px) ─────────────────────── */
+@media (max-width: 380px) {
+  .admin-pagination-mobile {
+    gap: 0.35rem !important;
+  }
+  .admin-pagination-mobile .page-btn {
+    padding: 0.3rem 0.35rem !important;
+    font-size: 0.8rem !important;
+    min-width: 24px !important;
+  }
+  .admin-pagination-mobile .page-btn.page-nav {
+    font-size: 0.68rem !important;
+    letter-spacing: 0.08em !important;
+    padding: 0.3rem 0.35rem !important;
   }
 }
