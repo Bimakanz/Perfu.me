@@ -404,19 +404,30 @@
     align-items: center !important;
   }
 
-  /* Background Video & Cinematic Dark Overlay */
+  /* Background Video: Fokus ke Sisi Kanan di HP */
   .hero-video-bg {
     height: 100% !important;
     width: 100% !important;
     object-fit: cover !important;
-    object-position: center !important;
-    opacity: 0.88 !important;
-    filter: brightness(0.78) contrast(1.08) !important;
+    object-position: right center !important;
+    opacity: 0.9 !important;
+    filter: brightness(0.82) contrast(1.08) !important;
   }
 
   .hero-video-overlay {
-    background: radial-gradient(circle at center, rgba(13, 13, 13, 0.25) 0%, rgba(13, 13, 13, 0.7) 100%),
-                linear-gradient(180deg, rgba(13, 13, 13, 0.5) 0%, rgba(13, 13, 13, 0.15) 30%, rgba(13, 13, 13, 0.3) 70%, rgba(13, 13, 13, 0.85) 100%) !important;
+    background: linear-gradient(
+      90deg,
+      rgba(13, 13, 13, 0.72) 0%,
+      rgba(13, 13, 13, 0.4) 55%,
+      rgba(13, 13, 13, 0.15) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(13, 13, 13, 0.45) 0%,
+      transparent 35%,
+      rgba(13, 13, 13, 0.35) 75%,
+      rgba(13, 13, 13, 0.85) 100%
+    ) !important;
   }
 
   /* Main Container Layout di HP */
