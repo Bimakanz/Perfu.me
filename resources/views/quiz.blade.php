@@ -509,10 +509,133 @@
       color: #FFFFFF;
     }
 
+    /* Slider Navigation for Results (Mobile) */
+    .results-slider-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .results-slider-nav {
+      display: none; /* Hidden on desktop */
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.85rem;
+    }
+
+    .btn-slide-nav {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      color: #0D0D0D;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-slide-nav:active {
+      transform: scale(0.9);
+      background: #F4F4F5;
+    }
+
+    .btn-slide-nav:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .slider-dots {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .slider-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #D4D4D8;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slider-dot.active {
+      width: 22px;
+      background: #0D0D0D;
+    }
+
+    .slider-swipe-hint {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      text-align: center;
+      font-size: 0.72rem;
+      color: #8A8A8A;
+      margin-top: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* Card Entrance Animation */
+    @keyframes recCardPop {
+      0% {
+        opacity: 0;
+        transform: translateY(16px) scale(0.97);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .quiz-results-wrapper.active .rec-card {
+      animation: recCardPop 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .quiz-results-wrapper.active .rec-card:nth-child(1) { animation-delay: 0.05s; }
+    .quiz-results-wrapper.active .rec-card:nth-child(2) { animation-delay: 0.15s; }
+    .quiz-results-wrapper.active .rec-card:nth-child(3) { animation-delay: 0.25s; }
+
     @media (max-width: 860px) {
       .results-grid {
-        grid-template-columns: repeat(1, 1fr);
-        gap: 1.5rem;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        scroll-behavior: smooth !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 1rem !important;
+        padding: 0.25rem 0.25rem 0.65rem !important;
+        margin-bottom: 0.25rem !important;
+        scrollbar-width: none !important;
+      }
+      .results-grid::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      .rec-card {
+        flex: 0 0 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        scroll-snap-align: center !important;
+        scroll-snap-stop: always !important;
+        box-sizing: border-box !important;
+      }
+
+      .results-slider-nav {
+        display: flex !important;
+      }
+
+      .slider-swipe-hint {
+        display: flex !important;
       }
 
       .scale-wrapper {
@@ -590,11 +713,10 @@
   {{-- Mobile Menu Drawer --}}
   <div id="nav-mobile-menu" class="nav-mobile-menu" role="dialog" aria-label="Menu Navigasi Mobile">
     <ul class="nav-mobile-links">
-      <li><a href="/katalog">Katalog</a></li>
-      <li><a href="/quiz" style="font-weight:800;">Quiz</a></li>
       <li><a href="/#about-story-section">Tentang</a></li>
+      <li><a href="/katalog">Katalog</a></li>
       <li><a href="/#testimoni-section">Testimoni</a></li>
-      <li><a href="/#footer-section">Kontak</a></li>
+      <li><a href="/quiz" style="font-weight:800;">Quiz</a></li>
     </ul>
     <div class="nav-mobile-actions">
       <span class="nav-mobile-actions-label">Cari &amp; Keranjang</span>
@@ -641,7 +763,7 @@
       {{-- Question 1 --}}
       <div class="question-block active" data-step="1">
         <div class="question-text">
-          "Saya suka bau yang manis dan hangat."
+          "Saya suka aroma yang manis dan hangat."
         </div>
         <div class="scale-wrapper">
           <span class="scale-label agree">SETUJU</span>
@@ -693,7 +815,7 @@
       {{-- Question 3 --}}
       <div class="question-block" data-step="3">
         <div class="question-text">
-          "Saya lebih menyukai wangi bunga dan alam yang segar."
+          "Saya lebih menyukai aroma bunga dan alam yang segar."
         </div>
         <div class="scale-wrapper">
           <span class="scale-label agree">SETUJU</span>
@@ -777,11 +899,29 @@
 
     {{-- Stage 2: Results Display --}}
     <div id="quiz-results-stage" class="quiz-results-wrapper">
-      <div class="results-grid" id="results-grid-container">
-        {{-- Dynamically populated via JS matching DB products --}}
+      <div class="results-slider-wrap">
+        <div class="results-grid" id="results-grid-container">
+          {{-- Dynamically populated via JS matching DB products --}}
+        </div>
+
+        {{-- Mobile Slider Navigation (Dots & Arrows) --}}
+        <div class="results-slider-nav" id="results-slider-nav">
+          <button type="button" class="btn-slide-nav prev" id="btn-slide-prev" onclick="slideResults(-1)" aria-label="Lihat parfum sebelumnya">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <div class="slider-dots" id="slider-dots">
+            <button type="button" class="slider-dot active" onclick="goToSlide(0)" aria-label="Parfum 1"></button>
+            <button type="button" class="slider-dot" onclick="goToSlide(1)" aria-label="Parfum 2"></button>
+            <button type="button" class="slider-dot" onclick="goToSlide(2)" aria-label="Parfum 3"></button>
+          </div>
+          <button type="button" class="btn-slide-nav next" id="btn-slide-next" onclick="slideResults(1)" aria-label="Lihat parfum selanjutnya">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+        <div class="slider-swipe-hint">Geser ke kanan untuk melihat rekomendasi berikutnya →</div>
       </div>
 
-      <div style="text-align: center; margin-top: 2rem;">
+      <div style="text-align: center; margin-top: 1.5rem;">
         <button type="button" class="btn-retake-quiz" onclick="resetQuiz()">
           Ulangi Quiz
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -874,7 +1014,7 @@
     }
 
     function calculateDatabaseMatches() {
-      const a1 = userAnswers[1] || 0; // Bau manis & hangat
+      const a1 = userAnswers[1] || 0; // Aroma manis & hangat
       const a2 = userAnswers[2] || 0; // Aktivitas outdoor / woody & spicy
       const a3 = userAnswers[3] || 0; // Floral / segar
       const a4 = userAnswers[4] || 0; // Signature / formal
@@ -941,13 +1081,13 @@
 
       // Render Grid Cards
       const container = document.getElementById('results-grid-container');
-      container.innerHTML = top3.map(p => {
+      container.innerHTML = top3.map((p, idx) => {
         const isSig = (p.type || '').toLowerCase() === 'signature' || p.name.toLowerCase().includes('dynamyst') || p.name.toLowerCase().includes('vanessence');
         const priceText = isSig ? `Rp ${Number(p.price).toLocaleString('id-ID')}` : 'Rp 45.000 (35ml)';
 
         return `
-          <div class="rec-card">
-            <div class="rec-match-badge">${p.matchPercent}% MATCH</div>
+          <div class="rec-card" data-index="${idx}">
+            <div class="rec-match-badge">#${idx + 1} • ${p.matchPercent}% MATCH</div>
             <div class="rec-img-wrap">
               <img src="${p.image}" alt="${p.name}" onerror="this.src='/assets/images/refill.webp'">
             </div>
@@ -965,6 +1105,61 @@
           </div>
         `;
       }).join('');
+
+      // Reset slider position to first recommendation
+      container.scrollLeft = 0;
+      updateSliderDots(0);
+      initSliderScrollSync();
+
+      // Smooth scroll to top of page so results are immediately in view
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateSliderDots(activeIndex) {
+      const dots = document.querySelectorAll('.slider-dot');
+      dots.forEach((d, idx) => {
+        d.classList.toggle('active', idx === activeIndex);
+      });
+      const prevBtn = document.getElementById('btn-slide-prev');
+      const nextBtn = document.getElementById('btn-slide-next');
+      if (prevBtn) prevBtn.disabled = activeIndex <= 0;
+      if (nextBtn) nextBtn.disabled = activeIndex >= 2;
+    }
+
+    function slideResults(direction) {
+      const container = document.getElementById('results-grid-container');
+      if (!container) return;
+      const cardWidth = container.clientWidth;
+      container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+    }
+
+    function goToSlide(index) {
+      const container = document.getElementById('results-grid-container');
+      if (!container) return;
+      const cards = container.querySelectorAll('.rec-card');
+      if (cards[index]) {
+        cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+
+    let isScrollSyncAttached = false;
+    function initSliderScrollSync() {
+      const container = document.getElementById('results-grid-container');
+      if (!container || isScrollSyncAttached) return;
+      isScrollSyncAttached = true;
+
+      let scrollTimeout;
+      container.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          const cards = container.querySelectorAll('.rec-card');
+          if (!cards.length) return;
+          const scrollLeft = container.scrollLeft;
+          const containerWidth = container.clientWidth;
+          const activeIndex = Math.round(scrollLeft / containerWidth);
+          updateSliderDots(Math.max(0, Math.min(cards.length - 1, activeIndex)));
+        }, 30);
+      }, { passive: true });
     }
 
     function resetQuiz() {
@@ -982,7 +1177,13 @@
       document.getElementById('quiz-results-stage').classList.remove('active');
       document.getElementById('quiz-active-stage').style.display = 'block';
 
+      const container = document.getElementById('results-grid-container');
+      if (container) container.scrollLeft = 0;
+      updateSliderDots(0);
+
       updateQuestionStep();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
+  <script src="{{ asset('js/navbar.js') }}"></script>
 @endsection

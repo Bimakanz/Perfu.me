@@ -68,30 +68,20 @@
     </div>
   </nav>
 
-  @include('partials.navbar')
-
-
   {{-- Mobile Menu Drawer --}}
   <div id="nav-mobile-menu" class="nav-mobile-menu" role="dialog" aria-label="Menu Navigasi Mobile">
     <ul class="nav-mobile-links">
-      <li><a href="/katalog">Katalog</a></li>
-      <li><a href="/quiz">Quiz</a></li>
       <li><a href="#about-story-section">Tentang</a></li>
+      <li><a href="/katalog">Katalog</a></li>
       <li><a href="#testimoni-section">Testimoni</a></li>
+      <li><a href="/quiz">Quiz</a></li>
     </ul>
     <div class="nav-mobile-actions">
-      <span class="nav-mobile-actions-label">Cari &amp; Keranjang</span>
+      <span class="nav-mobile-actions-label">Cari Parfum</span>
       <button id="btn-open-search-mobile" class="nav-icon-btn" aria-label="Cari Parfum" onclick="document.getElementById('btn-open-search').click(); window.closeMobileMenu && window.closeMobileMenu();">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-      </button>
-      <button id="btn-open-cart-mobile" class="nav-icon-btn" aria-label="Keranjang Belanja" onclick="document.getElementById('btn-open-cart').click(); window.closeMobileMenu && window.closeMobileMenu();" style="position:relative;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <path d="M16 10a4 4 0 0 1-8 0"></path>
         </svg>
       </button>
     </div>
@@ -409,7 +399,7 @@
         <div class="exchange-col exchange-col--left">
           <div class="exchange-item">
             <span class="exchange-item-num">01 / REWARD</span>
-            <h3 class="exchange-item-title">10X Botol Kosong = 1 Botol Baru</h3>
+            <h3 class="exchange-item-title">10X Botol Kosong 1 Botol Parfum</h3>
             <p class="exchange-item-desc">
               Kumpulkan 10 botol kosong Perfu.me milik Anda dan tukarkan langsung dengan 1 botol parfum baru yang siap pakai dengan varian aroma pilihan Anda.
             </p>

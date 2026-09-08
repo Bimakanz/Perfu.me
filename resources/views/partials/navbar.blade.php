@@ -32,5 +32,12 @@
       </svg>
       <span class="cart-badge-count" id="cart-badge-count">0</span>
     </button>
+
+    {{-- Hamburger Button (Mobile Only) --}}
+    <button id="nav-hamburger" class="nav-hamburger" aria-label="Buka Menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </nav>

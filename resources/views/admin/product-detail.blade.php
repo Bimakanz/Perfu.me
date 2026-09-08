@@ -19,7 +19,7 @@
     .detail-page-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 2.5rem 2rem 6rem;
+      padding: 2.5rem 2rem 6.5rem;
     }
 
     /* Breadcrumbs: DASHBOARD > [NAMA PRODUK] */
@@ -38,6 +38,9 @@
     .admin-detail-breadcrumbs a {
       color: #8A8A8A;
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
       transition: color 0.2s ease;
     }
 
@@ -51,6 +54,10 @@
 
     .admin-detail-breadcrumbs .current {
       color: #0D0D0D;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 250px;
     }
 
     .detail-hero-grid {
@@ -64,6 +71,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100%;
     }
 
     /* Brand Watermark / Title Above Image (Matching User Storefront PDP) */
@@ -92,10 +100,12 @@
       width: 100%;
       max-width: 400px;
       background: #F7F7F7;
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
       position: relative;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+      border: 1px solid #EAEAEA;
+      box-shadow: 0 10px 32px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
     }
 
     .detail-img-box img {
@@ -106,20 +116,47 @@
     }
 
     .detail-status-pill {
-      display: inline-block;
-      padding: 0.3rem 0.75rem;
-      background: #F0F0F0;
-      color: #666666;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.1rem;
+    }
+
+    .detail-status-pill.is-in-stock {
+      background: #ECFDF5;
+      color: #059669;
+      border: 1px solid #A7F3D0;
+    }
+
+    .detail-status-pill.is-in-stock .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10B981;
+    }
+
+    .detail-status-pill.is-out-of-stock {
+      background: #FEF2F2;
+      color: #DC2626;
+      border: 1px solid #FECACA;
+    }
+
+    .detail-status-pill.is-out-of-stock .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #EF4444;
     }
 
     /* Product Name with Manrope font */
     .detail-product-name {
       font-family: 'Manrope', sans-serif;
-      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-size: clamp(1.85rem, 3.5vw, 2.75rem);
       font-weight: 700;
       letter-spacing: -0.02em;
       color: #000000;
@@ -194,7 +231,8 @@
       gap: 1rem;
       background: #FAFAFA;
       padding: 1rem 1.25rem;
-      border-radius: 8px;
+      border-radius: 10px;
+      border: 1px solid #F0F0F0;
     }
 
     .scent-note-col strong {
@@ -210,6 +248,126 @@
       font-size: 0.85rem;
       font-weight: 600;
       color: #111111;
+      word-break: break-word;
+    }
+
+    /* Related Products Section */
+    .related-section {
+      border-top: 1px solid #EEEEEE;
+      padding-top: 3.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .related-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 2rem;
+    }
+
+    .related-title-sub {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8A8A8A;
+      margin-bottom: 0.35rem;
+    }
+
+    .related-title {
+      font-family: 'Zaloga', Georgia, serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: #0D0D0D;
+      margin: 0;
+    }
+
+    .admin-related-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .admin-related-card {
+      text-decoration: none;
+      color: inherit;
+      background: #FFFFFF;
+      border: 1px solid #EAEAEA;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    }
+
+    .admin-related-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+    }
+
+    .admin-related-img-wrap {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: #F4F4F5;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .admin-related-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .admin-related-card:hover .admin-related-img-wrap img {
+      transform: scale(1.05);
+    }
+
+    .admin-related-badge-stock-out {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(220, 38, 38, 0.9);
+      color: #FFFFFF;
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .admin-related-body {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .admin-related-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #8A8A8A;
+      margin-bottom: 0.35rem;
+    }
+
+    .admin-related-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #0D0D0D;
+      margin-bottom: 0.4rem;
+      font-family: 'Manrope', sans-serif;
+      line-height: 1.25;
+    }
+
+    .admin-related-price {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #0D0D0D;
+      margin-top: auto;
     }
 
     /* Sticky Bottom Control Bar for Admin */
@@ -218,10 +376,12 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 96px;
-      background: #FFFFFF;
+      height: 90px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-top: 1px solid #E5E5E5;
-      box-shadow: 0 -10px 35px rgba(0,0,0,0.08);
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.06);
       z-index: 999;
       display: flex;
       align-items: center;
@@ -282,6 +442,7 @@
       transition: all 0.2s ease;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.5rem;
       text-decoration: none;
       background: {{ $product->stock > 0 ? '#F0FDF4' : '#FEF2F2' }};
@@ -291,6 +452,13 @@
 
     .btn-admin-stock-toggle:hover {
       transform: translateY(-1px);
+    }
+
+    .stock-indicator-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: {{ $product->stock > 0 ? '#16A34A' : '#DC2626' }};
     }
 
     .btn-admin-edit {
@@ -304,6 +472,10 @@
       cursor: pointer;
       text-decoration: none;
       transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
       box-shadow: 0 4px 14px rgba(0,0,0,0.12);
     }
 
@@ -312,10 +484,179 @@
       transform: translateY(-1px);
     }
 
+    /* Tablet Responsive */
     @media (max-width: 900px) {
       .detail-hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .admin-related-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
       .bottom-bar-product-info { display: none; }
       .admin-actions-group { width: 100%; justify-content: space-between; margin-left: 0; }
+    }
+
+    /* Mobile Responsive (<= 768px) */
+    @media (max-width: 768px) {
+      .detail-page-container {
+        padding: 1.25rem 1rem 7.5rem !important;
+      }
+
+      .admin-detail-breadcrumbs {
+        margin-bottom: 1.25rem !important;
+        font-size: 0.72rem !important;
+      }
+
+      .admin-detail-breadcrumbs .current {
+        max-width: 180px !important;
+      }
+
+      .detail-hero-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+      }
+
+      .detail-brand-watermark {
+        font-size: 1.75rem !important;
+        margin-bottom: 1rem !important;
+      }
+
+      .detail-img-box {
+        max-width: 270px !important;
+        margin: 0 auto !important;
+        border-radius: 14px !important;
+      }
+
+      .detail-product-name {
+        font-size: 1.6rem !important;
+        margin-bottom: 0.35rem !important;
+        line-height: 1.2 !important;
+      }
+
+      .detail-price-text {
+        font-size: 1.35rem !important;
+      }
+
+      .detail-shipping-note {
+        font-size: 0.8rem !important;
+        margin-bottom: 1rem !important;
+      }
+
+      .detail-desc-text {
+        font-size: 0.88rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 1.25rem !important;
+      }
+
+      .detail-features-list {
+        gap: 0.45rem !important;
+        margin-bottom: 1.25rem !important;
+      }
+
+      .detail-features-list li {
+        font-size: 0.82rem !important;
+      }
+
+      .detail-scent-notes-box {
+        padding-top: 1.25rem !important;
+        margin-top: 1.25rem !important;
+      }
+
+      .scent-notes-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.45rem !important;
+        padding: 0.75rem 0.65rem !important;
+      }
+
+      .scent-note-col strong {
+        font-size: 0.62rem !important;
+      }
+
+      .scent-note-col span {
+        font-size: 0.78rem !important;
+      }
+
+      .related-section {
+        padding-top: 2rem !important;
+        margin-top: 2.25rem !important;
+      }
+
+      .related-header {
+        margin-bottom: 1.15rem !important;
+      }
+
+      .related-title-sub {
+        font-size: 0.65rem !important;
+        letter-spacing: 0.15em !important;
+      }
+
+      .related-title {
+        font-size: 1.45rem !important;
+        line-height: 1.2 !important;
+      }
+
+      .admin-related-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.75rem !important;
+      }
+
+      .admin-related-body {
+        padding: 0.75rem 0.65rem !important;
+      }
+
+      .admin-related-tag {
+        font-size: 0.62rem !important;
+        letter-spacing: 0.06em !important;
+        margin-bottom: 0.25rem !important;
+      }
+
+      .admin-related-name {
+        font-size: 0.85rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.35rem !important;
+      }
+
+      .admin-related-price {
+        font-size: 0.82rem !important;
+      }
+
+      /* Compact Luxury Mobile Bottom Bar */
+      .sticky-bottom-bar {
+        height: 68px !important;
+        background: rgba(255, 255, 255, 0.96) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border-top: 1px solid rgba(0,0,0,0.08) !important;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.06) !important;
+      }
+
+      .bottom-bar-content {
+        padding: 0 1rem !important;
+      }
+
+      .admin-actions-group {
+        width: 100% !important;
+        gap: 0.65rem !important;
+      }
+
+      .btn-admin-stock-toggle {
+        flex: 1 !important;
+        justify-content: center !important;
+        padding: 0.65rem 0.5rem !important;
+        font-size: 0.82rem !important;
+        white-space: nowrap !important;
+      }
+
+      .btn-admin-edit {
+        flex: 1 !important;
+        justify-content: center !important;
+        padding: 0.65rem 0.5rem !important;
+        font-size: 0.82rem !important;
+        white-space: nowrap !important;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .scent-notes-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.65rem !important;
+      }
     }
   </style>
 @endsection
@@ -325,7 +666,10 @@
   <div class="detail-page-container">
     {{-- Breadcrumbs: DASHBOARD > [NAMA PRODUK] --}}
     <div class="admin-detail-breadcrumbs">
-      <a href="/admin">DASHBOARD</a>
+      <a href="/admin">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        DASHBOARD
+      </a>
       <span class="sep">›</span>
       <span class="current">{{ strtoupper($product->name) }}</span>
     </div>
@@ -345,7 +689,8 @@
 
       {{-- Info Column --}}
       <div class="detail-info-col">
-        <div class="detail-status-pill">
+        <div class="detail-status-pill {{ $product->stock > 0 ? 'is-in-stock' : 'is-out-of-stock' }}">
+          <span class="status-dot"></span>
           {{ $product->stock > 0 ? 'Ready Stock' : 'Stok Habis' }}
         </div>
 
@@ -392,28 +737,31 @@
 
     {{-- Rekomendasi Parfum Pilihan Lainnya --}}
     @if(isset($relatedProducts) && count($relatedProducts) > 0)
-      <section class="related-section" style="border-top:1px solid #EEEEEE; padding-top:4rem; margin-top:4rem;">
-        <div class="related-header" style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:2.5rem;">
+      <section class="related-section">
+        <div class="related-header">
           <div>
-            <div style="font-size:0.72rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#8A8A8A; margin-bottom:0.35rem;">EXPLORE MORE FRAGRANCES</div>
-            <h2 style="font-family:'Zaloga', Georgia, serif; font-size:2.2rem; font-weight:300; color:#0D0D0D; margin:0;">Produk Lainnya di Inventaris</h2>
+            <div class="related-title-sub">EXPLORE MORE FRAGRANCES</div>
+            <h2 class="related-title">Produk Lainnya di Inventaris</h2>
           </div>
         </div>
 
-        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:1.5rem;">
+        <div class="admin-related-grid">
           @foreach($relatedProducts as $rel)
             @php
               $relIsSig = strtolower($rel->type) === 'signature' || str_contains(strtolower($rel->name), 'dynamyst') || str_contains(strtolower($rel->name), 'vanessence');
               $relPrice = $relIsSig ? $rel->price : 45000;
             @endphp
-            <a href="/admin/produk/{{ $rel->id }}" style="text-decoration:none; color:inherit; background:#FFFFFF; border:1px solid #EAEAEA; border-radius:12px; overflow:hidden; display:flex; flex-direction:column; transition:transform 0.2s;">
-              <div style="width:100%; aspect-ratio:1/1; background:#F4F4F5; overflow:hidden;">
-                <img src="{{ asset($rel->image) }}" alt="{{ $rel->name }}" loading="lazy" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+            <a href="/admin/produk/{{ $rel->id }}" class="admin-related-card">
+              <div class="admin-related-img-wrap">
+                <img src="{{ asset($rel->image) }}" alt="{{ $rel->name }}" loading="lazy" onerror="this.src='{{ asset('assets/images/refill.webp') }}'">
+                @if($rel->stock <= 0)
+                  <span class="admin-related-badge-stock-out">Habis</span>
+                @endif
               </div>
-              <div style="padding:1rem; flex:1; display:flex; flex-direction:column;">
-                <div style="font-size:0.68rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#8A8A8A; margin-bottom:0.35rem;">{{ $relIsSig ? 'Signature' : 'Refill' }} • {{ $rel->gender }}</div>
-                <div style="font-size:0.98rem; font-weight:700; color:#0D0D0D; margin-bottom:0.5rem; font-family:'Manrope', sans-serif;">{{ $rel->name }}</div>
-                <div style="font-size:0.9rem; font-weight:600; color:#0D0D0D; margin-top:auto;">Rp {{ number_format($relPrice, 0, ',', '.') }}</div>
+              <div class="admin-related-body">
+                <div class="admin-related-tag">{{ $relIsSig ? 'Signature' : 'Refill' }} • {{ $rel->gender }}</div>
+                <div class="admin-related-name">{{ $rel->name }}</div>
+                <div class="admin-related-price">Rp {{ number_format($relPrice, 0, ',', '.') }}</div>
               </div>
             </a>
           @endforeach
@@ -422,7 +770,7 @@
     @endif
   </div>
 
-  {{-- Admin Sticky Bottom Bar (Without stock count text on the left, without emojis) --}}
+  {{-- Admin Sticky Bottom Bar --}}
   <div class="sticky-bottom-bar">
     <div class="bottom-bar-content">
       <div class="bottom-bar-product-info">
@@ -435,15 +783,16 @@
       <div class="admin-actions-group">
         @if($product->stock > 0)
           <button id="btn-toggle-stock" type="button" class="btn-admin-stock-toggle" onclick="toggleStockStatus(0)" title="Klik untuk mengubah status menjadi Stock Habis">
-            Stock Ready
+            <span class="stock-indicator-dot"></span> Stock Ready
           </button>
         @else
           <button id="btn-toggle-stock" type="button" class="btn-admin-stock-toggle" onclick="toggleStockStatus(10)" title="Klik untuk mengubah status menjadi Stock Ready">
-            Stock Habis
+            <span class="stock-indicator-dot"></span> Stock Habis
           </button>
         @endif
 
         <button type="button" class="btn-admin-edit" onclick="openDetailEditPanel()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
           Edit Produk
         </button>
       </div>

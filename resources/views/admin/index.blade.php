@@ -121,6 +121,13 @@
       </div>
     </div>
 
+    <!-- Mobile Table Scroll Hint -->
+    <div class="admin-table-scroll-hint">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      <span>Geser ke kanan untuk melihat Harga, Stok &amp; Aksi</span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </div>
+
     <div class="admin-table-wrap">
       <table class="admin-table" id="admin-products-table">
         <thead>
@@ -138,6 +145,11 @@
           <!-- Rendered dynamically via JS -->
         </tbody>
       </table>
+    </div>
+
+    <!-- Mobile Card View Container -->
+    <div class="admin-mobile-cards" id="admin-mobile-cards">
+      <!-- Rendered dynamically via JS on mobile -->
     </div>
   </section>
 

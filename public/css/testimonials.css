@@ -251,27 +251,69 @@
 .buy-text-desktop { display: inline; }
 .buy-text-mobile { display: none; }
 
-/* Mobile Adjustments */
-@media (max-width: 600px) {
+/* Mobile Adjustments (Screen <= 768px, Desktop untouched) */
+@media (max-width: 768px) {
   .testimonials-section {
     padding: 3.5rem 0;
   }
 
   .testimonials-slider::before,
   .testimonials-slider::after {
-    display: none;
+    width: 1.5rem !important;
   }
 
+  .testimonials-cards {
+    gap: 1rem;
+  }
+
+  .testimonial-row-track {
+    gap: 1rem !important;
+  }
+
+  /* Compact Testimonial Card for Mobile */
   .testimonial-card {
-    width: 280px !important;
-    padding: 1.25rem !important;
+    width: 240px !important;
+    padding: 1rem 1.1rem 0.85rem !important;
+    gap: 0.65rem !important;
   }
 
-  .buy-text-desktop { display: none; }
-  .buy-text-mobile { display: inline; }
+  .testimonial-text {
+    font-size: 0.82rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .testimonial-star {
+    font-size: 0.95rem !important;
+  }
+
+  .testimonial-name {
+    font-size: 0.8rem !important;
+  }
+
+  .testimonial-purchase {
+    margin-top: 0.35rem !important;
+    padding-top: 0.65rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .testimonial-product-img {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .testimonial-scent-tag {
+    font-size: 0.58rem !important;
+  }
+
+  .testimonial-product-name {
+    font-size: 0.75rem !important;
+  }
+
+  .buy-text-desktop { display: none !important; }
+  .buy-text-mobile { display: inline !important; }
 
   .testimonial-buy {
-    padding: 0.35rem 0.65rem;
-    font-size: 0.68rem;
+    padding: 0.3rem 0.65rem !important;
+    font-size: 0.65rem !important;
   }
 }

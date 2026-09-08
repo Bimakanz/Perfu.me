@@ -330,38 +330,93 @@
 
   .about-us-visual-col {
     min-height: auto;
+    position: relative;
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   .about-us-single-img {
-    max-height: 480px;
+    max-height: 440px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
   }
 
   .floating-slogan-card {
+    position: absolute;
     right: 0px;
-    bottom: -10px;
-    width: 260px;
+    bottom: 5px;
+    width: 250px;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .about-us-section {
     padding: 2.5rem 1.25rem;
+    overflow: hidden;
   }
 
   .about-us-heading {
     font-size: 1.85rem;
   }
 
-  .about-us-single-img {
-    max-height: 340px;
+  /* Kolom Visual: Membungkus Pas Gambar & Kartu */
+  .about-us-visual-col {
+    position: relative !important;
+    display: block !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    min-height: auto !important;
   }
 
+  /* Gambar Collage Dibuat Sedikit Lebih Besar */
+  .about-us-single-img {
+    width: 100% !important;
+    max-width: 410px !important;
+    height: auto !important;
+    max-height: none !important;
+    display: block !important;
+    margin: 0 auto !important;
+  }
+
+  /* Kartu Slogan Tetap Melayang di Pojok Kanan Bawah Seperti Laptop */
   .floating-slogan-card {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    width: 100%;
-    margin-top: 1.25rem;
+    position: absolute !important;
+    right: 0px !important;
+    bottom: 8px !important;
+    width: clamp(180px, 48vw, 220px) !important;
+    padding: 0.7rem 0.85rem !important;
+    margin-top: 0 !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+    text-align: left !important;
+    z-index: 4 !important;
+  }
+
+  .slogan-badge {
+    font-size: 0.52rem !important;
+    letter-spacing: 0.12em !important;
+    margin-bottom: 0.18rem !important;
+    padding-bottom: 0.1rem !important;
+  }
+
+  .slogan-title {
+    font-size: clamp(0.82rem, 2.6vw, 1rem) !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.2rem !important;
+  }
+
+  .slogan-text {
+    font-size: clamp(0.6rem, 1.9vw, 0.7rem) !important;
+    line-height: 1.35 !important;
   }
 
   .about-us-stats-row {
@@ -379,5 +434,25 @@
   .stat-item:not(:last-child) {
     padding-bottom: 1.25rem;
     border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+  }
+}
+
+@media (max-width: 380px) {
+  .about-us-single-img {
+    max-width: 295px !important;
+  }
+
+  .floating-slogan-card {
+    width: 155px !important;
+    padding: 0.5rem 0.6rem !important;
+    bottom: 4px !important;
+  }
+
+  .slogan-title {
+    font-size: 0.74rem !important;
+  }
+
+  .slogan-text {
+    font-size: 0.54rem !important;
   }
 }

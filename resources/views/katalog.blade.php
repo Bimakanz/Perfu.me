@@ -721,39 +721,424 @@
     background: #F8F8F8;
   }
 
-  @media (max-width: 900px) {
-    .product-detail-grid { grid-template-columns: 1fr; }
-    .product-detail-notes { grid-template-columns: 1fr; }
-  }
+  /* Mobile helper elements (desktop defaults) */
+  .btn-mobile-filter { display: none !important; }
+  .mobile-sidebar-header { display: none !important; }
+  .mobile-filter-footer { display: none !important; }
+  .katalog-filter-overlay { display: none; }
+  .wa-text-short { display: none; }
+  .wa-text-full { display: inline; }
+  .sort-bar-left { display: flex; align-items: center; gap: 0.75rem; }
 
   @media (max-width: 1100px) {
     .katalog-body { grid-template-columns: 220px 1fr; padding: 2rem 2rem 4rem; }
     .product-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
+  @media (max-width: 900px) {
+    .product-detail-grid { grid-template-columns: 1fr; }
+    .product-detail-notes { grid-template-columns: 1fr; }
+  }
+
   @media (max-width: 768px) {
-    .katalog-body { grid-template-columns: 1fr; }
+    .katalog-header {
+      padding: 4.75rem 1rem 1.35rem !important;
+    }
+    .katalog-breadcrumb {
+      font-size: 0.65rem;
+      margin-bottom: 0.35rem;
+    }
+    .katalog-page-title {
+      font-size: 1.85rem !important;
+      margin-bottom: 0.25rem !important;
+    }
+    .katalog-page-sub {
+      font-size: 0.82rem !important;
+    }
+
+    .katalog-body {
+      grid-template-columns: 1fr !important;
+      padding: 1.25rem 0.85rem 3.5rem !important;
+    }
+    .katalog-main {
+      padding-left: 0 !important;
+      min-width: 0;
+      width: 100%;
+    }
+
+    /* Mobile Filter Drawer & Backdrop */
+    .katalog-filter-overlay {
+      display: block;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.48);
+      backdrop-filter: blur(2px);
+      z-index: 99998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .katalog-filter-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     .katalog-sidebar {
-      position: static;
-      border-right: none;
-      border-bottom: 1px solid #E5E5E5;
-      padding-right: 0;
-      padding-bottom: 1.5rem;
-      margin-bottom: 1.5rem;
-      display: none; /* hidden by default on mobile */
+      display: flex !important;
+      flex-direction: column;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      bottom: 0 !important;
+      width: 310px !important;
+      max-width: 86vw !important;
+      background: #FFFFFF !important;
+      z-index: 99999 !important;
+      box-shadow: 10px 0 35px rgba(0, 0, 0, 0.16) !important;
+      transform: translateX(-105%) !important;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
+      padding: 1.25rem 1.25rem 2.5rem !important;
+      border-right: none !important;
+      border-bottom: none !important;
+      margin-bottom: 0 !important;
     }
     .katalog-sidebar.mobile-open {
-      display: block;
+      transform: translateX(0) !important;
     }
-    .katalog-main { padding-left: 0; }
-    .katalog-header { padding: 5rem 1.25rem 2rem; }
-    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.85rem; }
-    #btn-mobile-filter { display: inline-flex !important; }
-    .katalog-hook { font-size: 0.82rem !important; padding: 0.85rem 1rem !important; }
+
+    .mobile-sidebar-header {
+      display: flex !important;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.85rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid #E5E5E5;
+    }
+    .mobile-sidebar-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #0D0D0D;
+    }
+    .btn-close-filter {
+      background: transparent;
+      border: none;
+      padding: 0.4rem;
+      cursor: pointer;
+      color: #0D0D0D;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    .btn-close-filter:active {
+      background: #F4F4F5;
+    }
+
+    .mobile-filter-footer {
+      display: block !important;
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid #E5E5E5;
+    }
+    .btn-apply-filter {
+      width: 100%;
+      padding: 0.85rem;
+      background: #0D0D0D;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-apply-filter:active {
+      background: #262626;
+    }
+
+    /* Sort bar */
+    .sort-bar {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      margin-bottom: 1.25rem !important;
+      padding-bottom: 0.85rem !important;
+      gap: 0.5rem !important;
+    }
+    .sort-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-mobile-filter {
+      display: inline-flex !important;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.48rem 0.75rem;
+      background: #FFFFFF;
+      border: 1px solid #E4E4E7;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #0D0D0D;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .btn-mobile-filter:active {
+      background: #F4F4F5;
+      border-color: #0D0D0D;
+    }
+    .sort-results-count {
+      font-size: 0.75rem !important;
+      color: #8A8A8A;
+      margin: 0;
+      white-space: nowrap;
+    }
+    .sort-select-wrap {
+      gap: 0.35rem !important;
+      font-size: 0.75rem !important;
+    }
+    .sort-label-text {
+      display: none;
+    }
+    .custom-sort-btn {
+      padding: 0.48rem 0.75rem !important;
+      font-size: 0.75rem !important;
+      gap: 0.35rem !important;
+      border-radius: 6px !important;
+    }
+    .custom-sort-menu {
+      min-width: 175px !important;
+      right: 0 !important;
+    }
+    .custom-sort-opt {
+      padding: 0.55rem 0.75rem !important;
+      font-size: 0.75rem !important;
+    }
+
+    /* Product Grid: Consistent 2 columns on mobile */
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 0.65rem !important;
+    }
+
+    /* Product Card */
+    .product-card {
+      border-radius: 6px;
+    }
+    .product-card:hover {
+      transform: none;
+    }
+    .product-card-body {
+      padding: 0.65rem 0.55rem 0.75rem !important;
+    }
+    .product-card-meta {
+      font-size: 0.54rem !important;
+      letter-spacing: 0.08em !important;
+      margin-bottom: 0.2rem !important;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .product-card-name {
+      font-size: 1.02rem !important;
+      line-height: 1.2 !important;
+      margin-bottom: 0.18rem !important;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .product-card-tagline {
+      font-size: 0.66rem !important;
+      margin-bottom: 0.45rem !important;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.3;
+    }
+    .product-card-price-row {
+      margin-bottom: 0.6rem !important;
+      gap: 0.3rem !important;
+    }
+    .product-card-price {
+      font-size: 0.92rem !important;
+    }
+
+    /* Action buttons side-by-side */
+    .product-card-actions {
+      display: flex !important;
+      gap: 0.3rem !important;
+      align-items: center !important;
+    }
+    .btn-card-wa {
+      flex: 1 !important;
+      min-width: 0 !important;
+      height: 34px !important;
+      padding: 0 0.3rem !important;
+      font-size: 0.64rem !important;
+      letter-spacing: 0.02em !important;
+      border-radius: 4px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+    .btn-card-cart {
+      width: 34px !important;
+      height: 34px !important;
+      min-width: 34px !important;
+      padding: 0 !important;
+      border-radius: 4px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-shrink: 0 !important;
+    }
+    .btn-card-cart svg {
+      width: 14px !important;
+      height: 14px !important;
+    }
+
+    /* Toggle text on mobile buttons */
+    .wa-text-full { display: none !important; }
+    .wa-text-short { display: inline !important; }
+
+    /* Corner Ribbon */
+    .corner-ribbon-wrap {
+      width: 58px !important;
+      height: 58px !important;
+    }
+    .corner-ribbon {
+      top: 9px !important;
+      left: -26px !important;
+      width: 86px !important;
+      padding: 0.2rem 0 !important;
+      font-size: 0.44rem !important;
+      letter-spacing: 0.08em !important;
+    }
+
+    /* Section Divider Titles */
+    .katalog-section-divider-title {
+      margin-bottom: 0.3rem !important;
+    }
+    .katalog-section-divider-title > div {
+      font-size: 0.6rem !important;
+      letter-spacing: 0.15em !important;
+    }
+    .katalog-section-divider-title h2 {
+      font-size: 1.35rem !important;
+      margin: 0.15rem 0 0.5rem !important;
+    }
+
+    /* Pagination */
+    .katalog-pagination {
+      margin-top: 2rem !important;
+      padding-top: 1.25rem !important;
+      gap: 0.35rem !important;
+      flex-wrap: wrap !important;
+    }
+    .page-btn {
+      padding: 0.35rem 0.5rem !important;
+      font-size: 0.8rem !important;
+    }
+    .page-btn.page-nav {
+      font-size: 0.72rem !important;
+      letter-spacing: 0.1em !important;
+    }
+
+    /* Skeleton Loading on Mobile */
+    .skeleton-body {
+      padding: 0.65rem 0.55rem 0.75rem !important;
+      gap: 0.45rem !important;
+    }
+    .skeleton-line.w-40 { height: 8px !important; }
+    .skeleton-line.w-70 { height: 14px !important; }
+    .skeleton-line.w-50 { height: 10px !important; }
+    .skeleton-line.w-30 { height: 14px !important; }
+    .skeleton-line.w-100 { height: 32px !important; }
+
+    /* Detail Modal */
+    .product-detail-modal {
+      padding: 0.75rem !important;
+    }
+    .product-detail-card {
+      border-radius: 16px !important;
+      max-height: calc(100vh - 2rem) !important;
+    }
+    .product-detail-content {
+      padding: 1.25rem !important;
+    }
+    .product-detail-close {
+      top: 0.65rem !important;
+      right: 0.65rem !important;
+      width: 32px !important;
+      height: 32px !important;
+      font-size: 1.3rem !important;
+    }
+    .product-detail-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1.25rem !important;
+    }
+    .product-detail-name {
+      font-size: 1.6rem !important;
+    }
+    .product-detail-notes {
+      grid-template-columns: 1fr !important;
+      gap: 0.5rem !important;
+    }
+    .product-detail-actions {
+      flex-direction: column !important;
+      gap: 0.65rem !important;
+    }
+    .btn-detail-whatsapp,
+    .btn-detail-cart {
+      width: 100% !important;
+      text-align: center !important;
+      padding: 0.85rem !important;
+      border-radius: 8px !important;
+    }
   }
 
   @media (max-width: 380px) {
-    .product-grid { grid-template-columns: 1fr; }
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 0.5rem !important;
+    }
+    .katalog-body {
+      padding: 1rem 0.5rem 3rem !important;
+    }
+    .product-card-body {
+      padding: 0.55rem 0.45rem 0.65rem !important;
+    }
+    .product-card-name {
+      font-size: 0.95rem !important;
+    }
+    .product-card-price {
+      font-size: 0.88rem !important;
+    }
+    .btn-card-wa {
+      height: 32px !important;
+      font-size: 0.6rem !important;
+    }
+    .btn-card-cart {
+      width: 32px !important;
+      height: 32px !important;
+      min-width: 32px !important;
+    }
   }
 
   /* ── Pagination Styling (Clean Text Luxury) ───────────────── */
@@ -816,11 +1201,10 @@
   {{-- Mobile Menu Drawer --}}
   <div id="nav-mobile-menu" class="nav-mobile-menu" role="dialog" aria-label="Menu Navigasi Mobile">
     <ul class="nav-mobile-links">
-      <li><a href="/katalog" style="font-weight:800;">Katalog</a></li>
-      <li><a href="/quiz">Quiz</a></li>
       <li><a href="/#about-story-section">Tentang</a></li>
+      <li><a href="/katalog" style="font-weight:800;">Katalog</a></li>
       <li><a href="/#testimoni-section">Testimoni</a></li>
-      <li><a href="/#footer-section">Kontak</a></li>
+      <li><a href="/quiz">Quiz</a></li>
     </ul>
     <div class="nav-mobile-actions">
       <span class="nav-mobile-actions-label">Cari &amp; Keranjang</span>
@@ -849,93 +1233,111 @@
     </div>
     <h1 class="katalog-page-title">Koleksi Parfum</h1>
     <p class="katalog-page-sub">Semua koleksi wewangian eksklusif Perfu.me</p>
-    <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center; margin-top:1rem;">
-      {{-- Mobile Filter Toggle --}}
-      <button id="btn-mobile-filter" onclick="toggleMobileFilter()" style="display:none; align-items:center; gap:0.5rem; padding:0.75rem 1.1rem; background:#FFFFFF; border:1px solid #E5E5E5; border-radius:999px; font-size:0.82rem; font-weight:600; color:#0D0D0D; cursor:pointer; transition:all 0.2s;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
-        Filter
-      </button>
-    </div>
   </div>
+ 
+   {{-- BODY: SIDEBAR + GRID --}}
+   {{-- Filter Overlay for Mobile --}}
+   <div class="katalog-filter-overlay" id="katalog-filter-overlay" onclick="toggleMobileFilter()"></div>
 
-  {{-- BODY: SIDEBAR + GRID --}}
-  <div class="katalog-body">
+   <div class="katalog-body">
+ 
+     <aside class="katalog-sidebar" id="katalog-sidebar">
+       {{-- Mobile Drawer Header --}}
+       <div class="mobile-sidebar-header">
+         <div class="mobile-sidebar-title">
+           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+           Filter Produk
+         </div>
+         <button type="button" class="btn-close-filter" onclick="toggleMobileFilter()" aria-label="Tutup Filter">
+           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+         </button>
+       </div>
 
-    <aside class="katalog-sidebar">
-      <div class="filter-section">
-        <div class="filter-section-title" onclick="toggleFilterSection(this)">Gender <span>+</span></div>
-        <div class="filter-section-body">
-          <div class="filter-chips">
-            <label class="filter-chip-label"><input type="checkbox" name="gender" value="Wanita" id="filter-wanita"> Wanita</label>
-            <label class="filter-chip-label"><input type="checkbox" name="gender" value="Pria" id="filter-pria"> Pria</label>
-            <label class="filter-chip-label"><input type="checkbox" name="gender" value="Unisex" id="filter-unisex"> Unisex</label>
-          </div>
-        </div>
-      </div>
+       <div class="filter-section">
+         <div class="filter-section-title" onclick="toggleFilterSection(this)">Gender <span>+</span></div>
+         <div class="filter-section-body">
+           <div class="filter-chips">
+             <label class="filter-chip-label"><input type="checkbox" name="gender" value="Wanita" id="filter-wanita"> Wanita</label>
+             <label class="filter-chip-label"><input type="checkbox" name="gender" value="Pria" id="filter-pria"> Pria</label>
+             <label class="filter-chip-label"><input type="checkbox" name="gender" value="Unisex" id="filter-unisex"> Unisex</label>
+           </div>
+         </div>
+       </div>
+ 
+       <div class="filter-section">
+         <div class="filter-section-title" onclick="toggleFilterSection(this)">Varian Aroma <span>+</span></div>
+         <div class="filter-section-body">
+           <div class="filter-chips">
+             <label class="filter-chip-label"><input type="checkbox" name="variant" value="Citrus" id="filter-citrus"> Citrus &amp; Fresh</label>
+             <label class="filter-chip-label"><input type="checkbox" name="variant" value="Vanilla" id="filter-vanilla"> Vanilla &amp; Gourmand</label>
+             <label class="filter-chip-label"><input type="checkbox" name="variant" value="Fruity" id="filter-fruity"> Fruity &amp; Berry</label>
+             <label class="filter-chip-label"><input type="checkbox" name="variant" value="Woody" id="filter-woody"> Woody &amp; Spicy</label>
+             <label class="filter-chip-label"><input type="checkbox" name="variant" value="Floral" id="filter-floral"> Floral &amp; Musk</label>
+           </div>
+         </div>
+       </div>
+ 
+       <div class="filter-section" style="border-bottom:none;">
+         <div class="filter-section-title" onclick="toggleFilterSection(this)">Harga <span>+</span></div>
+         <div class="filter-section-body">
+           <div class="price-range-wrap">
+             <input type="range" min="0" max="300000" step="5000" value="300000" class="price-range-slider" id="price-range-slider">
+             <div class="price-inputs">
+               <div class="price-input-box">
+                 <span class="currency">Rp</span>
+                 <input type="text" value="0" id="price-min" readonly>
+               </div>
+               <span style="color:#8A8A8A; font-size:0.8rem; flex-shrink:0;">—</span>
+               <div class="price-input-box">
+                 <span class="currency">Rp</span>
+                 <input type="text" value="300.000" id="price-max" readonly>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
 
-      <div class="filter-section">
-        <div class="filter-section-title" onclick="toggleFilterSection(this)">Varian Aroma <span>+</span></div>
-        <div class="filter-section-body">
-          <div class="filter-chips">
-            <label class="filter-chip-label"><input type="checkbox" name="variant" value="Citrus" id="filter-citrus"> Citrus &amp; Fresh</label>
-            <label class="filter-chip-label"><input type="checkbox" name="variant" value="Vanilla" id="filter-vanilla"> Vanilla &amp; Gourmand</label>
-            <label class="filter-chip-label"><input type="checkbox" name="variant" value="Fruity" id="filter-fruity"> Fruity &amp; Berry</label>
-            <label class="filter-chip-label"><input type="checkbox" name="variant" value="Woody" id="filter-woody"> Woody &amp; Spicy</label>
-            <label class="filter-chip-label"><input type="checkbox" name="variant" value="Floral" id="filter-floral"> Floral &amp; Musk</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="filter-section" style="border-bottom:none;">
-        <div class="filter-section-title" onclick="toggleFilterSection(this)">Harga <span>+</span></div>
-        <div class="filter-section-body">
-          <div class="price-range-wrap">
-            <input type="range" min="0" max="300000" step="5000" value="300000" class="price-range-slider" id="price-range-slider">
-            <div class="price-inputs">
-              <div class="price-input-box">
-                <span class="currency">Rp</span>
-                <input type="text" value="0" id="price-min" readonly>
-              </div>
-              <span style="color:#8A8A8A; font-size:0.8rem; flex-shrink:0;">—</span>
-              <div class="price-input-box">
-                <span class="currency">Rp</span>
-                <input type="text" value="300.000" id="price-max" readonly>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </aside>
-
-    <main class="katalog-main">
-      <div class="sort-bar">
-        <p class="sort-results-count" id="results-count"><strong>0</strong> produk</p>
-        <div class="sort-select-wrap">
-          <span>Sort by:</span>
-          <div class="custom-sort-dropdown" id="custom-sort-dropdown">
-            <button type="button" class="custom-sort-btn" id="custom-sort-btn">
-              <span id="custom-sort-label">Default</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </button>
-            <div class="custom-sort-menu" id="custom-sort-menu">
-              <div class="custom-sort-opt active" data-value="default">Default</div>
-              <div class="custom-sort-opt" data-value="bestseller">Best Seller</div>
-              <div class="custom-sort-opt" data-value="price-asc">Harga: Rendah ke Tinggi</div>
-              <div class="custom-sort-opt" data-value="price-desc">Harga: Tinggi ke Rendah</div>
-            </div>
-          </div>
-          <select id="sort-select" style="display:none;">
-            <option value="default">Default</option>
-            <option value="bestseller">Best Seller</option>
-            <option value="price-asc">Harga: Rendah ke Tinggi</option>
-            <option value="price-desc">Harga: Tinggi ke Rendah</option>
-          </select>
-        </div>
-      </div>
-      <div class="product-grid" id="katalog-grid"></div>
-    </main>
-  </div>
+       {{-- Mobile Drawer Footer --}}
+       <div class="mobile-filter-footer">
+         <button type="button" class="btn-apply-filter" onclick="toggleMobileFilter()">Terapkan Filter</button>
+       </div>
+ 
+     </aside>
+ 
+     <main class="katalog-main">
+       <div class="sort-bar">
+         <div class="sort-bar-left">
+           <button type="button" id="btn-mobile-filter" class="btn-mobile-filter" onclick="toggleMobileFilter()" aria-label="Buka Filter">
+             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+             <span>Filter</span>
+           </button>
+           <p class="sort-results-count" id="results-count"><strong>0</strong> produk</p>
+         </div>
+         <div class="sort-select-wrap">
+           <span class="sort-label-text">Sort by:</span>
+           <div class="custom-sort-dropdown" id="custom-sort-dropdown">
+             <button type="button" class="custom-sort-btn" id="custom-sort-btn">
+               <span id="custom-sort-label">Default</span>
+               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+             </button>
+             <div class="custom-sort-menu" id="custom-sort-menu">
+               <div class="custom-sort-opt active" data-value="default">Default</div>
+               <div class="custom-sort-opt" data-value="bestseller">Best Seller</div>
+               <div class="custom-sort-opt" data-value="price-asc">Harga: Rendah ke Tinggi</div>
+               <div class="custom-sort-opt" data-value="price-desc">Harga: Tinggi ke Rendah</div>
+             </div>
+           </div>
+           <select id="sort-select" style="display:none;">
+             <option value="default">Default</option>
+             <option value="bestseller">Best Seller</option>
+             <option value="price-asc">Harga: Rendah ke Tinggi</option>
+             <option value="price-desc">Harga: Tinggi ke Rendah</option>
+           </select>
+         </div>
+       </div>
+       <div class="product-grid" id="katalog-grid"></div>
+     </main>
+   </div>
 
   {{-- FOOTER --}}
   @include('partials.footer')
@@ -1005,9 +1407,9 @@
               <span class="product-card-price">${formatPrice(p.price)}</span>
             </div>
             <div class="product-card-actions">
-              <a ${waAction}>${isOutOfStock ? 'Stok Habis' : 'Pesan WhatsApp'}</a>
+              <a ${waAction}><span class="wa-text-full">${isOutOfStock ? 'Stok Habis' : 'Pesan WhatsApp'}</span><span class="wa-text-short">${isOutOfStock ? 'Habis' : 'Pesan WA'}</span></a>
               <button ${cartAction}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
               </button>
             </div>
           </div>
@@ -1264,11 +1666,33 @@
   // Mobile filter sidebar toggle
   function toggleMobileFilter() {
     const sidebar = document.querySelector('.katalog-sidebar');
-    const btn = document.getElementById('btn-mobile-filter');
+    const overlay = document.getElementById('katalog-filter-overlay');
     if (!sidebar) return;
     const isOpen = sidebar.classList.toggle('mobile-open');
-    if (btn) btn.textContent = isOpen ? '✕ Tutup Filter' : '⚙ Filter';
+    if (overlay) {
+      if (isOpen) {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      } else {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
   }
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      const sidebar = document.querySelector('.katalog-sidebar');
+      const overlay = document.getElementById('katalog-filter-overlay');
+      if (sidebar && sidebar.classList.contains('mobile-open')) {
+        sidebar.classList.remove('mobile-open');
+      }
+      if (overlay && overlay.classList.contains('active')) {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+  });
 </script>
 <script src="{{ asset('js/navbar.js') }}"></script>
 @endsection

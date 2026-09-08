@@ -167,11 +167,14 @@
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 0.4rem !important;
+    width: 38px !important;
+    height: 38px !important;
+    padding: 0 !important;
     border-radius: 50% !important;
     transition: background 0.2s ease !important;
     position: relative !important;
     -webkit-tap-highlight-color: transparent !important;
+    flex-shrink: 0 !important;
 }
 
 .nav-icon-btn:hover {
@@ -180,8 +183,8 @@
 
 .cart-badge-count {
     position: absolute !important;
-    top: -3px !important;
-    right: -4px !important;
+    top: -2px !important;
+    right: -2px !important;
     background: #0d0d0d !important;
     color: #ffffff !important;
     font-size: 0.58rem !important;
@@ -196,21 +199,21 @@
     padding: 0 2px !important;
 }
 
-/* ── Hamburger Button ──────────────────────────────────── */
+/* ── Hamburger Button (Pixel-Perfect Equal Lines) ──────── */
 .nav-hamburger {
     display: none !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 5px !important;
+    width: 38px !important;
+    height: 38px !important;
+    padding: 0 !important;
     background: none !important;
     border: none !important;
     cursor: pointer !important;
-    padding: 6px 8px !important;
-    border-radius: 6px !important;
+    border-radius: 50% !important;
+    position: relative !important;
     transition: background 0.2s ease !important;
     -webkit-tap-highlight-color: transparent !important;
     z-index: 1001 !important;
+    flex-shrink: 0 !important;
 }
 
 .nav-hamburger:hover {
@@ -219,24 +222,40 @@
 
 .nav-hamburger span {
     display: block !important;
-    width: 22px !important;
+    position: absolute !important;
+    left: 9px !important;
+    width: 20px !important;
     height: 2px !important;
     background: #0d0d0d !important;
     border-radius: 2px !important;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease !important;
     transform-origin: center !important;
+    box-sizing: border-box !important;
 }
 
-/* Hamburger → X animation when active */
+/* Exact Integer Y-Coordinates: 12px, 18px, 24px (Equal 4px gap, equal 2px thickness) */
+.nav-hamburger span:nth-child(1) {
+    top: 12px !important;
+}
+
+.nav-hamburger span:nth-child(2) {
+    top: 18px !important;
+}
+
+.nav-hamburger span:nth-child(3) {
+    top: 24px !important;
+}
+
+/* Hamburger → X animation when active (Symmetrical 45deg intersection at Y:18px) */
 .nav-hamburger.active span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg) !important;
+    transform: translateY(6px) rotate(45deg) !important;
 }
 .nav-hamburger.active span:nth-child(2) {
     opacity: 0 !important;
     transform: scaleX(0) !important;
 }
 .nav-hamburger.active span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg) !important;
+    transform: translateY(-6px) rotate(-45deg) !important;
 }
 
 /* ── Mobile Menu Fullscreen Drawer ──────────────────────── */
@@ -332,16 +351,29 @@
         display: none !important;
     }
 
-    .nav-hamburger {
+    /* Show Search, Cart, and Hamburger side-by-side on mobile navbar */
+    .nav-actions #btn-open-search,
+    .nav-actions #btn-open-cart {
         display: flex !important;
+        position: relative !important;
     }
 
-    /* Hide desktop icon buttons — they go into mobile menu */
-    .nav-actions .nav-icon-btn {
-        display: none !important;
+    .nav-hamburger {
+        display: block !important;
+    }
+
+    .nav-actions {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.35rem !important;
     }
 
     .nav-mobile-menu {
         display: flex;
+    }
+
+    /* Hide redundant search/cart inside drawer since they are always visible in header */
+    .nav-mobile-actions {
+        display: none !important;
     }
 }

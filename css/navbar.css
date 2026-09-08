@@ -1,5 +1,5 @@
 /* ============================================================
-   NAVBAR — Clean White Luxury (Ref Image Exact Match)
+   NAVBAR — Clean White Luxury + Mobile Responsive
    ============================================================ */
 
 #navbar {
@@ -49,6 +49,7 @@
     flex-direction: column !important;
     cursor: pointer !important;
     gap: 0 !important;
+    z-index: 1001 !important;
 }
 
 .nav-brand-name {
@@ -70,7 +71,7 @@
     margin-top: 2px !important;
 }
 
-/* Nav Links */
+/* Nav Links (Desktop) */
 .nav-links {
     display: flex !important;
     align-items: center !important;
@@ -157,12 +158,222 @@
     color: #0d0d0d !important;
 }
 
-/* Responsive */
+/* ── Nav Icon Buttons (Search & Cart) ─────────────────── */
+.nav-icon-btn {
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    color: #0d0d0d !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 38px !important;
+    height: 38px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    transition: background 0.2s ease !important;
+    position: relative !important;
+    -webkit-tap-highlight-color: transparent !important;
+    flex-shrink: 0 !important;
+}
+
+.nav-icon-btn:hover {
+    background: rgba(0, 0, 0, 0.06) !important;
+}
+
+.cart-badge-count {
+    position: absolute !important;
+    top: -2px !important;
+    right: -2px !important;
+    background: #0d0d0d !important;
+    color: #ffffff !important;
+    font-size: 0.58rem !important;
+    font-weight: 700 !important;
+    min-width: 16px !important;
+    height: 16px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+    padding: 0 2px !important;
+}
+
+/* ── Hamburger Button (Pixel-Perfect Equal Lines) ──────── */
+.nav-hamburger {
+    display: none !important;
+    width: 38px !important;
+    height: 38px !important;
+    padding: 0 !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    border-radius: 50% !important;
+    position: relative !important;
+    transition: background 0.2s ease !important;
+    -webkit-tap-highlight-color: transparent !important;
+    z-index: 1001 !important;
+    flex-shrink: 0 !important;
+}
+
+.nav-hamburger:hover {
+    background: rgba(0, 0, 0, 0.06) !important;
+}
+
+.nav-hamburger span {
+    display: block !important;
+    position: absolute !important;
+    left: 9px !important;
+    width: 20px !important;
+    height: 2px !important;
+    background: #0d0d0d !important;
+    border-radius: 2px !important;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease !important;
+    transform-origin: center !important;
+    box-sizing: border-box !important;
+}
+
+/* Exact Integer Y-Coordinates: 12px, 18px, 24px (Equal 4px gap, equal 2px thickness) */
+.nav-hamburger span:nth-child(1) {
+    top: 12px !important;
+}
+
+.nav-hamburger span:nth-child(2) {
+    top: 18px !important;
+}
+
+.nav-hamburger span:nth-child(3) {
+    top: 24px !important;
+}
+
+/* Hamburger → X animation when active (Symmetrical 45deg intersection at Y:18px) */
+.nav-hamburger.active span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg) !important;
+}
+.nav-hamburger.active span:nth-child(2) {
+    opacity: 0 !important;
+    transform: scaleX(0) !important;
+}
+.nav-hamburger.active span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg) !important;
+}
+
+/* ── Mobile Menu Fullscreen Drawer ──────────────────────── */
+.nav-mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 5.5rem 1.75rem 2.5rem;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+.nav-mobile-menu.open {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+    pointer-events: auto !important;
+}
+
+.nav-mobile-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    flex: 1;
+    margin-bottom: 2rem;
+}
+
+.nav-mobile-links li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.nav-mobile-links a {
+    display: flex;
+    align-items: center;
+    padding: 1.1rem 0.25rem;
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0d0d0d;
+    text-decoration: none;
+    transition: color 0.2s, padding-left 0.25s;
+}
+
+.nav-mobile-links a:hover,
+.nav-mobile-links a:active {
+    color: #555555;
+    padding-left: 0.75rem;
+}
+
+.nav-mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.nav-mobile-actions .nav-icon-btn {
+    width: 46px !important;
+    height: 46px !important;
+    border: 1.5px solid #e5e5e5 !important;
+    border-radius: 50% !important;
+}
+
+.nav-mobile-actions-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+}
+
+/* ── Responsive Breakpoints ──────────────────────────────── */
 @media (max-width: 900px) {
     #navbar {
-        padding: 1rem 1.5rem !important;
+        padding: 0.85rem 1.25rem !important;
     }
+
     .nav-links {
+        display: none !important;
+    }
+
+    /* Show Search, Cart, and Hamburger side-by-side on mobile navbar */
+    .nav-actions #btn-open-search,
+    .nav-actions #btn-open-cart {
+        display: flex !important;
+        position: relative !important;
+    }
+
+    .nav-hamburger {
+        display: block !important;
+    }
+
+    .nav-actions {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.35rem !important;
+    }
+
+    .nav-mobile-menu {
+        display: flex;
+    }
+
+    /* Hide redundant search/cart inside drawer since they are always visible in header */
+    .nav-mobile-actions {
         display: none !important;
     }
 }

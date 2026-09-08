@@ -22,7 +22,7 @@
     body { background-color: #F8F9FA; margin: 0; font-family: 'Inter', sans-serif; }
     .admin-layout-wrapper { display: flex; min-height: 100vh; }
     
-    /* Sidebar Kiri */
+    /* Sidebar Kiri Desktop Defaults */
     .admin-sidebar {
       width: 260px;
       background: #FFFFFF;
@@ -78,9 +78,206 @@
       top: 0;
       z-index: 99;
     }
+
+    /* Mobile helpers hidden by default on desktop */
+    .btn-toggle-admin-sidebar { display: none !important; }
+    .btn-close-admin-sidebar { display: none !important; }
+    .admin-sidebar-overlay { display: none; }
+    .admin-table-scroll-hint { display: none; }
+
     /* Prevent Login Flash Flicker on Page Navigation when Logged In */
     html.has-admin-token #admin-login-page { display: none !important; }
     html.has-admin-token #admin-dashboard-page { display: flex !important; }
+
+    /* Mobile Responsive Dashboard Layout */
+    @media (max-width: 900px) {
+      html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+      }
+
+      .admin-layout-wrapper {
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+      }
+
+      .admin-main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        min-width: 0 !important;
+        overflow-x: hidden !important;
+      }
+
+      .admin-body {
+        padding: 0.85rem 0.75rem 2.5rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        min-width: 0 !important;
+      }
+
+      .btn-toggle-admin-sidebar {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        background: #FFFFFF;
+        border: 1px solid #E5E7EB;
+        border-radius: 6px;
+        padding: 6px;
+        color: #111827;
+        cursor: pointer;
+        transition: background 0.2s;
+        flex-shrink: 0 !important;
+      }
+      .btn-toggle-admin-sidebar:active {
+        background: #F3F4F6;
+      }
+
+      .btn-close-admin-sidebar {
+        display: flex !important;
+        background: transparent;
+        border: none;
+        font-size: 1.25rem;
+        color: #4B5563;
+        padding: 0.25rem 0.5rem;
+        cursor: pointer;
+      }
+
+      .admin-sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        z-index: 99998;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .admin-sidebar-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .admin-sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 250px !important;
+        max-width: 80vw !important;
+        z-index: 99999 !important;
+        box-shadow: 10px 0 35px rgba(0, 0, 0, 0.15) !important;
+        transform: translateX(-105%) !important;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        background: #FFFFFF !important;
+      }
+      .admin-sidebar.mobile-open {
+        transform: translateX(0) !important;
+      }
+
+      .admin-sidebar-brand {
+        padding: 1.25rem 1rem !important;
+      }
+      .admin-brand-title {
+        font-size: 1.15rem !important;
+      }
+      .admin-brand-sub {
+        font-size: 0.68rem !important;
+      }
+      .admin-sidebar-menu {
+        padding: 1rem 0.75rem !important;
+        gap: 0.35rem !important;
+      }
+      .admin-menu-item {
+        padding: 0.65rem 0.85rem !important;
+        font-size: 0.82rem !important;
+        gap: 0.6rem !important;
+      }
+      .admin-menu-item svg {
+        width: 16px !important;
+        height: 16px !important;
+      }
+
+      .admin-topbar-new {
+        height: 54px !important;
+        padding: 0 0.75rem !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .admin-topbar-left {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        min-width: 0 !important;
+        flex: 1 !important;
+      }
+      .admin-page-header-title {
+        font-size: 0.88rem !important;
+        font-weight: 700 !important;
+        color: #111827 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+
+      .admin-topbar-right {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.45rem !important;
+        flex-shrink: 0 !important;
+      }
+      .btn-view-site {
+        width: 32px !important;
+        height: 32px !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 8px !important;
+        background: #F3F4F6 !important;
+        color: #4B5563 !important;
+        flex-shrink: 0 !important;
+      }
+      .btn-view-site svg {
+        width: 16px !important;
+        height: 16px !important;
+      }
+      .btn-view-site-text {
+        display: none !important;
+      }
+      .admin-user-badge {
+        display: none !important;
+      }
+      .admin-logout-btn {
+        padding: 0.35rem 0.65rem !important;
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+        border-radius: 6px !important;
+      }
+
+      .admin-table-scroll-hint {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0.35rem !important;
+        padding: 0.4rem 0.75rem !important;
+        background: #F8FAFC !important;
+        color: #64748B !important;
+        font-size: 0.68rem !important;
+        font-weight: 600 !important;
+        border-top: 1px solid #F1F5F9 !important;
+        border-bottom: 1px solid #F1F5F9 !important;
+        letter-spacing: 0.02em !important;
+      }
+    }
   </style>
   @yield('styles')
 </head>
@@ -96,7 +293,7 @@
   </script>
 
   <!-- ADMIN LOGIN PAGE (Jika belum login) -->
-  <div id="admin-login-page" class="admin-page" style="display:none;">
+  <div id="admin-login-page" class="admin-page">
     <div class="admin-login-left">
       <img class="admin-login-left-img" src="{{ asset('assets/images/adminhero.webp') }}" alt="Perfu.me Admin">
       <div class="admin-login-left-overlay">
@@ -139,13 +336,19 @@
   </div>
 
   <!-- ADMIN DASHBOARD WRAPPER DENGAN SIDEBAR -->
+  <div class="admin-sidebar-overlay" id="admin-sidebar-overlay"></div>
   <div class="admin-layout-wrapper" id="admin-dashboard-page" style="display:none;">
     
     <!-- SIDEBAR KIRI -->
-    <aside class="admin-sidebar">
-      <div class="admin-sidebar-brand">
-        <div class="admin-brand-title" style="font-size: 1.3rem; font-family: 'Cormorant Garamond', serif; font-weight: 600;">Perfu.me Admin</div>
-        <div class="admin-brand-sub" style="font-size: 0.75rem; color: #888;">Inventory &amp; Management</div>
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="admin-sidebar-brand" style="display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div class="admin-brand-title" style="font-size: 1.3rem; font-family: 'Cormorant Garamond', serif; font-weight: 600;">Perfu.me Admin</div>
+          <div class="admin-brand-sub" style="font-size: 0.75rem; color: #888;">Inventory &amp; Management</div>
+        </div>
+        <button type="button" class="btn-close-admin-sidebar" id="btn-close-admin-sidebar" aria-label="Tutup Menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
       </div>
 
       <div class="admin-sidebar-menu">
@@ -165,18 +368,23 @@
       
       <!-- Topbar Kanan -->
       <header class="admin-topbar-new">
-        <div style="font-weight: 600; color: #111827; font-size: 1.05rem;">
-          @yield('page-title', 'Dashboard Overview')
+        <div class="admin-topbar-left" style="display: flex; align-items: center; gap: 0.75rem;">
+          <button type="button" id="btn-toggle-admin-sidebar" class="btn-toggle-admin-sidebar" aria-label="Buka Menu Admin">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+          <div class="admin-page-header-title">
+            @yield('page-title', 'Dashboard Overview')
+          </div>
         </div>
 
         <div class="admin-topbar-right" style="display: flex; align-items: center; gap: 1.25rem;">
           <a href="/" class="btn-view-site" style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; text-decoration: none; color: #4B5563; background: #F3F4F6; padding: 0.5rem 0.9rem; border-radius: 6px; font-weight: 500;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-            Lihat Frontend Website
+            <span class="btn-view-site-text">Lihat Frontend</span>
           </a>
           <div class="admin-user-badge" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 500;">
             <div class="admin-user-avatar" style="background: #111; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">A</div>
-            <span>Administrator</span>
+            <span class="admin-user-name">Administrator</span>
           </div>
           <button id="admin-logout-btn" class="admin-logout-btn" type="button" onclick="openLogoutModal(event)" style="background: #FEF2F2; color: #DC2626; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem;">Keluar</button>
         </div>
@@ -319,7 +527,43 @@
         showLogin('Sesi login Anda telah berakhir. Silakan masuk kembali.');
       };
 
+      // Mobile Sidebar Drawer Handlers
+      window.openAdminSidebar = function () {
+        const sidebar = document.getElementById('admin-sidebar');
+        const overlay = document.getElementById('admin-sidebar-overlay');
+        if (sidebar) sidebar.classList.add('mobile-open');
+        if (overlay) overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      };
+
+      window.closeAdminSidebar = function () {
+        const sidebar = document.getElementById('admin-sidebar');
+        const overlay = document.getElementById('admin-sidebar-overlay');
+        if (sidebar) sidebar.classList.remove('mobile-open');
+        if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
       document.addEventListener('DOMContentLoaded', async function () {
+        // Mobile sidebar buttons
+        document.getElementById('btn-toggle-admin-sidebar')?.addEventListener('click', window.openAdminSidebar);
+        document.getElementById('btn-close-admin-sidebar')?.addEventListener('click', window.closeAdminSidebar);
+        document.getElementById('admin-sidebar-overlay')?.addEventListener('click', window.closeAdminSidebar);
+
+        // Close sidebar when pressing ESC
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') {
+            window.closeAdminSidebar();
+          }
+        });
+
+        // Close sidebar if window resized to desktop
+        window.addEventListener('resize', function () {
+          if (window.innerWidth > 900) {
+            window.closeAdminSidebar();
+          }
+        });
+
         const loginForm = document.getElementById('admin-login-form');
         if (loginForm && !loginForm.dataset.adminLoginBound) {
           loginForm.addEventListener('submit', window.doAdminLogin);

@@ -744,11 +744,10 @@
   {{-- Mobile Menu Drawer --}}
   <div id="nav-mobile-menu" class="nav-mobile-menu" role="dialog" aria-label="Menu Navigasi Mobile">
     <ul class="nav-mobile-links">
-      <li><a href="/katalog">Katalog</a></li>
-      <li><a href="/quiz">Quiz</a></li>
       <li><a href="/#about-story-section">Tentang</a></li>
+      <li><a href="/katalog">Katalog</a></li>
       <li><a href="/#testimoni-section">Testimoni</a></li>
-      <li><a href="/#footer-section">Kontak</a></li>
+      <li><a href="/quiz">Quiz</a></li>
     </ul>
     <div class="nav-mobile-actions">
       <span class="nav-mobile-actions-label">Cari &amp; Keranjang</span>

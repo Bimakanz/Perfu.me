@@ -494,6 +494,72 @@ function renderAdminPaginationControls(totalPages) {
       }).join('');
     }
 
+    // 2. Mobile Cards Render
+    if (mobileCardsContainer) {
+      mobileCardsContainer.innerHTML = paginatedItems.map(p => {
+        const isBs = Boolean(p.bestSeller || p.best_seller);
+        const isReady = Number(p.stock) > 0;
+        const imgSrc = formatImgUrl(p.image);
+
+        return `
+          <div class="admin-product-card-mobile" data-id="${p.id}">
+            <div class="admin-card-top">
+              <div class="admin-card-product-info" onclick="window.openDetailModal('${p.id}')">
+                <img src="${imgSrc}" class="admin-card-thumb" alt="${p.name}" onerror="this.src='../assets/images/Nusantara1nobg.png'">
+                <div class="admin-card-meta">
+                  <div class="admin-card-title-row">
+                    <span class="admin-card-name">${p.name}</span>
+                    <span class="badge-gender">${p.gender}</span>
+                  </div>
+                  <div class="admin-card-sub">${p.type} · ${p.size}</div>
+                  <div class="admin-card-variant">${p.variant}</div>
+                </div>
+              </div>
+
+              <div class="action-dropdown-wrap">
+                <button class="btn-3dots" onclick="window.toggleActionDropdown(event, 'm-${p.id}')" aria-label="Aksi">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="1.5"></circle>
+                    <circle cx="19" cy="12" r="1.5"></circle>
+                    <circle cx="5" cy="12" r="1.5"></circle>
+                  </svg>
+                </button>
+                <div class="action-dropdown-menu" id="dropdown-m-${p.id}">
+                  <div class="dropdown-item" onclick="window.openDetailModal('${p.id}')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    Lihat Detail
+                  </div>
+                  <div class="dropdown-item" onclick="window.openEditPanel('${p.id}')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    Edit Produk
+                  </div>
+                  <div class="dropdown-divider"></div>
+                  <div class="dropdown-item danger" onclick="window.promptDeleteProduct('${p.id}')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    Hapus Produk
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-card-divider"></div>
+
+            <div class="admin-card-bottom">
+              <div class="admin-card-price">Rp ${Number(p.price).toLocaleString('id-ID')}</div>
+              <div class="admin-card-badges">
+                <button class="bs-toggle-btn ${isBs ? 'bs-yes-btn' : 'bs-no-btn'}" onclick="window.toggleBestSeller('${p.id}')">
+                  ${isBs ? '★ BEST SELLER' : '— NORMAL'}
+                </button>
+                <button class="stock-toggle-btn ${isReady ? 'stock-ready-btn' : 'stock-habis-btn'}" onclick="window.toggleStockStatus('${p.id}')">
+                  ${isReady ? '● READY' : '✕ HABIS'}
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
     // Render Pagination
     if (paginationContainer) {
       if (totalPages > 1) {

@@ -72,15 +72,23 @@
     const cartBtn = document.getElementById('btn-open-cart');
     if (!cartBtn) return;
 
-    const targetRect = cartBtn.getBoundingClientRect();
     let startX = window.innerWidth / 2;
     let startY = window.innerHeight / 2;
 
     if (evt && evt.target) {
-      const rect = evt.target.getBoundingClientRect();
+      const btnEl = (evt.target.closest && evt.target.closest('button')) || evt.target;
+      const rect = btnEl.getBoundingClientRect();
       startX = rect.left + rect.width / 2;
       startY = rect.top + rect.height / 2;
     }
+
+    const targetRect = cartBtn.getBoundingClientRect();
+    const targetTop = (targetRect.width > 0 && targetRect.height > 0)
+      ? targetRect.top + targetRect.height / 2 - 15
+      : 20;
+    const targetLeft = (targetRect.width > 0 && targetRect.height > 0)
+      ? targetRect.left + targetRect.width / 2 - 15
+      : window.innerWidth - 65;
 
     // Create floating thumbnail element
     const flyImg = document.createElement('img');
@@ -106,8 +114,8 @@
 
     // Trigger fly animation
     requestAnimationFrame(() => {
-      flyImg.style.top = `${targetRect.top + targetRect.height / 2 - 15}px`;
-      flyImg.style.left = `${targetRect.left + targetRect.width / 2 - 15}px`;
+      flyImg.style.top = `${targetTop}px`;
+      flyImg.style.left = `${targetLeft}px`;
       flyImg.style.width = '28px';
       flyImg.style.height = '28px';
       flyImg.style.opacity = '0.15';
@@ -117,11 +125,13 @@
     // Cleanup & bounce cart icon on hit after 1.2 seconds
     setTimeout(() => {
       flyImg.remove();
-      cartBtn.style.transition = 'transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-      cartBtn.style.transform = 'scale(1.4)';
-      setTimeout(() => {
-        cartBtn.style.transform = 'scale(1)';
-      }, 220);
+      if (cartBtn) {
+        cartBtn.style.transition = 'transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        cartBtn.style.transform = 'scale(1.4)';
+        setTimeout(() => {
+          cartBtn.style.transform = 'scale(1)';
+        }, 220);
+      }
     }, 1200);
   }
   window.flyToCartAnimation = flyToCartAnimation;

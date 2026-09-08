@@ -3,22 +3,86 @@
 @section('title', 'Kelola Testimoni - Perfu.me Admin')
 @section('page-title', 'Manajemen Ulasan & Testimoni Pelanggan')
 
+@section('styles')
+<style>
+@media (max-width: 768px) {
+  .admin-testi-wrapper {
+    gap: 1rem !important;
+  }
+  .admin-testi-card {
+    padding: 1.15rem 1rem !important;
+    border-radius: 12px !important;
+  }
+  .admin-testi-header {
+    margin-bottom: 1rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+  .admin-testi-header h3 {
+    font-size: 1.05rem !important;
+  }
+  .admin-testi-header p {
+    font-size: 0.75rem !important;
+  }
+  .admin-testi-form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
+  }
+  .admin-testi-form-grid input,
+  .admin-testi-form-grid .form-select-trigger {
+    padding: 6px 10px !important;
+    font-size: 0.8rem !important;
+    height: 36px !important;
+  }
+  .admin-testi-card textarea {
+    padding: 8px 10px !important;
+    font-size: 0.8rem !important;
+  }
+  .admin-testi-card label {
+    font-size: 0.74rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .admin-testi-btn-wrap {
+    width: 100% !important;
+  }
+  .admin-testi-card button[type="submit"] {
+    width: 100% !important;
+    padding: 9px 16px !important;
+    font-size: 0.82rem !important;
+  }
+  .admin-testi-list-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
+  }
+  .admin-testi-item {
+    padding: 0.85rem !important;
+    border-radius: 10px !important;
+  }
+  .admin-testi-item strong {
+    font-size: 0.88rem !important;
+  }
+  .admin-testi-item p {
+    font-size: 0.78rem !important;
+  }
+}
+</style>
+@endsection
+
 @section('content')
 <!-- CUSTOM LUXURY TOAST NOTIFICATION CONTAINER -->
 <div id="testi-toast-container" style="position: fixed; top: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 0.75rem; pointer-events: none;"></div>
 
-<div style="font-family: 'Manrope', sans-serif; display: flex; flex-direction: column; gap: 2rem;">
+<div class="admin-testi-wrapper" style="font-family: 'Manrope', sans-serif; display: flex; flex-direction: column; gap: 2rem;">
     
     <!-- BAGIAN ATAS: FORM TAMBAH TESTIMONI (MELEBAR & ELEGAN) -->
-    <div style="background: #FFFFFF; padding: 2rem 2.5rem; border-radius: 16px; border: 1px solid #EAEAEA; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-        <div style="margin-bottom: 1.5rem; border-bottom: 1px solid #F3F4F6; padding-bottom: 1rem;">
+    <div class="admin-testi-card" style="background: #FFFFFF; padding: 2rem 2.5rem; border-radius: 16px; border: 1px solid #EAEAEA; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+        <div class="admin-testi-header" style="margin-bottom: 1.5rem; border-bottom: 1px solid #F3F4F6; padding-bottom: 1rem;">
             <h3 style="margin: 0; font-size: 1.35rem; font-weight: 700; color: #111827; font-family: 'Manrope', sans-serif;">+ Tambah Ulasan & Testimoni Baru</h3>
             <p style="margin: 0.35rem 0 0; font-size: 0.88rem; color: #6B7280; font-weight: 500;">Isi formulir di bawah ini untuk menambahkan testimoni pelanggan ke tampilan website.</p>
         </div>
         
-        <form id="form-add-testimonial" style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <form id="form-add-testimonial" style="display: flex; flex-direction: column; gap: 1.25rem;">
             <!-- Baris 1: Nama Pelanggan, Rating, Terkait Produk -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem;">
+            <div class="admin-testi-form-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem;">
                 <div>
                     <label style="font-weight: 700; display: block; margin-bottom: 0.5rem; font-size: 0.85rem; color: #374151; font-family: 'Manrope', sans-serif;">Nama Pelanggan *</label>
                     <input type="text" id="name" required placeholder="Contoh: Sarah Aulia" style="width: 100%; padding: 12px 14px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 0.9rem; font-family: 'Manrope', sans-serif; box-sizing: border-box; outline: none; transition: border 0.2s;">
@@ -81,7 +145,7 @@
             </div>
 
             <!-- Baris 3: Tombol Simpan -->
-            <div style="display: flex; justify-content: flex-end;">
+            <div class="admin-testi-btn-wrap" style="display: flex; justify-content: flex-end;">
                 <button type="submit" id="btn-submit" style="padding: 12px 28px; background: #0D0D0D; color: #FFFFFF; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.92rem; font-family: 'Manrope', sans-serif; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                     Simpan Testimoni
                 </button>
@@ -90,8 +154,8 @@
     </div>
 
     <!-- BAGIAN BAWAH: DAFTAR TESTIMONI DENGAN GRID MELEBAR -->
-    <div style="background: #FFFFFF; padding: 2rem 2.5rem; border-radius: 16px; border: 1px solid #EAEAEA; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.75rem;">
+    <div class="admin-testi-card" style="background: #FFFFFF; padding: 2rem 2.5rem; border-radius: 16px; border: 1px solid #EAEAEA; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+        <div class="admin-testi-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.75rem;">
             <div>
                 <h3 style="margin: 0; font-size: 1.35rem; font-weight: 700; color: #111827; font-family: 'Manrope', sans-serif;">Daftar Testimoni Aktif</h3>
                 <p style="margin: 0.25rem 0 0; font-size: 0.85rem; color: #6B7280; font-weight: 500;">Daftar ulasan yang sedang tampil di slider halaman depan website.</p>
@@ -99,10 +163,10 @@
             <span style="background: #F3F4F6; padding: 0.35rem 0.9rem; border-radius: 20px; font-size: 0.82rem; font-weight: 700; color: #374151; font-family: 'Manrope', sans-serif;" id="total-testi-count">{{ count($testimonials ?? []) }} Ulasan</span>
         </div>
 
-        <div id="testimonials-list-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem;">
+        <div id="testimonials-list-container" class="admin-testi-list-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem;">
             @php /** @var \App\Models\Testimonial $testi */ @endphp
             @forelse($testimonials ?? [] as $testi)
-                <div style="padding: 1.35rem; border: 1px solid #E5E7EB; border-radius: 12px; background: #FAFAFA; display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem; transition: border 0.2s;">
+                <div class="admin-testi-item" style="padding: 1.35rem; border: 1px solid #E5E7EB; border-radius: 12px; background: #FAFAFA; display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem; transition: border 0.2s;">
                     <div>
                         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.35rem;">
                             <div>

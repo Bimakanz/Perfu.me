@@ -97,7 +97,7 @@
 
       const cartAction = isOutOfStock
         ? `disabled class="btn-add-cart-icon btn-out-of-stock" data-tooltip="Stok Produk Habis"`
-        : `class="btn-add-cart-icon" onclick="window.addToCart(${p.id})" title="Masukkan ke Keranjang"`;
+        : `class="btn-add-cart-icon" onclick="window.addToCart(${p.id}, 1, event)" title="Masukkan ke Keranjang"`;
 
       const detailsHtml = `
         <div class="zigzag-info-col">
