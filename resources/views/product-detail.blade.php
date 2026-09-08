@@ -339,6 +339,14 @@
     transform: rotate(180deg);
   }
 
+  .size-label-full {
+    display: inline;
+  }
+
+  .size-label-short {
+    display: none;
+  }
+
   .custom-size-menu {
     position: absolute;
     bottom: calc(100% + 10px);
@@ -442,6 +450,10 @@
     text-decoration: none;
     transition: all 0.2s ease;
     white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     box-shadow: 0 4px 14px rgba(0,0,0,0.12);
   }
 
@@ -462,6 +474,10 @@
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
   }
 
   .btn-bottom-cart:hover {
@@ -528,44 +544,143 @@
 
   @media (max-width: 600px) {
     .sticky-bottom-bar {
-      height: auto !important;
-      padding: 0.75rem 0 !important;
+      height: 68px !important;
+      padding: 0 !important;
+      background: rgba(255, 255, 255, 0.96) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border-top: 1px solid rgba(0,0,0,0.08) !important;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.06) !important;
     }
+
     .bottom-bar-content {
-      padding: 0 1rem !important;
-      flex-wrap: wrap !important;
-      gap: 0.75rem !important;
+      padding: 0 0.85rem !important;
+      height: 100% !important;
+      display: flex !important;
+      align-items: center !important;
     }
+
     .bottom-bar-controls {
       width: 100% !important;
-      gap: 0.6rem !important;
-      flex-wrap: nowrap !important;
+      display: flex !important;
+      align-items: center !important;
       justify-content: space-between !important;
+      gap: 0.45rem !important;
+      flex-wrap: nowrap !important;
     }
+
+    /* Size Selector in bottom bar on mobile: compact elegant chip */
+    .custom-size-dropdown {
+      flex-shrink: 0 !important;
+    }
+
+    .size-label-full {
+      display: none !important;
+    }
+
+    .size-label-short {
+      display: inline !important;
+      font-size: 0.82rem !important;
+      font-weight: 700 !important;
+    }
+
     .custom-size-trigger {
-      padding: 0.65rem 0.9rem !important;
-      font-size: 0.8rem !important;
-      gap: 0.5rem !important;
+      padding: 0 0.65rem !important;
+      height: 42px !important;
+      font-size: 0.82rem !important;
+      gap: 0.3rem !important;
+      border: 1.5px solid #0D0D0D !important;
+      border-radius: 999px !important;
+      white-space: nowrap !important;
+      background: #FFFFFF !important;
+      color: #0D0D0D !important;
+      box-shadow: none !important;
     }
+
+    .custom-size-menu {
+      left: 0 !important;
+      right: auto !important;
+      bottom: calc(100% + 10px) !important;
+      min-width: 230px !important;
+      max-width: calc(100vw - 2rem) !important;
+    }
+
+    /* Quantity Counter on mobile */
     .qty-counter {
-      padding: 0.2rem 0.4rem !important;
+      height: 42px !important;
+      padding: 0 0.2rem !important;
+      border-radius: 999px !important;
+      flex-shrink: 0 !important;
+      border: 1.5px solid #E5E5E5 !important;
     }
+
     .qty-btn {
-      width: 30px !important;
-      height: 30px !important;
+      width: 24px !important;
+      height: 36px !important;
       font-size: 1rem !important;
     }
-    .btn-bottom-order {
-      padding: 0.75rem 1rem !important;
-      font-size: 0.82rem !important;
-      flex: 1 !important;
+
+    .qty-val {
+      width: 20px !important;
+      font-size: 0.88rem !important;
     }
+
+    /* Cart Button on mobile: High-contrast circular icon button, 100% visible */
     .btn-bottom-cart {
-      padding: 0.75rem 0.9rem !important;
-      font-size: 0.82rem !important;
+      width: 42px !important;
+      height: 42px !important;
+      min-width: 42px !important;
+      padding: 0 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      border-radius: 50% !important;
+      border: 1.5px solid #000000 !important;
+      background: #FFFFFF !important;
+      color: #000000 !important;
+      flex-shrink: 0 !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
     }
+
+    .btn-bottom-cart .btn-cart-text {
+      display: none !important;
+    }
+
+    .btn-bottom-cart svg {
+      width: 19px !important;
+      height: 19px !important;
+      margin: 0 !important;
+    }
+
+    /* WhatsApp Order Button on mobile: Prominent primary CTA */
+    .btn-bottom-order {
+      flex: 1 !important;
+      height: 42px !important;
+      padding: 0 0.75rem !important;
+      font-size: 0.82rem !important;
+      border-radius: 999px !important;
+      white-space: nowrap !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 0.4rem !important;
+      min-width: 0 !important;
+    }
+
+    .btn-bottom-order svg {
+      width: 15px !important;
+      height: 15px !important;
+      flex-shrink: 0 !important;
+    }
+
+    .btn-bottom-order span {
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+    }
+
     body {
-      padding-bottom: 130px !important;
+      padding-bottom: 95px !important;
     }
   }
 
@@ -890,8 +1005,9 @@
       <div class="bottom-bar-controls">
         {{-- Custom Luxury Dropdown for Size Selection --}}
         <div class="custom-size-dropdown" id="custom-size-dropdown">
-          <button type="button" class="custom-size-trigger" id="custom-size-trigger">
-            <span id="custom-size-label">{{ $isSignature ? 'Signature 30ml' : 'Refill 35ml — Rp 45.000' }}</span>
+          <button type="button" class="custom-size-trigger" id="custom-size-trigger" aria-label="Pilih Ukuran Botol">
+            <span class="size-label-full" id="custom-size-label">{{ $isSignature ? 'Signature 30ml' : 'Refill 35ml — Rp 45.000' }}</span>
+            <span class="size-label-short" id="custom-size-label-short">{{ $isSignature ? '30ml' : '35ml' }}</span>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           
@@ -908,18 +1024,26 @@
 
         {{-- Quantity counter (- 1 +) --}}
         <div class="qty-counter">
-          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <button class="qty-btn" onclick="changeQty(-1)" aria-label="Kurangi Jumlah">−</button>
           <span class="qty-val" id="qty-val">1</span>
-          <button class="qty-btn" onclick="changeQty(1)">+</button>
+          <button class="qty-btn" onclick="changeQty(1)" aria-label="Tambah Jumlah">+</button>
         </div>
 
-        {{-- Action Buttons --}}
-        <a id="btn-order-wa" href="#" target="_blank" rel="noopener" class="btn-bottom-order">
-          Pesan WhatsApp
-        </a>
-        <button type="button" class="btn-bottom-cart" onclick="addSelectedToCart()">
-          + Keranjang
+        {{-- Add to Cart Button (prominent luxury shopping bag icon on mobile, with text on desktop) --}}
+        <button type="button" class="btn-bottom-cart" onclick="addSelectedToCart(event)" title="Tambah ke Keranjang" aria-label="Tambah ke Keranjang">
+          <svg class="cart-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="btn-cart-text">+ Keranjang</span>
         </button>
+
+        {{-- Order Button --}}
+        <a id="btn-order-wa" href="#" target="_blank" rel="noopener" class="btn-bottom-order">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          <span>PESAN</span>
+        </a>
       </div>
     </div>
   </div>
@@ -937,8 +1061,6 @@
   const isSignature = {{ $isSignature ? 'true' : 'false' }};
   const productName = @json($product->name);
   const productStock = {{ (int)($product->stock ?? 0) }};
-  
-  // INI TAMBAHANNYA AGAR TOMBOL KERANJANG BERFUNGSI
   const productId = {{ $product->id }}; 
 
   function updateDisplay() {
@@ -982,41 +1104,55 @@
     }
   }
 
-  function initCustomSizeDropdown() {
+  function selectProductSize(size, price, labelText) {
+    selectedSize = size;
+    selectedPrice = price;
+
+    // Sync bottom dropdown options
+    document.querySelectorAll('.custom-size-opt').forEach(opt => {
+      if (opt.getAttribute('data-size') === size) {
+        opt.classList.add('active');
+      } else {
+        opt.classList.remove('active');
+      }
+    });
+
+    // Sync bottom trigger labels
+    const labelFull = document.getElementById('custom-size-label');
+    const labelShort = document.getElementById('custom-size-label-short');
+    if (labelFull) labelFull.textContent = labelText || (isSignature ? 'Signature 30ml' : `Refill ${size} — Rp ${price.toLocaleString('id-ID')}`);
+    if (labelShort) labelShort.textContent = size;
+
+    updateDisplay();
+  }
+
+  function initVariantSelection() {
+    // Listener for bottom bar dropdown
     const wrap = document.getElementById('custom-size-dropdown');
     const trigger = document.getElementById('custom-size-trigger');
-    const label = document.getElementById('custom-size-label');
     const opts = document.querySelectorAll('.custom-size-opt');
 
-    if (!wrap || !trigger) return;
-
-    trigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      wrap.classList.toggle('open');
-    });
-
-    document.addEventListener('click', () => {
-      wrap.classList.remove('open');
-    });
-
-    opts.forEach(opt => {
-      opt.addEventListener('click', (e) => {
+    if (wrap && trigger) {
+      trigger.addEventListener('click', (e) => {
         e.stopPropagation();
-        const price = Number(opt.getAttribute('data-price'));
-        const size = opt.getAttribute('data-size');
-        const txt = opt.textContent.trim();
-
-        selectedPrice = price;
-        selectedSize = size;
-        label.textContent = txt;
-
-        opts.forEach(o => o.classList.remove('active'));
-        opt.classList.add('active');
-        wrap.classList.remove('open');
-
-        updateDisplay();
+        wrap.classList.toggle('open');
       });
-    });
+
+      document.addEventListener('click', () => {
+        wrap.classList.remove('open');
+      });
+
+      opts.forEach(opt => {
+        opt.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const price = Number(opt.getAttribute('data-price'));
+          const size = opt.getAttribute('data-size');
+          const txt = opt.textContent.trim();
+          selectProductSize(size, price, txt);
+          wrap.classList.remove('open');
+        });
+      });
+    }
   }
 
   function changeQty(delta) {
@@ -1039,7 +1175,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    initCustomSizeDropdown();
+    initVariantSelection();
     updateDisplay();
   });
 </script>
