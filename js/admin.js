@@ -365,25 +365,52 @@ var adminCurrentPage = 1;
 const ADMIN_ITEMS_PER_PAGE = 5;
 
 window.goToAdminPage = function(page) {
+  if (page < 1) return;
   adminCurrentPage = page;
   renderTable();
+  const tableSection = document.querySelector('.admin-table-section');
+  if (tableSection) {
+    const rect = tableSection.getBoundingClientRect();
+    if (rect.top < 0) {
+      tableSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 };
 
 function renderAdminPaginationControls(totalPages) {
-  let btns = '';
+  // ── Desktop Pagination (tampilkan seluruh nomor halaman) ──
+  let desktopBtns = '';
+  desktopBtns += `<button class="page-btn page-nav ${adminCurrentPage === 1 ? 'disabled' : ''}" onclick="window.goToAdminPage(${adminCurrentPage - 1})" ${adminCurrentPage === 1 ? 'disabled' : ''}>PREVIOUS</button>`;
 
-  // PREVIOUS Button
-  btns += `<button class="page-btn page-nav ${adminCurrentPage === 1 ? 'disabled' : ''}" onclick="window.goToAdminPage(${adminCurrentPage - 1})" ${adminCurrentPage === 1 ? 'disabled' : ''}>PREVIOUS</button>`;
-
-  // Page Numbers
   for (let i = 1; i <= totalPages; i++) {
-    btns += `<button class="page-btn ${i === adminCurrentPage ? 'active' : ''}" onclick="window.goToAdminPage(${i})">${i}</button>`;
+    desktopBtns += `<button class="page-btn ${i === adminCurrentPage ? 'active' : ''}" onclick="window.goToAdminPage(${i})">${i}</button>`;
   }
 
-  // NEXT Button
-  btns += `<button class="page-btn page-nav ${adminCurrentPage === totalPages ? 'disabled' : ''}" onclick="window.goToAdminPage(${adminCurrentPage + 1})" ${adminCurrentPage === totalPages ? 'disabled' : ''}>NEXT</button>`;
+  desktopBtns += `<button class="page-btn page-nav ${adminCurrentPage === totalPages ? 'disabled' : ''}" onclick="window.goToAdminPage(${adminCurrentPage + 1})" ${adminCurrentPage === totalPages ? 'disabled' : ''}>NEXT</button>`;
 
-  return btns;
+  // ── Mobile Pagination (hanya 4 nomor, bergeser dinamis: 1,2,3,4 -> 2,3,4,5) ──
+  let mobileBtns = '';
+  mobileBtns += `<button class="page-btn page-nav page-nav-mobile ${adminCurrentPage === 1 ? 'disabled' : ''}" onclick="window.goToAdminPage(${adminCurrentPage - 1})" ${adminCurrentPage === 1 ? 'disabled' : ''}>PREVIOUS</button>`;
+
+  const maxMobileVisible = 4;
+  let startPage = 1;
+  if (totalPages <= maxMobileVisible) {
+    startPage = 1;
+  } else {
+    startPage = Math.max(1, Math.min(adminCurrentPage, totalPages - maxMobileVisible + 1));
+  }
+  const endPage = Math.min(totalPages, startPage + maxMobileVisible - 1);
+
+  for (let i = startPage; i <= endPage; i++) {
+    mobileBtns += `<button class="page-btn page-num-mobile ${i === adminCurrentPage ? 'active' : ''}" onclick="window.goToAdminPage(${i})">${i}</button>`;
+  }
+
+  mobileBtns += `<button class="page-btn page-nav page-nav-mobile ${adminCurrentPage === totalPages ? 'disabled' : ''}" onclick="window.goToAdminPage(${adminCurrentPage + 1})" ${adminCurrentPage === totalPages ? 'disabled' : ''}>NEXT</button>`;
+
+  return `
+    <div class="admin-pagination-desktop">${desktopBtns}</div>
+    <div class="admin-pagination-mobile">${mobileBtns}</div>
+  `;
 }
 
   function renderTable() {
