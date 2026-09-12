@@ -24,14 +24,30 @@ var currentSort = { field: 'id', dir: 'asc' };
     return;
   }
 
-  // Password visibility toggle
-  window.toggleAdminPassword = function(e) {
-    if (e) e.preventDefault();
-    const passInput = document.getElementById('admin-pass-input');
-    if (passInput) {
-      passInput.type = passInput.type === 'password' ? 'text' : 'password';
-    }
-  };
+  // Password visibility toggle (fallback if not defined in layout)
+  if (typeof window.toggleAdminPassword !== 'function') {
+    window.toggleAdminPassword = function(e) {
+      if (e) {
+        if (typeof e.preventDefault === 'function') e.preventDefault();
+        if (typeof e.stopPropagation === 'function') e.stopPropagation();
+      }
+      const passInput = document.getElementById('admin-pass-input');
+      const toggleBtn = document.getElementById('toggle-pass-btn');
+      const show = document.getElementById('icon-eye-show');
+      const hide = document.getElementById('icon-eye-hide');
+      if (passInput) {
+        const isPass = passInput.type === 'password';
+        passInput.type = isPass ? 'text' : 'password';
+        if (show) show.style.display = isPass ? 'none' : 'block';
+        if (hide) hide.style.display = isPass ? 'block' : 'none';
+        const label = isPass ? 'Sembunyikan password' : 'Tampilkan password';
+        if (toggleBtn) {
+          toggleBtn.setAttribute('aria-label', label);
+          toggleBtn.setAttribute('title', label);
+        }
+      }
+    };
+  }
 
   // Global login handler attached directly to button click
   window.doAdminLogin = async function(e) {
@@ -107,11 +123,13 @@ var currentSort = { field: 'id', dir: 'asc' };
     const passInput = document.getElementById('admin-pass-input');
     const toggleBtn = document.getElementById('toggle-pass-btn');
 
-    // Toggle password visibility
-    if (toggleBtn && passInput) {
-      toggleBtn.addEventListener('click', () => {
-        const isPass = passInput.type === 'password';
-        passInput.type = isPass ? 'text' : 'password';
+    // Toggle password visibility (handled via onclick in HTML; fallback listener only if no onclick)
+    if (toggleBtn && !toggleBtn.getAttribute('onclick') && !toggleBtn.dataset.boundPass) {
+      toggleBtn.dataset.boundPass = 'true';
+      toggleBtn.addEventListener('click', (e) => {
+        if (typeof window.toggleAdminPassword === 'function') {
+          window.toggleAdminPassword(e);
+        }
       });
     }
 

@@ -320,12 +320,12 @@
           <label class="admin-form-label" for="admin-pass-input">Password</label>
           <div class="admin-input-wrap">
             <input id="admin-pass-input" class="admin-form-input" type="password" name="password" required autocomplete="current-password">
-            <button id="toggle-pass-btn" class="admin-toggle-pass" type="button" aria-label="Tampilkan password" tabindex="0">
-              <svg id="icon-eye-show" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button id="toggle-pass-btn" class="admin-toggle-pass" type="button" onclick="window.toggleAdminPassword(event)" aria-label="Tampilkan password" title="Tampilkan password" tabindex="0">
+              <svg id="icon-eye-show" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none; display: block;">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                 <circle cx="12" cy="12" r="3"></circle>
               </svg>
-              <svg id="icon-eye-hide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+              <svg id="icon-eye-hide" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none; display: none;">
                 <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"></path>
                 <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"></path>
                 <line x1="1" y1="1" x2="23" y2="23"></line>
@@ -339,26 +339,30 @@
       </form>
 
       <script>
-        (function () {
+        window.toggleAdminPassword = function (e) {
+          if (e) {
+            if (typeof e.preventDefault === 'function') e.preventDefault();
+            if (typeof e.stopPropagation === 'function') e.stopPropagation();
+          }
           var btn   = document.getElementById('toggle-pass-btn');
           var input = document.getElementById('admin-pass-input');
           var show  = document.getElementById('icon-eye-show');
           var hide  = document.getElementById('icon-eye-hide');
 
-          function toggle() {
-            if (!input) return;
-            var visible = input.type === 'text';
-            input.type        = visible ? 'password' : 'text';
-            show.style.display = visible ? 'block' : 'none';
-            hide.style.display = visible ? 'none'  : 'block';
-            btn.setAttribute('aria-label', visible ? 'Tampilkan password' : 'Sembunyikan password');
-          }
+          if (!input) return;
 
+          var isCurrentlyPass = input.type === 'password';
+          input.type = isCurrentlyPass ? 'text' : 'password';
+
+          if (show) show.style.display = isCurrentlyPass ? 'none' : 'block';
+          if (hide) hide.style.display = isCurrentlyPass ? 'block' : 'none';
+
+          var label = isCurrentlyPass ? 'Sembunyikan password' : 'Tampilkan password';
           if (btn) {
-            btn.addEventListener('click',       toggle);
-            btn.addEventListener('touchend', function(e){ e.preventDefault(); toggle(); });
+            btn.setAttribute('aria-label', label);
+            btn.setAttribute('title', label);
           }
-        })();
+        };
       </script>
     </div>
   </div>

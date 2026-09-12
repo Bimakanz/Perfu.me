@@ -182,8 +182,8 @@
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  color: var(--silver-dark);
-  transition: color 0.2s;
+  color: var(--silver-dark, #8A8A8A);
+  transition: color 0.2s ease, transform 0.15s ease;
   background: none;
   border: none;
   padding: 0.35rem;
@@ -196,16 +196,22 @@
   min-height: 36px;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 .admin-toggle-pass:hover,
+.admin-toggle-pass:focus-visible {
+  color: var(--charcoal, #111827);
+}
+
 .admin-toggle-pass:active {
-  color: var(--charcoal);
+  transform: translateY(-50%) scale(0.92);
 }
 
 .admin-toggle-pass svg {
   pointer-events: none;
   display: block;
+  user-select: none;
 }
 
 .admin-form-error {
