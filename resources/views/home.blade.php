@@ -397,7 +397,7 @@
         
         <!-- Left Column (Points 01 & 02) -->
         <div class="exchange-col exchange-col--left">
-          <div class="exchange-item">
+          <div class="exchange-item">n
             <span class="exchange-item-num">01 / REWARD</span>
             <h3 class="exchange-item-title">10X Botol Kosong 1 Botol Parfum</h3>
             <p class="exchange-item-desc">
